@@ -40,7 +40,7 @@ export const userPreferencesSchema = z.object({
   defaultStake: z.number().min(0, "Default stake must be positive"),
   quickBetEnabled: z.boolean(),
   autoAcceptOddsChanges: z.boolean(),
-  theme: z.enum(["light", "dark", "system"]),
+  theme: z.literal("light"),
   language: z.string(),
   currency: z.string(),
 });

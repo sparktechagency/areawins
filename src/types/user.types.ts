@@ -32,7 +32,7 @@ export interface UserPreferences {
   defaultStake: number;
   quickBetEnabled: boolean;
   autoAcceptOddsChanges: boolean;
-  theme: "light" | "dark" | "system";
+  theme: "light";
 }
 
 export interface VerificationStatus {

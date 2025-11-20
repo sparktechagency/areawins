@@ -29,7 +29,7 @@ This is a comprehensive Next.js 16 sports betting platform with TypeScript, feat
   - Background: #f5f5f5 (Light Gray)
 - ✅ Custom CSS animations (pulse, shimmer, etc.)
 - ✅ Responsive design utilities
-- ✅ Dark mode support
+- ✅ Light mode only (no dark mode)
 - ✅ Accessibility features (focus states, screen reader support)
 
 ### 3. **TypeScript Type Definitions** (src/types/)
