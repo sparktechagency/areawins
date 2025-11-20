@@ -1,13 +1,97 @@
 @import "tailwindcss";
 
+/* ========================================
+   EASY BET - Custom Theme Configuration
+   ======================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary Brand Colors */
+  --primary: #00D65C; /* Bright Green - Main brand color */
+  --primary-rgb: 0, 214, 92;
+  --primary-foreground: #ffffff;
+
+  /* Secondary Colors */
+  --secondary: #1a1a1a; /* Dark Gray/Black */
+  --secondary-rgb: 26, 26, 26;
+  --secondary-foreground: #ffffff;
+
+  /* Accent Colors */
+  --accent: #FF3B3B; /* Red - For live/urgent items */
+  --accent-rgb: 255, 59, 59;
+  --accent-foreground: #ffffff;
+
+  /* Background Colors */
+  --background: #f5f5f5; /* Light Gray */
+  --background-rgb: 245, 245, 245;
+  --foreground: #1a1a1a;
+
+  /* Card & Surface */
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+
+  /* Popover */
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+
+  /* Muted */
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+
+  /* Destructive */
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  /* Border */
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+
+  /* Ring */
+  --ring: #00D65C;
+
+  /* Radius */
+  --radius: 0.5rem;
+
+  /* Betting Specific Colors */
+  --odds-background: #ffffff;
+  --odds-hover: #f0fdf4;
+  --odds-selected: #00D65C;
+  --odds-text: #1a1a1a;
+
+  /* Status Colors */
+  --live: #FF3B3B;
+  --won: #00D65C;
+  --lost: #64748b;
+  --pending: #f59e0b;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #00D65C 0%, #00b84d 100%);
+  --gradient-dark: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  --gradient-card: linear-gradient(135deg, rgba(0, 214, 92, 0.1) 0%, rgba(0, 214, 92, 0.05) 100%);
 }
 
 @theme inline {
+  /* Colors */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -15,12 +99,307 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
+    --background-rgb: 10, 10, 10;
     --foreground: #ededed;
+
+    --card: #1a1a1a;
+    --card-foreground: #ededed;
+
+    --popover: #1a1a1a;
+    --popover-foreground: #ededed;
+
+    --muted: #27272a;
+    --muted-foreground: #a1a1aa;
+
+    --border: #27272a;
+    --input: #27272a;
+
+    --odds-background: #1a1a1a;
+    --odds-hover: #27272a;
   }
+}
+
+/* ========================================
+   Base Styles
+   ======================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* ========================================
+   Scrollbar Customization
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* ========================================
+   Utility Classes
+   ======================================== */
+
+.gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.gradient-dark {
+  background: var(--gradient-dark);
+}
+
+.gradient-card {
+  background: var(--gradient-card);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+}
+
+.border-primary {
+  border-color: var(--primary);
+}
+
+/* Live Badge Pulse Animation */
+.live-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Shimmer Loading Animation */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--muted) 0%,
+    var(--muted-foreground) 20%,
+    var(--muted) 40%,
+    var(--muted) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ========================================
+   Component Specific Styles
+   ======================================== */
+
+/* Betting Slip */
+.betting-slip {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+/* Odds Button */
+.odds-button {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.odds-button:hover {
+  background-color: var(--odds-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.odds-button.selected {
+  background-color: var(--odds-selected);
+  color: white;
+  border-color: var(--odds-selected);
+}
+
+/* Match Card */
+.match-card {
+  transition: all 0.3s ease;
+}
+
+.match-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Live Indicator */
+.live-indicator {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.live-indicator::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background-color: var(--live);
+  border-radius: 50%;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Balance Display */
+.balance-display {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+/* Container */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
+/* ========================================
+   Responsive Design Helpers
+   ======================================== */
+
+.mobile-only {
+  display: block;
+}
+
+.desktop-only {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none;
+  }
+
+  .desktop-only {
+    display: block;
+  }
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
