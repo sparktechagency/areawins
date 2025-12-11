@@ -1,157 +1,85 @@
-/**
- * Footer Component
- * Site footer with company info, quick links, and contact details
- */
-
 import Link from "next/link";
-import { ROUTES, CONTACT_INFO, SOCIAL_LINKS } from "@/lib/constants";
-import { Facebook, Twitter, Instagram, Youtube, Send } from "lucide-react";
-
-export default function Footer() {
+import logo from "@/assets/logo/logo.png";
+import Image from "next/image";
+const Footer = () => {
   return (
-    <footer className="bg-secondary text-white py-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          {/* Company Info */}
-          <div>
-            <h3 className="text-2xl font-bold text-primary mb-4">EASY BETS</h3>
-            <div className="space-y-2 text-white/70 text-sm">
-              <p>+1 (252) 555-0126</p>
-              <p>info@easybet.com</p>
-              <p>1131 Hearts Desire Street,</p>
-              <p>HN 83486</p>
-            </div>
+    <footer className="w-full bg-white text-gray-400 py-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+          {/* Column 1 - Logo & Contact */}
+          <div className="space-y-4">
+            <Image src={logo} alt="logo" />
+            <p className="text-green-500 text-lg">+1 800-123-4567</p>
+            <p className="text-green-500">info@123456.com</p>
+            <p className="text-gray-400">
+              1234 Name Street,
+              <br />
+              City, State
+            </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Column 2 - Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-white/70 text-sm">
+            <h3 className="text-white font-semibold mb-4">Quick Links</h3>
+            <ul className="space-y-3">
               <li>
-                <Link href="/privacy" className="hover:text-primary transition">
+                <Link href="/privacy" className="text-gray-400">
                   Privacy policy
                 </Link>
               </li>
               <li>
-                <Link href={ROUTES.ABOUT} className="hover:text-primary transition">
-                  About Us
+                <Link href="/about" className="text-gray-400">
+                  About us
                 </Link>
               </li>
               <li>
-                <Link href={ROUTES.BETS} className="hover:text-primary transition">
-                  Bets
+                <Link href="/support" className="text-gray-400">
+                  Support
                 </Link>
               </li>
               <li>
-                <Link href={ROUTES.CONTACT} className="hover:text-primary transition">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="hover:text-primary transition">
+                <Link href="/terms" className="text-gray-400">
                   Terms and conditions
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Discover */}
+          {/* Column 3 - Discover */}
           <div>
-            <h4 className="font-semibold mb-4">Discover</h4>
-            <ul className="space-y-2 text-white/70 text-sm">
-              <li>
-                <Link href={ROUTES.LIVE_EVENTS} className="hover:text-primary transition">
-                  Live Bets
-                </Link>
-              </li>
-              <li>
-                <Link href={ROUTES.UPCOMING} className="hover:text-primary transition">
-                  Live Games
-                </Link>
-              </li>
-              <li>
-                <Link href={ROUTES.FOOTBALL} className="hover:text-primary transition">
-                  Live Suppliers
-                </Link>
-              </li>
-              <li>
-                <Link href={ROUTES.CRICKET} className="hover:text-primary transition">
-                  New Supplier
-                </Link>
-              </li>
-              <li>
-                <Link href={ROUTES.MORE} className="hover:text-primary transition">
-                  Casino
-                </Link>
-              </li>
-              <li>
-                <Link href={ROUTES.MORE} className="hover:text-primary transition">
-                  More
-                </Link>
-              </li>
+            <h3 className="text-white font-semibold mb-4">Discover</h3>
+            <ul className="space-y-3 text-gray-400">
+              <li>New York City</li>
+              <li>Chicago</li>
+              <li>Los Angeles</li>
+              <li>San Diego</li>
+              <li>Boston</li>
             </ul>
           </div>
 
-          {/* Contact */}
-          <div>
-            <h4 className="font-semibold mb-4">Contact</h4>
-            <div className="space-y-2 text-white/70 text-sm mb-6">
-              <p>admin@easybetdigital.com</p>
-              <p>+8801170012345</p>
-              <p>Bangladesh</p>
-            </div>
-
-            {/* Social Links */}
-            <div className="flex gap-3">
-              <a
-                href={SOCIAL_LINKS.FACEBOOK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition"
-              >
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a
-                href={SOCIAL_LINKS.TWITTER}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition"
-              >
-                <Twitter className="w-4 h-4" />
-              </a>
-              <a
-                href={SOCIAL_LINKS.INSTAGRAM}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition"
-              >
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a
-                href={SOCIAL_LINKS.YOUTUBE}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition"
-              >
-                <Youtube className="w-4 h-4" />
-              </a>
-              <a
-                href={SOCIAL_LINKS.TELEGRAM}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition"
-              >
-                <Send className="w-4 h-4" />
-              </a>
-            </div>
+          {/* Column 4 - Contact Info */}
+          <div className="space-y-3">
+            <p className="text-gray-400">
+              Email:{" "}
+              <span className="text-white">akashroyakash6@gmail.com</span>
+            </p>
+            <p className="text-gray-400">
+              Phone: <span className="text-white">+088019828734939</span>
+            </p>
+            <p className="text-gray-400">
+              Location: <span className="text-white">Bangladesh</span>
+            </p>
+            <p className="text-gray-400 mt-6">Join our website</p>
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="border-t border-white/10 pt-6 text-center text-white/60 text-sm">
-          <p>&copy; 2025 EASY BET. All rights reserved.</p>
+        {/* Optional: Copyright (you can remove if not needed) */}
+        <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+          © 2025 EASY BETS. All rights reserved.
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;
