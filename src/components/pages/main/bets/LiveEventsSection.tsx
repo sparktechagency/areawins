@@ -247,7 +247,7 @@ const LiveEventsSection: React.FC = () => {
         <CarouselContent className="-ml-6">
           {liveEvents.map((event) => (
             <CarouselItem key={event.id} className="pl-6 basis-[320px]">
-              <div className="h-full rounded-lg border border-border bg-card p-6">
+              <div className="h-full bg rounded-lg border border-border bg-background p-6">
                 {/* Header */}
                 <div className="mb-4 flex items-center justify-between">
                   <span className="rounded bg-red-500 px-3 py-1 text-xs font-medium text-white">

@@ -15,7 +15,7 @@ const TournamentsSection: React.FC = () => {
             height={500}
             className="w-full h-80 object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
           <div className="absolute bottom-6 left-6 text-white">
             <h3 className="text-3xl font-bold">PREMIER LEAGUE</h3>
             <p className="text-lg flex items-center gap-2">

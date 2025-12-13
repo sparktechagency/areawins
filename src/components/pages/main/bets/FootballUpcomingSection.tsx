@@ -73,7 +73,7 @@ const matches: Match[] = [
 
 const FootballUpcomingSection: React.FC = () => {
   return (
-    <section className="w-full container mx-auto bg-card rounded-lg overflow-hidden py-5 md:py-10 border border-border">
+    <section className="w-full px-5 container mx-auto bg-background rounded-lg overflow-hidden py-5 md:py-10 border border-border col-span-full">
       {/* Header */}
       <div className="py-4">
         <h2 className="text-center text-xl font-semibold text-foreground">
