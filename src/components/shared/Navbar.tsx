@@ -1,9 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Search, Menu, ShoppingCart, Bell } from "lucide-react";
-import { Input } from "../ui/input";
+import { Menu, ShoppingCart, Bell } from "lucide-react";
 import logo from "@/assets/logo/logo.png";
+import logo2 from "@/assets/logo/logo2.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,7 +35,6 @@ const Navbar = () => {
   }, []);
 
   if (isHomePage) {
-    // Home Page Navbar - Transparent with Glassmorphism
     return (
       <nav
         className={`fixed top-0 h-20 flex justify-center items-center left-0 right-0 z-50 px-4 py-5 transition-all duration-300 ${
@@ -45,9 +45,10 @@ const Navbar = () => {
       >
         <div className="container mx-auto flex items-center justify-between gap-5">
           {/* Logo */}
-          <div className="flex items-center">
-            <Image src={logo} alt="Logo" />
-          </div>
+          <Link href="/" className="flex items-center">
+            <Image src={scrolled ? logo2 : logo} alt="Logo" />
+          </Link>
+          
 
           {/* Search Bar */}
           <div className="w-full max-w-xl hidden md:block ">
@@ -84,36 +85,34 @@ const Navbar = () => {
     );
   }
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200/50 shadow-sm px-4 py-3">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200/50  px-4 py-3">
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center">
-          <span className="text-gray-800 text-2xl font-bold">
-            EASY<span className="text-green-500">BET</span>
-          </span>
-        </div>
+        <Link href="/" className="flex items-center">
+          <Image src={logo2} alt="Logo" />
+        </Link>
 
         {/* Navigation Links */}
         <div className="hidden md:flex items-center gap-2 bg-gray-100/60 backdrop-blur-sm rounded-full px-2 py-1 border border-gray-200/50">
-          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all">
+          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all cursor-pointer">
             <span className="text-gray-600">🏠</span>
-            <span className="text-gray-700 font-medium">Home</span>
+            <span className="text-gray-700">Home</span>
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all">
+          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all cursor-pointer">
             <span className="text-gray-600">📺</span>
-            <span className="text-gray-700 font-medium">Live bets</span>
+            <span className="text-gray-700">Live bets</span>
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all">
+          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all cursor-pointer">
             <span className="text-gray-600">⚽</span>
-            <span className="text-gray-700 font-medium">All bets</span>
+            <span className="text-gray-700">All bets</span>
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all">
+          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all cursor-pointer">
             <span className="text-gray-600">📊</span>
-            <span className="text-gray-700 font-medium">Bet Market</span>
+            <span className="text-gray-700">Bet Market</span>
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all">
+          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all cursor-pointer">
             <span className="text-gray-600">❓</span>
-            <span className="text-gray-700 font-medium">Support</span>
+            <span className="text-gray-700">Support</span>
           </button>
         </div>
 
@@ -128,7 +127,7 @@ const Navbar = () => {
           <button className="bg-green-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-600 hover:shadow-lg transition-all">
             My bets
           </button>
-          <button className="bg-gradient-to-r from-primary to-blue-400 text-white px-4 py-2 rounded-full font-semibold hover:from-green-500 hover:to-blue-500 hover:shadow-lg transition-all">
+          <button className="bg-linear-to-r from-primary to-blue-400 text-white px-4 py-2 rounded-full font-semibold hover:from-green-500 hover:to-blue-500 hover:shadow-lg transition-all">
             Progressive bets
           </button>
         </div>

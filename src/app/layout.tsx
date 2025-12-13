@@ -7,8 +7,14 @@ import { Toaster } from "react-hot-toast";
 
 const oswald = Oswald({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-oswald",
 });
+// const antonio = Antonio({
+//   subsets: ["latin"],
+//   weight: ["400", "500", "600", "700"],
+//   variable: "--font-oswald",
+// });
 
 export const metadata: Metadata = {
   title: "EASY BET - Your Premier Sports Betting Platform",
