@@ -74,11 +74,11 @@ export default function MessagesPage() {
         <Card className="h-full flex flex-col">
           <div className="flex h-full">
             {/* Left Column - Conversation List */}
-            <div className="w-80 border-r flex flex-col bg-gray-50">
+            <div className="w-80 border-r flex flex-col bg-muted">
               {/* Search Header */}
-              <div className="p-4 border-b bg-white">
+              <div className="p-4 border-b bg-background">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     type="text"
                     placeholder="Search conversations..."
@@ -101,9 +101,9 @@ export default function MessagesPage() {
                       <button
                         key={conversation.id}
                         onClick={() => setSelectedConversation(conversation.id)}
-                        className={`w-full p-4 flex items-start gap-3 border-b hover:bg-white transition-colors ${
+                        className={`w-full p-4 flex items-start gap-3 border-b hover:bg-accent transition-colors ${
                           selectedConversation === conversation.id
-                            ? "bg-white border-l-4 border-l-primary"
+                            ? "bg-accent border-l-4 border-l-primary"
                             : ""
                         }`}
                       >
@@ -116,26 +116,26 @@ export default function MessagesPage() {
                             </AvatarFallback>
                           </Avatar>
                           {conversation.participant.isOnline && (
-                            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-background"></div>
                           )}
                         </div>
 
                         {/* Conversation Info */}
                         <div className="flex-1 text-left overflow-hidden">
                           <div className="flex items-center justify-between mb-1">
-                            <p className="font-semibold text-gray-900 truncate">
+                            <p className="font-semibold text-foreground truncate">
                               {conversation.participant.name}
                             </p>
-                            <span className="text-xs text-gray-500">
+                            <span className="text-xs text-muted-foreground">
                               {formatDate(conversation.lastMessage.createdAt, "HH:mm")}
                             </span>
                           </div>
                           <div className="flex items-center justify-between">
-                            <p className="text-sm text-gray-600 truncate flex-1">
+                            <p className="text-sm text-muted-foreground truncate flex-1">
                               {conversation.lastMessage.content}
                             </p>
                             {conversation.unreadCount > 0 && (
-                              <Badge className="bg-primary text-white ml-2 min-w-[20px] h-5 flex items-center justify-center px-1">
+                              <Badge className="bg-primary text-primary-foreground ml-2 min-w-[20px] h-5 flex items-center justify-center px-1">
                                 {conversation.unreadCount}
                               </Badge>
                             )}
@@ -146,8 +146,8 @@ export default function MessagesPage() {
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center py-12 px-4">
-                    <MessageCircle className="w-16 h-16 text-gray-300 mb-3" />
-                    <p className="text-gray-600 text-center">
+                    <MessageCircle className="w-16 h-16 text-muted-foreground mb-3" />
+                    <p className="text-foreground text-center">
                       {searchQuery ? "No conversations found" : "No messages yet"}
                     </p>
                   </div>
@@ -156,7 +156,7 @@ export default function MessagesPage() {
             </div>
 
             {/* Right Column - Chat Area */}
-            <div className="flex-1 flex flex-col bg-white">
+            <div className="flex-1 flex flex-col bg-background">
               {selectedConversation && selectedConv ? (
                 <>
                   {/* Chat Header */}
@@ -169,10 +169,10 @@ export default function MessagesPage() {
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        <p className="font-semibold text-gray-900">
+                        <p className="font-semibold text-foreground">
                           {selectedConv.participant.name}
                         </p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-muted-foreground">
                           {selectedConv.participant.isOnline ? "Online" : "Offline"}
                         </p>
                       </div>
@@ -191,7 +191,7 @@ export default function MessagesPage() {
                   </div>
 
                   {/* Messages Area */}
-                  <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+                  <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-muted">
                     {loadingMessages ? (
                       <div className="flex items-center justify-center h-full">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
@@ -210,7 +210,7 @@ export default function MessagesPage() {
                                 {!isSent && (
                                   <Avatar className="w-8 h-8 flex-shrink-0">
                                     <AvatarImage src={selectedConv.participant.avatar} />
-                                    <AvatarFallback className="bg-gray-300 text-gray-700 text-xs">
+                                    <AvatarFallback className="bg-muted text-foreground text-xs">
                                       {selectedConv.participant.name.charAt(0).toUpperCase()}
                                     </AvatarFallback>
                                   </Avatar>
@@ -220,14 +220,14 @@ export default function MessagesPage() {
                                   <div
                                     className={`rounded-2xl px-4 py-2 ${
                                       isSent
-                                        ? "bg-[#d4f4dd] text-gray-900"
-                                        : "bg-white text-gray-900 shadow-sm"
+                                        ? "bg-primary text-primary-foreground"
+                                        : "bg-card text-foreground shadow-sm"
                                     }`}
                                   >
                                     <p className="text-sm">{message.content}</p>
                                   </div>
                                   <span
-                                    className={`text-xs text-gray-500 mt-1 ${
+                                    className={`text-xs text-muted-foreground mt-1 ${
                                       isSent ? "text-right" : "text-left"
                                     }`}
                                   >
@@ -243,26 +243,26 @@ export default function MessagesPage() {
                       </>
                     ) : (
                       <div className="flex items-center justify-center h-full">
-                        <p className="text-gray-500">No messages yet. Start the conversation!</p>
+                        <p className="text-muted-foreground">No messages yet. Start the conversation!</p>
                       </div>
                     )}
                   </div>
 
                   {/* Message Input */}
-                  <div className="p-4 border-t bg-white">
+                  <div className="p-4 border-t bg-background">
                     <form onSubmit={handleSendMessage} className="flex items-center gap-2">
                       <Input
                         type="text"
                         placeholder="Type a message..."
                         value={messageText}
                         onChange={(e) => setMessageText(e.target.value)}
-                        className="flex-1"
+                        className="flex-1 bg-input text-foreground"
                         disabled={sending}
                       />
                       <Button
                         type="submit"
                         disabled={sending || !messageText.trim()}
-                        className="bg-primary hover:bg-primary/90"
+                        className="bg-primary hover:bg-primary/90 text-primary-foreground"
                       >
                         <Send className="w-4 h-4" />
                       </Button>
@@ -272,11 +272,11 @@ export default function MessagesPage() {
               ) : (
                 <div className="flex items-center justify-center h-full">
                   <div className="text-center">
-                    <MessageCircle className="w-20 h-20 text-gray-300 mx-auto mb-4" />
-                    <p className="text-xl font-semibold text-gray-900 mb-2">
+                    <MessageCircle className="w-20 h-20 text-muted-foreground mx-auto mb-4" />
+                    <p className="text-xl font-semibold text-foreground mb-2">
                       Select a conversation
                     </p>
-                    <p className="text-gray-600">
+                    <p className="text-muted-foreground">
                       Choose a conversation from the left to start messaging
                     </p>
                   </div>

@@ -58,8 +58,8 @@ export default function ResetPasswordPage() {
       <div className="space-y-6">
         {/* Title */}
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Set New Password</h1>
-          <p className="text-gray-600">Please Enter your New Password</p>
+          <h1 className="text-3xl font-bold text-foreground mb-2">Set New Password</h1>
+          <p className="text-muted-foreground">Please Enter your New Password</p>
         </div>
 
         {/* Form */}
@@ -109,7 +109,7 @@ export default function ResetPasswordPage() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-semibold"
+              className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
             >
               {isLoading ? "Updating..." : "Update Password"}
             </Button>
@@ -117,7 +117,7 @@ export default function ResetPasswordPage() {
         </Form>
 
         {/* Back to Login */}
-        <p className="text-center text-sm text-gray-600">
+        <p className="text-center text-sm text-muted-foreground">
           <Link href={ROUTES.LOGIN} className="font-semibold text-primary hover:underline">
             Back to Login
           </Link>

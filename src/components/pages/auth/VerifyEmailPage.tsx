@@ -93,10 +93,10 @@ export default function VerifyEmailPage() {
       <div className="space-y-6">
         {/* Title */}
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Verify Email</h1>
-          <p className="text-gray-600">Please Check Your Email And Enter The Code</p>
+          <h1 className="text-3xl font-bold text-foreground mb-2">Verify Email</h1>
+          <p className="text-muted-foreground">Please Check Your Email And Enter The Code</p>
           {email && (
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-muted-foreground mt-2">
               Code sent to: <span className="font-medium">{email}</span>
             </p>
           )}
@@ -124,8 +124,8 @@ export default function VerifyEmailPage() {
                   "border-2 transition-all",
                   "focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary",
                   digit
-                    ? "border-primary bg-green-50"
-                    : "border-gray-300 bg-white hover:border-gray-400"
+                    ? "border-primary bg-green-50 dark:bg-green-500/20"
+                    : "border-border bg-card hover:border-border/50"
                 )}
                 autoFocus={index === 0}
               />
@@ -136,7 +136,7 @@ export default function VerifyEmailPage() {
           <Button
             type="submit"
             disabled={isLoading || otp.some((digit) => !digit)}
-            className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-semibold"
+            className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
           >
             {isLoading ? "Verifying..." : "Login"}
           </Button>
@@ -144,7 +144,7 @@ export default function VerifyEmailPage() {
 
         {/* Resend Code */}
         <div className="text-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-muted-foreground">
             Didn't receive code?{" "}
             <button
               onClick={handleResend}
@@ -157,7 +157,7 @@ export default function VerifyEmailPage() {
         </div>
 
         {/* Back to Login */}
-        <p className="text-center text-sm text-gray-600">
+        <p className="text-center text-sm text-muted-foreground">
           <Link href={ROUTES.LOGIN} className="font-semibold text-primary hover:underline">
             Back to Login
           </Link>

@@ -3,12 +3,12 @@ import React from "react";
 
 const Login: React.FC = () => {
   return (
-    <div className="min-h-screen flex bg-[#f6f8f7] dark:bg-[#112218] font-display text-slate-900 dark:text-white">
+    <div className="min-h-screen flex bg-background dark:bg-[#112218] font-display text-foreground dark:text-white">
       {/* Left Side: Login Form */}
-      <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white dark:bg-[#112218] w-full lg:w-[600px] z-10 relative border-r dark:border-[#244732] border-gray-200">
+      <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-card dark:bg-[#112218] w-full lg:w-[600px] z-10 relative border-r dark:border-[#244732] border-gray-200">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <Link href="/" className="flex items-center gap-3 mb-12">
-            <div className="size-8 text-[#19e668]">
+            <div className="size-8 text-primary">
               <svg
                 className="w-full h-full"
                 fill="none"
@@ -25,8 +25,8 @@ const Login: React.FC = () => {
           </Link>
 
           <div className="mb-10">
-            <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
-            <p className="mt-2 text-base text-slate-600 dark:text-[#93c8a7]">
+            <h1 className="text-3xl font-bold tracking-tight text-foreground">Welcome back</h1>
+            <p className="mt-2 text-base text-muted-foreground dark:text-[#93c8a7]">
               Secure access to your betting dashboard.
             </p>
           </div>
@@ -46,7 +46,7 @@ const Login: React.FC = () => {
                   type="email"
                   autoComplete="username"
                   required
-                  className="block w-full rounded-lg border-0 py-3.5 text-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-[#346547] placeholder:text-gray-400 dark:placeholder:text-[#93c8a7] focus:ring-2 focus:ring-inset focus:ring-[#19e668] sm:text-base sm:leading-6 bg-transparent dark:bg-[#1a3223] pl-4 transition-all"
+                  className="block w-full rounded-lg border-0 py-3.5 text-foreground shadow-sm ring-1 ring-inset ring-input placeholder:text-muted-foreground dark:placeholder:text-[#93c8a7] focus:ring-2 focus:ring-inset focus:ring-primary sm:text-base sm:leading-6 bg-transparent dark:bg-[#1a3223] pl-4 transition-all"
                   placeholder="user@example.com"
                 />
               </div>
@@ -66,7 +66,7 @@ const Login: React.FC = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="block w-full rounded-lg border-0 py-3.5 text-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-[#346547] placeholder:text-gray-400 dark:placeholder:text-[#93c8a7] focus:ring-2 focus:ring-inset focus:ring-[#19e668] sm:text-base sm:leading-6 bg-transparent dark:bg-[#1a3223] pl-4 pr-10 transition-all"
+                  className="block w-full rounded-lg border-0 py-3.5 text-foreground shadow-sm ring-1 ring-inset ring-input placeholder:text-muted-foreground dark:placeholder:text-[#93c8a7] focus:ring-2 focus:ring-inset focus:ring-primary sm:text-base sm:leading-6 bg-transparent dark:bg-[#1a3223] pl-4 pr-10 transition-all"
                   placeholder="••••••••"
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-gray-400 dark:text-[#93c8a7] hover:text-[#19e668] dark:hover:text-[#19e668] transition-colors">
@@ -87,7 +87,7 @@ const Login: React.FC = () => {
                 />
                 <label
                   htmlFor="remember-me"
-                  className="ml-2 block text-sm text-slate-700 dark:text-gray-300 cursor-pointer select-none"
+                  className="ml-2 block text-sm text-foreground cursor-pointer select-none"
                 >
                   Remember me
                 </label>
@@ -95,7 +95,7 @@ const Login: React.FC = () => {
               <div className="text-sm">
                 <a
                   href="#"
-                  className="font-medium text-[#19e668] hover:text-green-400 transition-colors"
+                  className="font-medium text-primary hover:text-primary/80 transition-colors"
                 >
                   Forgot password?
                 </a>
@@ -105,7 +105,7 @@ const Login: React.FC = () => {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center items-center rounded-lg bg-[#19e668] px-3 py-3.5 text-sm font-bold leading-6 text-[#112218] shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#19e668] transition-all uppercase tracking-wide"
+                className="flex w-full justify-center items-center rounded-lg bg-primary px-3 py-3.5 text-sm font-bold leading-6 text-primary-foreground shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all uppercase tracking-wide"
               >
                 Log in
               </button>
@@ -114,7 +114,7 @@ const Login: React.FC = () => {
             <div className="space-y-6 pt-2">
               <button
                 type="button"
-                className="group flex items-center justify-center gap-2 w-full text-sm font-medium text-slate-600 dark:text-[#93c8a7] hover:text-[#19e668] dark:hover:text-[#19e668] transition-colors py-2 border border-dashed border-gray-300 dark:border-[#346547] rounded-lg hover:border-[#19e668] dark:hover:border-[#19e668] bg-gray-50 dark:bg-transparent"
+                className="group flex items-center justify-center gap-2 w-full text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2 border border-dashed border-border rounded-lg hover:border-primary bg-background dark:bg-transparent"
               >
                 <span className="material-symbols-outlined text-[20px]">
                   lock_person
@@ -122,11 +122,11 @@ const Login: React.FC = () => {
                 Log in with Two-Factor Code
               </button>
               <div className="text-center">
-                <p className="text-sm text-slate-500 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   Don&apos;t have an account?
                   <Link
                     href="/register"
-                    className="font-bold text-[#19e668] hover:text-green-400 ml-1 transition-colors"
+                    className="font-bold text-primary hover:text-primary/80 ml-1 transition-colors"
                   >
                     Register now
                   </Link>
@@ -135,7 +135,7 @@ const Login: React.FC = () => {
             </div>
           </form>
         </div>
-        <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center gap-2 text-xs text-slate-400 dark:text-[#5a7d68]">
+        <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center gap-2 text-xs text-muted-foreground">
           <span className="material-symbols-outlined text-[16px]">
             verified_user
           </span>

@@ -50,11 +50,11 @@ export default function MyBetsPage() {
         {/* Page Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">My Bets</h1>
-            <p className="text-gray-600 mt-1">Track all your bets and betting history</p>
+            <h1 className="text-3xl font-bold text-foreground">My Bets</h1>
+            <p className="text-muted-foreground mt-1">Track all your bets and betting history</p>
           </div>
           <Link href={ROUTES.LIVE_EVENTS}>
-            <Button className="bg-primary hover:bg-primary/90">
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
               <Ticket className="w-4 h-4 mr-2" />
               Place New Bet
             </Button>
@@ -66,29 +66,29 @@ export default function MyBetsPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card>
               <CardContent className="p-4">
-                <p className="text-sm text-gray-600 mb-1">Total Bets</p>
-                <p className="text-2xl font-bold text-gray-900">{betHistory.bets.length}</p>
+                <p className="text-sm text-muted-foreground mb-1">Total Bets</p>
+                <p className="text-2xl font-bold text-foreground">{betHistory.bets.length}</p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="p-4">
-                <p className="text-sm text-gray-600 mb-1">Active Bets</p>
-                <p className="text-2xl font-bold text-yellow-600">
+                <p className="text-sm text-muted-foreground mb-1">Active Bets</p>
+                <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
                   {betHistory.bets.filter((b) => b.status === "pending").length}
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="p-4">
-                <p className="text-sm text-gray-600 mb-1">Won Bets</p>
-                <p className="text-2xl font-bold text-green-600">
+                <p className="text-sm text-muted-foreground mb-1">Won Bets</p>
+                <p className="text-2xl font-bold text-green-600 dark:text-green-400">
                   {betHistory.bets.filter((b) => b.status === "won").length}
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="p-4">
-                <p className="text-sm text-gray-600 mb-1">Win Rate</p>
+                <p className="text-sm text-muted-foreground mb-1">Win Rate</p>
                 <p className="text-2xl font-bold text-primary">
                   {betHistory.bets.length > 0
                     ? Math.round(
@@ -115,12 +115,12 @@ export default function MyBetsPage() {
 
             {/* Filter Buttons */}
             <div className="flex items-center gap-2">
-              <Filter className="w-4 h-4 text-gray-600" />
+              <Filter className="w-4 h-4 text-muted-foreground" />
               <Button
                 variant={filter === "all" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilter("all")}
-                className={filter === "all" ? "bg-primary" : ""}
+                className={filter === "all" ? "bg-primary hover:bg-primary/90" : "hover:bg-accent"}
               >
                 All
               </Button>
@@ -128,7 +128,7 @@ export default function MyBetsPage() {
                 variant={filter === "pending" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilter("pending")}
-                className={filter === "pending" ? "bg-yellow-500" : ""}
+                className={filter === "pending" ? "bg-yellow-500 hover:bg-yellow-600" : "hover:bg-accent"}
               >
                 Pending
               </Button>
@@ -136,7 +136,7 @@ export default function MyBetsPage() {
                 variant={filter === "won" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilter("won")}
-                className={filter === "won" ? "bg-green-500" : ""}
+                className={filter === "won" ? "bg-green-500 hover:bg-green-600" : "hover:bg-accent"}
               >
                 Won
               </Button>
@@ -144,7 +144,7 @@ export default function MyBetsPage() {
                 variant={filter === "lost" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilter("lost")}
-                className={filter === "lost" ? "bg-red-500" : ""}
+                className={filter === "lost" ? "bg-red-500 hover:bg-red-600" : "hover:bg-accent"}
               >
                 Lost
               </Button>
@@ -160,12 +160,12 @@ export default function MyBetsPage() {
             ) : filteredBets && filteredBets.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredBets.map((bet) => (
-                  <Card key={bet.id} className="hover:shadow-lg transition-shadow">
-                    <CardHeader className="bg-gray-50 border-b pb-3">
+                  <Card key={bet.id} className="hover:shadow-lg transition-shadow bg-card">
+                    <CardHeader className="bg-accent border-b pb-3">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <Ticket className="w-4 h-4 text-primary" />
-                          <span className="text-sm font-semibold">#{bet.id.slice(0, 8)}</span>
+                          <span className="text-sm font-semibold text-foreground">#{bet.id.slice(0, 8)}</span>
                         </div>
                         {getStatusBadge(bet.status)}
                       </div>
@@ -173,46 +173,46 @@ export default function MyBetsPage() {
 
                     <CardContent className="p-4 space-y-3">
                       <div>
-                        <Badge variant="outline" className="capitalize">
+                        <Badge variant="outline" className="capitalize text-foreground border-foreground/30">
                           {bet.betType.replace("_", " ")}
                         </Badge>
                       </div>
 
                       <div className="space-y-2">
                         {bet.selections.map((selection, index) => (
-                          <div key={index} className="p-2 bg-gray-50 rounded text-sm">
-                            <p className="font-medium text-gray-900">
+                          <div key={index} className="p-2 bg-accent rounded text-sm">
+                            <p className="font-medium text-foreground">
                               {selection.matchDetails?.homeTeam} vs {selection.matchDetails?.awayTeam}
                             </p>
                             <div className="flex justify-between mt-1">
-                              <span className="text-gray-600">{selection.selection}</span>
+                              <span className="text-muted-foreground">{selection.selection}</span>
                               <span className="font-bold text-primary">{formatOdds(selection.odds)}</span>
                             </div>
                           </div>
                         ))}
                       </div>
 
-                      <div className="space-y-2 pt-3 border-t">
+                      <div className="space-y-2 pt-3 border-t border-border">
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">Stake:</span>
-                          <span className="font-semibold">{formatCurrency(bet.stake)}</span>
+                          <span className="text-muted-foreground">Stake:</span>
+                          <span className="font-semibold text-foreground">{formatCurrency(bet.stake)}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">Odds:</span>
-                          <span className="font-semibold">{formatOdds(bet.totalOdds)}</span>
+                          <span className="text-muted-foreground">Odds:</span>
+                          <span className="font-semibold text-foreground">{formatOdds(bet.totalOdds)}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-sm text-gray-600">Potential:</span>
+                          <span className="text-sm text-muted-foreground">Potential:</span>
                           <span className="font-bold text-primary">{formatCurrency(bet.potentialWin)}</span>
                         </div>
                       </div>
 
                       {bet.status === "won" && (
-                        <div className="flex items-center gap-2 p-2 bg-green-50 rounded">
-                          <TrendingUp className="w-5 h-5 text-green-600" />
+                        <div className="flex items-center gap-2 p-2 bg-green-500/10 rounded">
+                          <TrendingUp className="w-5 h-5 text-green-600 dark:text-green-400" />
                           <div>
-                            <p className="text-xs text-green-600">Won</p>
-                            <p className="font-bold text-green-700">
+                            <p className="text-xs text-green-600 dark:text-green-400">Won</p>
+                            <p className="font-bold text-green-700 dark:text-green-300">
                               + {formatCurrency(bet.payout || bet.potentialWin)}
                             </p>
                           </div>
@@ -220,23 +220,23 @@ export default function MyBetsPage() {
                       )}
 
                       {bet.status === "lost" && (
-                        <div className="flex items-center gap-2 p-2 bg-red-50 rounded">
-                          <TrendingDown className="w-5 h-5 text-red-600" />
+                        <div className="flex items-center gap-2 p-2 bg-red-500/10 rounded">
+                          <TrendingDown className="w-5 h-5 text-red-600 dark:text-red-400" />
                           <div>
-                            <p className="text-xs text-red-600">Lost</p>
-                            <p className="font-bold text-red-700">- {formatCurrency(bet.stake)}</p>
+                            <p className="text-xs text-red-600 dark:text-red-400">Lost</p>
+                            <p className="font-bold text-red-700 dark:text-red-300">- {formatCurrency(bet.stake)}</p>
                           </div>
                         </div>
                       )}
 
                       {bet.status === "pending" && (
-                        <div className="flex items-center gap-2 p-2 bg-yellow-50 rounded">
-                          <Clock className="w-5 h-5 text-yellow-600" />
-                          <p className="text-sm text-yellow-700 font-semibold">In Progress</p>
+                        <div className="flex items-center gap-2 p-2 bg-yellow-500/10 rounded">
+                          <Clock className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+                          <p className="text-sm text-yellow-700 dark:text-yellow-300 font-semibold">In Progress</p>
                         </div>
                       )}
 
-                      <div className="text-xs text-gray-500 text-center pt-2 border-t">
+                      <div className="text-xs text-muted-foreground text-center pt-2 border-t border-border">
                         {formatDate(bet.placedAt, "MMM dd, yyyy HH:mm")}
                       </div>
                     </CardContent>
@@ -245,15 +245,15 @@ export default function MyBetsPage() {
               </div>
             ) : (
               <div className="text-center py-20">
-                <Ticket className="w-20 h-20 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-gray-900 mb-2">No Bets Found</h3>
-                <p className="text-gray-600 mb-6">
+                <Ticket className="w-20 h-20 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-foreground mb-2">No Bets Found</h3>
+                <p className="text-muted-foreground mb-6">
                   {filter !== "all"
                     ? `You don't have any ${filter} bets.`
                     : "You haven't placed any bets yet."}
                 </p>
                 <Link href={ROUTES.LIVE_EVENTS}>
-                  <Button className="bg-primary hover:bg-primary/90">Place Your First Bet</Button>
+                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">Place Your First Bet</Button>
                 </Link>
               </div>
             )}
@@ -268,13 +268,13 @@ export default function MyBetsPage() {
             ) : activeBets && activeBets.bets.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {activeBets.bets.map((bet) => (
-                  <Card key={bet.id} className="hover:shadow-lg transition-shadow border-l-4 border-l-yellow-500">
+                  <Card key={bet.id} className="hover:shadow-lg transition-shadow border-l-4 border-l-yellow-500 bg-card">
                     {/* Same content as all bets but filtered for pending */}
-                    <CardHeader className="bg-yellow-50 border-b pb-3">
+                    <CardHeader className="bg-yellow-500/20 border-b pb-3">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <Clock className="w-4 h-4 text-yellow-600" />
-                          <span className="text-sm font-semibold">#{bet.id.slice(0, 8)}</span>
+                          <Clock className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
+                          <span className="text-sm font-semibold text-foreground">#{bet.id.slice(0, 8)}</span>
                         </div>
                         <Badge className="bg-yellow-500 text-white">Active</Badge>
                       </div>
@@ -285,9 +285,9 @@ export default function MyBetsPage() {
               </div>
             ) : (
               <div className="text-center py-20">
-                <Clock className="w-20 h-20 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-gray-900 mb-2">No Active Bets</h3>
-                <p className="text-gray-600">You don't have any active bets at the moment.</p>
+                <Clock className="w-20 h-20 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-foreground mb-2">No Active Bets</h3>
+                <p className="text-muted-foreground">You don't have any active bets at the moment.</p>
               </div>
             )}
           </TabsContent>
@@ -303,32 +303,32 @@ export default function MyBetsPage() {
                 {betHistory.bets
                   .filter((b) => b.status !== "pending")
                   .map((bet) => (
-                    <Card key={bet.id} className="hover:shadow-md transition-shadow">
+                    <Card key={bet.id} className="hover:shadow-md transition-shadow bg-card">
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
                             <div className="flex items-center gap-3 mb-2">
-                              <span className="text-sm font-semibold">#{bet.id.slice(0, 8)}</span>
+                              <span className="text-sm font-semibold text-foreground">#{bet.id.slice(0, 8)}</span>
                               {getStatusBadge(bet.status)}
-                              <span className="text-xs text-gray-500">
+                              <span className="text-xs text-muted-foreground">
                                 {formatDate(bet.placedAt, "MMM dd, HH:mm")}
                               </span>
                             </div>
-                            <p className="text-sm text-gray-700">
+                            <p className="text-sm text-foreground">
                               {bet.selections.length === 1
                                 ? `${bet.selections[0].matchDetails?.homeTeam} vs ${bet.selections[0].matchDetails?.awayTeam}`
                                 : `${bet.selections.length} selections`}
                             </p>
                           </div>
                           <div className="text-right">
-                            <p className="text-sm text-gray-600">Stake: {formatCurrency(bet.stake)}</p>
+                            <p className="text-sm text-muted-foreground">Stake: {formatCurrency(bet.stake)}</p>
                             <p className="font-bold text-lg">
                               {bet.status === "won" ? (
-                                <span className="text-green-600">
+                                <span className="text-green-600 dark:text-green-400">
                                   + {formatCurrency(bet.payout || bet.potentialWin)}
                                 </span>
                               ) : (
-                                <span className="text-red-600">- {formatCurrency(bet.stake)}</span>
+                                <span className="text-red-600 dark:text-red-400">- {formatCurrency(bet.stake)}</span>
                               )}
                             </p>
                           </div>
@@ -339,8 +339,8 @@ export default function MyBetsPage() {
               </div>
             ) : (
               <div className="text-center py-20">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">No Bet History</h3>
-                <p className="text-gray-600">Your completed bets will appear here.</p>
+                <h3 className="text-xl font-bold text-foreground mb-2">No Bet History</h3>
+                <p className="text-muted-foreground">Your completed bets will appear here.</p>
               </div>
             )}
           </TabsContent>

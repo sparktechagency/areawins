@@ -241,19 +241,19 @@ const liveEvents: LiveEvent[] = [
 const LiveEventsSection: React.FC = () => {
   return (
     <section className="container mx-auto w-full">
-      <h2 className="mb-6 text-2xl font-bold text-gray-800">Live Events</h2>
+      <h2 className="mb-6 text-2xl font-bold text-foreground">Live Events</h2>
 
       <Carousel opts={{ align: "start", loop: true }} className="w-full">
         <CarouselContent className="-ml-6">
           {liveEvents.map((event) => (
             <CarouselItem key={event.id} className="pl-6 basis-[320px]">
-              <div className="h-full rounded-lg border border-gray-200 bg-white p-6">
+              <div className="h-full rounded-lg border border-border bg-card p-6">
                 {/* Header */}
                 <div className="mb-4 flex items-center justify-between">
                   <span className="rounded bg-red-500 px-3 py-1 text-xs font-medium text-white">
                     Live
                   </span>
-                  <span className="text-sm text-gray-500">{event.time}</span>
+                  <span className="text-sm text-muted-foreground">{event.time}</span>
                 </div>
 
                 {/* Teams */}
@@ -265,7 +265,7 @@ const LiveEventsSection: React.FC = () => {
                     height={64}
                     className="h-16 w-16 rounded-full object-cover"
                   />
-                  <span className="text-2xl font-bold">VS</span>
+                  <span className="text-2xl font-bold text-foreground">VS</span>
                   <Image
                     src={event.teamB.image}
                     alt={event.teamB.name}
@@ -284,12 +284,12 @@ const LiveEventsSection: React.FC = () => {
                     height={14}
                     className="rounded-sm"
                   />
-                  <p className="text-sm text-gray-600">{event.league.name}</p>
+                  <p className="text-sm text-foreground">{event.league.name}</p>
                 </div>
 
                 {/* Score */}
                 <div className="mt-6 text-center">
-                  <p className="text-lg">
+                  <p className="text-lg text-foreground">
                     <span className="font-bold">{event.teamA.name}</span>{" "}
                     <span className="text-4xl font-bold">
                       {event.teamA.score}

@@ -1,3 +1,7 @@
-import LiveEventsPage from "@/components/pages/main/LiveEventsPage";
+import React from 'react'
 
-export default LiveEventsPage;
+export default function page() {
+  return (
+    <div>page</div>
+  )
+}

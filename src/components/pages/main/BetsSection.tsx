@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const BetsSection = () => {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <h2 className="text-4xl font-bold text-primary text-center mb-12">
@@ -48,14 +48,14 @@ const BetsSection = () => {
 
           {/* Right Side - Text + Button */}
           <div className="space-y-8">
-            <p className="text-lg text-gray-700 leading-relaxed">
+            <p className="text-lg text-foreground leading-relaxed">
               We may collect different types of information to provide a safe
               and reliable betting experience. This includes personal details
               such as your full name, date of birth, contact information, and
               identity verification documents.
             </p>
 
-            <Button className="bg-primary text-white font-medium px-10 py-4 cursor-pointer h-12 rounded-md text-lg">
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-10 py-4 cursor-pointer h-12 rounded-md text-lg">
               Create
             </Button>
           </div>

@@ -35,10 +35,10 @@ const UpcomingMatchesSection: React.FC = () => {
     <section className="container mx-auto w-full">
       {/* Registration Prompt */}
       <div className="text-center mb-8">
-        <p className="text-gray-600 text-lg mb-4">
+        <p className="text-muted-foreground text-lg mb-4">
           Create bet so please registration
         </p>
-        <button className="border-2 border-green-500 text-green-500 px-8 py-3 rounded-full font-medium hover:bg-green-500 hover:text-white transition">
+        <button className="border-2 border-primary px-8 py-3 rounded-full font-medium hover:bg-primary hover:text-primary-foreground transition text-foreground">
           Registration now
         </button>
       </div>
@@ -48,9 +48,9 @@ const UpcomingMatchesSection: React.FC = () => {
         {upcomingMatches.map((match, index) => (
           <div
             key={index}
-            className="bg-gray-100 rounded-2xl p-8 flex flex-col items-center justify-between"
+            className="bg-card rounded-2xl p-8 flex flex-col items-center justify-between border border-border"
           >
-            <p className="text-gray-500 text-sm mb-6">Upcoming match</p>
+            <p className="text-muted-foreground text-sm mb-6">Upcoming match</p>
 
             <div className="flex items-center justify-center gap-8 mb-6">
               <div className="space-y-2">
@@ -61,10 +61,10 @@ const UpcomingMatchesSection: React.FC = () => {
                   height={50}
                   className="object-contain"
                 />
-                <p className="text-gray-600">{match.homeTeam}</p>
+                <p className="text-foreground">{match.homeTeam}</p>
               </div>
 
-              <span className="text-2xl font-bold text-gray-800">VS</span>
+              <span className="text-2xl font-bold text-foreground">VS</span>
               <div className="space-y-2">
                 <Image
                   src={match.awayLogo}
@@ -73,11 +73,11 @@ const UpcomingMatchesSection: React.FC = () => {
                   height={50}
                   className="object-contain"
                 />
-                <p className="text-gray-600">{match.awayTeam}</p>
+                <p className="text-foreground">{match.awayTeam}</p>
               </div>
             </div>
 
-            <button className="bg-green-500 text-white px-8 py-3 rounded font-medium w-full">
+            <button className="bg-primary text-primary-foreground px-8 py-3 rounded font-medium w-full hover:bg-primary/90">
               Bet now
             </button>
           </div>

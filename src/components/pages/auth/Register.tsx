@@ -3,7 +3,7 @@ import React from "react";
 
 const Register: React.FC = () => {
   return (
-    <div className="bg-[#f5f8f7] dark:bg-[#102217] text-slate-900 dark:text-white antialiased h-screen overflow-hidden flex flex-col lg:flex-row font-display">
+    <div className="bg-background dark:bg-[#102217] text-foreground dark:text-white antialiased h-screen overflow-hidden flex flex-col lg:flex-row font-display">
       {/* Left Panel: Hero / Visuals */}
       <div className="hidden lg:flex lg:w-5/12 xl:w-1/2 relative flex-col justify-between p-12 bg-[#1b2720] overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -83,14 +83,14 @@ const Register: React.FC = () => {
       </div>
 
       {/* Right Panel: Registration Form */}
-      <div className="w-full lg:w-7/12 xl:w-1/2 h-full overflow-y-auto bg-[#102217] p-8 md:p-12">
+      <div className="w-full lg:w-7/12 xl:w-1/2 h-full overflow-y-auto bg-card dark:bg-[#102217] p-8 md:p-12">
         <div className="min-h-full flex flex-col justify-center max-w-[640px] mx-auto">
           <div className="lg:hidden flex justify-center mb-8">
             <Link href="/" className="flex items-center gap-2 text-white">
-              <span className="material-symbols-outlined text-3xl text-[#0bda5b]">
+              <span className="material-symbols-outlined text-3xl text-primary">
                 sports_cricket
               </span>
-              <span className="text-xl font-bold">BetPro BD</span>
+              <span className="text-xl font-bold text-white">BetPro BD</span>
             </Link>
           </div>
 
@@ -98,13 +98,13 @@ const Register: React.FC = () => {
             <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-2">
               Create Account
             </h1>
-            <p className="text-[#9cbaa7] text-base">
+            <p className="text-muted-foreground text-base">
               Enter your details to get started with the best odds.
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4 mb-6">
-            <button className="flex items-center justify-center gap-2 h-12 rounded-lg bg-[#1b2720] border border-[#28392e] hover:bg-[#25332a] hover:border-[#3b5444] transition-all text-white font-medium text-sm">
+            <button className="flex items-center justify-center gap-2 h-12 rounded-lg bg-card border border-border hover:bg-card/80 hover:border-border/80 transition-all text-white font-medium text-sm">
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa5InagKMKSf1ZaCpGqW6JRtuN21Zut6whqLPKC8c1Kh3B9GeKpbjx7WHlo-F0dnNvkhNMsZd6lnj1z-rG-vQ5uo2jJmIxIa4-NPezs_vONh4dYnU1JuwaCBllwxr-ewZ8OeHZsve57JZrmsQD4q3JCFmEp6cJ0jDnTcnjfopDg0Qraldhu39UKhyjeVJFhxan_PcBlbcdXKvVjVlAOvkGCLYRf8pVH91OcGzb6DYqayl395RlMt0n9SPaZh-BCHIrLuRl_bfShUSq"
                 alt="Google"
@@ -112,7 +112,7 @@ const Register: React.FC = () => {
               />
               Google
             </button>
-            <button className="flex items-center justify-center gap-2 h-12 rounded-lg bg-[#1b2720] border border-[#28392e] hover:bg-[#25332a] hover:border-[#3b5444] transition-all text-white font-medium text-sm">
+            <button className="flex items-center justify-center gap-2 h-12 rounded-lg bg-card border border-border hover:bg-card/80 hover:border-border/80 transition-all text-white font-medium text-sm">
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBKgfdyHNe3Q7jGLZ9_vzHyU8dUiAxsLZCRHYMWBY2DeOWyYw-Q2-xNIrBUFSL6crg7sjH8hNAwuoONUWRRqViUmSapaop4QcXBXV4JzE8QpMJrs95E-8laeFqazFcjUdK05L3OUJf9IVNhZGfPEylu8kQpDQbvGjBkUoJ01g-dY1YdQTulctk9WPSuPNPQFguy_ZezoEj-Cf3EVk0yz9Jsw6EfUw9rwMYO0QT2upod-hrsJ9pl5CBo0VPmf72MU3IJfz6K_HfPAXN"
                 alt="Facebook"
@@ -138,14 +138,14 @@ const Register: React.FC = () => {
               <label className="flex flex-col gap-2">
                 <span className="text-white text-sm font-medium">Username</span>
                 <input
-                  className="w-full h-12 bg-[#1b2720] border border-[#28392e] rounded-lg text-white placeholder:text-[#9cbaa7] focus:ring-1 focus:ring-[#0bda5b] focus:border-[#0bda5b] transition-all text-sm px-4"
+                  className="w-full h-12 bg-input border border-border rounded-lg text-white placeholder:text-muted-foreground focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm px-4"
                   placeholder="Choose a username"
                   type="text"
                 />
               </label>
               <label className="flex flex-col gap-2">
                 <span className="text-white text-sm font-medium">Country</span>
-                <select className="w-full h-12 bg-[#1b2720] border border-[#28392e] rounded-lg text-white focus:ring-1 focus:ring-[#0bda5b] focus:border-[#0bda5b] transition-all text-sm px-4">
+                <select className="w-full h-12 bg-input border border-border rounded-lg text-white focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm px-4">
                   <option value="BD">Bangladesh</option>
                   <option value="IN">India</option>
                 </select>
@@ -157,7 +157,7 @@ const Register: React.FC = () => {
                 Email Address
               </span>
               <input
-                className="w-full h-12 bg-[#1b2720] border border-[#28392e] rounded-lg text-white placeholder:text-[#9cbaa7] focus:ring-1 focus:ring-[#0bda5b] focus:border-[#0bda5b] transition-all text-sm px-4"
+                className="w-full h-12 bg-input border border-border rounded-lg text-white placeholder:text-muted-foreground focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm px-4"
                 placeholder="yourname@example.com"
                 type="email"
               />
@@ -176,12 +176,12 @@ const Register: React.FC = () => {
                         'url("https://lh3.googleusercontent.com/aida-public/AB6AXuADqeLn4m_opIFiaeMbmrRCf72tDv1l8DRfnVjm9hqgTSMyK-_03pFb258GHG2U3QLFX6BscvIfpTyI2oSgB_NWuws8uJH2DUyJjy0TqayJfvr9ArpE379DznBhZCET7Bl4uyUMgARp-L40iRpUhH3eOiHM_O8-5pqEES3mdEXgz0-sLMJxtFi2vsWXPHKLWkhgr5zn9jbMV9vZCQnl65Kvjp4CvA78Lq7oarJWaZpkulfE1DnNXy0GnlSPaY3n3hidcgCwMr5fhazf")',
                     }}
                   ></div>
-                  <select className="w-full pl-10 pr-2 h-12 bg-[#1b2720] border border-[#28392e] rounded-lg text-white focus:ring-1 focus:ring-[#0bda5b] focus:border-[#0bda5b] transition-all text-sm appearance-none">
+                  <select className="w-full pl-10 pr-2 h-12 bg-input border border-border rounded-lg text-white focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm appearance-none">
                     <option value="+880">+880</option>
                   </select>
                 </div>
                 <input
-                  className="w-full h-12 bg-[#1b2720] border border-[#28392e] rounded-lg text-white placeholder:text-[#9cbaa7] focus:ring-1 focus:ring-[#0bda5b] focus:border-[#0bda5b] transition-all text-sm px-4"
+                  className="w-full h-12 bg-input border border-border rounded-lg text-white placeholder:text-muted-foreground focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm px-4"
                   placeholder="1XXX-XXXXXX"
                   type="tel"
                 />
@@ -192,7 +192,7 @@ const Register: React.FC = () => {
               <label className="flex flex-col gap-2">
                 <span className="text-white text-sm font-medium">Password</span>
                 <input
-                  className="w-full h-12 bg-[#1b2720] border border-[#28392e] rounded-lg text-white placeholder:text-[#9cbaa7] focus:ring-1 focus:ring-[#0bda5b] focus:border-[#0bda5b] transition-all text-sm px-4"
+                  className="w-full h-12 bg-input border border-border rounded-lg text-white placeholder:text-muted-foreground focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm px-4"
                   placeholder="Min. 8 characters"
                   type="password"
                 />
@@ -202,7 +202,7 @@ const Register: React.FC = () => {
                   Confirm Password
                 </span>
                 <input
-                  className="w-full h-12 bg-[#1b2720] border border-[#28392e] rounded-lg text-white placeholder:text-[#9cbaa7] focus:ring-1 focus:ring-[#0bda5b] focus:border-[#0bda5b] transition-all text-sm px-4"
+                  className="w-full h-12 bg-input border border-border rounded-lg text-white placeholder:text-muted-foreground focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm px-4"
                   placeholder="Repeat password"
                   type="password"
                 />
@@ -211,17 +211,17 @@ const Register: React.FC = () => {
 
             <div className="flex items-start gap-3 pt-2">
               <input
-                className="w-5 h-5 rounded border-[#28392e] bg-[#1b2720] text-[#0bda5b] focus:ring-offset-[#102217] cursor-pointer focus:ring-[#0bda5b]"
+                className="w-5 h-5 rounded border-border bg-input text-primary focus:ring-offset-[#102217] cursor-pointer focus:ring-primary"
                 id="terms"
                 type="checkbox"
               />
               <label
-                className="text-sm text-[#9cbaa7] leading-tight"
+                className="text-sm text-muted-foreground leading-tight"
                 htmlFor="terms"
               >
                 I confirm that I am at least 18 years old and I have read and
                 agree to the{" "}
-                <a href="#" className="text-[#0bda5b] hover:underline">
+                <a href="#" className="text-primary hover:underline">
                   Terms of Service
                 </a>
                 .
@@ -230,7 +230,7 @@ const Register: React.FC = () => {
 
             <button
               type="button"
-              className="w-full h-12 bg-[#0bda5b] hover:bg-[#09b34a] text-[#111814] font-bold text-base rounded-lg shadow-[0_0_15px_rgba(11,218,91,0.2)] hover:shadow-[0_0_20px_rgba(11,218,91,0.4)] transition-all transform active:scale-[0.99] flex items-center justify-center gap-2 mt-4"
+              className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base rounded-lg shadow-[0_0_15px_rgba(11,218,91,0.2)] hover:shadow-[0_0_20px_rgba(11,218,91,0.4)] transition-all transform active:scale-[0.99] flex items-center justify-center gap-2 mt-4"
             >
               Create Account{" "}
               <span className="material-symbols-outlined text-xl">
@@ -238,11 +238,11 @@ const Register: React.FC = () => {
               </span>
             </button>
 
-            <p className="text-center text-[#9cbaa7] text-sm mt-6">
+            <p className="text-center text-muted-foreground text-sm mt-6">
               Already a member?{" "}
               <Link
                 href="/login"
-                className="text-white font-bold hover:text-[#0bda5b] transition-colors ml-1"
+                className="text-white font-bold hover:text-primary transition-colors ml-1"
               >
                 Log In
               </Link>

@@ -73,16 +73,16 @@ const matches: Match[] = [
 
 const FootballUpcomingSection: React.FC = () => {
   return (
-    <section className="w-full container mx-auto bg-white rounded-lg overflow-hidden py-5 md:py-10">
+    <section className="w-full container mx-auto bg-card rounded-lg overflow-hidden py-5 md:py-10 border border-border">
       {/* Header */}
       <div className="py-4">
-        <h2 className="text-center text-xl font-semibold text-gray-700">
+        <h2 className="text-center text-xl font-semibold text-foreground">
           Football Upcoming
         </h2>
       </div>
 
       {/* Table Header */}
-      <div className="bg-green-400 text-white grid grid-cols-12 gap-4 py-3 px-6 text-sm font-medium">
+      <div className="bg-primary text-primary-foreground grid grid-cols-12 gap-4 py-3 px-6 text-sm font-medium">
         <div className="col-span-2">Date</div>
         <div className="col-span-5 text-center">1 Draw 1</div>
         <div className="col-span-3 text-center">Total</div>
@@ -93,10 +93,10 @@ const FootballUpcomingSection: React.FC = () => {
       {matches.map((match, index) => (
         <div
           key={index}
-          className="grid grid-cols-12 gap-4 py-4 px-6 items-center text-sm border-b border-gray-200 last:border-b-0"
+          className="grid grid-cols-12 gap-4 py-4 px-6 items-center text-sm border-b border-border last:border-b-0 hover:bg-accent/50 transition-colors"
         >
           {/* Date */}
-          <div className="col-span-2 text-gray-500">{match.date}</div>
+          <div className="col-span-2 text-muted-foreground">{match.date}</div>
 
           {/* Teams & Odds */}
           <div className="col-span-5 flex items-center justify-center gap-3">
@@ -108,17 +108,17 @@ const FootballUpcomingSection: React.FC = () => {
                 height={32}
                 className="w-8 h-8 object-contain"
               />
-              <span className="font-medium">{match.homeTeam}</span>
+              <span className="font-medium text-foreground">{match.homeTeam}</span>
             </div>
 
             <div className="flex gap-2">
-              <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded">
+              <span className="bg-accent text-foreground px-3 py-1 rounded text-center min-w-[50px]">
                 +{match.odds1}
               </span>
-              <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded">
+              <span className="bg-accent text-foreground px-3 py-1 rounded text-center min-w-[50px]">
                 +{match.oddsX}
               </span>
-              <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded">
+              <span className="bg-accent text-foreground px-3 py-1 rounded text-center min-w-[50px]">
                 +{match.odds2}
               </span>
             </div>
@@ -131,18 +131,18 @@ const FootballUpcomingSection: React.FC = () => {
                 height={32}
                 className="w-8 h-8 object-contain"
               />
-              <span className="font-medium">{match.awayTeam}</span>
+              <span className="font-medium text-foreground">{match.awayTeam}</span>
             </div>
           </div>
 
           {/* Total */}
-          <div className="col-span-3 text-center text-gray-700">
+          <div className="col-span-3 text-center text-foreground">
             +{match.total}
           </div>
 
           {/* Bet Button */}
           <div className="col-span-2 text-center">
-            <button className="bg-green-500 text-white px-6 py-2 rounded font-medium">
+            <button className="bg-primary text-primary-foreground px-6 py-2 rounded font-medium hover:bg-primary/90">
               Bet
             </button>
           </div>
@@ -150,7 +150,7 @@ const FootballUpcomingSection: React.FC = () => {
       ))}
 
       {/* See more */}
-      <div className="text-center py-4 text-blue-600 cursor-pointer font-medium">
+      <div className="text-center py-4 text-primary cursor-pointer font-medium hover:underline">
         See more...
       </div>
     </section>

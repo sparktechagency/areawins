@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Menu, ShoppingCart, Bell } from "lucide-react";
+import { DarkModeToggle } from "@/components/ui/dark-mode-toggle";
 import logo from "@/assets/logo/logo.png";
 import logo2 from "@/assets/logo/logo2.png";
 import Image from "next/image";
@@ -37,10 +38,8 @@ const Navbar = () => {
   if (isHomePage) {
     return (
       <nav
-        className={`fixed top-0 h-20 flex justify-center items-center left-0 right-0 z-50 px-4 py-5 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/20 backdrop-blur-lg border-b border-white/20"
-            : "bg-transparent"
+        className={`fixed top-0 h-20 flex justify-center items-center left-0 right-0 z-50 px-4 py-5  ${
+          scrolled ? "bg-primary/10 backdrop-blur-lg" : "bg-transparent"
         }`}
       >
         <div className="container mx-auto flex items-center justify-between gap-5">
@@ -48,7 +47,6 @@ const Navbar = () => {
           <Link href="/" className="flex items-center">
             <Image src={scrolled ? logo2 : logo} alt="Logo" />
           </Link>
-          
 
           {/* Search Bar */}
           <div className="w-full max-w-xl hidden md:block ">
@@ -56,16 +54,21 @@ const Navbar = () => {
               <input
                 type="text"
                 placeholder="Search"
-                className="w-full px-4 py-2 rounded-full bg-white border border-gray-300 outline-none focus:border focus:border-primary"
+                className={`w-full px-4 py-2 rounded-full ${
+                  scrolled
+                    ? "bg-background text-foreground border-border"
+                    : "bg-white text-gray-900 border-white"
+                } border  outline-none focus:outline-none `}
               />
               <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <Menu className="text-gray-600 w-5 h-5" />
+                <Menu className="text-muted-foreground w-5 h-5" />
               </button>
             </div>
           </div>
 
           {/* Right Side */}
           <div className="flex items-center justify-end gap-4 ">
+            <DarkModeToggle />
             <button className="text-white hidden md:block drop-shadow-md hover:text-green-300 transition-colors">
               English <span className="ml-1">›</span>
             </button>
@@ -85,7 +88,7 @@ const Navbar = () => {
     );
   }
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200/50  px-4 py-3">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-secondary backdrop-blur-lg border-b dark:border-gray-700/50 border-gray-200/50 px-4 py-3">
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center">
@@ -93,32 +96,33 @@ const Navbar = () => {
         </Link>
 
         {/* Navigation Links */}
-        <div className="hidden md:flex items-center gap-2 bg-gray-100/60 backdrop-blur-sm rounded-full px-2 py-1 border border-gray-200/50">
-          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all cursor-pointer">
-            <span className="text-gray-600">🏠</span>
-            <span className="text-gray-700">Home</span>
+        <div className="hidden md:flex items-center gap-2 bg-gray-100/60 dark:bg-secondary backdrop-blur-sm rounded-full px-2 py-1 border dark:border-gray-700/50 border-gray-200/50">
+          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 dark:hover:bg-gray-700/90 hover:shadow-sm transition-all cursor-pointer">
+            <span className="text-gray-600 dark:text-gray-300">🏠</span>
+            <span className="text-gray-700 dark:text-gray-200">Home</span>
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all cursor-pointer">
-            <span className="text-gray-600">📺</span>
-            <span className="text-gray-700">Live bets</span>
+          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 dark:hover:bg-gray-700/90 hover:shadow-sm transition-all cursor-pointer">
+            <span className="text-gray-600 dark:text-gray-300">📺</span>
+            <span className="text-gray-700 dark:text-gray-200">Live bets</span>
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all cursor-pointer">
-            <span className="text-gray-600">⚽</span>
-            <span className="text-gray-700">All bets</span>
+          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 dark:hover:bg-gray-700/90 hover:shadow-sm transition-all cursor-pointer">
+            <span className="text-gray-600 dark:text-gray-300">⚽</span>
+            <span className="text-gray-700 dark:text-gray-200">All bets</span>
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all cursor-pointer">
-            <span className="text-gray-600">📊</span>
-            <span className="text-gray-700">Bet Market</span>
+          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 dark:hover:bg-gray-700/90 hover:shadow-sm transition-all cursor-pointer">
+            <span className="text-gray-600 dark:text-gray-300">📊</span>
+            <span className="text-gray-700 dark:text-gray-200">Bet Market</span>
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 hover:shadow-sm transition-all cursor-pointer">
-            <span className="text-gray-600">❓</span>
-            <span className="text-gray-700">Support</span>
+          <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/90 dark:hover:bg-gray-700/90 hover:shadow-sm transition-all cursor-pointer">
+            <span className="text-gray-600 dark:text-gray-300">❓</span>
+            <span className="text-gray-700 dark:text-gray-200">Support</span>
           </button>
         </div>
 
         {/* Right Side */}
         <div className="flex items-center gap-3">
-          <button className="text-gray-700 hidden md:block hover:text-gray-900 transition-colors">
+          <DarkModeToggle />
+          <button className="text-gray-700 dark:text-gray-300 hidden md:block hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
             English <span className="ml-1">›</span>
           </button>
           <button className="bg-red-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-red-600 hover:shadow-lg transition-all hidden md:block">
@@ -127,7 +131,7 @@ const Navbar = () => {
           <button className="bg-green-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-600 hover:shadow-lg transition-all">
             My bets
           </button>
-          <button className="bg-linear-to-r from-primary to-blue-400 text-white px-4 py-2 rounded-full font-semibold hover:from-green-500 hover:to-blue-500 hover:shadow-lg transition-all">
+          <button className="bg-gradient-to-r from-primary to-blue-400 text-white px-4 py-2 rounded-full font-semibold hover:from-green-500 hover:to-blue-500 hover:shadow-lg transition-all">
             Progressive bets
           </button>
         </div>
@@ -143,20 +147,23 @@ const Navbar = () => {
 
       {/* Mobile Menu with Glassmorphism */}
       {isMenuOpen && (
-        <div className="md:hidden mt-4 pb-4 bg-white/60 backdrop-blur-lg rounded-lg border border-gray-200/50 p-4 space-y-2">
-          <button className="w-full text-left px-4 py-2 hover:bg-white/80 rounded-lg transition-all">
+        <div className="md:hidden mt-4 pb-4 bg-white/60 dark:bg-gray-900/60 backdrop-blur-lg rounded-lg border dark:border-gray-700/50 border-gray-200/50 p-4 space-y-2">
+          <div className="flex justify-end">
+            <DarkModeToggle />
+          </div>
+          <button className="w-full text-left px-4 py-2 hover:bg-white/80 dark:hover:bg-gray-800/80 rounded-lg transition-all text-gray-700 dark:text-gray-300">
             🏠 Home
           </button>
-          <button className="w-full text-left px-4 py-2 hover:bg-white/80 rounded-lg transition-all">
+          <button className="w-full text-left px-4 py-2 hover:bg-white/80 dark:hover:bg-gray-800/80 rounded-lg transition-all text-gray-700 dark:text-gray-300">
             📺 Live bets
           </button>
-          <button className="w-full text-left px-4 py-2 hover:bg-white/80 rounded-lg transition-all">
+          <button className="w-full text-left px-4 py-2 hover:bg-white/80 dark:hover:bg-gray-800/80 rounded-lg transition-all text-gray-700 dark:text-gray-300">
             ⚽ All bets
           </button>
-          <button className="w-full text-left px-4 py-2 hover:bg-white/80 rounded-lg transition-all">
+          <button className="w-full text-left px-4 py-2 hover:bg-white/80 dark:hover:bg-gray-800/80 rounded-lg transition-all text-gray-700 dark:text-gray-300">
             📊 Bet Market
           </button>
-          <button className="w-full text-left px-4 py-2 hover:bg-white/80 rounded-lg transition-all">
+          <button className="w-full text-left px-4 py-2 hover:bg-white/80 dark:hover:bg-gray-800/80 rounded-lg transition-all text-gray-700 dark:text-gray-300">
             ❓ Support
           </button>
           <button className="w-full bg-red-500 text-white px-4 py-2 rounded-lg font-semibold mt-2 hover:bg-red-600 transition-all">

@@ -96,6 +96,72 @@
   );
 }
 
+.dark {
+  /* Primary Brand Colors */
+  --primary: #00d65c; /* Bright Green - Main brand color */
+  --primary-rgb: 0, 214, 92;
+  --primary-foreground: #ffffff;
+
+  /* Secondary Colors */
+  --secondary: #112218 /* Lighter dark gray */
+  --secondary-rgb: 45, 45, 45;
+  --secondary-foreground: #ffffff;
+
+  /* Accent Colors */
+  --accent: #ff5c5c; /* Slightly lighter red for dark mode */
+  --accent-rgb: 255, 92, 92;
+  --accent-foreground: #ffffff;
+
+  /* Background Colors */
+  --background: #112218; /* Dark background */
+  --background-rgb: 17, 34, 24;
+  --foreground: #e2e8f0; /* Light gray text */
+
+  /* Card & Surface */
+  --card: #1a242d; /* Dark card background */
+  --card-foreground: #e2e8f0;
+
+  /* Popover */
+  --popover: #1a242d; /* Dark popover background */
+  --popover-foreground: #e2e8f0;
+
+  /* Muted */
+  --muted: #2d3748; /* Darker muted color */
+  --muted-foreground: #a0aec0;
+
+  /* Destructive */
+  --destructive: #fc8181; /* Lighter red for dark mode */
+  --destructive-foreground: #1a202c;
+
+  /* Border */
+  --border: #244732; /* Darker border */
+  --input: #244732;
+
+  /* Ring */
+  --ring: #00d65c;
+
+  /* Betting Specific Colors */
+  --odds-background: #1a242d;
+  --odds-hover: #2d3748;
+  --odds-selected: #00d65c;
+  --odds-text: #e2e8f0;
+
+  /* Status Colors */
+  --live: #ff6b6b;
+  --won: #00d65c;
+  --lost: #a0aec0;
+  --pending: #f6e05e;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #00d65c 0%, #00b84d 100%);
+  --gradient-dark: linear-gradient(135deg, #1a242d 0%, #2d3748 100%);
+  --gradient-card: linear-gradient(
+    135deg,
+    rgba(0, 214, 92, 0.1) 0%,
+    rgba(0, 214, 92, 0.05) 100%
+  );
+}
+
 @theme inline {
   /* Colors */
   --color-primary: var(--primary);

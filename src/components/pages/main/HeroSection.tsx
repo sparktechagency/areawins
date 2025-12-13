@@ -25,10 +25,10 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button className="px-10 cursor-pointer">Enter</Button>
+            <Button className="px-10 cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground">Enter</Button>
             <Button
               variant="outline"
-              className="px-10 cursor-pointer bg-transparent! border text-primary"
+              className="px-10 cursor-pointer border-primary text-primary hover:bg-primary hover:text-primary-foreground"
             >
               {" "}
               Sign Up
