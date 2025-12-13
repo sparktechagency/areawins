@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       "wallpapercave.com",
       "upload.wikimedia.org",
       "flagcdn.com",
+      "lh3.googleusercontent.com",
     ],
   },
 };
