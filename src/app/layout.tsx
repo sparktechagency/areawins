@@ -4,6 +4,7 @@ import "./globals.css";
 import { ReduxProvider } from "@/lib/redux/provider";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "react-hot-toast";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -40,11 +41,13 @@ export default function RootLayout({
         className={`${oswald.className} antialiased`}
         suppressHydrationWarning
       >
-        <ReduxProvider>
-          {children}
-          <Toaster position="top-right" />
-          <Sonner />
-        </ReduxProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ReduxProvider>
+            {children}
+            <Toaster position="top-right" />
+            <Sonner />
+          </ReduxProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

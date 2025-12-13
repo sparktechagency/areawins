@@ -1,3 +1,8 @@
-import LoginPage from "@/components/pages/auth/LoginPage";
+import Login from "@/components/pages/auth/Login";
+import React from "react";
 
-export default LoginPage;
+const page = () => {
+  return <Login />;
+};
+
+export default page;

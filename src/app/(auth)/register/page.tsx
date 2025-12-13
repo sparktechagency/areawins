@@ -1,3 +1,8 @@
-import RegisterPage from "@/components/pages/auth/RegisterPage";
+import Register from "@/components/pages/auth/Register";
+import React from "react";
 
-export default RegisterPage;
+const page = () => {
+  return <Register />;
+};
+
+export default page;
