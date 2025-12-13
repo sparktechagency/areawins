@@ -4,12 +4,12 @@ import React from "react";
 
 const TournamentsSection: React.FC = () => {
   return (
-    <section className="w-full">
+    <section className="w-full container mx-auto px-4 sm:px-6 lg:px-8 py-5 md:py-8">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Tournaments</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Premier League Banner */}
-        <div className="relative rounded-lg overflow-hidden bg-green-500">
+        <div className="relative rounded-lg overflow-hidden bg-green-500 col-span-2">
           <Image
             src="https://i2-prod.liverpool.com/incoming/article30076417.ece/ALTERNATES/s1200/0_GettyImages-2176346284.jpg"
             alt="Premier League Player"
@@ -42,68 +42,6 @@ const TournamentsSection: React.FC = () => {
               JOIN 20$
             </button>
           </div>
-        </div>
-
-        {/* Upcoming Match Card 1 */}
-        <div className="bg-white rounded-lg p-6 flex flex-col justify-between">
-          <div>
-            <p className="text-gray-500 text-sm mb-4">Upcoming match</p>
-            <div className="flex items-center justify-center gap-8">
-              <Image
-                src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/1200px-Chelsea_FC.svg.png"
-                alt="Chelsea"
-                width={100}
-                height={100}
-                className="w-20 h-20 object-contain"
-              />
-              <span className="text-2xl font-bold">VS</span>
-              <Image
-                src="https://upload.wikimedia.org/wikipedia/en/thumb/6/63/Leicester_City_crest.svg/1200px-Leicester_City_crest.svg.png"
-                alt="Leicester C"
-                width={100}
-                height={100}
-                className="w-20 h-20 object-contain"
-              />
-            </div>
-            <div className="text-center mt-6">
-              <p className="font-bold text-lg">Chelsea</p>
-              <p className="text-gray-600">Leicester C</p>
-            </div>
-          </div>
-          <button className="bg-green-500 text-white py-3 rounded mt-8 font-medium">
-            Bet now
-          </button>
-        </div>
-
-        {/* Upcoming Match Card 2 (repeated) */}
-        <div className="bg-white rounded-lg p-6 flex flex-col justify-between">
-          <div>
-            <p className="text-gray-500 text-sm mb-4">Upcoming match</p>
-            <div className="flex items-center justify-center gap-8">
-              <Image
-                src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/1200px-Chelsea_FC.svg.png"
-                alt="Chelsea"
-                width={100}
-                height={100}
-                className="w-20 h-20 object-contain"
-              />
-              <span className="text-2xl font-bold">VS</span>
-              <Image
-                src="https://upload.wikimedia.org/wikipedia/en/thumb/6/63/Leicester_City_crest.svg/1200px-Leicester_City_crest.svg.png"
-                alt="Leicester C"
-                width={100}
-                height={100}
-                className="w-20 h-20 object-contain"
-              />
-            </div>
-            <div className="text-center mt-6">
-              <p className="font-bold text-lg">Chelsea</p>
-              <p className="text-gray-600">Leicester C</p>
-            </div>
-          </div>
-          <button className="bg-green-500 text-white py-3 rounded mt-8 font-medium">
-            Bet now
-          </button>
         </div>
       </div>
     </section>
