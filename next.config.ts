@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       "i2-prod.liverpool.com",
       "wallpapercave.com",
       "upload.wikimedia.org",
+      "flagcdn.com",
     ],
   },
 };
