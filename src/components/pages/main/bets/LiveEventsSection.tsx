@@ -35,7 +35,6 @@ interface LiveEvent {
   teamB: Team;
 }
 
-
 const liveEvents: LiveEvent[] = [
   {
     id: 1,
@@ -239,8 +238,6 @@ const liveEvents: LiveEvent[] = [
   },
 ];
 
-
-
 const LiveEventsSection: React.FC = () => {
   return (
     <section className="container mx-auto w-full">
@@ -309,8 +306,8 @@ const LiveEventsSection: React.FC = () => {
           ))}
         </CarouselContent>
 
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="cursor-pointer left-1" />
+        <CarouselNext className="cursor-pointer right-1" />
       </Carousel>
     </section>
   );

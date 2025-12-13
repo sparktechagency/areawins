@@ -3,11 +3,12 @@ import BetsCategories from "./BetsCategories";
 import TournamentsSection from "./TournamentsSection";
 import LiveEventsSection from "./LiveEventsSection";
 import UpcomingMatchesSection from "./UpcomingMatchesSection";
+import FootballUpcomingSection from "./FootballUpcomingSection";
 
 const Bets = () => {
   return (
     <section className="w-full px-5 py-16 md:py-20">
-      <section className="w-full container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
+      <section className="w-full container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 border-b border-gray-200 pb-5 md:pb-10">
         <div className="w-full col-span-4 space-y-4">
           <BetsCategories />
           <TournamentsSection />
@@ -17,6 +18,7 @@ const Bets = () => {
           <UpcomingMatchesSection />
         </div>
       </section>
+      <FootballUpcomingSection />
     </section>
   );
 };
