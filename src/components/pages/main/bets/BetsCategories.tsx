@@ -33,7 +33,5 @@ const BetsCategories = () => {
     </header>
   );
 };
-  );
-};
 
 export default BetsCategories;

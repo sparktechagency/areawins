@@ -141,7 +141,7 @@ export default function SportsBettingInterface({ sport }: SportsBettingInterface
    const filteredMatches = matches.filter(m => m.sport === sportKey);
 
    return (
-      <div className="flex flex-col xl:flex-row gap-6 h-[calc(100vh-100px)] bg-[#112218] text-white p-4 overflow-hidden">
+      <div className="flex flex-col xl:flex-row gap-6 h-[calc(100vh-50px)] bg-background text-white p-4 overflow-hidden pt-20">
          {/* Sidebar - mimicking screenshot left nav (Optional if layout already has one, but creating integrated view) */}
          <div className="w-64 hidden 2xl:block flex-shrink-0 space-y-6 pr-4 border-r border-white/10 overflow-y-auto custom-scrollbar">
             {/* Top Menu from Image 0 */}
@@ -164,7 +164,7 @@ export default function SportsBettingInterface({ sport }: SportsBettingInterface
          </div>
 
          {/* Main Content Area */}
-         <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+         <div className="flex-1 overflow-y-auto pr-2 pt-5">
             {/* Header / Search */}
             <div className="flex items-center justify-between mb-6">
                <h1 className="text-2xl font-bold flex items-center gap-2">
