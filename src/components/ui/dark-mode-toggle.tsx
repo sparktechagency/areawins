@@ -3,21 +3,42 @@
 import * as React from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
-
 import { Button } from '@/components/ui/button';
 
-export function DarkModeToggle() {
-  const { theme, setTheme } = useTheme();
+const DarkModeToggle = () => {
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  // Only render after component is mounted to avoid hydration mismatch
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Show nothing during SSR and initial render
+  if (!mounted) {
+    return (
+      <Button variant="ghost" size="icon" aria-label="Toggle theme">
+        <div className="size-6" />
+      </Button>
+    );
+  }
+
+  const isDark = resolvedTheme === 'dark';
 
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
       aria-label="Toggle theme"
+      className="relative"
     >
-      <Sun className="size-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 cursor-pointer" />
-      <Moon className="absolute size-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 cursor-pointer" />
+      {isDark ? (
+        <Moon className="size-6 transition-transform duration-300 hover:rotate-12" />
+      ) : (
+        <Sun className="size-6 transition-transform duration-300 hover:rotate-90" />
+      )}
     </Button>
   );
 }
+export default DarkModeToggle;

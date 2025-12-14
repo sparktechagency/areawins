@@ -1,31 +1,21 @@
 "use client";
 import logo from "@/assets/logo/logo.png";
 import logo2 from "@/assets/logo/logo2.png";
-import { DarkModeToggle } from "@/components/ui/dark-mode-toggle";
+import DarkModeToggle from "../ui/dark-mode-toggle";
 import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 
 const Navbar = () => {
+  const pathname = usePathname(); // Use Next.js's usePathname hook instead
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isHomePage, setIsHomePage] = useState(false);
-
-  // Check if current page is home page
-  useEffect(() => {
-    const checkHomePage = () => {
-      const path = window.location.pathname;
-      setIsHomePage(path === "/" || path === "/home");
-    };
-
-    checkHomePage();
-
-    // Listen for route changes
-    window.addEventListener("popstate", checkHomePage);
-    return () => window.removeEventListener("popstate", checkHomePage);
-  }, []);
+  
+  // Check if current page is home page - using pathname directly
+  const isHomePage = pathname === "/" || pathname === "/home";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,42 +38,64 @@ const Navbar = () => {
   if (isHomePage) {
     return (
       <nav
-        className={`fixed top-0 h-20 flex justify-center items-center left-0 right-0 z-50 px-4 py-5 transition-all duration-300 ${scrolled
-            ? "bg-white/80 dark:bg-black/80 backdrop-blur-lg shadow-sm"
+        className={`fixed top-0 h-20 flex justify-center items-center left-0 right-0 z-50 px-4 py-5 transition-all duration-300 ${
+          scrolled
+            ? "bg-white/80 dark:bg-black/20 backdrop-blur-lg shadow-sm"
             : "bg-transparent"
-          }`}
+        }`}
       >
         <div className="container mx-auto flex items-center justify-between gap-5">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <Image src={scrolled ? logo2 : logo} alt="Logo" className="w-36 h-10 object-contain" />
+            <Image 
+              src={scrolled ? logo2 : logo} 
+              alt="Logo" 
+              className="w-36 h-10 object-contain transition-all duration-300" 
+              priority
+            />
           </Link>
 
           {/* Search Bar */}
-          <div className="w-full max-w-xl hidden md:block ">
+          <div className="w-full max-w-xl hidden md:block">
             <div className="relative">
               <input
                 type="text"
                 placeholder="Search"
-                className={`w-full px-4 py-2 rounded-full ${scrolled
-                    ? "bg-muted text-foreground border-border"
-                    : "bg-white/20 text-white border-white/30 placeholder:text-white/70"
-                  } border outline-none focus:outline-none transition-colors`}
+                className={`w-full px-4 py-2 rounded-full transition-all duration-300 ${
+                  scrolled
+                    ? "bg-white/20 dark:bg-black/20 text-foreground border-border"
+                    : "bg-white/20 dark:bg-black/20 text-white border-white/30 placeholder:text-white/70"
+                } border outline-none`}
               />
               <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <Menu className={`w-5 h-5 ${scrolled ? "text-muted-foreground" : "text-white"}`} />
+                <Menu 
+                  className={`w-5 h-5 transition-colors duration-300 ${
+                    scrolled ? "text-muted-foreground" : "text-white"
+                  }`} 
+                />
               </button>
             </div>
           </div>
 
           {/* Right Side */}
           <div className="flex items-center justify-end gap-4">
-            <DarkModeToggle />
-            <button className={`${scrolled ? "text-foreground" : "text-white"} hidden md:block drop-shadow-md hover:text-primary transition-colors`}>
+            <div className={scrolled ? "" : "text-white"}>
+              <DarkModeToggle />
+            </div>
+            <button 
+              className={`${
+                scrolled ? "text-foreground" : "text-white"
+              } hidden md:block drop-shadow-md hover:text-primary transition-colors`}
+            >
               English <span className="ml-1">›</span>
             </button>
             <Link href="/login">
-              <Button variant={scrolled ? "default" : "secondary"} className={!scrolled ? "bg-white text-primary hover:bg-white/90" : ""}>
+              <Button 
+                variant={scrolled ? "default" : "secondary"} 
+                className={`transition-all duration-300 ${
+                  !scrolled ? "bg-white text-primary hover:bg-white/90" : ""
+                }`}
+              >
                 Login
               </Button>
             </Link>
@@ -99,19 +111,23 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <Image src={logo2} alt="Logo" className="w-36 h-10 object-contain" />
+          <Image src={logo2} alt="Logo" className="w-36 h-10 object-contain" priority />
         </Link>
 
         {/* Navigation Links */}
-        <div className="hidden md:flex items-center gap-2 bg-muted/50 backdrop-blur-sm rounded-full px-2 py-1 border border-border">
+        <div className="hidden md:flex items-center gap-2 bg-transparent backdrop-blur-sm rounded-full px-2 py-1 border border-border">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-background/80 hover:shadow-sm transition-all cursor-pointer group"
+              className={`flex items-center gap-2 px-4 py-2 rounded-full hover:bg-background/80 hover:shadow-sm transition-all cursor-pointer group ${
+                pathname === link.href ? "bg-primary/10 text-primary" : ""
+              }`}
             >
-              <span className="text-muted-foreground group-hover:scale-110 transition-transform">{link.icon}</span>
-              <span className="text-foreground font-medium text-sm">{link.label}</span>
+              <span className="text-muted-foreground group-hover:scale-110 transition-transform">
+                {link.icon}
+              </span>
+              <span className="font-medium text-sm">{link.label}</span>
             </Link>
           ))}
         </div>
@@ -123,10 +139,14 @@ const Navbar = () => {
             English <span className="ml-1">›</span>
           </button>
           <Link href="/login" className="hidden md:block">
-            <Button variant="destructive" className="rounded-full px-6">SIGN IN</Button>
+            <Button variant="destructive" className="rounded-full px-6">
+              SIGN IN
+            </Button>
           </Link>
           <Link href="/dashboard/my-bets">
-            <Button variant="default" className="rounded-full px-6">My bets</Button>
+            <Button variant="default" className="rounded-full px-6">
+              My bets
+            </Button>
           </Link>
           <Link href="/bets/progressive">
             <Button className="bg-gradient-to-r from-primary to-blue-500 rounded-full px-4 hover:shadow-lg transition-all text-white border-0">
@@ -139,6 +159,7 @@ const Navbar = () => {
         <button
           className="md:hidden text-foreground ml-4"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
         >
           <Menu className="w-6 h-6" />
         </button>
@@ -155,7 +176,9 @@ const Navbar = () => {
               key={link.href}
               href={link.href}
               onClick={() => setIsMenuOpen(false)}
-              className="block px-4 py-3 hover:bg-muted rounded-lg transition-all text-foreground font-medium"
+              className={`block px-4 py-3 hover:bg-muted rounded-lg transition-all font-medium ${
+                pathname === link.href ? "bg-primary/10 text-primary" : "text-foreground"
+              }`}
             >
               {link.icon} {link.label}
             </Link>
