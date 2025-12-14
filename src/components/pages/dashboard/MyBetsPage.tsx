@@ -1,59 +1,109 @@
 "use client";
 
-/**
- * MyBetsPage Component
- * Dashboard page displaying user's betting history
- */
-
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ROUTES } from "@/lib/constants";
-import { useGetActiveBetsQuery, useGetBetHistoryQuery } from "@/lib/redux/api/bettingApi";
-import { formatCurrency, formatDate, formatOdds } from "@/lib/utils";
+import { formatCurrency, formatDate } from "@/lib/utils";
 import { Clock, Filter, Ticket, TrendingDown, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function MyBetsPage() {
+const FALLBACK_ROUTES = { LIVE_EVENTS: "/live-events" };
+const formatOdds = (odds: number) => odds.toFixed(2);
+
+const MyBetsPage = () => {
   const [filter, setFilter] = useState<"all" | "won" | "lost" | "pending">("all");
 
-  const { data: betHistory, isLoading: loadingHistory } = useGetBetHistoryQuery({ limit: 100 });
-  const { data: activeBets, isLoading: loadingActive } = useGetActiveBetsQuery();
+  const betHistory = {
+    bets: [
+      {
+        id: "bet_1234567890",
+        betType: "single",
+        status: "won",
+        stake: 500,
+        totalOdds: 1.85,
+        potentialWin: 925,
+        payout: 925,
+        placedAt: "2025-10-24T18:30:00Z",
+        selections: [
+          { selection: "Man City to win", odds: 1.85, matchDetails: { homeTeam: "Man City", awayTeam: "Arsenal" } },
+        ],
+      },
+      {
+        id: "bet_7890123456",
+        betType: "single",
+        status: "pending",
+        stake: 1000,
+        totalOdds: 1.60,
+        potentialWin: 1600,
+        placedAt: "2025-10-25T20:45:00Z",
+        selections: [
+          { selection: "Both Teams to Score", odds: 1.60, matchDetails: { homeTeam: "Real Madrid", awayTeam: "Barcelona" } },
+        ],
+      },
+      {
+        id: "bet_3456789012",
+        betType: "single",
+        status: "won",
+        stake: 2000,
+        totalOdds: 1.90,
+        potentialWin: 3800,
+        payout: 3800,
+        placedAt: "2025-10-22T19:00:00Z",
+        selections: [
+          { selection: "Lakers +5.5", odds: 1.90, matchDetails: { homeTeam: "Lakers", awayTeam: "Warriors" } },
+        ],
+      },
+      {
+        id: "bet_9012345678",
+        betType: "single",
+        status: "lost",
+        stake: 500,
+        totalOdds: 1.40,
+        potentialWin: 700,
+        placedAt: "2025-10-20T14:00:00Z",
+        selections: [
+          { selection: "India to win", odds: 1.40, matchDetails: { homeTeam: "Bangladesh", awayTeam: "India" } },
+        ],
+      },
+    ],
+  };
+
+  const activeBets = { bets: betHistory.bets.filter((b) => b.status === "pending") };
+  const allBets = betHistory.bets;
+
+  const filteredBets = allBets.filter((bet) => filter === "all" || bet.status === filter);
 
   const getStatusBadge = (status: string) => {
-    const statusConfig = {
+    const config: Record<string, { className: string; label: string }> = {
       won: { className: "bg-green-500 text-white", label: "Won" },
       lost: { className: "bg-red-500 text-white", label: "Lost" },
       pending: { className: "bg-yellow-500 text-white", label: "Pending" },
-      cashed_out: { className: "bg-blue-500 text-white", label: "Cashed Out" },
-      cancelled: { className: "bg-gray-500 text-white", label: "Cancelled" },
-      void: { className: "bg-gray-400 text-white", label: "Void" },
     };
-
-    const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.pending;
-    return <Badge className={config.className}>{config.label}</Badge>;
+    const cfg = config[status] || config.pending;
+    return <Badge className={cfg.className}>{cfg.label}</Badge>;
   };
 
-  const filteredBets = betHistory?.bets.filter((bet) => {
-    if (filter === "all") return true;
-    return bet.status === filter;
-  });
-
-  const isLoading = loadingHistory || loadingActive;
+  const totalBets = allBets.length;
+  const activeCount = allBets.filter((b) => b.status === "pending").length;
+  const wonCount = allBets.filter((b) => b.status === "won").length;
+  const settledCount = allBets.filter((b) => b.status !== "pending").length;
+  const winRate = settledCount > 0 ? Math.round((wonCount / settledCount) * 100) : 0;
 
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        {/* Page Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">My Bets</h1>
+            <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
+              My Bets <Ticket className="w-8 h-8 text-primary" />
+            </h1>
             <p className="text-muted-foreground mt-1">Track all your bets and betting history</p>
           </div>
-          <Link href={ROUTES.LIVE_EVENTS}>
+          <Link href={ROUTES?.LIVE_EVENTS || FALLBACK_ROUTES.LIVE_EVENTS}>
             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
               <Ticket className="w-4 h-4 mr-2" />
               Place New Bet
@@ -61,50 +111,33 @@ export default function MyBetsPage() {
           </Link>
         </div>
 
-        {/* Stats Cards */}
-        {!isLoading && betHistory && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Card>
-              <CardContent className="p-4">
-                <p className="text-sm text-muted-foreground mb-1">Total Bets</p>
-                <p className="text-2xl font-bold text-foreground">{betHistory.bets.length}</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-4">
-                <p className="text-sm text-muted-foreground mb-1">Active Bets</p>
-                <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
-                  {betHistory.bets.filter((b) => b.status === "pending").length}
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-4">
-                <p className="text-sm text-muted-foreground mb-1">Won Bets</p>
-                <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-                  {betHistory.bets.filter((b) => b.status === "won").length}
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-4">
-                <p className="text-sm text-muted-foreground mb-1">Win Rate</p>
-                <p className="text-2xl font-bold text-primary">
-                  {betHistory.bets.length > 0
-                    ? Math.round(
-                      (betHistory.bets.filter((b) => b.status === "won").length /
-                        betHistory.bets.filter((b) => b.status !== "pending").length) *
-                      100
-                    )
-                    : 0}
-                  %
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <Card>
+            <CardContent className="p-4">
+              <p className="text-sm text-muted-foreground mb-1">Total Bets</p>
+              <p className="text-2xl font-bold text-foreground">{totalBets}</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4">
+              <p className="text-sm text-muted-foreground mb-1">Active Bets</p>
+              <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{activeCount}</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4">
+              <p className="text-sm text-muted-foreground mb-1">Won Bets</p>
+              <p className="text-2xl font-bold text-green-600 dark:text-green-400">{wonCount}</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4">
+              <p className="text-sm text-muted-foreground mb-1">Win Rate</p>
+              <p className="text-2xl font-bold text-primary">{winRate}%</p>
+            </CardContent>
+          </Card>
+        </div>
 
-        {/* Tabs for Active and History */}
         <Tabs defaultValue="all" className="w-full">
           <div className="flex items-center justify-between mb-4">
             <TabsList>
@@ -113,55 +146,29 @@ export default function MyBetsPage() {
               <TabsTrigger value="history">History</TabsTrigger>
             </TabsList>
 
-            {/* Filter Buttons */}
             <div className="flex items-center gap-2">
               <Filter className="w-4 h-4 text-muted-foreground" />
-              <Button
-                variant={filter === "all" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setFilter("all")}
-                className={filter === "all" ? "bg-primary hover:bg-primary/90" : ""}
-              >
+              <Button variant={filter === "all" ? "default" : "outline"} size="sm" onClick={() => setFilter("all")}>
                 All
               </Button>
-              <Button
-                variant={filter === "pending" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setFilter("pending")}
-                className={filter === "pending" ? "bg-yellow-500 hover:bg-yellow-600" : ""}
-              >
+              <Button variant={filter === "pending" ? "default" : "outline"} size="sm" onClick={() => setFilter("pending")}>
                 Pending
               </Button>
-              <Button
-                variant={filter === "won" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setFilter("won")}
-                className={filter === "won" ? "bg-green-500 hover:bg-green-600" : ""}
-              >
+              <Button variant={filter === "won" ? "default" : "outline"} size="sm" onClick={() => setFilter("won")}>
                 Won
               </Button>
-              <Button
-                variant={filter === "lost" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setFilter("lost")}
-                className={filter === "lost" ? "bg-red-500 hover:bg-red-600" : ""}
-              >
+              <Button variant={filter === "lost" ? "default" : "outline"} size="sm" onClick={() => setFilter("lost")}>
                 Lost
               </Button>
             </div>
           </div>
 
-          {/* All Bets */}
           <TabsContent value="all">
-            {isLoading ? (
-              <div className="flex items-center justify-center py-20">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
-              </div>
-            ) : filteredBets && filteredBets.length > 0 ? (
+            {filteredBets.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredBets.map((bet) => (
-                  <Card key={bet.id} className="hover:shadow-lg transition-shadow bg-card">
-                    <CardHeader className="bg-accent border-b pb-3">
+                  <Card key={bet.id} className="bg-card">
+                    <CardHeader className="border-b pb-3">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <Ticket className="w-4 h-4 text-primary" />
@@ -170,7 +177,6 @@ export default function MyBetsPage() {
                         {getStatusBadge(bet.status)}
                       </div>
                     </CardHeader>
-
                     <CardContent className="p-4 space-y-3">
                       <div>
                         <Badge variant="outline" className="capitalize text-foreground border-foreground/30">
@@ -180,7 +186,7 @@ export default function MyBetsPage() {
 
                       <div className="space-y-2">
                         {bet.selections.map((selection, index) => (
-                          <div key={index} className="p-2 bg-accent rounded text-sm">
+                          <div key={index} className="p-2 rounded text-sm">
                             <p className="font-medium text-foreground">
                               {selection.matchDetails?.homeTeam} vs {selection.matchDetails?.awayTeam}
                             </p>
@@ -237,7 +243,7 @@ export default function MyBetsPage() {
                       )}
 
                       <div className="text-xs text-muted-foreground text-center pt-2 border-t border-border">
-                        {formatDate(bet.placedAt, "MMM dd, yyyy HH:mm")}
+                        {formatDate(bet.placedAt)}
                       </div>
                     </CardContent>
                   </Card>
@@ -248,28 +254,22 @@ export default function MyBetsPage() {
                 <Ticket className="w-20 h-20 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-foreground mb-2">No Bets Found</h3>
                 <p className="text-muted-foreground mb-6">
-                  {filter !== "all"
-                    ? `You don't have any ${filter} bets.`
-                    : "You haven't placed any bets yet."}
+                  {filter !== "all" ? `You don't have any ${filter} bets.` : "You haven't placed any bets yet."}
                 </p>
-                <Link href={ROUTES.LIVE_EVENTS}>
-                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">Place Your First Bet</Button>
+                <Link href={ROUTES?.LIVE_EVENTS || FALLBACK_ROUTES.LIVE_EVENTS}>
+                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                    Place Your First Bet
+                  </Button>
                 </Link>
               </div>
             )}
           </TabsContent>
 
-          {/* Active Bets */}
           <TabsContent value="active">
-            {isLoading ? (
-              <div className="flex items-center justify-center py-20">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
-              </div>
-            ) : activeBets && activeBets.bets.length > 0 ? (
+            {activeBets.bets.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {activeBets.bets.map((bet) => (
                   <Card key={bet.id} className="hover:shadow-lg transition-shadow border-l-4 border-l-yellow-500 bg-card">
-                    {/* Same content as all bets but filtered for pending */}
                     <CardHeader className="bg-yellow-500/20 border-b pb-3">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -279,7 +279,9 @@ export default function MyBetsPage() {
                         <Badge className="bg-yellow-500 text-white">Active</Badge>
                       </div>
                     </CardHeader>
-                    {/* Rest of card content... */}
+                    <CardContent className="p-4">
+                      <p className="text-center text-muted-foreground">See details in "All Bets" tab</p>
+                    </CardContent>
                   </Card>
                 ))}
               </div>
@@ -292,15 +294,10 @@ export default function MyBetsPage() {
             )}
           </TabsContent>
 
-          {/* History */}
           <TabsContent value="history">
-            {isLoading ? (
-              <div className="flex items-center justify-center py-20">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
-              </div>
-            ) : betHistory && betHistory.bets.filter((b) => b.status !== "pending").length > 0 ? (
+            {allBets.filter((b) => b.status !== "pending").length > 0 ? (
               <div className="space-y-3">
-                {betHistory.bets
+                {allBets
                   .filter((b) => b.status !== "pending")
                   .map((bet) => (
                     <Card key={bet.id} className="hover:shadow-md transition-shadow bg-card">
@@ -311,7 +308,7 @@ export default function MyBetsPage() {
                               <span className="text-sm font-semibold text-foreground">#{bet.id.slice(0, 8)}</span>
                               {getStatusBadge(bet.status)}
                               <span className="text-xs text-muted-foreground">
-                                {formatDate(bet.placedAt, "MMM dd, HH:mm")}
+                                {formatDate(bet.placedAt)}
                               </span>
                             </div>
                             <p className="text-sm text-foreground">
@@ -349,3 +346,4 @@ export default function MyBetsPage() {
     </DashboardLayout>
   );
 }
+export default MyBetsPage;

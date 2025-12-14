@@ -1,10 +1,4 @@
 "use client";
-
-/**
- * DashboardLayout Component
- * Main layout for dashboard pages using DashboardSidebar and DashboardHeader
- */
-
 import { ReactNode } from "react";
 import DashboardHeader from "./DashboardHeader";
 import DashboardSidebar from "./DashboardSidebar";
