@@ -2,6 +2,7 @@
 
 import ChatList from "@/components/dashboard/message/ChatList";
 import MessageList from "@/components/dashboard/message/MessageList";
+import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { useState } from "react";
 
 // Mock Data
@@ -83,38 +84,20 @@ export default function MessagePage() {
     };
 
     return (
-        <div className="flex h-[calc(100vh-64px)] overflow-hidden bg-background border-t border-border mt-[64px] pb-4">
-            {/* 64px is approx navbar height, adjusting layout to fit */}
+        <DashboardLayout>
+            <div className="flex h-[calc(100vh-140px)] overflow-hidden bg-background border rounded-xl shadow-sm">
 
-            {/* Sidebar List */}
-            <div className="w-full md:w-80 lg:w-96 flex-shrink-0 h-full">
-                <ChatList
-                    chats={chats}
-                    activeChatId={activeChatId || ""}
-                    onChatSelect={setActiveChatId}
-                />
-            </div>
+                {/* Sidebar List */}
+                <div className="w-full md:w-80 lg:w-96 flex-shrink-0 h-full border-r border-border">
+                    <ChatList
+                        chats={chats}
+                        activeChatId={activeChatId || ""}
+                        onChatSelect={setActiveChatId}
+                    />
+                </div>
 
-            {/* Main Message View */}
-            <div className="hidden md:block flex-1 h-full border-r border-border">
-                <MessageList
-                    activeChat={activeChat}
-                    messages={currentMessages}
-                    messageInput={messageInput}
-                    setMessageInput={setMessageInput}
-                    onSendMessage={handleSendMessage}
-                />
-            </div>
-
-            {/* Mobile Active Chat View Overlay (Simple implementation) */}
-            {activeChatId && (
-                <div className="md:hidden fixed inset-0 z-50 bg-background flex flex-col pt-[64px]">
-                    <button
-                        onClick={() => setActiveChatId(null)}
-                        className="absolute top-20 left-4 z-50 p-2 bg-primary/20 rounded-full text-xs font-bold"
-                    >
-                        ← Back
-                    </button>
+                {/* Main Message View */}
+                <div className="hidden md:block flex-1 h-full">
                     <MessageList
                         activeChat={activeChat}
                         messages={currentMessages}
@@ -123,7 +106,26 @@ export default function MessagePage() {
                         onSendMessage={handleSendMessage}
                     />
                 </div>
-            )}
-        </div>
+
+                {/* Mobile Active Chat View Overlay (Simple implementation) */}
+                {activeChatId && (
+                    <div className="md:hidden fixed inset-0 z-50 bg-background flex flex-col pt-[64px]">
+                        <button
+                            onClick={() => setActiveChatId(null)}
+                            className="absolute top-20 left-4 z-50 p-2 bg-primary/20 rounded-full text-xs font-bold"
+                        >
+                            ← Back
+                        </button>
+                        <MessageList
+                            activeChat={activeChat}
+                            messages={currentMessages}
+                            messageInput={messageInput}
+                            setMessageInput={setMessageInput}
+                            onSendMessage={handleSendMessage}
+                        />
+                    </div>
+                )}
+            </div>
+        </DashboardLayout>
     );
 }
