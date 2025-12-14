@@ -6,7 +6,11 @@ import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import {
+    Activity,
     BarChart2,
+    CircleDashed, // Cricket placeholder
+    Dribbble // Basketball
+    ,
     Gift,
     HeadphonesIcon,
     LayoutDashboard,
@@ -23,8 +27,14 @@ import { useEffect, useState } from "react";
 const navigationItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: ROUTES.DASHBOARD },
   { icon: Trophy, label: "My Bets", href: ROUTES.MY_BETS },
+  
+  // Sports Categories (New)
+  { icon: CircleDashed, label: "Football", href: ROUTES.FOOTBALL || "/dashboard/sports/football" },
+  { icon: Activity, label: "Cricket", href: ROUTES.CRICKET || "/dashboard/sports/cricket" },
+  { icon: Dribbble, label: "Basketball", href: ROUTES.BASKETBALL || "/dashboard/sports/basketball" },
+
   { icon: Wallet, label: "Wallet", href: ROUTES.WALLET },
-  { icon: Gift, label: "Bonuses", href: ROUTES.PROMOTIONS || "/promotions" }, // Fallback if route doesn't exist yet
+  { icon: Gift, label: "Bonuses", href: ROUTES.PROMOTIONS || "/promotions" }, 
   { icon: BarChart2, label: "Statistics", href: ROUTES.STATISTICS || "/statistics" },
   { icon: HeadphonesIcon, label: "Support", href: ROUTES.SUPPORT || "/support" },
   { icon: Settings, label: "Settings", href: ROUTES.SETTINGS },

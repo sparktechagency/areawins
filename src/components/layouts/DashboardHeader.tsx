@@ -2,7 +2,6 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/lib/constants";
 import { Bell, ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -10,7 +9,8 @@ import { usePathname } from "next/navigation";
 
 export default function DashboardHeader() {
   const pathname = usePathname();
-  const { user } = useAuth();
+  // const { user } = useAuth();
+  const user = { firstName: "Rakib", lastName: "Hassan", avatar: "", role: "User" }; // Mock user
 
   // Generate breadcrumbs from pathname
   const pathSegments = pathname.split("/").filter(Boolean);

@@ -1,19 +1,19 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { useWallet } from "@/hooks/useWallet";
 import { ROUTES } from "@/lib/constants";
 import { formatCurrency } from "@/lib/utils";
 import { ArrowRight, Banknote, Star, Wallet } from "lucide-react";
 import Link from "next/link";
 
 export default function StatsOverview() {
-  const { wallet } = useWallet();
+  // const { wallet } = useWallet();
+  const wallet = { balance: 15450.00 }; // Mock wallet
 
-  // Mock data for bonus and withdrawable if not in wallet
+  // Mock data for bonus and withdrawable
   // In a real app these would come from the API
   const bonusFunds = 2000.00;
-  const withdrawable = (wallet?.balance || 0) - bonusFunds > 0 ? (wallet?.balance || 0) - bonusFunds : 0;
+  const withdrawable = 13450.00;
   const wagerLeft = "3x Wager Left";
 
   return (

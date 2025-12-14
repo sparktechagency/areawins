@@ -1,6 +1,6 @@
-import Link from "next/link";
 import logo from "@/assets/logo/logo2.png";
 import Image from "next/image";
+import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="w-full bg-background text-foreground py-16">
@@ -33,8 +33,8 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/support" className="text-foreground">
-                  Support
+                <Link href="/contact" className="text-foreground">
+                  Contact us
                 </Link>
               </li>
               <li>

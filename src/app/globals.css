@@ -118,11 +118,11 @@
   --foreground: #e2e8f0; /* Light gray text */
 
   /* Card & Surface */
-  --card: #1a242d; /* Dark card background */
+  --card: #112218; /* Dark card background */
   --card-foreground: #e2e8f0;
 
   /* Popover */
-  --popover: #1a242d; /* Dark popover background */
+  --popover: #112218; /* Dark popover background */
   --popover-foreground: #e2e8f0;
 
   /* Muted */
@@ -141,7 +141,7 @@
   --ring: #00d65c;
 
   /* Betting Specific Colors */
-  --odds-background: #1a242d;
+  --odds-background: #112218;
   --odds-hover: #2d3748;
   --odds-selected: #00d65c;
   --odds-text: #e2e8f0;
@@ -217,21 +217,29 @@ body {
    ======================================== */
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--background);
+  border-left: 1px solid var(--border);
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--muted-foreground);
-  border-radius: 4px;
+  border-radius: 5px;
+  border: 2px solid var(--background);
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted-foreground) var(--background);
 }
 
 /* ========================================
