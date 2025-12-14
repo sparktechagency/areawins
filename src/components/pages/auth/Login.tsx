@@ -110,32 +110,68 @@ const Login: React.FC = () => {
 
       {/* Right Side: Hero Image */}
       <div className="hidden lg:block relative w-0 flex-1 overflow-hidden bg-background">
-        <Image
-          fill
-          className="absolute inset-0 h-full w-full object-cover"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGHfmROBvNgx-vXT0JtyW9iIW89MISZDWJ6w2TZptzBHf445R1R5mmYgxnztxr8Sgi6Fiy46q_vLSeT4eT2_EStZ4SxMk7Hv9da-B8rvblOI-6p8_rsm-bCo8eYdEs6k-a9v1elmPkyTyy5KhfJnA9zgzUJ9hL3ilqIjjTdE2q04oKw6kO3PYsur8nID5rTrSe7qCjemNvXZKATmPr6IQp1VZF3KVsCMnKm3e41geiby4Pedb0yawxsh_F7S0Fi8wMHHfDNicW0Js_"
-          alt="Stadium"
-        />
-        <div className="absolute inset-0 bg-[#112218]/80 mix-blend-multiply"></div>
-        <div className="absolute inset-0 bg-linear-to-t from-[#112218] via-transparent to-transparent opacity-90"></div>
+        {/* Dark Mode Version */}
+        <div className="hidden dark:block h-full w-full relative">
+          <Image
+            fill
+            className="absolute inset-0 h-full w-full object-cover"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGHfmROBvNgx-vXT0JtyW9iIW89MISZDWJ6w2TZptzBHf445R1R5mmYgxnztxr8Sgi6Fiy46q_vLSeT4eT2_EStZ4SxMk7Hv9da-B8rvblOI-6p8_rsm-bCo8eYdEs6k-a9v1elmPkyTyy5KhfJnA9zgzUJ9hL3ilqIjjTdE2q04oKw6kO3PYsur8nID5rTrSe7qCjemNvXZKATmPr6IQp1VZF3KVsCMnKm3e41geiby4Pedb0yawxsh_F7S0Fi8wMHHfDNicW0Js_"
+            alt="Stadium Dark"
+          />
+          <div className="absolute inset-0 bg-[#112218]/80 mix-blend-multiply"></div>
+          <div className="absolute inset-0 bg-linear-to-t from-[#112218] via-transparent to-transparent opacity-90"></div>
 
-        <div className="absolute bottom-0 left-0 right-0 p-16 z-10 flex flex-col justify-end h-full pointer-events-none">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#19e668]/20 border border-[#19e668]/30 text-[#19e668] text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm">
-              Live Sports Data
+          <div className="absolute bottom-0 left-0 right-0 p-16 z-10 flex flex-col justify-end h-full pointer-events-none">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#19e668]/20 border border-[#19e668]/30 text-[#19e668] text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm">
+                Live Sports Data
+              </div>
+              <h2 className="text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
+                Experience the <span className="text-[#19e668]">next level</span>{" "}
+                of sports betting.
+              </h2>
+              <p className="text-lg text-gray-300 max-w-lg leading-relaxed">
+                Real-time odds, secure transactions, and instant payouts. Join
+                thousands of winners on Bangladesh&apos;s premier platform.
+              </p>
+              <div className="mt-10 flex gap-2">
+                <div className="w-12 h-1.5 bg-[#19e668] rounded-full"></div>
+                <div className="w-3 h-1.5 bg-gray-600 rounded-full"></div>
+                <div className="w-3 h-1.5 bg-gray-600 rounded-full"></div>
+              </div>
             </div>
-            <h2 className="text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
-              Experience the <span className="text-[#19e668]">next level</span>{" "}
-              of sports betting.
-            </h2>
-            <p className="text-lg text-gray-300 max-w-lg leading-relaxed">
-              Real-time odds, secure transactions, and instant payouts. Join
-              thousands of winners on Bangladesh&apos;s premier platform.
-            </p>
-            <div className="mt-10 flex gap-2">
-              <div className="w-12 h-1.5 bg-[#19e668] rounded-full"></div>
-              <div className="w-3 h-1.5 bg-gray-600 rounded-full"></div>
-              <div className="w-3 h-1.5 bg-gray-600 rounded-full"></div>
+          </div>
+        </div>
+
+        {/* Light Mode Version */}
+        <div className="block dark:hidden h-full w-full relative">
+          <Image
+            fill
+            className="absolute inset-0 h-full w-full object-cover"
+            src="https://images.unsplash.com/flagged/photo-1576972405668-2d020a01cbfa"
+            alt="Stadium Light"
+          />
+          <div className="absolute inset-0 bg-[#112218]/80 mix-blend-multiply"></div>
+          <div className="absolute inset-0 bg-linear-to-t from-[#112218] via-transparent to-transparent opacity-90"></div>
+
+          <div className="absolute bottom-0 left-0 right-0 p-16 z-10 flex flex-col justify-end h-full pointer-events-none">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#19e668]/20 border border-[#19e668]/30 text-[#19e668] text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm">
+                Live Sports Data
+              </div>
+              <h2 className="text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
+                Experience the <span className="text-[#19e668]">next level</span>{" "}
+                of sports betting.
+              </h2>
+              <p className="text-lg text-gray-300 max-w-lg leading-relaxed">
+                Real-time odds, secure transactions, and instant payouts. Join
+                thousands of winners on Bangladesh&apos;s premier platform.
+              </p>
+              <div className="mt-10 flex gap-2">
+                <div className="w-12 h-1.5 bg-[#19e668] rounded-full"></div>
+                <div className="w-3 h-1.5 bg-gray-600 rounded-full"></div>
+                <div className="w-3 h-1.5 bg-gray-600 rounded-full"></div>
+              </div>
             </div>
           </div>
         </div>

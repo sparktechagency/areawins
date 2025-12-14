@@ -44,7 +44,11 @@ export const ROUTES = {
   MESSAGES: "/dashboard/messages",
   NOTIFICATIONS: "/dashboard/notifications",
   SETTINGS: "/dashboard/settings",
+  PROMOTIONS: "/dashboard/promotions",
+  STATISTICS: "/dashboard/statistics",
+  SUPPORT: "/dashboard/support",
 } as const;
+
 
 /**
  * Public routes that don't require authentication

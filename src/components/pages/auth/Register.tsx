@@ -8,12 +8,27 @@ const Register: React.FC = () => {
     <div className="bg-background  text-foreground antialiased h-screen overflow-hidden flex flex-col lg:flex-row font-display">
       {/* Left Panel: Hero / Visuals */}
       <div className="hidden lg:flex lg:w-5/12 xl:w-1/2 relative flex-col justify-between p-12 bg-background overflow-hidden">
-        <div className="absolute inset-0 z-0">
+        
+        {/* Dark Mode Background */}
+        <div className="hidden dark:block absolute inset-0 z-0">
           <div
             className="w-full h-full bg-cover bg-center bg-no-repeat opacity-60 mix-blend-overlay"
             style={{
               backgroundImage:
                 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBFpshNj-QObVsTFj680zJqBkxVVADIBcIySGOYLYcql30UgtT0cdsZFopFgOzbKLpCNPv7WK2k2TQQzi9XMs6ZZcFAd9AM00qWML6Vj00KDWSeepxkoAu1589l-8VghJ7C6AYWm0unqrzXew2CD_gvIJCm0xXxnQS2eqZSUEN3G_TXeOFRunMSDNRuxWS7WuhCu56gg9AYzyVbACaHL26va9jne0sNHx9vNHiQvg_DBt3N9e6vqB5ePoszzI37JTsNcRlxtHROn5Jw")',
+            }}
+          ></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#102217] via-[#102217]/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#102217]/90 to-transparent"></div>
+        </div>
+
+        {/* Light Mode Background */}
+        <div className="block dark:hidden absolute inset-0 z-0">
+          <div
+            className="w-full h-full bg-cover bg-center bg-no-repeat opacity-60 mix-blend-overlay"
+            style={{
+              backgroundImage:
+                'url("https://images.unsplash.com/photo-1546519638-68e109498ffc")',
             }}
           ></div>
           <div className="absolute inset-0 bg-gradient-to-t from-[#102217] via-[#102217]/80 to-transparent"></div>
