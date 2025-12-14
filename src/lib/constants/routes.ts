@@ -10,18 +10,18 @@ export const ROUTES = {
   MORE: "/more",
 
   // Sports routes
-  FOOTBALL: "/football",
-  CRICKET: "/cricket",
-  BASKETBALL: "/basketball",
-  VOLLEYBALL: "/volleyball",
-  BASEBALL: "/baseball",
-  TENNIS: "/tennis",
-  BOXING: "/boxing",
+  FOOTBALL: "/bets/football",
+  CRICKET: "/bets/cricket",
+  BASKETBALL: "/bets/basketball",
+  VOLLEYBALL: "/bets/volleyball",
+  BASEBALL: "/bets/baseball",
+  TENNIS: "/bets/tennis",
+  BOXING: "/bets/boxing",
 
   // Match routes
-  LIVE_EVENTS: "/live-events",
-  UPCOMING: "/upcoming",
-  MATCH_DETAIL: (id: string) => `/match/${id}`,
+  LIVE_EVENTS: "/bets/live-events",
+  UPCOMING: "/bets/upcoming",
+  MATCH_DETAIL: (id: string) => `/bets/match/${id}`,
 
   // Auth routes
   LOGIN: "/login",
@@ -70,7 +70,7 @@ export const PUBLIC_ROUTES = [
   ROUTES.BOXING,
   ROUTES.LIVE_EVENTS,
   ROUTES.UPCOMING,
-  "/match", // Match detail pages
+  "/bets/match", // Match detail pages
 ];
 
 /**

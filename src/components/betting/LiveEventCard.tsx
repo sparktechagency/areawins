@@ -5,12 +5,11 @@
  * Card displaying live match with team logos, score, and countdown
  */
 
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { cn, formatTime, getTimeUntilMatch } from "@/lib/utils";
 import { Match } from "@/types";
-import { formatTime, getTimeUntilMatch } from "@/lib/utils";
-import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface LiveEventCardProps {
   match: Match;
@@ -22,7 +21,7 @@ export default function LiveEventCard({ match, className }: LiveEventCardProps) 
   const timeUntil = getTimeUntilMatch(match.startTime);
 
   return (
-    <Link href={`/match/${match.id}`}>
+    <Link href={`/bets/match/${match.id}`}>
       <Card className={cn("match-card hover:shadow-lg transition-all cursor-pointer", className)}>
         <CardContent className="p-4">
           {/* Live Badge */}

@@ -403,7 +403,7 @@ function SportMatchCard({ match, sport }: { match: Match, sport: string }) {
       <div className="bg-[#1a2c24] rounded-xl p-4 md:p-5 flex flex-col md:flex-row gap-6 border border-white/5 hover:border-primary/30 transition-all group">
 
          {/* Team / Score Info - Clickable */}
-         <Link href={`/match/${match.id}`} className="flex-1 hover:opacity-80 transition-opacity">
+         <Link href={`/bets/match/${match.id}`} className="flex-1 hover:opacity-80 transition-opacity">
             <div className="flex items-center gap-3 text-xs font-bold text-primary mb-4">
                {match.isLive && match.score && (
                   <>
