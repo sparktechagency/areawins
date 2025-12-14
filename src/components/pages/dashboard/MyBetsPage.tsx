@@ -5,17 +5,17 @@
  * Dashboard page displaying user's betting history
  */
 
-import { useState } from "react";
-import { useGetBetHistoryQuery, useGetActiveBetsQuery } from "@/lib/redux/api/bettingApi";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { formatCurrency, formatDate, formatOdds } from "@/lib/utils";
-import { Ticket, TrendingUp, TrendingDown, Clock, Filter } from "lucide-react";
-import Link from "next/link";
 import { ROUTES } from "@/lib/constants";
+import { useGetActiveBetsQuery, useGetBetHistoryQuery } from "@/lib/redux/api/bettingApi";
+import { formatCurrency, formatDate, formatOdds } from "@/lib/utils";
+import { Clock, Filter, Ticket, TrendingDown, TrendingUp } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 export default function MyBetsPage() {
   const [filter, setFilter] = useState<"all" | "won" | "lost" | "pending">("all");
@@ -92,10 +92,10 @@ export default function MyBetsPage() {
                 <p className="text-2xl font-bold text-primary">
                   {betHistory.bets.length > 0
                     ? Math.round(
-                        (betHistory.bets.filter((b) => b.status === "won").length /
-                          betHistory.bets.filter((b) => b.status !== "pending").length) *
-                          100
-                      )
+                      (betHistory.bets.filter((b) => b.status === "won").length /
+                        betHistory.bets.filter((b) => b.status !== "pending").length) *
+                      100
+                    )
                     : 0}
                   %
                 </p>
@@ -120,7 +120,7 @@ export default function MyBetsPage() {
                 variant={filter === "all" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilter("all")}
-                className={filter === "all" ? "bg-primary hover:bg-primary/90" : "hover:bg-accent"}
+                className={filter === "all" ? "bg-primary hover:bg-primary/90" : ""}
               >
                 All
               </Button>
@@ -128,7 +128,7 @@ export default function MyBetsPage() {
                 variant={filter === "pending" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilter("pending")}
-                className={filter === "pending" ? "bg-yellow-500 hover:bg-yellow-600" : "hover:bg-accent"}
+                className={filter === "pending" ? "bg-yellow-500 hover:bg-yellow-600" : ""}
               >
                 Pending
               </Button>
@@ -136,7 +136,7 @@ export default function MyBetsPage() {
                 variant={filter === "won" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilter("won")}
-                className={filter === "won" ? "bg-green-500 hover:bg-green-600" : "hover:bg-accent"}
+                className={filter === "won" ? "bg-green-500 hover:bg-green-600" : ""}
               >
                 Won
               </Button>
@@ -144,7 +144,7 @@ export default function MyBetsPage() {
                 variant={filter === "lost" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilter("lost")}
-                className={filter === "lost" ? "bg-red-500 hover:bg-red-600" : "hover:bg-accent"}
+                className={filter === "lost" ? "bg-red-500 hover:bg-red-600" : ""}
               >
                 Lost
               </Button>

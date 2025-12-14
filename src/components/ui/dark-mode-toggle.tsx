@@ -31,7 +31,7 @@ const DarkModeToggle = () => {
       size="icon"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       aria-label="Toggle theme"
-      className="relative"
+      className="relative cursor-pointer"
     >
       {isDark ? (
         <Moon className="size-6 transition-transform duration-300 hover:rotate-12" />

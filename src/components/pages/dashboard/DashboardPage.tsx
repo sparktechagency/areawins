@@ -1,10 +1,4 @@
 "use client";
-
-/**
- * DashboardPage Component
- * Main dashboard overview with stats and recent activity
- */
-
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import DashboardGreeting from "./DashboardGreeting";
 import ProfitLossChart from "./ProfitLossChart";
@@ -15,7 +9,7 @@ import StatsOverview from "./StatsOverview";
 export default function DashboardPage() {
   return (
     <DashboardLayout>
-      <div className="max-w-7xl mx-auto md:pr-4">
+      <div className="w-full mx-auto md:pr-4">
         {/* Greeting Section */}
         <DashboardGreeting />
 

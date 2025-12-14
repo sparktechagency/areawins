@@ -93,7 +93,7 @@ const FootballUpcomingSection: React.FC = () => {
       {matches.map((match, index) => (
         <div
           key={index}
-          className="grid grid-cols-12 gap-4 py-4 px-6 items-center text-sm border-b border-border last:border-b-0 hover:bg-accent/50 transition-colors"
+          className="grid grid-cols-12 gap-4 py-4 px-6 items-center text-sm border-b border-border last:border-b-0 /50 transition-colors"
         >
           {/* Date */}
           <div className="col-span-2 text-muted-foreground">{match.date}</div>
