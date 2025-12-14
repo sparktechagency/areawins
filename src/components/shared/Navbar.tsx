@@ -6,6 +6,7 @@ import logo from "@/assets/logo/logo.png";
 import logo2 from "@/assets/logo/logo2.png";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,9 +39,8 @@ const Navbar = () => {
   if (isHomePage) {
     return (
       <nav
-        className={`fixed top-0 h-20 flex justify-center items-center left-0 right-0 z-50 px-4 py-5  ${
-          scrolled ? "bg-primary/10 backdrop-blur-lg" : "bg-transparent"
-        }`}
+        className={`fixed top-0 h-20 flex justify-center items-center left-0 right-0 z-50 px-4 py-5  ${scrolled ? "bg-primary/10 backdrop-blur-lg" : "bg-transparent"
+          }`}
       >
         <div className="container mx-auto flex items-center justify-between gap-5">
           {/* Logo */}
@@ -54,11 +54,10 @@ const Navbar = () => {
               <input
                 type="text"
                 placeholder="Search"
-                className={`w-full px-4 py-2 rounded-full ${
-                  scrolled
+                className={`w-full px-4 py-2 rounded-full ${scrolled
                     ? "bg-background text-foreground border-border"
                     : "bg-white text-gray-900 border-white"
-                } border  outline-none focus:outline-none `}
+                  } border  outline-none focus:outline-none `}
               />
               <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
                 <Menu className="text-muted-foreground w-5 h-5" />
@@ -72,16 +71,9 @@ const Navbar = () => {
             <button className="text-white hidden md:block drop-shadow-md hover:text-green-300 transition-colors">
               English <span className="ml-1">›</span>
             </button>
-            <Bell className="text-white w-6 h-6 cursor-pointer drop-shadow-md hover:text-green-300 transition-colors" />
-            <button className="text-primary font-semibold hover:text-green-300 drop-shadow-md transition-colors">
+            <Button variant="default">
               Login
-            </button>
-            <div className="relative">
-              <ShoppingCart className="text-white w-6 h-6 cursor-pointer drop-shadow-md hover:text-green-300 transition-colors" />
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center shadow-lg">
-                2
-              </span>
-            </div>
+            </Button>
           </div>
         </div>
       </nav>

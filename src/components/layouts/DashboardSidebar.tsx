@@ -6,19 +6,15 @@ import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import {
-    Activity,
-    BarChart2,
-    CircleDashed, // Cricket placeholder
-    Dribbble // Basketball
-    ,
-    Gift,
-    HeadphonesIcon,
-    LayoutDashboard,
-    LogOut,
-    Menu,
-    Settings,
-    Trophy,
-    Wallet
+  BarChart2,
+  Gift,
+  HeadphonesIcon,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  Settings,
+  Trophy,
+  Wallet
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -27,14 +23,11 @@ import { useEffect, useState } from "react";
 const navigationItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: ROUTES.DASHBOARD },
   { icon: Trophy, label: "My Bets", href: ROUTES.MY_BETS },
-  
-  // Sports Categories (New)
-  { icon: CircleDashed, label: "Football", href: ROUTES.FOOTBALL || "/dashboard/sports/football" },
-  { icon: Activity, label: "Cricket", href: ROUTES.CRICKET || "/dashboard/sports/cricket" },
-  { icon: Dribbble, label: "Basketball", href: ROUTES.BASKETBALL || "/dashboard/sports/basketball" },
+
+
 
   { icon: Wallet, label: "Wallet", href: ROUTES.WALLET },
-  { icon: Gift, label: "Bonuses", href: ROUTES.PROMOTIONS || "/promotions" }, 
+  { icon: Gift, label: "Bonuses", href: ROUTES.PROMOTIONS || "/promotions" },
   { icon: BarChart2, label: "Statistics", href: ROUTES.STATISTICS || "/statistics" },
   { icon: HeadphonesIcon, label: "Support", href: ROUTES.SUPPORT || "/support" },
   { icon: Settings, label: "Settings", href: ROUTES.SETTINGS },
@@ -55,11 +48,11 @@ export default function DashboardSidebar() {
       {/* Logo Area */}
       <div className="p-6 border-b border-border">
         <Link href={ROUTES.HOME} className="flex items-center gap-2">
-           {/* Placeholder for Logo Icon if needed, otherwise just text */}
-           <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-             <Trophy className="w-5 h-5 text-primary-foreground" />
-           </div>
-           <h1 className="text-xl font-bold tracking-tight text-foreground">BetPro BD</h1>
+          {/* Placeholder for Logo Icon if needed, otherwise just text */}
+          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+            <Trophy className="w-5 h-5 text-primary-foreground" />
+          </div>
+          <h1 className="text-xl font-bold tracking-tight text-foreground">BetPro BD</h1>
         </Link>
       </div>
 
@@ -112,11 +105,11 @@ export default function DashboardSidebar() {
 
       {/* Mobile Sidebar Trigger */}
       <div className="lg:hidden p-4 sticky top-0 z-50 bg-background border-b border-border flex items-center justify-between">
-         <Link href={ROUTES.HOME} className="flex items-center gap-2">
-           <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-             <Trophy className="w-4 h-4 text-primary-foreground" />
-           </div>
-           <span className="font-bold text-foreground">BetPro BD</span>
+        <Link href={ROUTES.HOME} className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+            <Trophy className="w-4 h-4 text-primary-foreground" />
+          </div>
+          <span className="font-bold text-foreground">BetPro BD</span>
         </Link>
         <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>
           <SheetTrigger asChild>
