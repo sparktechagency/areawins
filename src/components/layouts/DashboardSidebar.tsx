@@ -12,6 +12,7 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
+  MessageCircle,
   Settings,
   Trophy,
   Wallet
@@ -27,6 +28,7 @@ const navigationItems = [
 
 
   { icon: Wallet, label: "Wallet", href: ROUTES.WALLET },
+  { icon: MessageCircle, label: "Message", href: ROUTES.MESSAGES },
   { icon: Gift, label: "Bonuses", href: ROUTES.PROMOTIONS || "/promotions" },
   { icon: BarChart2, label: "Statistics", href: ROUTES.STATISTICS || "/statistics" },
   { icon: HeadphonesIcon, label: "Support", href: ROUTES.SUPPORT || "/support" },

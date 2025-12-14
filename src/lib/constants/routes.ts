@@ -43,7 +43,7 @@ export const ROUTES = {
   WALLET_WITHDRAW: "/dashboard/wallet/withdraw",
   TRANSACTIONS: "/dashboard/transactions",
   FAVORITES: "/dashboard/favorites",
-  MESSAGES: "/dashboard/messages",
+  MESSAGES: "/dashboard/message",
   NOTIFICATIONS: "/dashboard/notifications",
   SETTINGS: "/dashboard/settings",
   PROMOTIONS: "/dashboard/promotions",
