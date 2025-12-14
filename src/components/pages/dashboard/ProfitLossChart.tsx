@@ -14,7 +14,7 @@ const data = [
 
 export default function ProfitLossChart() {
   return (
-    <Card className="bg-card dark:bg-[#112218] border-border h-full">
+    <Card className="bg-card  border-border h-full">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-foreground text-lg font-bold">Profit & Loss</CardTitle>
         <Select defaultValue="month">
@@ -32,27 +32,27 @@ export default function ProfitLossChart() {
         <div className="h-[200px] w-full mt-4">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data}>
-              <XAxis 
-                dataKey="name" 
-                stroke="#64748b" 
-                fontSize={12} 
-                tickLine={false} 
+              <XAxis
+                dataKey="name"
+                stroke="#64748b"
+                fontSize={12}
+                tickLine={false}
                 axisLine={false}
               />
-              <Tooltip 
+              <Tooltip
                 cursor={{ fill: 'rgba(255,255,255,0.05)' }}
-                contentStyle={{ 
-                    backgroundColor: '#1a242d', 
-                    border: '1px solid #244732', 
-                    borderRadius: '8px',
-                    color: '#fff'
+                contentStyle={{
+                  backgroundColor: '#1a242d',
+                  border: '1px solid #244732',
+                  borderRadius: '8px',
+                  color: '#fff'
                 }}
               />
               <Bar dataKey="profit" radius={[4, 4, 0, 0]}>
                 {data.map((entry, index) => (
-                  <Cell 
-                    key={`cell-${index}`} 
-                    fill={entry.profit > 0 ? (index === 3 ? "#00d65c" : "#1a3525") : "#ef4444"} 
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={entry.profit > 0 ? (index === 3 ? "#00d65c" : "#1a3525") : "#ef4444"}
                     className="hover:opacity-80 transition-opacity"
                   />
                 ))}
