@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useAuth } from "@/hooks/useAuth";
-import { Bell, Camera, CheckCircle2, Copy, Gift, Lock, ShieldCheck, User } from "lucide-react";
+import { Bell, Camera, CheckCircle2, Copy, CreditCard, Gift, Lock, ShieldCheck, User } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner"; // Assuming sonner
 
@@ -257,4 +257,3 @@ export default function EditProfilePage() {
         </DashboardLayout>
     );
 }
-

@@ -11,7 +11,7 @@ import { HelpCircle, Mail, MessageSquare, Phone } from "lucide-react";
 export default function SupportPage() {
   return (
     <DashboardLayout>
-      <div className="max-w-4xl mx-auto">
+      <div className="w-full mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground flex items-center gap-2">
             Support Center <HelpCircle className="w-8 h-8 text-primary" />

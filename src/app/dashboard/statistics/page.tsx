@@ -10,7 +10,7 @@ import { BarChart2, Calendar, PieChart, TrendingUp } from "lucide-react";
 export default function StatisticsPage() {
   return (
     <DashboardLayout>
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground flex items-center gap-2">
             Statistics <BarChart2 className="w-8 h-8 text-primary" />
