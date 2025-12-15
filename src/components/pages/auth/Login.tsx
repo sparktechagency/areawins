@@ -35,7 +35,7 @@ const Login: React.FC = () => {
   return (
     <div className="min-h-screen flex bg-background font-display text-foreground">
       {/* Left Side: Login Form */}
-      <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-background w-full lg:w-[600px] z-10 relative border-r border-border">
+      <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-background w-full lg:w-[700px] z-10 relative border-r border-border">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div className="mb-10">
             <h1 className="text-3xl font-bold tracking-tight text-foreground">
@@ -55,10 +55,7 @@ const Login: React.FC = () => {
                   <FormItem>
                     <FormLabel>Email or Username</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Email or Username"
-                        {...field}
-                      />
+                      <Input placeholder="Email or Username" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -92,6 +89,7 @@ const Login: React.FC = () => {
                       <Checkbox
                         id="remember-me"
                         checked={field.value}
+                        className="cursor-pointer"
                         onCheckedChange={field.onChange}
                       />
                       <label
@@ -113,10 +111,7 @@ const Login: React.FC = () => {
                 </div>
               </div>
 
-              <Button
-                type="submit"
-                className="w-full"
-              >
+              <Button type="submit" className="w-full">
                 Log in
               </Button>
 
