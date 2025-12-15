@@ -66,7 +66,7 @@
 
   /* Border */
   --border: #e2e8f0;
-  --input: #e2e8f0;
+  --input: #ebeff5;
 
   /* Ring */
   --ring: #00d65c;
@@ -471,10 +471,10 @@ body {
   border-width: 0;
 }
 
-/* Focus visible for keyboard navigation */
-*:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
+/* Allow specific elements to opt out of focus outline */
+.no-focus-ring:focus-visible {
+  outline: none;
+  outline-offset: 0;
 }
 
 /* Reduce motion for users who prefer it */

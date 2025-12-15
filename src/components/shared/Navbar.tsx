@@ -145,7 +145,7 @@ const Navbar = () => {
             </Button>
           </Link>
           <Link href="/bets/progressive">
-            <Button className="bg-gradient-to-r from-primary to-blue-500 rounded-full px-4 hover:shadow-lg transition-all text-white border-0">
+            <Button className="bg-linear-to-r from-primary to-blue-500 rounded-full px-4 hover:shadow-lg transition-all text-white border-0">
               Progressive bets
             </Button>
           </Link>
