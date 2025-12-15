@@ -1,5 +1,6 @@
 import hero from "@/assets/hero/herosection.png";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -26,15 +27,19 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button className="px-10 cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground">
-              Enter
-            </Button>
-            <Button
-              variant="default"
-              className="px-10 cursor-pointer bg-white text-gray-900 hover:bg-white/90"
-            >
-              Sign Up
-            </Button>
+            <Link href="/bets">
+              <Button className="px-10 cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground">
+                Bets Now
+              </Button>
+            </Link>
+            <Link href="/register">
+              <Button
+                variant="default"
+                className="px-10 cursor-pointer bg-white text-gray-900 hover:bg-white/90"
+              >
+                Sign Up
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

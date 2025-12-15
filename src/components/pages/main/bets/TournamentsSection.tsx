@@ -1,42 +1,143 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 const TournamentsSection: React.FC = () => {
+  const banners = useMemo(
+    () => [
+      {
+        src: "https://i2-prod.liverpool.com/incoming/article30076417.ece/ALTERNATES/s1200/0_GettyImages-2176346284.jpg",
+        alt: "Premier League Player",
+        title: "PREMIER LEAGUE",
+        linkText: "All matches",
+      },
+      {
+        src: "https://wallpapercave.com/wp/wp11567204.jpg",
+        alt: "Football Action",
+        title: "CHAMPIONS LEAGUE",
+        linkText: "View fixtures",
+      },
+      {
+        src: "https://wallpapercave.com/wp/wp1817048.jpg",
+        alt: "Trophy",
+        title: "WORLD CUP QUALIFIERS",
+        linkText: "Latest results",
+      },
+      {
+        src: "https://wallpapercave.com/wp/wp4069976.jpg",
+        alt: "Stadium Night",
+        title: "LA LIGA",
+        linkText: "Live now",
+      },
+    ],
+    []
+  );
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % banners.length);
+  }, [banners]);
+
+  const resetTimeout = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
+
+  useEffect(() => {
+    resetTimeout();
+    timeoutRef.current = setTimeout(nextSlide, 5000); // Auto-slide every 5 seconds
+
+    return () => resetTimeout();
+  }, [currentIndex, nextSlide]);
+
+  // Pause autoplay on hover
+  const handleMouseEnter = () => resetTimeout();
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(nextSlide, 5000);
+  };
+
   return (
-    <section className="w-full container mx-auto ">
+    <section className="w-full container mx-auto py-12">
       <h2 className="text-2xl font-bold text-foreground mb-6">Tournaments</h2>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Premier League Banner */}
-        <div className="relative rounded-lg overflow-hidden bg-primary col-span-2">
-          <Image
-            src="https://i2-prod.liverpool.com/incoming/article30076417.ece/ALTERNATES/s1200/0_GettyImages-2176346284.jpg"
-            alt="Premier League Player"
-            width={500}
-            height={500}
-            className="w-full h-80 object-cover"
-          />
-          <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
-          <div className="absolute bottom-6 left-6 text-white">
-            <h3 className="text-3xl font-bold">PREMIER LEAGUE</h3>
-            <p className="text-lg flex items-center gap-2">
-              <span>›</span> All matches
-            </p>
+        {/* Carousel - Takes 2 columns on medium+ screens */}
+        <div
+          className="relative overflow-hidden rounded-lg col-span-1 md:col-span-2"
+          ref={carouselRef}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div
+            className="flex transition-transform duration-700 ease-in-out"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {banners.map((banner, index) => (
+              <div
+                key={index}
+                className="relative shrink-0 w-full h-72 md:h-80"
+              >
+                <Image
+                  src={banner.src}
+                  alt={banner.alt}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
+                <div className="absolute bottom-6 left-6 text-white">
+                  <h3 className="text-3xl font-bold mb-2">{banner.title}</h3>
+                  {banner.linkText && (
+                    <p className="text-lg flex items-center gap-2">
+                      <span>›</span> {banner.linkText}
+                    </p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Custom Glowing Dots */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3">
+            {banners.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  setCurrentIndex(index);
+                  resetTimeout();
+                  timeoutRef.current = setTimeout(nextSlide, 5000);
+                }}
+                className={`relative w-3 h-3 cursor-pointer rounded-full transition-all duration-500 ${
+                  index === currentIndex
+                    ? "bg-white scale-150 shadow-lg shadow-white/60"
+                    : "bg-white/40 hover:bg-white/70"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              >
+                {index === currentIndex && (
+                  <span className="absolute inset-0 rounded-full bg-white animate-ping opacity-75" />
+                )}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Special Bet Banner */}
-        <div className="relative rounded-lg overflow-hidden">
+        {/* Static Special Bet Banner - Right side */}
+        <div className="relative rounded-lg overflow-hidden h-72 md:h-80">
           <Image
             src="https://wallpapercave.com/wp/wp4069976.jpg"
             alt="Stadium"
-            width={500}
-            height={500}
-            className="w-full h-80 object-cover"
+            fill
+            className="object-cover"
           />
           <div className="absolute inset-0 bg-black/50" />
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
-            <h3 className="text-4xl font-bold mb-4">SPECIAL BET</h3>
-            <button className="bg-primary text-primary-foreground px-12 py-5 rounded text-xl cursor-pointer font-bold hover:bg-primary/90">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white">
+            <h3 className="text-4xl font-bold mb-6">SPECIAL BET</h3>
+            <button className="bg-primary text-primary-foreground px-12 py-4 rounded  font-bold hover:bg-primary/90 transition">
               JOIN 20$
             </button>
           </div>

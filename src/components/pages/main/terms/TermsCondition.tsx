@@ -63,16 +63,16 @@ const TermsCondition = () => {
             <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">
               Table of Contents
             </h3>
-            <nav className="flex flex-col space-y-1">
+            <nav className="flex flex-col space-y-2">
               {sections.map((section) => (
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
                   className={cn(
-                    "flex items-center justify-between px-4 py-3 text-sm font-medium rounded-lg transition-colors text-left",
+                    "flex items-center justify-between px-4 py-3 text-sm font-medium rounded-lg cursor-pointer transition-colors text-left",
                     activeSection === section.id
-                      ? "bg-secondary text-primary"
-                      : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:bg-primary/10"
                   )}
                 >
                   {section.label}
@@ -157,8 +157,8 @@ const TermsCondition = () => {
             </p>
             <div className="grid gap-4">
               <div className="flex gap-4 p-4 rounded-xl bg-background border border-border">
-                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
-                  <Check className="w-4 h-4 text-primary-foreground stroke-[3]" />
+                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 mt-1">
+                  <Check className="w-4 h-4 text-primary-foreground stroke-3" />
                 </div>
                 <div>
                   <h4 className="text-foreground font-bold mb-1">
@@ -172,7 +172,7 @@ const TermsCondition = () => {
                 </div>
               </div>
               <div className="flex gap-4 p-4 rounded-xl bg-background border border-border">
-                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
+                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 mt-1">
                   <Shield className="w-4 h-4 text-primary-foreground fill-current" />
                 </div>
                 <div>
@@ -187,7 +187,7 @@ const TermsCondition = () => {
                 </div>
               </div>
               <div className="flex gap-4 p-4 rounded-xl bg-background border border-border">
-                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
+                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 mt-1">
                   <Lock className="w-4 h-4 text-primary-foreground fill-current" />
                 </div>
                 <div>
@@ -281,7 +281,7 @@ const TermsCondition = () => {
             </div>
             <div className="bg-background rounded-xl p-6 border border-border">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                   <Shield className="w-5 h-5 text-primary" />
                 </div>
                 <div>
