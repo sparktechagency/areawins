@@ -173,65 +173,57 @@ export default function VerifyEmailPage() {
 
       {/* Right Side: Hero Image */}
       <div className="hidden lg:block relative w-0 flex-1 overflow-hidden bg-background">
-        
+
         {/* Dark Mode Version */}
         <div className="hidden dark:block h-full w-full relative">
-          <Image
-            fill
-            className="absolute inset-0 h-full w-full object-cover"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGHfmROBvNgx-vXT0JtyW9iIW89MISZDWJ6w2TZptzBHf445R1R5mmYgxnztxr8Sgi6Fiy46q_vLSeT4eT2_EStZ4SxMk7Hv9da-B8rvblOI-6p8_rsm-bCo8eYdEs6k-a9v1elmPkyTyy5KhfJnA9zgzUJ9hL3ilqIjjTdE2q04oKw6kO3PYsur8nID5rTrSe7qCjemNvXZKATmPr6IQp1VZF3KVsCMnKm3e41geiby4Pedb0yawxsh_F7S0Fi8wMHHfDNicW0Js_"
-            alt="Stadium Dark"
-          />
-          <div className="absolute inset-0 bg-[#112218]/80 mix-blend-multiply"></div>
-          <div className="absolute inset-0 bg-linear-to-t from-[#112218] via-transparent to-transparent opacity-90"></div>
+          <div
+            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-60 mix-blend-overlay"
+            style={{
+              backgroundImage:
+                'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBGHfmROBvNgx-vXT0JtyW9iIW89MISZDWJ6w2TZptzBHf445R1R5mmYgxnztxr8Sgi6Fiy46q_vLSeT4eT2_EStZ4SxMk7Hv9da-B8rvblOI-6p8_rsm-bCo8eYdEs6k-a9v1elmPkyTyy5KhfJnA9zgzUJ9hL3ilqIjjTdE2q04oKw6kO3PYsur8nID5rTrSe7qCjemNvXZKATmPr6IQp1VZF3KVsCMnKm3e41geiby4Pedb0yawxsh_F7S0Fi8wMHHfDNicW0Js_")',
+            }}
+          ></div>
+          <div className="absolute inset-0 bg-linear-to-t from-[#112218] via-[#112218]/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-[#112218]/90 to-transparent"></div>
 
           <div className="absolute bottom-0 left-0 right-0 p-16 z-10 flex flex-col justify-end h-full pointer-events-none">
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#19e668]/20 border border-[#19e668]/30 text-[#19e668] text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm">
                 Secure Account
               </div>
-              <h2 className="text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
-                Regain access to <br /><span className="text-[#19e668]">your winnings</span>.
+              <h2 className="text-4xl xl:text-5xl font-black text-white leading-tight mb-6">
+                Verify your <br /><span className="text-[#0bda5b]">email</span> to continue.
               </h2>
               <p className="text-lg text-gray-300 max-w-lg leading-relaxed">
-                Fast and secure password recovery. We'll help you get back in the game in no time.
+                Please enter the 6-digit code sent to your email address.
               </p>
-              <div className="mt-10 flex gap-2">
-                <div className="w-12 h-1.5 bg-[#19e668] rounded-full"></div>
-                <div className="w-3 h-1.5 bg-gray-600 rounded-full"></div>
-                <div className="w-3 h-1.5 bg-gray-600 rounded-full"></div>
-              </div>
             </div>
           </div>
         </div>
 
         {/* Light Mode Version */}
         <div className="block dark:hidden h-full w-full relative">
-          <Image
-            fill
-            className="absolute inset-0 h-full w-full object-cover"
-            src="https://images.unsplash.com/photo-1570498839593-e565b39455fc"
-            alt="Stadium Light"
-          />
-          <div className="absolute inset-0 bg-[#112218]/80 mix-blend-multiply"></div>
-          <div className="absolute inset-0 bg-linear-to-t from-[#112218] via-transparent to-transparent opacity-90"></div>
+          <div
+            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-60 mix-blend-overlay"
+            style={{
+              backgroundImage:
+                'url("https://images.unsplash.com/photo-1546519638-68e109498ffc")',
+            }}
+          ></div>
+          <div className="absolute inset-0 bg-linear-to-t from-[#112218] via-[#112218]/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-[#112218]/90 to-transparent"></div>
 
           <div className="absolute bottom-0 left-0 right-0 p-16 z-10 flex flex-col justify-end h-full pointer-events-none">
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#19e668]/20 border border-[#19e668]/30 text-[#19e668] text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm">
                 Secure Account
               </div>
-              <h2 className="text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
-                Regain access to <br /><span className="text-[#19e668]">your winnings</span>.
+              <h2 className="text-4xl xl:text-5xl font-black text-white leading-tight mb-6">
+                Verify your <br /><span className="text-[#0bda5b]">email</span> to continue.
               </h2>
               <p className="text-lg text-gray-300 max-w-lg leading-relaxed">
-                Fast and secure password recovery. We'll help you get back in the game in no time.
+                Please enter the 6-digit code sent to your email address.
               </p>
-              <div className="mt-10 flex gap-2">
-                <div className="w-12 h-1.5 bg-[#19e668] rounded-full"></div>
-                <div className="w-3 h-1.5 bg-gray-600 rounded-full"></div>
-                <div className="w-3 h-1.5 bg-gray-600 rounded-full"></div>
-              </div>
             </div>
           </div>
         </div>

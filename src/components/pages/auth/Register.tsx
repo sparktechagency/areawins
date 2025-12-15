@@ -18,8 +18,8 @@ const Register: React.FC = () => {
                 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBFpshNj-QObVsTFj680zJqBkxVVADIBcIySGOYLYcql30UgtT0cdsZFopFgOzbKLpCNPv7WK2k2TQQzi9XMs6ZZcFAd9AM00qWML6Vj00KDWSeepxkoAu1589l-8VghJ7C6AYWm0unqrzXew2CD_gvIJCm0xXxnQS2eqZSUEN3G_TXeOFRunMSDNRuxWS7WuhCu56gg9AYzyVbACaHL26va9jne0sNHx9vNHiQvg_DBt3N9e6vqB5ePoszzI37JTsNcRlxtHROn5Jw")',
             }}
           ></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#102217] via-[#102217]/80 to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#102217]/90 to-transparent"></div>
+          <div className="absolute inset-0 bg-linear-to-t from-[#102217] via-[#102217]/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-[#102217]/90 to-transparent"></div>
         </div>
 
         {/* Light Mode Background */}
@@ -31,8 +31,8 @@ const Register: React.FC = () => {
                 'url("https://images.unsplash.com/photo-1546519638-68e109498ffc")',
             }}
           ></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#102217] via-[#102217]/80 to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#102217]/90 to-transparent"></div>
+          <div className="absolute inset-0 bg-linear-to-t from-[#102217] via-[#102217]/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-[#102217]/90 to-transparent"></div>
         </div>
 
         <div className="relative z-10 max-w-lg">
