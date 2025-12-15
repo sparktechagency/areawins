@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 const Footer = () => {
   return (
-    <footer className="w-full bg-background text-foreground py-16">
+    <footer className="w-full bg-background text-foreground py-16 border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Column 1 - Logo & Contact */}
@@ -74,7 +74,7 @@ const Footer = () => {
         </div>
 
         {/* Optional: Copyright (you can remove if not needed) */}
-        <div className="mt-12 pt-8 border-t border-gray-800 text-center text-foreground text-sm">
+        <div className="mt-12 pt-8 border-t border-border text-center text-foreground text-sm">
           © 2025 EASY BETS. All rights reserved.
         </div>
       </div>
