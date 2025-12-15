@@ -2,13 +2,31 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: [
-      "images.unsplash.com",
-      "i2-prod.liverpool.com",
-      "wallpapercave.com",
-      "upload.wikimedia.org",
-      "flagcdn.com",
-      "lh3.googleusercontent.com",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "i2-prod.liverpool.com",
+      },
+      {
+        protocol: "https",
+        hostname: "wallpapercave.com",
+      },
+      {
+        protocol: "https",
+        hostname: "flagcdn.com",
+      },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
     ],
   },
 };

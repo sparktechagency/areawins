@@ -280,7 +280,7 @@ const MyBetsPage = () => {
                       </div>
                     </CardHeader>
                     <CardContent className="p-4">
-                      <p className="text-center text-muted-foreground">See details in "All Bets" tab</p>
+                      <p className="text-center text-muted-foreground">See details in &quot;All Bets&quot; tab</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -289,7 +289,7 @@ const MyBetsPage = () => {
               <div className="text-center py-20">
                 <Clock className="w-20 h-20 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-foreground mb-2">No Active Bets</h3>
-                <p className="text-muted-foreground">You don't have any active bets at the moment.</p>
+                <p className="text-muted-foreground">You don&apos;t have any active bets at the moment.</p>
               </div>
             )}
           </TabsContent>

@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 
 const Navbar = () => {
-  const pathname = usePathname(); // Use Next.js's usePathname hook instead
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   
@@ -63,15 +63,13 @@ const Navbar = () => {
                 placeholder="Search"
                 className={`w-full px-4 py-2 rounded-full transition-all duration-300 ${
                   scrolled
-                    ? "bg-white/20 dark:bg-black/20 text-foreground border-border"
-                    : "bg-white/20 dark:bg-black/20 text-white border-white/30 placeholder:text-white/70"
+                    ? "bg-white/20 dark:bg-black/20 border-border text-white placeholder:text-white"
+                    : "bg-white/20 dark:bg-black/20 text-white border-white/30 placeholder:text-white"
                 } border outline-none`}
               />
               <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
                 <Menu 
-                  className={`w-5 h-5 transition-colors duration-300 ${
-                    scrolled ? "text-muted-foreground" : "text-white"
-                  }`} 
+                  className={`w-5 h-5 transition-colors duration-300 text-white`} 
                 />
               </button>
             </div>
@@ -79,13 +77,11 @@ const Navbar = () => {
 
           {/* Right Side */}
           <div className="flex items-center justify-end gap-4">
-            <div className={scrolled ? "" : "text-white"}>
+            <div className="text-white">
               <DarkModeToggle />
             </div>
             <button 
-              className={`${
-                scrolled ? "text-foreground" : "text-white"
-              } hidden md:block drop-shadow-md hover:text-primary transition-colors`}
+              className={`hidden md:block drop-shadow-md text-white transition-colors`}
             >
               English <span className="ml-1">›</span>
             </button>
