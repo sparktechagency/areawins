@@ -1,10 +1,5 @@
 "use client";
 
-/**
- * ForgotPasswordPage Component
- * Split-screen layout matching Login page
- */
-
 import { Button } from "@/components/ui/button";
 import {
   Form,

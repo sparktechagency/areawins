@@ -7,7 +7,7 @@ const Register: React.FC = () => {
   return (
     <div className="bg-background  text-foreground antialiased h-screen overflow-hidden flex flex-col lg:flex-row font-display">
       {/* Left Panel: Hero / Visuals */}
-      <div className="hidden lg:flex lg:w-5/12 xl:w-1/2 relative flex-col justify-between p-12 bg-background overflow-hidden">
+      <div className="hidden lg:flex lg:w-5/12 xl:w-1/2 relative flex-col justify-between p-12 bg-background overflow-hidden border-r  border-border">
         
         {/* Dark Mode Background */}
         <div className="hidden dark:block absolute inset-0 z-0">

@@ -1,13 +1,41 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { loginSchema, type LoginFormData } from "@/lib/validators/authSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
 import React from "react";
 
 const Login: React.FC = () => {
+  const form = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      rememberMe: false,
+    },
+  });
+
+  const onSubmit = (data: LoginFormData) => {
+    console.log(data);
+  };
+
   return (
-    <div className="min-h-screen flex bg-background font-display text-foreground ">
+    <div className="min-h-screen flex bg-background font-display text-foreground">
       {/* Left Side: Login Form */}
-      <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-background w-full lg:w-[600px] z-10 relative border-r  border-border">
+      <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-background w-full lg:w-[600px] z-10 relative border-r border-border">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div className="mb-10">
             <h1 className="text-3xl font-bold tracking-tight text-foreground">
@@ -18,93 +46,95 @@ const Login: React.FC = () => {
             </p>
           </div>
 
-          <form action="#" className="space-y-6">
-            <div>
-              <label
-                className="block text-sm font-medium leading-6"
-                htmlFor="email"
-              >
-                Email or Username
-              </label>
-              <div className="mt-2">
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  placeholder="Email or Username"
-                />
-              </div>
-            </div>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email or Username</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Email or Username"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div>
-              <label
-                className="block text-sm font-medium leading-6"
-                htmlFor="password"
-              >
-                Password
-              </label>
-              <div className="mt-2 relative rounded-lg">
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  placeholder="Password"
-                />
-              </div>
-            </div>
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-[#19e668] focus:ring-[#19e668] bg-gray-100 dark:bg-[#1a3223] dark:border-[#346547] dark:checked:bg-[#19e668] cursor-pointer"
+              <div className="flex items-center justify-between">
+                <FormField
+                  control={form.control}
+                  name="rememberMe"
+                  render={({ field }) => (
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="remember-me"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                      <label
+                        htmlFor="remember-me"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-foreground cursor-pointer select-none"
+                      >
+                        Remember me
+                      </label>
+                    </div>
+                  )}
                 />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-foreground cursor-pointer select-none"
-                >
-                  Remember me
-                </label>
+                <div className="text-sm">
+                  <Link
+                    href="/forgot-password"
+                    className="font-medium text-primary hover:text-primary/80 transition-colors"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
               </div>
-              <div className="text-sm">
-                <Link
-                  href="/forgot-password"
-                  className="font-medium text-primary hover:text-primary/80 transition-colors"
-                >
-                  Forgot password?
-                </Link>
-              </div>
-            </div>
 
-            <div>
-              <button
+              <Button
                 type="submit"
-                className="flex w-full justify-center items-center rounded-lg bg-primary px-3 py-3.5 text-sm font-bold leading-6 text-primary-foreground shadow-sm hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all uppercase tracking-wide"
+                className="w-full"
               >
                 Log in
-              </button>
-            </div>
+              </Button>
 
-            <div className="space-y-6 pt-2">
-              <div className="text-center">
-                <p className="text-sm text-muted-foreground">
-                  Don&apos;t have an account?
-                  <Link
-                    href="/register"
-                    className="font-bold text-primary hover:text-primary/80 ml-1 transition-colors"
-                  >
-                    Register now
-                  </Link>
-                </p>
+              <div className="space-y-6 pt-2">
+                <div className="text-center">
+                  <p className="text-sm text-muted-foreground">
+                    Don&apos;t have an account?{" "}
+                    <Link
+                      href="/register"
+                      className="font-bold text-primary hover:text-primary/80 ml-1 transition-colors"
+                    >
+                      Register now
+                    </Link>
+                  </p>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </Form>
         </div>
       </div>
 
