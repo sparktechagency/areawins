@@ -27,10 +27,9 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <Button className="px-10 cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground">Enter</Button>
             <Button
-              variant="outline"
-              className="px-10 cursor-pointer border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+              variant="default"
+              className="px-10 cursor-pointer bg-white text-gray-900 hover:bg-white/90"
             >
-              {" "}
               Sign Up
             </Button>
           </div>
