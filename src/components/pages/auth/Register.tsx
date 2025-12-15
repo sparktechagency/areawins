@@ -2,13 +2,13 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import logo from "@/assets/logo/logo2.png";
 
 const Register: React.FC = () => {
   return (
     <div className="bg-background  text-foreground antialiased h-screen overflow-hidden flex flex-col lg:flex-row font-display">
       {/* Left Panel: Hero / Visuals */}
-      <div className="hidden lg:flex lg:w-5/12 xl:w-1/2 relative flex-col justify-between p-12 bg-background overflow-hidden border-r  border-border">
-        
+      <div className="hidden lg:flex flex-1 relative flex-col justify-between p-12 bg-background overflow-hidden border-r border-border ">
         {/* Dark Mode Background */}
         <div className="hidden dark:block absolute inset-0 z-0">
           <div
@@ -34,79 +34,33 @@ const Register: React.FC = () => {
           <div className="absolute inset-0 bg-linear-to-t from-[#102217] via-[#102217]/80 to-transparent"></div>
           <div className="absolute inset-0 bg-linear-to-r from-[#102217]/90 to-transparent"></div>
         </div>
-
-        <div className="relative z-10 max-w-lg">
-          <h2 className="text-4xl xl:text-5xl font-black text-white leading-tight mb-6">
-            Join the <span className="text-[#0bda5b]">Winning Team</span> today.
-          </h2>
-          <p className="text-xl text-white font-medium mb-8">
-            Experience the thrill of live betting with the best odds in
-            Bangladesh. Sign up now and claim your welcome bonus.
-          </p>
-          <div className="flex gap-6 items-center">
-            <div className="flex -space-x-4">
-              <Image
-                width={40}
-                height={40}
-                className="w-10 h-10 rounded-full border-2 border-[#102217]"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1SXgSrNvmLE7tV9pXHnh_INjBlfsZgL1Cmm2EjUpRLCi0Nztzpqsw2T4dXhGeUn753VIznDYC0EDSyc3r2NAsyszYe3g-QQRgBzY0esx0VqQ27sbz-Cdxs5mHBR_lp8W4GDv7C37KFn7jYF5hI5wV6VsIv3Nsjafxf6JkzvpnP8FqUpbbSe6ljYcohLguxGZfSBsF3n929fIwYf49z8mzZkXzIanLNt-yE4yRgzn_KI05b3WQa0hrFaRfw45J4nDV8UMtVPDAzXSh"
-                alt="User"
-              />
-              <Image
-                width={40}
-                height={40}
-                className="w-10 h-10 rounded-full border-2 border-[#102217]"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_PnrOY76N6vOt3LuUsMNLKvcExt80uyttEQSotsUurMwsOCGHKOsCvfiz0ysNxwBsfQBIZkl1NzOJLwvmoCqbIVRSqZeZdg1YWKQq8ntAyxyjafECXoUyXE8za87n9UjLsLMjLLs4sDMOzEKmfnWwGGC6AuLxBZcWR7NNAEfqEo0YpicxQLd05u_JiYXelZHoTfAe_UI1i2EHwbNvUtbusMFuNS2XB-5xgLhNljPveHZS_GQLBgcf03qfzgW9GEJ0lucEqzKKiqQG"
-                alt="User"
-              />
-              <Image
-                width={40}
-                height={40}
-                className="w-10 h-10 rounded-full border-2 border-[#102217]"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOCWQ1pl1m_yYhlUpYhd9tlM20JxDU909Thn6juDZ3AE8BxXFLwl7tWtz3U6IRJ67AqImruhV0fKny05EjiWP93u0jOM7KTY9C6jkRJn-inuo3DLf5IxqBCpLA1IjMTjOkQ_d1bOim-dF27kxSCWGWKq49NVQhAtauEnsiQrnxxLDmcF14WHuDOdE_Rz8fFaxnbad1Abj6zG9ypZyk-S-_vWEQpOFA10XbNvvYy_-NehhwPOPn7k_ejQaN8UaVJxEoS6aXTI0BRVpx"
-                alt="User"
-              />
-              <div className="w-10 h-10 rounded-full border-2 border-[#102217] bg-background flex items-center justify-center text-xs font-bold text-foreground">
-                +2k
-              </div>
+        <div className="absolute bottom-0 left-0 right-0 p-16 z-10 flex flex-col justify-end h-full pointer-events-none">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#19e668]/20 border border-[#19e668]/30 text-[#19e668] text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm">
+              Secure Account
             </div>
-            <div className="text-sm font-medium text-foreground">
-              <span className="text-[#0bda5b] font-bold">2,000+</span> New users
-              this week
-            </div>
+            <h2 className="text-4xl xl:text-5xl font-black text-white leading-tight mb-6">
+              Regain access to <br />
+              <span className="text-[#0bda5b]">your winnings</span>.
+            </h2>
+            <p className="text-lg text-gray-300 max-w-lg leading-relaxed">
+              Fast and secure password recovery. We&apos;ll help you get back in
+              the game in no time.
+            </p>
           </div>
         </div>
-
-        <div className="relative z-10 flex gap-4 text-[#9cbaa7] text-xs font-semibold uppercase tracking-wider">
-          <span className="flex items-center gap-1">
-            <span className="material-symbols-outlined text-sm">lock</span> SSL
-            Secured
-          </span>
-          <span className="flex items-center gap-1">
-            <span className="material-symbols-outlined text-sm">
-              18_up_rating
-            </span>{" "}
-            18+ Only
-          </span>
-        </div>
       </div>
-
       {/* Right Panel: Registration Form */}
-      <div className="w-full lg:w-7/12 xl:w-1/2 h-full overflow-y-auto bg-background p-8 md:p-12">
+      <div className="w-full  max-w-4xl h-full overflow-y-auto bg-background p-8 md:p-16">
         <div className="min-h-full flex flex-col justify-center max-w-[640px] mx-auto">
-          <div className="lg:hidden flex justify-center mb-8">
+          <div className="flex justify-center mb-8">
             <Link href="/" className="flex items-center gap-2 text-foreground">
-              <span className="material-symbols-outlined text-3xl text-primary">
-                sports_cricket
-              </span>
-              <span className="text-xl font-bold text-foreground">
-                BetPro BD
-              </span>
+              <Image width={150} height={100} src={logo.src} alt="Logo" />
             </Link>
           </div>
 
           <div className="mb-8 text-center sm:text-left">
-            <h1 className="text-3xl sm:text-4xl font-black text-foreground tracking-tight mb-2">
+            <h1 className="text-2xl sm:text-3xl font-black text-foreground tracking-tight mb-2">
               Create Account
             </h1>
             <p className="text-muted-foreground text-base">

@@ -1,3 +1,3 @@
-import VerifyEmailPage from "@/components/pages/auth/VerifyEmailPage";
+import VerifyOtp from "@/components/pages/auth/VerifyOtp";
 
-export default VerifyEmailPage;
+export default VerifyOtp;
