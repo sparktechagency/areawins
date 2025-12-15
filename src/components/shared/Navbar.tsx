@@ -13,7 +13,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  
+
   // Check if current page is home page - using pathname directly
   const isHomePage = pathname === "/" || pathname === "/home";
 
@@ -47,10 +47,10 @@ const Navbar = () => {
         <div className="container mx-auto flex items-center justify-between gap-5">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <Image 
-              src={scrolled ? logo2 : logo} 
-              alt="Logo" 
-              className="w-36 h-10 object-contain transition-all duration-300" 
+            <Image
+              src={scrolled ? logo2 : logo}
+              alt="Logo"
+              className="w-36 h-10 object-contain transition-all duration-300"
               priority
             />
           </Link>
@@ -68,8 +68,8 @@ const Navbar = () => {
                 } border outline-none`}
               />
               <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <Menu 
-                  className={`w-5 h-5 transition-colors duration-300 text-white`} 
+                <Menu
+                  className={`w-5 h-5 transition-colors duration-300 text-white`}
                 />
               </button>
             </div>
@@ -80,14 +80,14 @@ const Navbar = () => {
             <div className="text-white">
               <DarkModeToggle />
             </div>
-            <button 
+            <button
               className={`hidden md:block drop-shadow-md text-white transition-colors`}
             >
               English <span className="ml-1">›</span>
             </button>
             <Link href="/login">
-              <Button 
-                variant={scrolled ? "default" : "secondary"} 
+              <Button
+                variant={scrolled ? "default" : "secondary"}
                 className={`transition-all duration-300 ${
                   !scrolled ? "bg-white text-primary hover:bg-white/90" : ""
                 }`}
@@ -107,7 +107,12 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <Image src={logo2} alt="Logo" className="w-36 h-10 object-contain" priority />
+          <Image
+            src={logo2}
+            alt="Logo"
+            className="w-36 h-10 object-contain"
+            priority
+          />
         </Link>
 
         {/* Navigation Links */}
@@ -116,7 +121,7 @@ const Navbar = () => {
             <Link
               key={link.href}
               href={link.href}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full hover:bg-background/80 hover:shadow-sm transition-all cursor-pointer group ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-full hover:bg-background/80 dark:hover:bg-primary/10 hover:shadow-sm transition-all cursor-pointer group ${
                 pathname === link.href ? "bg-primary/10 text-primary" : ""
               }`}
             >
@@ -137,16 +142,6 @@ const Navbar = () => {
           <Link href="/login" className="hidden md:block">
             <Button variant="destructive" className="rounded-full px-6">
               SIGN IN
-            </Button>
-          </Link>
-          <Link href="/dashboard/my-bets">
-            <Button variant="default" className="rounded-full px-6">
-              My bets
-            </Button>
-          </Link>
-          <Link href="/bets/progressive">
-            <Button className="bg-linear-to-r from-primary to-blue-500 rounded-full px-4 hover:shadow-lg transition-all text-white border-0">
-              Progressive bets
             </Button>
           </Link>
         </div>
@@ -173,18 +168,32 @@ const Navbar = () => {
               href={link.href}
               onClick={() => setIsMenuOpen(false)}
               className={`block px-4 py-3 hover:bg-muted rounded-lg transition-all font-medium ${
-                pathname === link.href ? "bg-primary/10 text-primary" : "text-foreground"
+                pathname === link.href
+                  ? "bg-primary/10 text-primary"
+                  : "text-foreground"
               }`}
             >
               {link.icon} {link.label}
             </Link>
           ))}
           <div className="pt-2 border-t border-border mt-2 space-y-2">
-            <Link href="/login" onClick={() => setIsMenuOpen(false)} className="block w-full">
-              <Button variant="destructive" className="w-full">SIGN IN</Button>
+            <Link
+              href="/login"
+              onClick={() => setIsMenuOpen(false)}
+              className="block w-full"
+            >
+              <Button variant="destructive" className="w-full">
+                SIGN IN
+              </Button>
             </Link>
-            <Link href="/dashboard/my-bets" onClick={() => setIsMenuOpen(false)} className="block w-full">
-              <Button variant="default" className="w-full">My bets</Button>
+            <Link
+              href="/dashboard/my-bets"
+              onClick={() => setIsMenuOpen(false)}
+              className="block w-full"
+            >
+              <Button variant="default" className="w-full">
+                My bets
+              </Button>
             </Link>
           </div>
         </div>

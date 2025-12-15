@@ -219,34 +219,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ========================================
-   Scrollbar Customization
-   ======================================== */
-
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
-  border-radius: 5px;
-  border: 2px solid var(--background); /* Creates the padding/floating effect */
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--scrollbar-thumb-hover);
-}
-
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--scrollbar-thumb) var(--background);
-}
 
 /* ========================================
    Utility Classes

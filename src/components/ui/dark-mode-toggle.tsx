@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import { Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import { Button } from '@/components/ui/button';
+import * as React from "react";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
 
 const DarkModeToggle = () => {
   const { theme, setTheme, resolvedTheme } = useTheme();
@@ -23,22 +23,20 @@ const DarkModeToggle = () => {
     );
   }
 
-  const isDark = resolvedTheme === 'dark';
+  const isDark = resolvedTheme === "dark";
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+    <button
+      onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label="Toggle theme"
-      className="relative cursor-pointer"
+      className="relative cursor-pointer bg-transparent"
     >
       {isDark ? (
         <Moon className="size-6 transition-transform duration-300 hover:rotate-12" />
       ) : (
         <Sun className="size-6 transition-transform duration-300 hover:rotate-90" />
       )}
-    </Button>
+    </button>
   );
-}
+};
 export default DarkModeToggle;

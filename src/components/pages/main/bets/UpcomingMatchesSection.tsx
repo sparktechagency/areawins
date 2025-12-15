@@ -32,13 +32,13 @@ const upcomingMatches: UpcomingMatch[] = [
 
 const UpcomingMatchesSection: React.FC = () => {
   return (
-    <section className="container mx-auto w-full">
+    <section className="w-fullcontainer mx-auto w-full py-5">
       {/* Registration Prompt */}
       <div className="text-center mb-8">
         <p className="text-muted-foreground text-lg mb-4">
           Create bet so please registration
         </p>
-        <button className="border-2 border-primary px-8 py-3 rounded-full font-medium hover:bg-primary hover:text-primary-foreground transition text-foreground">
+        <button className="border border-border px-8 py-3 rounded-full font-medium   text-foreground cursor-pointer hover:bg-primary hover:text-primary-foreground transition-all duration-300">
           Registration now
         </button>
       </div>
