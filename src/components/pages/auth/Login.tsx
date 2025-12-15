@@ -34,7 +34,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="bg-background text-foreground antialiased h-screen overflow-hidden flex flex-col lg:flex-row font-display">
-      <div className="w-full  max-w-3xl h-full overflow-y-auto bg-background p-8 md:p-16 border-r border-border">
+      <div className="w-full  max-w-3xl h-full overflow-y-auto bg-background p-5 md:p-12 lg:p-14 xl:p-16 border-r border-border">
         <div className="min-h-full flex flex-col justify-center max-w-md mx-auto">
           <div className="flex justify-center mb-8">
             <Link href="/" className="flex items-center gap-2 text-foreground">

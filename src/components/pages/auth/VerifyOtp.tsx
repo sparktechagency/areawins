@@ -7,7 +7,6 @@ import {
 } from "@/lib/redux/api/authApi";
 import { cn } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ClipboardEvent, KeyboardEvent, useRef, useState } from "react";
@@ -131,7 +130,7 @@ export default function VerifyOtp() {
         </div>
       </div>
       {/* Right Panel: Verify Email Form */}
-      <div className="w-full max-w-4xl h-full overflow-y-auto bg-background p-8 md:p-16 border-r border-border">
+      <div className="w-full max-w-4xl h-full overflow-y-auto bg-background p-5 md:p-12 lg:p-14 xl:p-16 border-r border-border">
         <div className="min-h-full flex flex-col justify-center max-w-md mx-auto">
           <div className="lg:hidden flex justify-center mb-8">
             <Link href="/" className="flex items-center gap-2 text-foreground">

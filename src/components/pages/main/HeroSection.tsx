@@ -11,8 +11,8 @@ const HeroSection = () => {
           backgroundImage: `url(${hero.src})`,
         }}
       ></div>
-      <div className="absolute inset-0 bg-linear-to-t from-[#102217]/20 via-[#102217]/20 to-transparent"></div>
-      <div className="absolute inset-0 bg-linear-to-r from-[#102217]/20 to-transparent"></div>
+      <div className="absolute inset-0 bg-linear-to-t from-[#102217]/50 via-[#102217]/20 to-transparent"></div>
+      <div className="absolute inset-0 bg-linear-to-r from-[#102217]/50 to-transparent"></div>
       {/* Content */}
       <div className="relative z-10">
         {/* Hero Content */}

@@ -8,7 +8,7 @@ const Register: React.FC = () => {
   return (
     <div className="bg-background  text-foreground antialiased h-screen overflow-hidden flex flex-col lg:flex-row font-display">
       {/* Left Panel: Hero / Visuals */}
-      <div className="hidden lg:flex flex-1 relative flex-col justify-between p-12 bg-background overflow-hidden border-r border-border ">
+      <div className="hidden lg:flex flex-1 relative flex-col justify-between p-5 md:p-8 lg:p-12 bg-background overflow-hidden border-r border-border ">
         {/* Dark Mode Background */}
         <div className="hidden dark:block absolute inset-0 z-0">
           <div
@@ -34,8 +34,8 @@ const Register: React.FC = () => {
           <div className="absolute inset-0 bg-linear-to-t from-[#102217] via-[#102217]/80 to-transparent"></div>
           <div className="absolute inset-0 bg-linear-to-r from-[#102217]/90 to-transparent"></div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 p-16 z-10 flex flex-col justify-end h-full pointer-events-none">
-          <div className="max-w-2xl">
+        <div className="absolute bottom-0 left-0 right-0 p-5 md:p-10 lg:p-12 xl:p-16 z-10 flex flex-col justify-end h-full pointer-events-none">
+          <div className="w-full max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#19e668]/20 border border-[#19e668]/30 text-[#19e668] text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm">
               Secure Account
             </div>
@@ -51,7 +51,7 @@ const Register: React.FC = () => {
         </div>
       </div>
       {/* Right Panel: Registration Form */}
-      <div className="w-full  max-w-4xl h-full overflow-y-auto bg-background p-8 md:p-16">
+      <div className="w-full  max-w-4xl h-full overflow-y-auto bg-background p-5 md:p-12 lg:p-14 xl:p-16">
         <div className="min-h-full flex flex-col justify-center max-w-[640px] mx-auto">
           <div className="flex justify-center mb-8">
             <Link href="/" className="flex items-center gap-2 text-foreground">
