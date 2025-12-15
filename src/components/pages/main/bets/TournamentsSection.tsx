@@ -61,7 +61,7 @@ const TournamentsSection: React.FC = () => {
   };
 
   return (
-    <section className="w-full container mx-auto py-12">
+    <section className="w-full container mx-auto pb-5">
       <h2 className="text-2xl font-bold text-foreground mb-6">Tournaments</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
