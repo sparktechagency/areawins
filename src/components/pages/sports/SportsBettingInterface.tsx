@@ -18,7 +18,7 @@ interface Match {
    time: string;
    league: string;
    isLive: boolean;
-   score?: { home: number | string; away: number | string; time?: string }; // Modified for cricket (runs/wickets)
+   score?: { home: number | string; away: number | string; time?: string }; // 
    odds: {
       home: number;
       draw?: number; // Draw optional for some sports
@@ -141,9 +141,9 @@ export default function SportsBettingInterface({ sport }: SportsBettingInterface
    const filteredMatches = matches.filter(m => m.sport === sportKey);
 
    return (
-      <div className="flex flex-col xl:flex-row gap-6 h-[calc(100vh-50px)] bg-background text-white p-4 overflow-hidden pt-20">
+      <div className="flex flex-col xl:flex-row gap-6 h-screen bg-background text-white p-4 overflow-hidden pt-20">
          {/* Sidebar - mimicking screenshot left nav (Optional if layout already has one, but creating integrated view) */}
-         <div className="w-64 hidden 2xl:block flex-shrink-0 space-y-6 pr-4 border-r border-white/10 overflow-y-auto custom-scrollbar">
+         <div className="w-64 hidden 2xl:block shrink-0 space-y-6 pr-4 border-r border-white/10 overflow-y-auto custom-scrollbar">
             {/* Top Menu from Image 0 */}
             <div className="space-y-1">
                <NavItem icon={<Trophy className="w-4 h-4" />} label="Top Leagues" active />
@@ -197,14 +197,14 @@ export default function SportsBettingInterface({ sport }: SportsBettingInterface
 
             {/* Hero Banner - Dynamic based on sport */}
             <div
-               className="relative rounded-2xl overflow-hidden mb-8 min-h-[240px] flex flex-col justify-end"
+               className="relative rounded-2xl overflow-hidden mb-8 min-h-60 flex flex-col justify-end"
             >
                {/* Background Image with Overlay */}
                <div
                   className="absolute inset-0 bg-cover bg-center z-0"
                   style={{ backgroundImage: activeConfig.banner.bg }}
                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-r from-black via-black/60 to-transparent" />
                </div>
 
                <div className="relative z-10 p-8 max-w-2xl">
