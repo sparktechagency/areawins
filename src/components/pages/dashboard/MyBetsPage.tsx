@@ -216,7 +216,7 @@ const MyBetsPage = () => {
                     key={bet.id}
                     className="border-border shadow-none bg-card"
                   >
-                    <CardHeader className="border-b border-border pt-3 rounded-t-lg">
+                    <CardHeader className="border-b border-border rounded-t-lg -mt-6">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <Ticket className="w-4 h-4 text-primary" />
@@ -351,7 +351,7 @@ const MyBetsPage = () => {
                     key={bet.id}
                     className="border-border shadow-none bg-card"
                   >
-                    <CardHeader className="border-b border-border">
+                    <CardHeader className="border-b border-border rounded-t-lg -mt-6">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <Clock className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
