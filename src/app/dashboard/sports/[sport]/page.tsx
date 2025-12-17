@@ -10,9 +10,9 @@ export default function SportPage() {
 
   return (
     <DashboardLayout>
-       <div className="max-w-[1600px] mx-auto">
-          <SportsBettingInterface sport={sport} />
-       </div>
+      <div className="max-w-[1600px] mx-auto">
+        <SportsBettingInterface sport={sport} />
+      </div>
     </DashboardLayout>
   );
 }
