@@ -19,7 +19,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {useState } from "react";
+import { useState } from "react";
+import logo from "@/assets/logo/logo2.png";
+import Image from "next/image";
 
 const navigationItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: ROUTES.DASHBOARD },
@@ -54,13 +56,13 @@ export default function DashboardSidebar() {
           {/* Logo Area */}
           <div className="p-6 border-b border-border">
             <Link href={ROUTES.HOME} className="flex items-center gap-2">
-              {/* Placeholder for Logo Icon if needed, otherwise just text */}
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                <Trophy className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <h1 className="text-xl font-bold tracking-tight text-foreground">
-                BetPro BD
-              </h1>
+              <Image
+                src={logo}
+                alt="Logo"
+                width={120}
+                height={120}
+                className="mx-auto"
+              />
             </Link>
           </div>
 

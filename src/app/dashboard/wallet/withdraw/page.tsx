@@ -12,19 +12,20 @@ import { toast } from "sonner";
 
 // Mock Data
 const PAYMENT_METHODS = [
-    { id: "bkash", name: "Bkash", color: "bg-pink-600", icon: Wallet },
-    { id: "nagad", name: "Nagad", color: "bg-orange-600", icon: Wallet },
-    { id: "rocket", name: "Rocket", color: "bg-purple-600", icon: Wallet },
-    { id: "bank", name: "Bank Transfer", color: "bg-blue-600", icon: CreditCard },
+    { id: "venezuela", name: "Venezuela Pay", color: "bg-red-600", icon: Wallet },
     { id: "crypto", name: "Crypto", color: "bg-yellow-600", icon: Wallet },
+    { id: "bitcoin", name: "Bitcoin", color: "bg-orange-500", icon: Wallet },
+    { id: "ethereum", name: "Ethereum", color: "bg-purple-600", icon: Wallet },
+    { id: "tether", name: "Tether (USDT)", color: "bg-green-500", icon: Wallet },
+    { id: "binance", name: "BNB", color: "bg-yellow-500", icon: Wallet },
 ];
 
 const RECENT_WITHDRAWALS = [
-    { id: 1, date: "Oct 24", method: "Bkash", amount: "5,000", status: "Pending" },
-    { id: 2, date: "Oct 20", method: "Nagad", amount: "2,500", status: "Completed" },
-    { id: 3, date: "Oct 15", method: "Bank", amount: "10,000", status: "Completed" },
-    { id: 4, date: "Oct 12", method: "Rocket", amount: "1,200", status: "Rejected" },
-    { id: 5, date: "Oct 05", method: "Bkash", amount: "5,000", status: "Completed" },
+    { id: 1, date: "Dec 14", method: "Ethereum", amount: "2,500", status: "Pending" },
+    { id: 2, date: "Dec 12", method: "Bitcoin", amount: "350", status: "Completed" },
+    { id: 3, date: "Dec 10", method: "Venezuela Pay", amount: "650,000", status: "Completed" },
+    { id: 4, date: "Dec 8", method: "Tether (USDT)", amount: "200", status: "Rejected" },
+    { id: 5, date: "Dec 5", method: "BNB", amount: "520", status: "Completed" },
 ];
 
 export default function WithdrawPage() {
@@ -70,9 +71,9 @@ export default function WithdrawPage() {
                         <CardContent className="p-6 flex items-center justify-between">
                             <div>
                                 <p className="text-sm text-green-400 font-medium flex items-center gap-2">
-                                    <Wallet className="w-4 h-4" /> AVAILABLE BALANCE
+                                    <span className="text-lg">VES</span> AVAILABLE BALANCE
                                 </p>
-                                <h2 className="text-3xl font-bold mt-2">৳ 12,450.00</h2>
+                                <h2 className="text-3xl font-bold mt-2">VES 12,450.00</h2>
                             </div>
                         </CardContent>
                     </Card>
@@ -83,7 +84,7 @@ export default function WithdrawPage() {
                                 <p className="text-sm text-gray-400 font-medium flex items-center gap-2">
                                     <Lock className="w-4 h-4" /> LOCKED BONUS
                                 </p>
-                                <h2 className="text-3xl font-bold mt-2 opacity-80">৳ 500.00</h2>
+                                <h2 className="text-3xl font-bold mt-2 opacity-80">USD 500.00</h2>
                             </div>
                         </CardContent>
                     </Card>
@@ -141,9 +142,9 @@ export default function WithdrawPage() {
                             <Card className="bg-[#1a2c24]/50 border-white/5">
                                 <CardContent className="p-6 space-y-6">
                                     <div className="space-y-2">
-                                        <Label>Amount to Withdraw (BDT)</Label>
+                                        <Label>Amount to Withdraw</Label>
                                         <div className="relative">
-                                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">৳</span>
+                                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">VES</span>
                                             <Input
                                                 type="number"
                                                 value={amount}
@@ -158,19 +159,19 @@ export default function WithdrawPage() {
                                             </div>
                                         </div>
                                         <div className="flex justify-between text-xs text-muted-foreground px-1">
-                                            <span>Min: ৳ 500.00</span>
-                                            <span>Max: ৳ 25,000.00</span>
+                                            <span>Min: VES 1,000</span>
+                                            <span>Max: VES 5,000,000</span>
                                         </div>
                                     </div>
 
                                     <div className="space-y-2">
-                                        <Label>{selectedMethod ? `${PAYMENT_METHODS.find(m => m.id === selectedMethod)?.name} Wallet Number` : "Wallet Number"}</Label>
+                                        <Label>{selectedMethod ? `${PAYMENT_METHODS.find(m => m.id === selectedMethod)?.name} ${selectedMethod === 'venezuela' ? 'Account' : 'Address'}` : "Account/Address"}</Label>
                                         <div className="relative">
                                             <Input
                                                 value={accountNumber}
                                                 onChange={(e) => setAccountNumber(e.target.value)}
                                                 className="h-12 bg-background border-input"
-                                                placeholder="01XXXXXXXXX"
+                                                placeholder={selectedMethod === 'venezuela' ? "VZ-XXXX-XXXX" : "1A2b3C4d5E6f7G..."}
                                             />
                                         </div>
                                     </div>
@@ -215,7 +216,7 @@ export default function WithdrawPage() {
                                                 <tr key={tx.id} className="border-b border-white/5 last:border-0 hover:bg-white/5 transition-colors">
                                                     <td className="py-3 px-2 text-gray-300 text-xs">{tx.date}</td>
                                                     <td className="py-3 px-2 font-medium">{tx.method}</td>
-                                                    <td className="py-3 px-2 text-right font-mono">৳ {tx.amount}</td>
+                                                    <td className="py-3 px-2 text-right font-mono">VES {tx.amount}</td>
                                                     <td className="py-3 px-2 text-right">
                                                         <span className={cn(
                                                             "text-[10px] px-2 py-0.5 rounded-full font-bold",
@@ -241,9 +242,9 @@ export default function WithdrawPage() {
                                     <Info className="w-5 h-5" /> Important Info
                                 </div>
                                 <ul className="text-sm text-gray-400 space-y-2 list-disc pl-4 marker:text-primary">
-                                    <li>Daily Withdrawal Limit: <span className="text-white font-bold">৳ 50,000</span></li>
-                                    <li>Processing takes <span className="text-white font-bold">15-30 minutes</span> for mobile wallets.</li>
-                                    <li>Ensure your registered number matches your wallet number.</li>
+                                    <li>Daily Withdrawal Limit: <span className="text-white font-bold">VES 10,000,000</span></li>
+                                    <li>Processing takes <span className="text-white font-bold">24-48 hours</span> for all payment methods.</li>
+                                    <li>Ensure your account details match your registered information.</li>
                                 </ul>
                             </CardContent>
                         </Card>
