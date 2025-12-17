@@ -38,7 +38,7 @@ const Navbar = () => {
   if (isHomePage) {
     return (
       <nav
-        className={`fixed top-0 h-20 flex justify-center items-center left-0 right-0 z-50 px-4 py-5 transition-all duration-300 ${
+        className={`fixed top-0 h-20 flex justify-center items-center left-0 right-0 z-50 px-4 py-3 transition-all duration-300 ${
           scrolled
             ? "bg-white/80 dark:bg-black/20 backdrop-blur-lg shadow-sm"
             : "bg-transparent"
@@ -140,8 +140,8 @@ const Navbar = () => {
             English <span className="ml-1">›</span>
           </button>
           <Link href="/login" className="hidden md:block">
-            <Button variant="destructive" className="rounded-full px-6">
-              SIGN IN
+            <Button variant="default" className="px-8">
+              Login
             </Button>
           </Link>
         </div>
