@@ -143,7 +143,7 @@ export default function SportsBettingInterface({ sport }: SportsBettingInterface
    return (
       <div className="flex flex-col xl:flex-row gap-6 h-screen bg-background text-white p-4 overflow-hidden pt-20">
          {/* Sidebar - mimicking screenshot left nav (Optional if layout already has one, but creating integrated view) */}
-         <div className="w-64 hidden 2xl:block shrink-0 space-y-6 pr-4 border-r border-white/10 overflow-y-auto custom-scrollbar">
+         <div className="w-64 hidden 2xl:block shrink-0 space-y-6 pr-4 border-r border-white/10 overflow-y-auto no-scrollbar">
             {/* Top Menu from Image 0 */}
             <div className="space-y-1">
                <NavItem icon={<Trophy className="w-4 h-4" />} label="Top Leagues" active />
@@ -164,7 +164,7 @@ export default function SportsBettingInterface({ sport }: SportsBettingInterface
          </div>
 
          {/* Main Content Area */}
-         <div className="flex-1 overflow-y-auto pr-2 pt-5">
+         <div className="flex-1 overflow-y-auto pr-2 pt-5 no-scrollbar">
             {/* Header / Search */}
             <div className="flex items-center justify-between mb-6">
                <h1 className="text-2xl font-bold flex items-center gap-2">

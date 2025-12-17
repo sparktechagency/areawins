@@ -247,7 +247,7 @@ export default function MatchDetailPage() {
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="all" className="space-y-4">
+            <TabsContent value="all" className="space-y-4 no-scrollbar">
               {markets.map((market, idx) => (
                 <MarketCard key={idx} market={market} />
               ))}
@@ -257,7 +257,7 @@ export default function MatchDetailPage() {
 
         {/* Sidebar / Bet Slip */}
         <div className="w-full lg:w-80 space-y-4">
-          <Card className="bg-card border-border sticky top-24">
+          <Card className="bg-card border-border sticky top-24 overflow-y-auto no-scrollbar">
             <CardHeader className="bg-muted/50 border-b border-border py-3">
               <h3 className="font-bold">Bet Slip</h3>
             </CardHeader>
