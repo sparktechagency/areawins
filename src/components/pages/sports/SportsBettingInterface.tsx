@@ -139,7 +139,7 @@ export default function SportsBettingInterface({
         away: "Yet to Bat",
         time: "18:42 Live",
       },
-      odds: { home: 2.45, draw: 0, away: 1.52 }, // Draw often unused in T20 betting display
+      odds: { home: 2.45, draw: 0, away: 1.52 },
       markets: 12,
     },
     {
@@ -194,7 +194,7 @@ export default function SportsBettingInterface({
       {/* Sidebar - mimicking screenshot left nav (Optional if layout already has one, but creating integrated view) */}
       <div className="w-64 hidden 2xl:block shrink-0 space-y-6 pr-4 border-r border-white/10 overflow-y-auto no-scrollbar">
         {/* Top Menu from Image 0 */}
-        <div className="space-y-1">
+        <div className="space-y-2">
           <NavItem
             icon={<Trophy className="w-4 h-4" />}
             label="Top Leagues"
@@ -238,24 +238,24 @@ export default function SportsBettingInterface({
       <div className="flex-1 overflow-y-auto pr-2 pt-5 no-scrollbar">
         {/* Header / Search */}
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold flex items-center gap-2">
-            <span className="text-primary">{activeConfig.logo}</span>{" "}
+          <h1 className="text-2xl font-bold flex items-center gap-2 text-foreground">
+            <span className="text-primary-foreground">{activeConfig.logo}</span>{" "}
             {sportName} Bets
           </h1>
           <div className="relative w-80 hidden md:block">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <Input
               placeholder="Search events, teams or leagues"
-              className="pl-10 bg-[#1a2c24] border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-primary"
+              className="pl-10 border-border text-white placeholder:text-gray-500 focus-visible:ring-primary"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           <div className="flex gap-2">
-            <Button className="bg-[#1a2c24] hover:bg-[#233a30] text-primary border border-primary/20">
+            <Button variant="outline" className="bg-transparent text-primary border border-primary/20">
               $ 520.50
             </Button>
-            <Button className="bg-primary hover:bg-primary/90 text-black font-bold">
+            <Button className="bg-primary hover:bg-primary/90 text-foreground font-medium">
               Deposit
             </Button>
             <div className="w-10 h-10 rounded-full bg-gray-700 overflow-hidden border-2 border-primary/20">
@@ -389,7 +389,7 @@ export default function SportsBettingInterface({
       </div>
 
       {/* Right Column: Bet Slip (Desktop) */}
-      <div className="w-80 hidden xl:block flex-shrink-0">
+      <div className="w-80 hidden xl:block shrink-0">
         <div className="bg-[#1a2c24] rounded-xl border border-white/5 overflow-hidden sticky top-6">
           <div className="bg-[#14221c] p-4 flex items-center justify-between border-b border-white/5">
             <div className="flex items-center gap-2">
@@ -502,7 +502,7 @@ function NavItem({
   count,
   active,
 }: {
-  icon: any;
+  icon: React.ReactNode;
   label: string;
   count?: number;
   active?: boolean;
@@ -510,10 +510,10 @@ function NavItem({
   return (
     <button
       className={cn(
-        "flex items-center w-full px-3 py-2 rounded-lg transition-colors group",
+        "flex items-center w-full cursor-pointer px-3 py-2 rounded-lg transition-colors group",
         active
-          ? "bg-[#1a2c24] text-white"
-          : "text-gray-400 hover:bg-[#1a2c24] hover:text-white"
+          ? "bg-primary text-primary-foreground"
+          : "text-foreground  hover:bg-primary/10 "
       )}
     >
       <span className="mr-3 opacity-70 group-hover:opacity-100">{icon}</span>
