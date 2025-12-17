@@ -26,7 +26,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-               <Card className="md:col-span-1">
+               <Card className="w-full border-border shadow-none md:col-span-1 ">
                   <CardContent className="p-6 flex flex-col items-center">
                      <Avatar className="w-32 h-32 mb-4 border-2 border-primary">
                         <AvatarImage src={user?.avatar} />
@@ -40,7 +40,7 @@ export default function ProfilePage() {
                   </CardContent>
                </Card>
 
-               <Card className="md:col-span-2">
+               <Card className="w-full border-border shadow-none md:col-span-2">
                   <CardHeader>
                      <CardTitle>Personal Details</CardTitle>
                   </CardHeader>
