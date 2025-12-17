@@ -1,9 +1,12 @@
 import SportsBettingInterface from "@/components/pages/sports/SportsBettingInterface";
+import React from "react";
 
-export default function CricketPage() {
+const BaseBallPage = () => {
   return (
     <div className="w-full container mx-auto px-4 py-8">
-      <SportsBettingInterface sport="cricket" />
+      <SportsBettingInterface sport="baseball" />
     </div>
   );
-}
+};
+
+export default BaseBallPage;

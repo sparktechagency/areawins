@@ -252,7 +252,10 @@ export default function SportsBettingInterface({
             />
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" className="bg-transparent text-primary border border-primary/20">
+            <Button
+              variant="outline"
+              className="bg-transparent text-primary border border-primary/20"
+            >
               $ 520.50
             </Button>
             <Button className="bg-primary hover:bg-primary/90 text-foreground font-medium">
@@ -351,12 +354,14 @@ export default function SportsBettingInterface({
 
             <div className="mt-6 flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              <h3 className="font-bold text-xl text-white">Live Matches</h3>
+              <h3 className="font-bold text-xl text-foreground">
+                Live Matches
+              </h3>
               <div className="ml-auto">
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="text-gray-400 hover:text-white hover:bg-white/5"
+                  className="text-gray-400 hover:text-white "
                 >
                   <Filter className="w-5 h-5" />
                 </Button>
@@ -382,7 +387,6 @@ export default function SportsBettingInterface({
 
             <TabsContent value="upcoming" className="space-y-4">
               <div className="text-white">Upcoming matches list...</div>
-              {/* Reuse Match Cards for upcoming if needed */}
             </TabsContent>
           </Tabs>
         </div>
@@ -390,13 +394,13 @@ export default function SportsBettingInterface({
 
       {/* Right Column: Bet Slip (Desktop) */}
       <div className="w-80 hidden xl:block shrink-0">
-        <div className="bg-[#1a2c24] rounded-xl border border-white/5 overflow-hidden sticky top-6">
-          <div className="bg-[#14221c] p-4 flex items-center justify-between border-b border-white/5">
+        <div className="bg-card rounded-xl border border-border  overflow-hidden sticky top-6">
+          <div className="p-4 flex items-center justify-between border-b ">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-primary text-black flex items-center justify-center font-bold text-xs">
+              <div className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">
                 1
               </div>
-              <h3 className="font-bold text-white">Bet Slip</h3>
+              <h3 className="font-bold text-foreground">Bet Slip</h3>
             </div>
             <Button
               variant="ghost"
@@ -410,7 +414,7 @@ export default function SportsBettingInterface({
           {/* Simulated Active Bet */}
           <div className="p-4 space-y-4">
             {sportKey === "football" && (
-              <div className="bg-[#112218] p-3 rounded-lg border border-white/5 relative group">
+              <div className="bg-card p-3 rounded-lg border border-border relative group">
                 <button className="absolute right-2 top-2 text-gray-500 hover:text-white">
                   <span className="sr-only">Remove</span>×
                 </button>
@@ -432,7 +436,7 @@ export default function SportsBettingInterface({
                   </Badge>
                   <div className="flex items-center gap-1">
                     <span className="text-xs text-gray-500">Stake</span>
-                    <div className="w-16 h-7 bg-[#0b1610] rounded border border-white/10 flex items-center justify-center text-sm font-bold">
+                    <div className="w-16 h-7 bg-primary/10 rounded border border-white/10 flex items-center justify-center text-sm font-bold">
                       $500
                     </div>
                   </div>
@@ -461,7 +465,7 @@ export default function SportsBettingInterface({
                   </Badge>
                   <div className="flex items-center gap-1">
                     <span className="text-xs text-gray-500">Stake</span>
-                    <div className="w-16 h-7 bg-[#0b1610] rounded border border-white/10 flex items-center justify-center text-sm font-bold">
+                    <div className="w-16 h-7 bg-primary/10 rounded border border-white/10 flex items-center justify-center text-sm font-bold">
                       ৳500
                     </div>
                   </div>
@@ -547,7 +551,7 @@ import Link from "next/link"; // Add import
 
 function SportMatchCard({ match, sport }: { match: Match; sport: string }) {
   return (
-    <div className="bg-[#1a2c24] rounded-xl p-4 md:p-5 flex flex-col md:flex-row gap-6 border border-white/5 hover:border-primary/30 transition-all group">
+    <div className="bg-background rounded-xl p-4 md:p-5 flex flex-col md:flex-row gap-6 border border-border transition-all group">
       {/* Team / Score Info - Clickable */}
       <Link
         href={`/bets/match/${match.id}`}
@@ -566,9 +570,9 @@ function SportMatchCard({ match, sport }: { match: Match; sport: string }) {
         <div className="grid grid-cols-[120px_1fr] md:grid-cols-[160px_1fr] gap-4 mb-2">
           {/* Home Team */}
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-gray-700 flex-shrink-0" />{" "}
+            <div className="w-8 h-8 rounded-full bg-primary/10 shrink-0" />{" "}
             {/* Placeholder Logo */}
-            <span className="font-bold text-white truncate text-lg">
+            <span className="font-bold text-foreground truncate text-lg">
               {match.homeTeam}
             </span>
           </div>
@@ -582,9 +586,9 @@ function SportMatchCard({ match, sport }: { match: Match; sport: string }) {
 
           {/* Away Team */}
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-gray-700 flex-shrink-0" />{" "}
+            <div className="w-8 h-8 rounded-full bg-primary/10 shrink-0" />{" "}
             {/* Placeholder Logo */}
-            <span className="font-bold text-white truncate text-lg">
+            <span className="font-bold text-foreground truncate text-lg">
               {match.awayTeam}
             </span>
           </div>
@@ -615,7 +619,7 @@ function SportMatchCard({ match, sport }: { match: Match; sport: string }) {
 
         <div className="flex gap-3">
           {/* 1X2 or Main Odds */}
-          <div className="flex bg-[#0b1610] rounded-lg p-1 gap-1 flex-1">
+          <div className="flex bg-primary/10 rounded-lg p-1 gap-1 flex-1">
             <OddBox label="1" value={match.odds.home} highlight />
             {match.odds.draw !== undefined && match.odds.draw !== 0 && (
               <OddBox label="X" value={match.odds.draw} />
@@ -625,13 +629,13 @@ function SportMatchCard({ match, sport }: { match: Match; sport: string }) {
 
           {/* Secondary Market (Goals or Draw) */}
           {sport === "football" && (
-            <div className="flex bg-[#0b1610] rounded-lg p-1 gap-1 flex-1">
+            <div className="flex bg-primary/10 rounded-lg p-1 gap-1 flex-1">
               <OddBox label="Over" value={1.85} />
               <OddBox label="Under" value={1.95} />
             </div>
           )}
 
-          <div className="flex items-center justify-center w-10 h-10 bg-[#0b1610] rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 cursor-pointer transition-colors">
+          <div className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 cursor-pointer transition-colors">
             <span className="text-xs font-bold">+{match.markets}</span>
           </div>
         </div>
@@ -652,15 +656,17 @@ function OddBox({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center flex-1 py-1 px-2 rounded cursor-pointer transition-all hover:bg-gray-700",
-        highlight ? "bg-primary/10 text-primary" : "text-white"
+        "flex flex-col items-center justify-center flex-1 py-1 px-2 rounded cursor-pointer transition-all",
+        highlight
+          ? "bg-primary/10 text-primary"
+          : "text-gray-900 dark:text-white "
       )}
     >
       <span className="text-[10px] text-gray-500 mb-0.5">{label}</span>
       <span
         className={cn(
           "font-bold text-sm",
-          highlight ? "text-primary" : "text-white"
+          highlight ? "text-primary" : "text-gray-900 dark:text-white"
         )}
       >
         {value.toFixed(2)}
