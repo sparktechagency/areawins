@@ -44,7 +44,7 @@ const HowItWorks = () => {
         {/* Main content - flex for large screens, stack on mobile */}
         <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16">
           {/* Left side - numbered steps */}
-          <div className="w-full lg:w-5/12 space-y-8 md:space-y-10">
+          <div className="w-full  space-y-8 md:space-y-10">
             {steps.map((step, index) => (
               <div
                 key={step.number}
@@ -69,12 +69,12 @@ const HowItWorks = () => {
           </div>
 
           {/* Right side - Central P2P circle graphic */}
-          <div className="relative w-full max-w-md lg:w-7/12 aspect-square">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-primary/5 rounded-3xl border border-primary/20 shadow-xl shadow-primary/5 flex items-center justify-center p-6 md:p-8">
-              <div className="relative w-full h-full max-w-[320px] max-h-[320px] md:max-w-[380px] md:max-h-[380px]">
+          <div className="relative w-full max-w-md  aspect-square">
+            <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-background to-primary/5 rounded-3xl border border-primary/20 shadow-xl shadow-primary/5 flex items-center justify-center p-6 md:p-8">
+              <div className="relative w-full h-full max-w-[320px] max-h-80 md:max-w-[380px] md:max-h-[380px]">
                 {/* Central P2P circle */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-primary/80 to-primary/40 flex items-center justify-center shadow-2xl shadow-primary/30">
+                  <div className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-linear-to-br from-primary/80 to-primary/40 flex items-center justify-center shadow-2xl shadow-primary/30">
                     <span className="text-4xl md:text-6xl font-black text-white tracking-wider">
                       P2P
                     </span>
@@ -84,23 +84,23 @@ const HowItWorks = () => {
                 {/* Orbiting icons - positioned around the circle */}
                 <div className="absolute inset-0">
                   {/* You can replace these emojis with SVG / lucide-react icons */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl md:text-7xl">
-                    👤
-                  </div>
-                  <div className="absolute top-1/4 right-0 translate-x-1/4 text-5xl md:text-7xl">
-                    💰
-                  </div>
-                  <div className="absolute bottom-1/4 right-0 translate-x-1/4 text-5xl md:text-7xl">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl md:text-3xl">
                     ⚽
                   </div>
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 text-5xl md:text-7xl">
+                  <div className="absolute top-1/4 right-0 translate-x-1/4 text-2xl md:text-3xl">
                     🏀
                   </div>
-                  <div className="absolute bottom-1/4 left-0 -translate-x-1/4 text-5xl md:text-7xl">
+                  <div className="absolute bottom-1/4 right-0 translate-x-1/4 text-2xl md:text-3xl">
+                    🏏
+                  </div>
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 text-2xl md:text-3xl">
+                    🏈
+                  </div>
+                  <div className="absolute bottom-1/4 left-0 -translate-x-1/4 text-2xl md:text-3xl">
                     🎾
                   </div>
-                  <div className="absolute top-1/4 left-0 -translate-x-1/4 text-5xl md:text-7xl">
-                    🏈
+                  <div className="absolute top-1/4 left-0 -translate-x-1/4 text-2xl md:text-3xl">
+                    ⚾
                   </div>
                 </div>
 
