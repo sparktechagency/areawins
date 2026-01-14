@@ -1,5 +1,4 @@
 import SportsBettingInterface from "@/components/pages/sports/SportsBettingInterface";
-import React from "react";
 
 const BaseBallPage = () => {
   return (

@@ -240,8 +240,11 @@ const liveEvents: LiveEvent[] = [
 
 const LiveEventsSection: React.FC = () => {
   return (
-    <section className="container mx-auto w-full">
-      <h2 className="mb-6 text-2xl font-bold text-foreground">Live Events</h2>
+    <section className="w-full container mx-auto mt-5">
+      <h2 className="mb-6 text-2xl font-bold text-foreground flex items-center gap-2">
+        <div className="size-3 rounded-full bg-rose-500 animate-pulse  shadow-lg shadow-white/60 mt-0.5 "></div>
+        Live Events Today
+      </h2>
 
       <Carousel opts={{ align: "start", loop: true }} className="w-full">
         <CarouselContent className="-ml-6">
@@ -253,7 +256,9 @@ const LiveEventsSection: React.FC = () => {
                   <span className="rounded bg-red-500 px-3 py-1 text-xs font-medium text-white">
                     Live
                   </span>
-                  <span className="text-sm text-muted-foreground">{event.time}</span>
+                  <span className="text-sm text-muted-foreground">
+                    {event.time}
+                  </span>
                 </div>
 
                 {/* Teams */}

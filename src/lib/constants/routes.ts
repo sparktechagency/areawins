@@ -1,4 +1,3 @@
-
 export const ROUTES = {
   // Public routes
   HOME: "/",
@@ -6,22 +5,26 @@ export const ROUTES = {
   CONTACT: "/contact",
   TERMS: "/terms",
   PRIVACY: "/privacy",
-  BETS: "/bets",
   MORE: "/more",
 
   // Sports routes
-  FOOTBALL: "/bets/football",
-  CRICKET: "/bets/cricket",
-  BASKETBALL: "/bets/basketball",
-  VOLLEYBALL: "/bets/volleyball",
-  BASEBALL: "/bets/baseball",
-  TENNIS: "/bets/tennis",
-  BOXING: "/bets/boxing",
+  FOOTBALL: "/matches/football",
+  CRICKET: "/matches/cricket",
+  BASKETBALL: "/matches/basketball",
+  VOLLEYBALL: "/matches/volleyball",
+  BASEBALL: "/matches/baseball",
+  TENNIS: "/matches/tennis",
+  BOXING: "/matches/boxing",
+  RUGBY: "/matches/rugby",
+  HOCKEY: "/matches/hockey",
+  BADMINTON: "/matches/badminton",
+  TABLE_TENNIS: "/matches/table-tennis",
+  HANDBALL: "/matches/handball",
 
   // Match routes
-  LIVE_EVENTS: "/bets/live-events",
-  UPCOMING: "/bets/upcoming",
-  MATCH_DETAIL: (id: string) => `/bets/match/${id}`,
+  LIVE_EVENTS: "/matches/live-events",
+  UPCOMING: "/matches/upcoming",
+  MATCH_DETAIL: (id: string) => `/matches/match/${id}`,
 
   // Auth routes
   LOGIN: "/login",
@@ -51,7 +54,6 @@ export const ROUTES = {
   SUPPORT: "/dashboard/support",
 } as const;
 
-
 /**
  * Public routes that don't require authentication
  */
@@ -59,7 +61,6 @@ export const PUBLIC_ROUTES = [
   ROUTES.HOME,
   ROUTES.ABOUT,
   ROUTES.CONTACT,
-  ROUTES.BETS,
   ROUTES.MORE,
   ROUTES.FOOTBALL,
   ROUTES.CRICKET,
@@ -70,7 +71,7 @@ export const PUBLIC_ROUTES = [
   ROUTES.BOXING,
   ROUTES.LIVE_EVENTS,
   ROUTES.UPCOMING,
-  "/bets/match", // Match detail pages
+  "/matches/match", // Match detail pages
 ];
 
 /**
@@ -87,9 +88,7 @@ export const AUTH_ROUTES = [
 /**
  * Protected routes that require authentication
  */
-export const PROTECTED_ROUTES = [
-  "/dashboard",
-];
+export const PROTECTED_ROUTES = ["/dashboard"];
 
 /**
  * Route names for display
@@ -98,7 +97,6 @@ export const ROUTE_NAMES: Record<string, string> = {
   [ROUTES.HOME]: "Home",
   [ROUTES.ABOUT]: "About",
   [ROUTES.CONTACT]: "Contact",
-  [ROUTES.BETS]: "Bets",
   [ROUTES.MORE]: "More",
   [ROUTES.FOOTBALL]: "Football",
   [ROUTES.CRICKET]: "Cricket",

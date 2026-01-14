@@ -27,7 +27,7 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/bets">
+            <Link href="/matches">
               <Button className="px-10 cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground">
                 Get Started Now
               </Button>

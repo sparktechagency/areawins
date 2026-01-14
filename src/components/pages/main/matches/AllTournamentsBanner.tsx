@@ -1,8 +1,14 @@
 "use client";
 import Image from "next/image";
-import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
-const TournamentsSection: React.FC = () => {
+const AllTournamentsBanner: React.FC = () => {
   const banners = useMemo(
     () => [
       {
@@ -147,4 +153,4 @@ const TournamentsSection: React.FC = () => {
   );
 };
 
-export default TournamentsSection;
+export default AllTournamentsBanner;
