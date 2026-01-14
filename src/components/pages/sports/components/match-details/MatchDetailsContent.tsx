@@ -124,7 +124,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
       </div>
 
       {/* Match Score Display */}
-      <div className="bg-card rounded-[48px] p-8 border border-border overflow-hidden relative shadow-2xl">
+      <div className="bg-card rounded-[48px] p-8 border border-border overflow-hidden relative">
         {/* Decorative background */}
         <div className="absolute top-0 right-0 size-80 bg-primary/5 blur-[120px] pointer-events-none" />
 
@@ -146,7 +146,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-24 w-full max-w-4xl px-4">
             {/* Home Team */}
             <div className="flex flex-col items-center gap-5">
-              <div className="relative size-24 md:size-32 rounded-full p-2 bg-muted shadow-2xl overflow-hidden border-4 border-card group">
+              <div className="relative size-24 md:size-32 rounded-full p-2 bg-muted overflow-hidden border-4 border-card group">
                 <div className="absolute inset-0 bg-primary/10 flex items-center justify-center text-5xl">
                   ⚽
                 </div>
@@ -160,17 +160,17 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
             {/* Score & Time */}
             <div className="flex flex-col items-center gap-4">
               <div className="flex items-center gap-6">
-                <span className="text-6xl md:text-8xl font-black text-foreground drop-shadow-xl">
+                <span className="text-6xl md:text-8xl font-black text-foreground">
                   {match.score.home}
                 </span>
                 <span className="text-4xl md:text-6xl font-black text-muted-foreground/10">
                   :
                 </span>
-                <span className="text-6xl md:text-8xl font-black text-foreground drop-shadow-xl">
+                <span className="text-6xl md:text-8xl font-black text-foreground">
                   {match.score.away}
                 </span>
               </div>
-              <div className="flex items-center gap-2.5 px-5 py-2 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-500 text-[11px] font-black uppercase tracking-[0.3em] shadow-lg shadow-rose-500/5">
+              <div className="flex items-center gap-2.5 px-5 py-2 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-500 text-[11px] font-black uppercase tracking-[0.3em]">
                 <span className="size-2 rounded-full bg-rose-500 animate-pulse" />
                 {match.time}
               </div>
@@ -178,7 +178,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
 
             {/* Away Team */}
             <div className="flex flex-col items-center gap-5">
-              <div className="relative size-24 md:size-32 rounded-full p-2 bg-muted shadow-2xl overflow-hidden border-4 border-card group">
+              <div className="relative size-24 md:size-32 rounded-full p-2 bg-muted overflow-hidden border-4 border-card group">
                 <div className="absolute inset-0 bg-primary/10 flex items-center justify-center text-5xl">
                   ⚽
                 </div>
@@ -197,7 +197,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
         {outcomeStats.map((stat, idx) => (
           <div
             key={idx}
-            className="bg-card rounded-[32px] p-6 border border-border shadow-md flex flex-col items-center gap-6 group hover:border-primary/30 transition-all hover:shadow-xl"
+            className="bg-card rounded-[32px] p-6 border border-border flex flex-col items-center gap-6 group hover:border-primary/30 transition-all"
           >
             <div className="flex flex-col items-center gap-2">
               <span className="text-4xl">{stat.icon}</span>
@@ -230,7 +230,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
             <div className="flex flex-col w-full gap-3 mt-auto">
               <Button
                 onClick={() => setIsCreateModalOpen(true)}
-                className="w-full h-12 rounded-2xl bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[11px] shadow-lg shadow-primary/20"
+                className="w-full h-12 rounded-2xl bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[11px]"
               >
                 <PlusCircle className="size-4 mr-2" />
                 Create Bet

@@ -119,7 +119,7 @@ const AllTournamentsBanner: React.FC = () => {
                 }}
                 className={`relative w-3 h-3 cursor-pointer rounded-full transition-all duration-500 ${
                   index === currentIndex
-                    ? "bg-white scale-150 shadow-lg shadow-white/60"
+                    ? "bg-white scale-150"
                     : "bg-white/40 hover:bg-white/70"
                 }`}
                 aria-label={`Go to slide ${index + 1}`}

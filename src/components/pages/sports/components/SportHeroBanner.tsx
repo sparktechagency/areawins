@@ -17,7 +17,7 @@ interface SportHeroBannerProps {
 }
 const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
   return (
-    <div className="relative rounded-[40px] overflow-hidden mb-12 min-h-[360px] flex flex-col justify-end shadow-2xl border border-border group">
+    <div className="relative rounded-[40px] overflow-hidden mb-12 min-h-[360px] flex flex-col justify-end border border-border group">
       <div
         className="absolute inset-0 bg-cover bg-center z-0 transition-transform duration-1000 group-hover:scale-105"
         style={{ backgroundImage: config.bg }}
@@ -37,7 +37,7 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
           </span>
         </div>
 
-        <h2 className="text-4xl md:text-6xl font-black text-white mb-4 leading-[1] tracking-tight drop-shadow-2xl">
+        <h2 className="text-4xl md:text-6xl font-black text-white mb-4 leading-none tracking-tight">
           {config.title}
         </h2>
 
@@ -58,7 +58,7 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
         )}
 
         <div className="flex items-center gap-4">
-          <Button className="h-14 px-10 rounded-2xl bg-white text-black hover:bg-white/90 font-black uppercase tracking-widest shadow-xl transition-all active:scale-95">
+          <Button className="h-14 px-10 rounded-2xl bg-white text-black hover:bg-white/90 font-black uppercase tracking-widest transition-all active:scale-95">
             Join Market
           </Button>
           <Button

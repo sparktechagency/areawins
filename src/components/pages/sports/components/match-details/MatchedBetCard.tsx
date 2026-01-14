@@ -114,7 +114,7 @@ const MatchedBetCard: React.FC<MatchedBetCardProps> = ({ user, bet }) => {
             "h-12 rounded-xl px-8 font-black uppercase tracking-widest text-[11px] transition-all flex gap-2 items-center cursor-pointer",
             isAccepted
               ? "bg-muted text-muted-foreground border border-border"
-              : "bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 active:scale-95"
+              : "bg-primary hover:bg-primary/90 text-white active:scale-95"
           )}
         >
           {isAccepted ? (
@@ -132,7 +132,7 @@ const MatchedBetCard: React.FC<MatchedBetCardProps> = ({ user, bet }) => {
       {/* Locked Overlay Effect */}
       {isAccepted && (
         <div className="absolute inset-0 bg-background/40 backdrop-blur-[2px] pointer-events-none flex items-center justify-center animate-in fade-in duration-500">
-          <div className="bg-card p-4 rounded-full border border-border shadow-2xl scale-in duration-300">
+          <div className="bg-card p-4 rounded-full border border-border scale-in duration-300">
             <Lock className="size-8 text-primary" />
           </div>
         </div>

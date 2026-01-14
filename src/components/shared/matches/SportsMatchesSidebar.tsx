@@ -83,7 +83,7 @@ export const SidebarLink = ({
     className={cn(
       "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group cursor-pointer",
       active
-        ? "bg-primary/10 text-primary shadow-sm"
+        ? "bg-primary/10 text-primary border border-primary/20"
         : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
     )}
   >

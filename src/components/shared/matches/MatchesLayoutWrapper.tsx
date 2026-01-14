@@ -28,7 +28,6 @@ const MatchesLayoutWrapper = ({
   const isMatchDetailsPage =
     pathname.split("/").filter(Boolean).length === 3 &&
     pathname.startsWith("/matches");
-  const isMarketPage = pathname.startsWith("/market");
 
   const showLeft =
     !hideLeftSidebar && !isMainMatchesPage && !isMatchDetailsPage;

@@ -9,7 +9,7 @@ import {
   Target,
 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useMemo } from "react";
 
 interface Match {
   id: string;
@@ -33,14 +33,32 @@ interface SportMatchCardProps {
   match: Match;
 }
 
-export const SportMatchCard: React.FC<SportMatchCardProps> = ({ match }) => {
-  // Mock P2P stats if not provided
-  const stats = match.p2pStats || {
-    activeBets: Math.floor(Math.random() * 20) + 5,
-    potAmount: Math.floor(Math.random() * 5000) + 500,
-    openBets: Math.floor(Math.random() * 10) + 2,
-    popularOutcome: match.homeTeam + " Win",
+// Fixed mock data generator for stable values based on ID
+const getMockStats = (id: string, homeTeam: string) => {
+  // Simple seed based on string ID
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = id.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const pseudoRandom = (seed: number) => {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
   };
+
+  return {
+    activeBets: Math.floor(pseudoRandom(hash) * 20) + 5,
+    potAmount: Math.floor(pseudoRandom(hash + 1) * 5000) + 500,
+    openBets: Math.floor(pseudoRandom(hash + 2) * 10) + 2,
+    popularOutcome: homeTeam + " Win",
+  };
+};
+
+export const SportMatchCard: React.FC<SportMatchCardProps> = ({ match }) => {
+  // Use useMemo with stable deterministic mock data generator
+  const stats = useMemo(() => {
+    if (match.p2pStats) return match.p2pStats;
+    return getMockStats(match.id, match.homeTeam);
+  }, [match.id, match.p2pStats, match.homeTeam]);
 
   return (
     <div className="bg-card rounded-2xl border border-border transition-all hover:bg-muted/5 group overflow-hidden">

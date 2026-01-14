@@ -1,13 +1,13 @@
 "use client";
 import logo from "@/assets/logo/logo.png";
 import logo2 from "@/assets/logo/logo2.png";
-import DarkModeToggle from "../ui/dark-mode-toggle";
 import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
+import DarkModeToggle from "../ui/dark-mode-toggle";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -31,6 +31,7 @@ const Navbar = () => {
     { label: "Home", href: "/", icon: "🏠" },
     { label: "All Matches", href: "/matches", icon: "⚽" },
     { label: "Bet Market", href: "/market", icon: "📈" },
+    { label: "Friends", href: "/friends", icon: "👥" },
     { label: "Support", href: "/support", icon: "❓" },
   ];
 
