@@ -1,6 +1,9 @@
+import AllTournamentsBanner from "./AllTournamentsBanner";
+import BasketballSection from "./BasketballSection";
+import CricketSection from "./CricketSection";
+import FootballSection from "./FootballSection";
 import LiveEventsSection from "./LiveEventsSection";
 import SportCategories from "./SportCategories";
-import AllTournamentsBanner from "./AllTournamentsBanner";
 
 const Matches = () => {
   return (
@@ -9,6 +12,9 @@ const Matches = () => {
         <SportCategories />
         <AllTournamentsBanner />
         <LiveEventsSection />
+        <FootballSection />
+        <CricketSection />
+        <BasketballSection />
       </div>
     </section>
   );

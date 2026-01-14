@@ -1,6 +1,5 @@
 import { ROUTES } from "@/lib/constants";
 import Link from "next/link";
-import React from "react";
 
 const sports = [
   { name: "All", icon: "🏆", href: "/matches", primary: true },
@@ -20,13 +19,13 @@ const sports = [
 
 const SportCategories = () => {
   return (
-    <section className="bg-background border-b border-border">
+    <section className="bg-background border-b border-border w-full overflow-hidden">
       <nav className="container mx-auto flex items-center gap-8 py-3 md:py-4 overflow-x-auto no-scrollbar">
         {sports.map((sport) => (
           <Link
             key={sport.name}
             href={sport.href}
-            className={`flex items-center gap-2  whitespace-nowrap transition-colors
+            className={`flex items-center gap-2 shrink-0 whitespace-nowrap transition-colors
               ${
                 sport.primary
                   ? "text-primary hover:text-primary/80"
@@ -34,7 +33,7 @@ const SportCategories = () => {
               }`}
           >
             <span className="text-2xl">{sport.icon}</span>
-            {sport.name}
+            <span className="font-medium">{sport.name}</span>
           </Link>
         ))}
       </nav>
