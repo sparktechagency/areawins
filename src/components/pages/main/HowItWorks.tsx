@@ -1,5 +1,3 @@
-// components/HowItWorks.tsx
-import Image from "next/image";
 const steps = [
   {
     number: 1,
