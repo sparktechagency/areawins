@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Users } from "lucide-react";
 
 const FutureOfBetting = () => {
   return (
@@ -19,7 +20,9 @@ const FutureOfBetting = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {/* Card 1: P2P Betting */}
           <div className="bg-card border border-border rounded-xl p-6 md:p-8 text-center ">
-            <div className="text-5xl mb-4">👥</div>
+            <div className="">
+              <Users className="text-5xl mb-4" />
+            </div>
             <h3 className="text-2xl font-bold text-primary mb-3">
               P2P Betting
             </h3>
