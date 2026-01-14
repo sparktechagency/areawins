@@ -50,8 +50,8 @@ const HowItWorks = () => {
                 key={step.number}
                 className="flex items-start gap-5 md:gap-6 group"
               >
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary/10 border-2 border-primary/30 flex items-center justify-center text-xl md:text-2xl font-bold text-primary group-hover:bg-primary/20 transition-colors">
+                <div className="shrink-0">
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary border border-primary/30 flex items-center justify-center text-xl md:text-2xl font-bold text-white group-hover:bg-primary/20 transition-colors">
                     {step.number}
                   </div>
                 </div>

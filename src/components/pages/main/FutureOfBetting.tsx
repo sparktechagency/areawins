@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Users } from "lucide-react";
+import { Check, MessageSquare, RectangleHorizontal, Users, Verified } from "lucide-react";
 
 const FutureOfBetting = () => {
   return (
@@ -20,8 +20,8 @@ const FutureOfBetting = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {/* Card 1: P2P Betting */}
           <div className="bg-card border border-border rounded-xl p-6 md:p-8 text-center ">
-            <div className="size-10 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center  p-2 ">
-              <Users className="size-6" />
+            <div className="size-14 mx-auto mb-4 rounded-full bg-primary/90 border border-primary/30 flex items-center justify-center  p-2 ">
+              <Users className="size-6 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-primary mb-3">
               P2P Betting
@@ -34,7 +34,9 @@ const FutureOfBetting = () => {
 
           {/* Card 2: Fair & Transparent */}
           <div className="bg-card border border-border rounded-xl p-6 md:p-8 text-center ">
-            <div className="text-5xl mb-4">✅</div>
+            <div className="size-14 mx-auto mb-4 rounded-full bg-primary/90 border border-primary/30 flex items-center justify-center  p-2 ">
+              <Verified className="size-6 text-white" />
+            </div>
             <h3 className="text-2xl font-bold text-primary mb-3">
               Fair & Transparent
             </h3>
@@ -46,7 +48,9 @@ const FutureOfBetting = () => {
 
           {/* Card 3: Instant Payouts */}
           <div className="bg-card border border-border rounded-xl p-6 md:p-8 text-center ">
-            <div className="text-5xl mb-4">⚡</div>
+            <div className="size-14 mx-auto mb-4 rounded-full bg-primary/90 border border-primary/30 flex items-center justify-center  p-2 ">
+              <RectangleHorizontal className="size-6 text-white" />
+            </div>
             <h3 className="text-2xl font-bold text-primary mb-3">
               Instant Payouts
             </h3>
@@ -58,7 +62,9 @@ const FutureOfBetting = () => {
 
           {/* Card 4: Social Betting */}
           <div className="bg-card border border-border rounded-xl p-6 md:p-8 text-center ">
-            <div className="text-5xl mb-4">💬</div>
+            <div className="size-14 mx-auto mb-4 rounded-full bg-primary/90 border border-primary/30 flex items-center justify-center  p-2 ">
+              <MessageSquare className="size-6 text-white" />
+            </div>
             <h3 className="text-2xl font-bold text-primary mb-3">
               Social Betting
             </h3>
