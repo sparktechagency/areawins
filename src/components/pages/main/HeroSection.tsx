@@ -18,10 +18,10 @@ const HeroSection = () => {
       <div className="relative z-10">
         {/* Hero Content */}
         <div className="flex flex-col items-center justify-center min-h-[calc(100vh-200px)] px-4 text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 drop-shadow-2xl">
-            Bet Smart! Win Fair!
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 drop-shadow-2xl">
+            Bet Smart! <span className="text-primary">Win Big</span> , Play Fair!
           </h1>
-          <p className="text-base md:text-lg text-white/90 mb-8 max-w-2xl drop-shadow-lg">
+          <p className="text-sm md:text-base lg:text-lg text-white/90 mb-8 max-w-2xl drop-shadow-lg">
             Fast bets, generous outs, and live market odds — All in one place.
           </p>
 
@@ -29,7 +29,7 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href="/bets">
               <Button className="px-10 cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground">
-                Bets Now
+                Get Started Now
               </Button>
             </Link>
             <Link href="/register">
@@ -37,9 +37,17 @@ const HeroSection = () => {
                 variant="default"
                 className="px-10 cursor-pointer bg-white text-gray-900 hover:bg-white/90"
               >
-                Sign Up
+                View Markets
               </Button>
             </Link>
+            {/* <Link href="/register">
+              <Button
+                variant="default"
+                className="px-10 cursor-pointer bg-white text-gray-900 hover:bg-white/90"
+              >
+                Sign Up
+              </Button>
+            </Link> */}
           </div>
         </div>
       </div>
