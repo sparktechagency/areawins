@@ -9,32 +9,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Image from "next/image";
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 import React from "react";
-
-interface Team {
-  name: string;
-  image: string;
-}
-
-interface League {
-  name: string;
-  country: string;
-  flag: string;
-}
 
 interface CricketMatch {
   id: number;
   date: string;
   time: string;
   venue: string;
-  league: League;
-  teamA: Team;
-  teamB: Team;
-  odds: {
-    home: string;
-    draw: string;
-    away: string;
+  league: string;
+  teamA: string;
+  teamB: string;
+  p2pStats: {
+    activeBets: number;
+    potAmount: number;
+    availableBets: number;
   };
 }
 
@@ -42,97 +32,65 @@ const cricketMatches: CricketMatch[] = [
   {
     id: 1,
     date: "Today",
-    time: "15:30",
-    venue: "Eden Gardens, Kolkata",
-    league: {
-      name: "IPL 2024",
-      country: "India",
-      flag: "https://flagcdn.com/w40/in.png",
-    },
-    teamA: {
-      name: "KKR",
-      image:
-        "https://images.unsplash.com/flagged/photo-1576972405668-2d020a01cbfa",
-    },
-    teamB: {
-      name: "SRH",
-      image:
-        "https://images.unsplash.com/flagged/photo-1576972405668-2d020a01cbfa",
-    },
-    odds: {
-      home: "+1.56",
-      draw: "+1.56",
-      away: "+1.56",
-    },
+    time: "19:30",
+    venue: "Chennai",
+    league: "IPL T20",
+    teamA: "CSK",
+    teamB: "RCB",
+    p2pStats: { activeBets: 42, potAmount: 12500, availableBets: 18 },
   },
   {
     id: 2,
     date: "Tomorrow",
-    time: "19:00",
-    venue: "Narendra Modi Stadium",
-    league: {
-      name: "T20 World Cup",
-      country: "India",
-      flag: "https://flagcdn.com/w40/in.png",
-    },
-    teamA: {
-      name: "India",
-      image:
-        "https://images.unsplash.com/flagged/photo-1576972405668-2d020a01cbfa",
-    },
-    teamB: {
-      name: "Pakistan",
-      image:
-        "https://images.unsplash.com/flagged/photo-1576972405668-2d020a01cbfa",
-    },
-    odds: {
-      home: "+1.56",
-      draw: "+1.56",
-      away: "+1.56",
-    },
+    time: "15:00",
+    venue: "Melbourne",
+    league: "Big Bash",
+    teamA: "Stars",
+    teamB: "Strikers",
+    p2pStats: { activeBets: 15, potAmount: 3800, availableBets: 4 },
   },
 ];
 
 const CricketSection: React.FC = () => {
   return (
-    <section className="w-full container mx-auto mt-10">
-      <div className="flex flex-col items-center mb-6">
-        <h2 className="text-xl md:text-2xl text-foreground font-semibold">
-          Cricket Upcoming
+    <section className="w-full container mx-auto mt-12">
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="text-2xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+          <span className="size-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-lg">
+            🏏
+          </span>
+          Cricket Markets
         </h2>
+        <Button
+          variant="ghost"
+          className="text-xs font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
+        >
+          Explore T20 Markets
+        </Button>
       </div>
 
-      <div className="w-full rounded-xl border border-border bg-card overflow-hidden">
+      <div className="w-full rounded-[32px] border border-border bg-card overflow-hidden">
         <div className="overflow-x-auto no-scrollbar">
           <Table>
-            <TableHeader className="bg-primary hover:bg-primary/95">
-              <TableRow className="hover:bg-transparent border-none">
-                <TableHead className="w-[100px] text-foreground font-bold py-3 pl-6">
-                  Date
+            <TableHeader className="bg-muted/30">
+              <TableRow className="hover:bg-transparent border-border/50">
+                <TableHead className="py-5 pl-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                  Time
                 </TableHead>
-                <TableHead className="w-[140px] text-foreground font-bold py-3">
+                <TableHead className="py-5 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                   League
                 </TableHead>
-                <TableHead className="w-[160px] text-foreground font-bold py-3">
-                  Venue
+                <TableHead className="py-5 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                  Match
                 </TableHead>
-                <TableHead className="text-right text-foreground font-bold py-3">
-                  Team 1
+                <TableHead className="py-5 text-center text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                  🎯 Bets
                 </TableHead>
-                <TableHead className="w-[70px] text-center text-foreground font-bold py-3">
-                  1
+                <TableHead className="py-5 text-center text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                  💰 Pot
                 </TableHead>
-                <TableHead className="w-[70px] text-center text-foreground font-bold py-3">
-                  X
-                </TableHead>
-                <TableHead className="w-[70px] text-center text-foreground font-bold py-3">
-                  2
-                </TableHead>
-                <TableHead className="text-left text-foreground font-bold py-3">
-                  Team 2
-                </TableHead>
-                <TableHead className="w-[100px] text-center text-foreground font-bold py-3 pr-6">
-                  Set
+                <TableHead className="py-5 pr-8 text-right text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                  Browse
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -140,84 +98,32 @@ const CricketSection: React.FC = () => {
               {cricketMatches.map((match) => (
                 <TableRow
                   key={match.id}
-                  className="hover:bg-muted/30 transition-colors border-border"
+                  className="hover:bg-muted/20 border-border/50"
                 >
-                  <TableCell className="pl-6 py-4">
-                    <div className="text-[12px] font-medium leading-tight whitespace-nowrap">
-                      {match.time} <br /> {match.date}
-                    </div>
+                  <TableCell className="pl-8 py-6 font-black text-sm">
+                    {match.time}
                   </TableCell>
-                  <TableCell className="py-4">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground whitespace-nowrap">
-                      <Image
-                        src={match.league.flag}
-                        alt=""
-                        width={16}
-                        height={12}
-                        className="rounded-sm shrink-0"
-                      />
-                      <span className="truncate max-w-[120px]">
-                        {match.league.name}
-                      </span>
-                    </div>
+                  <TableCell className="text-[11px] font-black uppercase text-foreground">
+                    {match.league}
                   </TableCell>
-                  <TableCell className="py-4">
-                    <div className="text-sm text-muted-foreground truncate max-w-[150px]">
-                      {match.venue}
-                    </div>
+                  <TableCell className="text-xs font-black text-foreground">
+                    {match.teamA} VS {match.teamB}
                   </TableCell>
-                  <TableCell className="text-right py-4">
-                    <div className="flex items-center gap-2 justify-end">
-                      <span className="text-sm font-semibold leading-tight">
-                        {match.teamA.name}
-                      </span>
-                      <Image
-                        src={match.teamA.image}
-                        alt={match.teamA.name}
-                        width={28}
-                        height={28}
-                        className="h-7 w-7 rounded-full object-cover border border-border shrink-0"
-                      />
-                    </div>
+                  <TableCell className="text-center font-black text-primary">
+                    {match.p2pStats.activeBets}
                   </TableCell>
-
-                  {/* Odds */}
-                  <TableCell className="px-1 py-4">
-                    <button className="w-full bg-muted hover:bg-muted/80 py-2 rounded text-[11px] font-bold border border-border/50 transition-colors cursor-pointer">
-                      {match.odds.home}
-                    </button>
+                  <TableCell className="text-center font-black text-foreground">
+                    ${match.p2pStats.potAmount.toLocaleString()}
                   </TableCell>
-                  <TableCell className="px-1 py-4">
-                    <button className="w-full bg-muted hover:bg-muted/80 py-2 rounded text-[11px] font-bold border border-border/50 transition-colors cursor-pointer">
-                      {match.odds.draw}
-                    </button>
-                  </TableCell>
-                  <TableCell className="px-1 py-4">
-                    <button className="w-full bg-muted hover:bg-muted/80 py-2 rounded text-[11px] font-bold border border-border/50 transition-colors cursor-pointer">
-                      {match.odds.away}
-                    </button>
-                  </TableCell>
-
-                  <TableCell className="text-left py-4">
-                    <div className="flex items-center gap-2 justify-start">
-                      <Image
-                        src={match.teamB.image}
-                        alt={match.teamB.name}
-                        width={28}
-                        height={28}
-                        className="h-7 w-7 rounded-full object-cover border border-border shrink-0"
-                      />
-                      <span className="text-sm font-semibold leading-tight">
-                        {match.teamB.name}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-center pr-6 py-4">
+                  <TableCell className="text-right pr-8">
                     <Button
+                      asChild
                       size="sm"
-                      className="bg-[#00d65c] hover:bg-[#00b84d] text-white text-[10px] font-bold uppercase py-1 px-4 h-8 cursor-pointer"
+                      className="h-9 rounded-xl bg-primary hover:bg-primary/90 text-white text-[10px] font-black uppercase tracking-widest"
                     >
-                      Bet
+                      <Link href={`/matches/cricket/${match.id}`}>
+                        Market <ChevronRight className="size-3.5 ml-1" />
+                      </Link>
                     </Button>
                   </TableCell>
                 </TableRow>

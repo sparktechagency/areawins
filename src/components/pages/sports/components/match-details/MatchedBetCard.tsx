@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, Lock, TrendingUp } from "lucide-react";
+import { ArrowRightLeft, CheckCircle2, Info, Lock } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 
@@ -29,10 +29,14 @@ const MatchedBetCard: React.FC<MatchedBetCardProps> = ({ user, bet }) => {
     setIsAccepted(true);
   };
 
+  // P2P Logic: If user is backing Chelsea, opponent lays Chelsea
+  const opponentStake = bet.potentialWin - bet.stake;
+
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-lg p-6 transition-all duration-300 border border-border",
+        "relative overflow-hidden rounded-[32px] p-6 transition-all duration-300 border border-border bg-card group",
+        isAccepted && "border-primary/20"
       )}
     >
       {/* User Info Header */}
@@ -50,64 +54,76 @@ const MatchedBetCard: React.FC<MatchedBetCardProps> = ({ user, bet }) => {
             <span className="font-black text-foreground text-lg tracking-tight">
               {user.name}
             </span>
-            <span className="text-xs text-slate-400 font-bold">
+            <span className="text-[10px] text-muted-foreground font-black uppercase tracking-widest">
               {user.timeAgo} •{" "}
-              <span className="text-primary">{user.trust}% Trust</span>
+              <span className="text-primary">{user.trust}% Trust Score</span>
             </span>
           </div>
         </div>
         <Badge
           variant="secondary"
-          className="bg-primary text-white  rounded-full px-3 py-0.5 text-[10px] font-black tracking-widest border-none"
+          className="bg-primary/10 text-primary rounded-full px-3 py-1 text-[10px] font-black tracking-[0.2em] border-none uppercase"
         >
-          P2P
+          P2P Verified
         </Badge>
       </div>
 
       {/* Bet Content */}
-      <div className="space-y-1 mb-8">
-        <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">
-          {bet.type}
-        </span>
-        <h3 className="text-2xl font-black text-foreground leading-tight">
-          {bet.selection}
-        </h3>
+      <div className="bg-muted/30 rounded-2xl p-5 border border-border/50 mb-6 relative overflow-hidden">
+        <ArrowRightLeft className="absolute right-4 top-4 size-10 text-foreground/5" />
+        <div className="flex flex-col gap-1">
+          <span className="text-[9px] font-black text-primary uppercase tracking-widest">
+            {user.name} Is {bet.type}
+          </span>
+          <h3 className="text-xl font-black text-foreground leading-tight">
+            {bet.selection}
+          </h3>
+          <div className="flex items-center gap-2 text-[10px] font-bold text-muted-foreground mt-1">
+            <span>Stake: ${bet.stake.toFixed(2)}</span>
+            <span>•</span>
+            <span>Pot: ${bet.potentialWin.toFixed(2)}</span>
+          </div>
+        </div>
       </div>
 
-      <div className="h-px w-full bg-white/5 mb-6" />
+      {/* Acceptance Logic Explanation */}
+      <div className="flex items-center gap-3 text-xs font-bold text-foreground bg-primary/5 p-4 rounded-xl border border-primary/10 mb-6 transition-all group-hover:bg-primary/10">
+        <Info className="size-4 text-primary shrink-0" />
+        <p className="text-[11px] leading-tight">
+          Bet <span className="text-primary">${opponentStake.toFixed(2)}</span>{" "}
+          to win <span className="text-primary">${bet.stake.toFixed(2)}</span>{" "}
+          if {bet.selection} loses.
+        </p>
+      </div>
 
       {/* Footer / Action Area */}
-      <div className="flex items-end justify-between">
-        <div className="flex flex-col gap-1">
-          <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
-            Stake Amount
+      <div className="flex items-center justify-between pt-2 border-t border-border/50">
+        <div className="flex flex-col">
+          <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest">
+            Opponent Stake
           </span>
-          <span className="text-3xl font-black text-foreground">
-            ${bet.stake.toFixed(2)}
+          <span className="text-2xl font-black text-foreground">
+            ${opponentStake.toFixed(2)}
           </span>
-          <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-sm mt-1">
-            <TrendingUp className="size-3.5" />
-            <span>Win ${bet.potentialWin.toFixed(2)}</span>
-          </div>
         </div>
 
         <Button
           onClick={handleAccept}
           disabled={isAccepted}
           className={cn(
-            "rounded-lg px-10 font-black  transition-all flex gap-2 items-center cursor-pointer",
+            "h-12 rounded-xl px-8 font-black uppercase tracking-widest text-[11px] transition-all flex gap-2 items-center cursor-pointer",
             isAccepted
-              ? "bg-slate-800 text-slate-500 border border-white/5"
-              : "bg-[#00d65c] hover:bg-[#00b84d] text-white shadow-lg shadow-emerald-500/20"
+              ? "bg-muted text-muted-foreground border border-border"
+              : "bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 active:scale-95"
           )}
         >
           {isAccepted ? (
             <>
-              Locked <Lock className="size-5" />
+              Locked <Lock className="size-4" />
             </>
           ) : (
             <>
-              Accept <CheckCircle2 className="size-5" />
+              Accept <CheckCircle2 className="size-4" />
             </>
           )}
         </Button>
@@ -115,9 +131,9 @@ const MatchedBetCard: React.FC<MatchedBetCardProps> = ({ user, bet }) => {
 
       {/* Locked Overlay Effect */}
       {isAccepted && (
-        <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px] pointer-events-none flex items-center justify-center">
-          <div className="bg-slate-900/80 p-2 rounded-full border border-white/10 shadow-2xl">
-            <Lock className="size-6 text-primary" />
+        <div className="absolute inset-0 bg-background/40 backdrop-blur-[2px] pointer-events-none flex items-center justify-center animate-in fade-in duration-500">
+          <div className="bg-card p-4 rounded-full border border-border shadow-2xl scale-in duration-300">
+            <Lock className="size-8 text-primary" />
           </div>
         </div>
       )}

@@ -8,7 +8,7 @@ import { useState } from "react";
 import SportHeroBanner from "./components/SportHeroBanner";
 import SportMatchCard from "./components/SportMatchCard";
 
-// Types
+// Updated Type for P2P
 interface Match {
   id: string;
   homeTeam: string;
@@ -18,10 +18,11 @@ interface Match {
   league: string;
   isLive: boolean;
   score?: { home: number | string; away: number | string; time?: string };
-  odds: {
-    home: number;
-    draw?: number;
-    away: number;
+  p2pStats: {
+    activeBets: number;
+    potAmount: number;
+    openBets: number;
+    popularOutcome?: string;
   };
   markets: number;
   sport: "football" | "cricket" | "basketball" | "volleyball";
@@ -40,9 +41,7 @@ const config = {
       bg: "url('https://images.unsplash.com/photo-1522778119026-d647f0565c6a?auto=format&fit=crop&q=80')",
       title: "Man City vs Arsenal",
       subtitle: "Premier League",
-      promo: "Get enhanced odds on Haaland to score anytime",
-      oldOdds: "2.50",
-      newOdds: "4.00",
+      promo: "Create a P2P bet on the match winner to earn up to 5x returns",
     },
   },
   cricket: {
@@ -53,8 +52,8 @@ const config = {
       bg: "url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80')",
       title: "CSK vs RCB",
       subtitle: "Indian Premier League",
-      promo: "Get up to ৳10,000 on your first World Cup deposit",
-      matchStatus: "CSK: 145/3 (16.2) • RCB Need 42 off 22 balls",
+      promo:
+        "Open Market: CSK needs 145 to win - Browse available matched bets",
     },
   },
   volleyball: {
@@ -65,8 +64,7 @@ const config = {
       bg: "url('https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80')",
       title: "Volleyball Nations League",
       subtitle: "Group Stage",
-      promo:
-        "Bet on top leagues including SuperLega, PlusLiga & Nations League",
+      promo: "High Volume detected in Sets Over/Under market - Join the action",
     },
   },
   basketball: {
@@ -77,13 +75,12 @@ const config = {
       bg: "url('https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&q=80')",
       title: "NBA Finals 2024",
       subtitle: "Playoffs",
-      promo: "Live betting available for every quarter of the finals",
+      promo: "P2P Market: Lakers favored at 1.8x - Accept or Create a bet",
     },
   },
 };
 
 const matches: Match[] = [
-  // Mock Data (Consistent with earlier view)
   {
     id: "f1",
     sport: "football",
@@ -94,7 +91,12 @@ const matches: Match[] = [
     league: "Premier League",
     isLive: true,
     score: { home: 1, away: 0, time: "34'" },
-    odds: { home: 1.85, draw: 3.6, away: 4.2 },
+    p2pStats: {
+      activeBets: 15,
+      potAmount: 2800,
+      openBets: 5,
+      popularOutcome: "Man City Win",
+    },
     markets: 154,
   },
   {
@@ -106,7 +108,12 @@ const matches: Match[] = [
     time: "22:00",
     league: "Premier League",
     isLive: false,
-    odds: { home: 2.1, draw: 3.4, away: 3.2 },
+    p2pStats: {
+      activeBets: 8,
+      potAmount: 1450,
+      openBets: 12,
+      popularOutcome: "Over 2.5 Goals",
+    },
     markets: 112,
   },
   {
@@ -119,7 +126,11 @@ const matches: Match[] = [
     league: "IPL T20",
     isLive: true,
     score: { home: "145/3", away: "Yet to Bat", time: "16.2 Ov" },
-    odds: { home: 1.52, away: 2.45 },
+    p2pStats: {
+      activeBets: 42,
+      potAmount: 12500,
+      openBets: 18,
+    },
     markets: 42,
   },
   {
@@ -131,7 +142,11 @@ const matches: Match[] = [
     time: "06:00",
     league: "NBA",
     isLive: false,
-    odds: { home: 1.45, away: 2.75 },
+    p2pStats: {
+      activeBets: 12,
+      potAmount: 4300,
+      openBets: 8,
+    },
     markets: 86,
   },
 ];
@@ -156,8 +171,8 @@ export default function SportsBettingInterface({
     <div className="w-full min-w-0">
       {/* Top Search & Filter Bar */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
-        <h1 className="text-2xl font-black text-foreground flex items-center gap-3">
-          <span className="text-3xl">{activeConfig.logo}</span>
+        <h1 className="text-3xl font-black text-foreground flex items-center gap-3">
+          <span className="text-4xl">{activeConfig.logo}</span>
           {sportName}
         </h1>
 
@@ -166,7 +181,7 @@ export default function SportsBettingInterface({
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
             <Input
               placeholder="Search team or league"
-              className="pl-9 bg-card border-border focus-visible:ring-primary/20"
+              className="pl-9 h-11 bg-card border-border focus-visible:ring-primary/20 rounded-xl"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -174,14 +189,14 @@ export default function SportsBettingInterface({
           <Button
             variant="outline"
             size="icon"
-            className="shrink-0 border-border"
+            className="shrink-0 size-11 border-border rounded-xl"
           >
             <Calendar className="size-4" />
           </Button>
           <Button
             variant="outline"
             size="icon"
-            className="shrink-0 border-border"
+            className="shrink-0 size-11 border-border rounded-xl"
           >
             <Filter className="size-4" />
           </Button>
@@ -193,46 +208,46 @@ export default function SportsBettingInterface({
 
       {/* Tabs / Filter Navigation */}
       <Tabs defaultValue="all" className="w-full">
-        <TabsList className="bg-transparent border border-border w-full justify-start h-auto p-1 rounded gap-8 overflow-x-auto no-scrollbar">
+        <TabsList className="bg-transparent border border-border w-full justify-start h-auto p-1.5 rounded-2xl gap-8 overflow-x-auto no-scrollbar">
           <TabsTrigger
             value="all"
-            className="border-none data-[state=active]:border-primary data-[state=active]:bg-primary/10 px-0 pb-3 text-sm font-bold text-muted-foreground data-[state=active]:text-foreground uppercase tracking-widest transition-all cursor-pointer"
+            className="border-none rounded-xl data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
-            All Matches
+            All Market Activity
           </TabsTrigger>
           <TabsTrigger
             value="live"
-            className="border-none data-[state=active]:border-primary data-[state=active]:bg-primary/10 px-0 pb-3 text-sm font-bold text-muted-foreground data-[state=active]:text-foreground uppercase tracking-widest transition-all cursor-pointer"
+            className="border-none rounded-xl data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
-            Live Now
+            Live Market
           </TabsTrigger>
           <TabsTrigger
             value="upcoming"
-            className="border-none  data-[state=active]:border-primary data-[state=active]:bg-primary/10 px-0 pb-3 text-sm font-bold text-muted-foreground data-[state=active]:text-foreground uppercase tracking-widest transition-all cursor-pointer"
+            className="border-none rounded-xl data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
             Upcoming
           </TabsTrigger>
           <TabsTrigger
-            value="outrights"
-            className="border-none  data-[state=active]:border-primary data-[state=active]:bg-primary/10 px-0 pb-3 text-sm font-bold text-muted-foreground data-[state=active]:text-foreground uppercase tracking-widest transition-all cursor-pointer"
+            value="trending"
+            className="border-none rounded-xl data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
-            Outrights
+            Trending
           </TabsTrigger>
         </TabsList>
 
-        <div className="mt-8 space-y-4">
-          <TabsContent value="all" className="space-y-4 m-0">
+        <div className="mt-8 space-y-6">
+          <TabsContent value="all" className="space-y-6 m-0">
             {filteredMatches.map((match) => (
               <SportMatchCard key={match.id} match={match} />
             ))}
             {filteredMatches.length === 0 && (
-              <div className="text-center py-20 bg-muted/20 rounded-2xl border border-dashed border-border text-muted-foreground font-medium">
-                No matches found matching your criteria.
+              <div className="text-center py-24 bg-muted/20 rounded-[40px] border border-dashed border-border text-muted-foreground font-black uppercase text-xs tracking-widest">
+                No active markets found for this category.
               </div>
             )}
           </TabsContent>
 
-          <TabsContent value="live" className="space-y-4 m-0">
+          <TabsContent value="live" className="space-y-6 m-0">
             {filteredMatches
               .filter((m) => m.isLive)
               .map((match) => (

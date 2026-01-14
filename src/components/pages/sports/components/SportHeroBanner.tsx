@@ -1,5 +1,7 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Flame } from "lucide-react";
 import React from "react";
 
 interface BannerConfig {
@@ -8,8 +10,6 @@ interface BannerConfig {
   subtitle: string;
   promo?: string;
   matchStatus?: string;
-  oldOdds?: string;
-  newOdds?: string;
 }
 
 interface SportHeroBannerProps {
@@ -17,49 +17,58 @@ interface SportHeroBannerProps {
 }
 const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
   return (
-    <div className="relative rounded-2xl overflow-hidden mb-8 min-h-[300px] flex flex-col justify-end shadow-md">
+    <div className="relative rounded-[40px] overflow-hidden mb-12 min-h-[360px] flex flex-col justify-end shadow-2xl border border-border group">
       <div
-        className="absolute inset-0 bg-cover bg-center z-0"
+        className="absolute inset-0 bg-cover bg-center z-0 transition-transform duration-1000 group-hover:scale-105"
         style={{ backgroundImage: config.bg }}
       >
-        <div className="absolute inset-0 bg-linear-to-t from-background via-background/60 to-transparent" />
-        <div className="absolute inset-0 bg-linear-to-r from-background/80 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-background via-background/40 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-background/90 via-background/20 to-transparent" />
       </div>
 
-      <div className="relative z-10 p-8 max-w-2xl">
-        <div className="flex items-center gap-3 mb-4">
-          <Badge className="bg-primary text-primary-foreground hover:bg-primary/90 font-black border-none px-3 py-1 uppercase tracking-widest text-[10px]">
-            {config.promo?.includes("Bonus") ? "PROMOTION" : "SUPER BOOST"}
+      <div className="relative z-10 p-10 max-w-3xl">
+        <div className="flex items-center gap-3 mb-6">
+          <Badge className="bg-primary text-white font-black border-none px-4 py-1.5 uppercase tracking-widest text-[10px] rounded-full flex items-center gap-2">
+            <Flame className="size-3.5" />
+            Active Market
           </Badge>
-          <span className="text-foreground/90 font-bold text-sm bg-muted/30 px-3 py-1 rounded backdrop-blur-md border border-white/10 uppercase tracking-tighter">
+          <span className="text-white font-black text-[10px] bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-xl border border-white/20 uppercase tracking-[0.2em]">
             {config.subtitle}
           </span>
         </div>
 
-        <h2 className="text-4xl md:text-5xl font-black text-foreground mb-3 leading-[1.1] tracking-tight">
+        <h2 className="text-4xl md:text-6xl font-black text-white mb-4 leading-[1] tracking-tight drop-shadow-2xl">
           {config.title}
         </h2>
 
         {config.matchStatus ? (
-          <p className="text-primary text-xl mb-6 font-black tracking-wide font-mono bg-primary/10 inline-block px-4 py-1 rounded border border-primary/20">
-            {config.matchStatus}
-          </p>
+          <div className="bg-white/10 backdrop-blur-xl inline-flex items-center gap-3 px-6 py-3 rounded-2xl border border-white/20 mb-8">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+            </span>
+            <p className="text-white text-lg font-black tracking-tight font-mono">
+              {config.matchStatus}
+            </p>
+          </div>
         ) : (
-          <p className="text-muted-foreground text-lg mb-6 max-w-lg leading-relaxed font-medium">
+          <p className="text-white/80 text-lg mb-8 max-w-lg leading-relaxed font-bold uppercase tracking-wide">
             {config.promo}
           </p>
         )}
 
-        {config.oldOdds && (
-          <div className="flex items-center gap-4 mb-6">
-            <span className="text-muted-foreground line-through text-xl font-bold italic">
-              {config.oldOdds}
-            </span>
-            <span className="text-white bg-primary px-4 py-1 rounded-lg text-4xl font-black shadow-lg shadow-primary/20">
-              {config.newOdds}
-            </span>
-          </div>
-        )}
+        <div className="flex items-center gap-4">
+          <Button className="h-14 px-10 rounded-2xl bg-white text-black hover:bg-white/90 font-black uppercase tracking-widest shadow-xl transition-all active:scale-95">
+            Join Market
+          </Button>
+          <Button
+            variant="ghost"
+            className="h-14 px-8 rounded-2xl text-white font-black uppercase tracking-widest hover:bg-white/10"
+          >
+            View Charts
+            <ArrowRight className="size-4 ml-2" />
+          </Button>
+        </div>
       </div>
     </div>
   );
