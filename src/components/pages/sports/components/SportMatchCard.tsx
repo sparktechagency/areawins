@@ -61,7 +61,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({ match }) => {
   }, [match.id, match.p2pStats, match.homeTeam]);
 
   return (
-    <div className="bg-card rounded-2xl border border-border transition-all hover:bg-muted/5 group overflow-hidden">
+    <div className="bg-card rounded-lg border border-border transition-all hover:bg-muted/5 group overflow-hidden">
       {/* Header Row (League Info) */}
       <div className="bg-muted/20 px-4 py-2 border-b border-border flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -162,7 +162,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({ match }) => {
             <Button
               variant="outline"
               size="sm"
-              className="h-10 rounded-xl font-black text-[10px] uppercase tracking-widest border-primary/20 hover:bg-primary/5 text-primary gap-2"
+              className="h-10 rounded-lg font-black text-[10px] uppercase tracking-widest border-primary/20 hover:bg-primary/5 text-primary gap-2"
               asChild
             >
               <Link href={`/matches/${match.sport}/${match.id}?action=create`}>
@@ -172,7 +172,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({ match }) => {
             </Button>
             <Button
               size="sm"
-              className="h-10 px-5 rounded-xl bg-primary hover:bg-primary/90 text-white font-black text-[10px] uppercase tracking-widest gap-2"
+              className="h-10 px-5 rounded-lg bg-primary hover:bg-primary/90 text-white font-black text-[10px] uppercase tracking-widest gap-2"
               asChild
             >
               <Link href={`/matches/${match.sport}/${match.id}`}>

@@ -63,7 +63,7 @@ const BasketballSection: React.FC = () => {
         </Button>
       </div>
 
-      <div className="w-full rounded-[32px] border border-border bg-card overflow-hidden">
+      <div className="w-full rounded-lg border border-border bg-card overflow-hidden">
         <div className="overflow-x-auto no-scrollbar">
           <Table>
             <TableHeader className="bg-muted/30">
@@ -113,7 +113,7 @@ const BasketballSection: React.FC = () => {
                     <Button
                       asChild
                       size="sm"
-                      className="h-9 rounded-xl bg-primary hover:bg-primary/90 text-white text-[10px] font-black uppercase tracking-widest"
+                      className="h-9 rounded-lg bg-primary hover:bg-primary/90 text-white text-[10px] font-black uppercase tracking-widest"
                     >
                       <Link href={`/matches/basketball/${match.id}`}>
                         Browse Market <ChevronRight className="size-3.5 ml-1" />

@@ -154,7 +154,7 @@ const LiveEventsSection: React.FC = () => {
               key={event.id}
               className="pl-6 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
             >
-              <div className="group/card relative h-full overflow-hidden rounded-[32px] border border-border bg-card p-6 transition-all hover:border-primary/50">
+              <div className="group/card relative h-full overflow-hidden rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/50">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex flex-col gap-1">
@@ -242,7 +242,7 @@ const LiveEventsSection: React.FC = () => {
                 </div>
 
                 {/* P2P Stats Grid */}
-                <div className="grid grid-cols-2 gap-4 p-4 bg-muted/30 rounded-2xl border border-border/50 mb-6">
+                <div className="grid grid-cols-2 gap-4 p-4 bg-muted/30 rounded-lg border border-border/50 mb-6">
                   <div className="flex flex-col">
                     <span className="text-[9px] font-black text-muted-foreground uppercase flex items-center gap-1 mb-1">
                       <Banknote className="size-3 text-emerald-500" />
@@ -266,7 +266,7 @@ const LiveEventsSection: React.FC = () => {
                 {/* CTAs */}
                 <div className="flex items-center gap-2 mt-auto">
                   <Button
-                    className="flex-1 bg-primary hover:bg-primary/90 text-white font-black text-[10px] uppercase tracking-widest h-11 rounded-xl"
+                    className="flex-1 bg-primary hover:bg-primary/90 text-white font-black text-[10px] uppercase tracking-widest h-11 rounded-lg"
                     asChild
                   >
                     <Link href={`/matches/football/${event.id}`}>
@@ -276,7 +276,7 @@ const LiveEventsSection: React.FC = () => {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="size-11 rounded-xl border-border hover:bg-muted text-foreground transition-all shrink-0"
+                    className="size-11 rounded-lg border-border hover:bg-muted text-foreground transition-all shrink-0"
                     asChild
                   >
                     <Link href={`/matches/football/${event.id}?action=create`}>

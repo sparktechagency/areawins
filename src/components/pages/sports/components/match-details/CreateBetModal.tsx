@@ -76,7 +76,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden bg-card border-none rounded-[40px]">
+      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden bg-card border-none rounded-lg">
         {/* Progress Bar */}
         <div className="absolute top-0 left-0 w-full h-1 bg-muted">
           <div
@@ -119,7 +119,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
                     setStep("SET_STAKE");
                   }}
                   className={cn(
-                    "group relative overflow-hidden bg-muted/30 hover:bg-primary/5 border border-border hover:border-primary/50 p-6 rounded-[24px] transition-all flex items-center justify-between cursor-pointer",
+                    "group relative overflow-hidden bg-muted/30 hover:bg-primary/5 border border-border hover:border-primary/50 p-6 rounded-lg transition-all flex items-center justify-between cursor-pointer",
                     outcome === o.label && "border-primary bg-primary/10"
                   )}
                 >
@@ -134,7 +134,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
               ))}
             </div>
 
-            <div className="flex items-center gap-2 p-4 bg-blue-500/5 rounded-2xl border border-blue-500/10">
+            <div className="flex items-center gap-2 p-4 bg-blue-500/5 rounded-lg border border-blue-500/10">
               <Info className="size-5 text-blue-500 shrink-0" />
               <p className="text-[11px] font-bold text-blue-500/80 uppercase tracking-wider leading-relaxed">
                 You are &quot;Backing&quot; this outcome. Someone else will need
@@ -183,7 +183,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
                   type="number"
                   value={stake}
                   onChange={(e) => setStake(Number(e.target.value))}
-                  className="h-16 rounded-[20px] bg-muted/30 border-border text-2xl font-black px-6 focus-visible:ring-primary focus-visible:border-primary"
+                  className="h-16 rounded-lg bg-muted/30 border-border text-2xl font-black px-6 focus-visible:ring-primary focus-visible:border-primary"
                 />
               </div>
 
@@ -203,7 +203,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
                     step="0.1"
                     value={odds}
                     onChange={(e) => setOdds(Number(e.target.value))}
-                    className="h-16 rounded-[20px] bg-muted/30 border-border text-2xl font-black px-6 focus-visible:ring-primary w-32"
+                    className="h-16 rounded-lg bg-muted/30 border-border text-2xl font-black px-6 focus-visible:ring-primary w-32"
                   />
                   <div className="flex-1">
                     <input
@@ -225,7 +225,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
             </div>
 
             {/* Calculator Area */}
-            <div className="bg-slate-950 rounded-[32px] p-6 border border-white/5 space-y-4">
+            <div className="bg-slate-950 rounded-lg p-6 border border-white/5 space-y-4">
               <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-slate-500">
                 <span>P2P Live Calculator</span>
                 <Calculator className="size-4 opacity-50" />
@@ -271,7 +271,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
             <Button
               onClick={handleCreate}
               disabled={isProcessing || stake < 10}
-              className="w-full h-16 rounded-[24px] bg-[#00d65c] hover:bg-[#00b84d] text-white text-lg font-black uppercase tracking-widest transition-all active:scale-95 group overflow-hidden"
+              className="w-full h-16 rounded-lg bg-[#00d65c] hover:bg-[#00b84d] text-white text-lg font-black uppercase tracking-widest transition-all active:scale-95 group overflow-hidden"
             >
               {isProcessing ? (
                 <span className="flex items-center gap-2 animate-pulse">
@@ -306,14 +306,14 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
             <div className="grid grid-cols-1 w-full gap-3">
               <Button
                 onClick={onClose}
-                className="h-14 rounded-2xl bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest"
+                className="h-14 rounded-lg bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest"
               >
                 View in Open Market
               </Button>
               <Button
                 variant="ghost"
                 onClick={onClose}
-                className="h-14 rounded-2xl font-black text-muted-foreground uppercase tracking-widest hover:text-foreground"
+                className="h-14 rounded-lg font-black text-muted-foreground uppercase tracking-widest hover:text-foreground"
               >
                 Go to My Bets
               </Button>

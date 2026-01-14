@@ -17,7 +17,7 @@ interface SportHeroBannerProps {
 }
 const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
   return (
-    <div className="relative rounded-[40px] overflow-hidden mb-12 min-h-[360px] flex flex-col justify-end border border-border group">
+    <div className="relative rounded-lg overflow-hidden mb-12 min-h-[360px] flex flex-col justify-end border border-border group">
       <div
         className="absolute inset-0 bg-cover bg-center z-0 transition-transform duration-1000 group-hover:scale-105"
         style={{ backgroundImage: config.bg }}
@@ -42,7 +42,7 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
         </h2>
 
         {config.matchStatus ? (
-          <div className="bg-white/10 backdrop-blur-xl inline-flex items-center gap-3 px-6 py-3 rounded-2xl border border-white/20 mb-8">
+          <div className="bg-white/10 backdrop-blur-xl inline-flex items-center gap-3 px-6 py-3 rounded-lg border border-white/20 mb-8">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
@@ -58,12 +58,12 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
         )}
 
         <div className="flex items-center gap-4">
-          <Button className="h-14 px-10 rounded-2xl bg-white text-black hover:bg-white/90 font-black uppercase tracking-widest transition-all active:scale-95">
+          <Button className="h-14 px-10 rounded-lg bg-white text-black hover:bg-white/90 font-black uppercase tracking-widest transition-all active:scale-95">
             Join Market
           </Button>
           <Button
             variant="ghost"
-            className="h-14 px-8 rounded-2xl text-white font-black uppercase tracking-widest hover:bg-white/10"
+            className="h-14 px-8 rounded-lg text-white font-black uppercase tracking-widest hover:bg-white/10"
           >
             View Charts
             <ArrowRight className="size-4 ml-2" />

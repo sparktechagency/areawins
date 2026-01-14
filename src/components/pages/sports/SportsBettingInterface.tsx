@@ -181,7 +181,7 @@ export default function SportsBettingInterface({
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
             <Input
               placeholder="Search team or league"
-              className="pl-9 h-11 bg-card border-border focus-visible:ring-primary/20 rounded-xl"
+              className="pl-9 h-11 bg-card border-border focus-visible:ring-primary/20 rounded-lg"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -189,14 +189,14 @@ export default function SportsBettingInterface({
           <Button
             variant="outline"
             size="icon"
-            className="shrink-0 size-11 border-border rounded-xl"
+            className="shrink-0 size-11 border-border rounded-lg"
           >
             <Calendar className="size-4" />
           </Button>
           <Button
             variant="outline"
             size="icon"
-            className="shrink-0 size-11 border-border rounded-xl"
+            className="shrink-0 size-11 border-border rounded-lg"
           >
             <Filter className="size-4" />
           </Button>
@@ -208,28 +208,28 @@ export default function SportsBettingInterface({
 
       {/* Tabs / Filter Navigation */}
       <Tabs defaultValue="all" className="w-full">
-        <TabsList className="bg-transparent border border-border w-full justify-start h-auto p-1.5 rounded-2xl gap-8 overflow-x-auto no-scrollbar">
+        <TabsList className="bg-transparent border border-border w-full justify-start h-auto p-1.5 rounded-lg gap-8 overflow-x-auto no-scrollbar">
           <TabsTrigger
             value="all"
-            className="border-none rounded-xl data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
+            className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
             All Market Activity
           </TabsTrigger>
           <TabsTrigger
             value="live"
-            className="border-none rounded-xl data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
+            className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
             Live Market
           </TabsTrigger>
           <TabsTrigger
             value="upcoming"
-            className="border-none rounded-xl data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
+            className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
             Upcoming
           </TabsTrigger>
           <TabsTrigger
             value="trending"
-            className="border-none rounded-xl data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
+            className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
             Trending
           </TabsTrigger>
@@ -237,22 +237,26 @@ export default function SportsBettingInterface({
 
         <div className="mt-8 space-y-6">
           <TabsContent value="all" className="space-y-6 m-0">
-            {filteredMatches.map((match) => (
-              <SportMatchCard key={match.id} match={match} />
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredMatches.map((match) => (
+                <SportMatchCard key={match.id} match={match} />
+              ))}
+            </div>
             {filteredMatches.length === 0 && (
-              <div className="text-center py-24 bg-muted/20 rounded-[40px] border border-dashed border-border text-muted-foreground font-black uppercase text-xs tracking-widest">
+              <div className="text-center py-24 bg-muted/20 rounded-lg border border-dashed border-border text-muted-foreground font-black uppercase text-xs tracking-widest">
                 No active markets found for this category.
               </div>
             )}
           </TabsContent>
 
           <TabsContent value="live" className="space-y-6 m-0">
-            {filteredMatches
-              .filter((m) => m.isLive)
-              .map((match) => (
-                <SportMatchCard key={match.id} match={match} />
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredMatches
+                .filter((m) => m.isLive)
+                .map((match) => (
+                  <SportMatchCard key={match.id} match={match} />
+                ))}
+            </div>
           </TabsContent>
         </div>
       </Tabs>
