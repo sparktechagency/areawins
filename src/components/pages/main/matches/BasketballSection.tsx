@@ -91,16 +91,16 @@ const BasketballSection: React.FC = () => {
 
       <div className="w-full bg-card rounded-xl border border-border overflow-hidden">
         {/* Table Header */}
-        <div className="grid grid-cols-[250px_1fr_250px_1fr_100px] gap-4 bg-primary/90 py-2 px-6 text-sm font-medium text-foreground/80 items-center">
-          <div className="pl-4">Date/League/Venue</div>
+        <div className="grid grid-cols-[100px_140px_160px_1fr_60px_60px_60px_1fr_100px] gap-2 bg-primary/90 py-2 px-6 text-[12px] font-bold text-foreground items-center">
+          <div className="pl-2">Date</div>
+          <div>League</div>
+          <div>Venue</div>
           <div className="text-right">Team 1</div>
-          <div className="grid grid-cols-3 text-center">
-            <span>1</span>
-            <span>X</span>
-            <span>2</span>
-          </div>
+          <div className="text-center">1</div>
+          <div className="text-center">X</div>
+          <div className="text-center">2</div>
           <div className="text-left">Team 2</div>
-          <div className="text-center pr-4">Set</div>
+          <div className="text-center pr-2">Set</div>
         </div>
 
         {/* Table Rows */}
@@ -108,70 +108,82 @@ const BasketballSection: React.FC = () => {
           {basketballMatches.map((match) => (
             <div
               key={match.id}
-              className="grid grid-cols-[250px_1fr_250px_1fr_100px] gap-4 py-4 px-6 items-center bg-background hover:bg-muted/30 transition-colors"
+              className="grid grid-cols-[100px_140px_160px_1fr_60px_60px_60px_1fr_100px] gap-2 py-4 px-6 items-center bg-background hover:bg-muted/30 transition-colors"
             >
-              {/* Match Info */}
-              <div className="pl-4 flex flex-col gap-0.5">
-                <span className="text-[12px] font-bold text-foreground">
-                  {match.date}, {match.time}
-                </span>
-                <span className="text-[11px] text-muted-foreground flex items-center gap-1">
-                  <Image
-                    src={match.league.flag}
-                    alt=""
-                    width={14}
-                    height={10}
-                    className="rounded-sm"
-                  />
-                  {match.league.name}
-                </span>
-                <span className="text-[10px] text-muted-foreground/80 italic shrink-0 truncate max-w-[200px]">
-                  {match.venue}
-                </span>
+              {/* Date */}
+              <div className="pl-2 text-[12px] font-medium text-foreground">
+                {match.time} <br /> {match.date}
+              </div>
+
+              {/* League */}
+              <div className="text-sm text-muted-foreground flex items-center gap-1.5 truncate">
+                <Image
+                  src={match.league.flag}
+                  alt=""
+                  width={16}
+                  height={12}
+                  className="rounded-sm shrink-0"
+                />
+                <span className="truncate">{match.league.name}</span>
+              </div>
+
+              {/* Venue */}
+              <div className="text-sm text-muted-foreground/80  truncate pr-2">
+                {match.venue}
               </div>
 
               {/* Team A */}
-              <div className="flex items-center gap-3 justify-end">
-                <span className="text-sm font-medium text-right">
+              <div className="flex items-center gap-2 justify-end">
+                <span className="text-sm font-semibold text-right leading-tight">
                   {match.teamA.name}
                 </span>
                 <Image
                   src={match.teamA.image}
                   alt={match.teamA.name}
-                  width={32}
-                  height={32}
-                  className="h-8 w-8 rounded-full object-cover border border-border"
+                  width={28}
+                  height={28}
+                  className="h-7 w-7 rounded-full object-cover border border-border shrink-0"
                 />
               </div>
 
-              {/* Odds */}
-              <div className="grid grid-cols-3 gap-2 px-2">
-                <button className="bg-muted/50 hover:bg-muted py-2 px-1 rounded text-xs font-bold border border-border/50">
+              {/* Odds 1 */}
+              <div className="flex justify-center">
+                <button className="bg-muted px-1 py-2 rounded text-[11px] font-bold border border-border/50 hover:bg-muted/80 transition-colors w-full mx-0.5">
                   {match.odds.home}
                 </button>
-                <button className="bg-muted/50 hover:bg-muted py-2 px-1 rounded text-xs font-bold border border-border/50">
+              </div>
+
+              {/* Odds X */}
+              <div className="flex justify-center">
+                <button className="bg-muted px-1 py-2 rounded text-[11px] font-bold border border-border/50 hover:bg-muted/80 transition-colors w-full mx-0.5">
                   {match.odds.draw}
                 </button>
-                <button className="bg-muted/50 hover:bg-muted py-2 px-1 rounded text-xs font-bold border border-border/50">
+              </div>
+
+              {/* Odds 2 */}
+              <div className="flex justify-center">
+                <button className="bg-muted px-1 py-2 rounded text-[11px] font-bold border border-border/50 hover:bg-muted/80 transition-colors w-full mx-0.5">
                   {match.odds.away}
                 </button>
               </div>
 
               {/* Team B */}
-              <div className="flex items-center gap-3 justify-start">
+              <div className="flex items-center gap-2 justify-start">
                 <Image
                   src={match.teamB.image}
                   alt={match.teamB.name}
-                  width={32}
-                  height={32}
-                  className="h-8 w-8 rounded-full object-cover border border-border"
+                  width={28}
+                  height={28}
+                  className="h-7 w-7 rounded-full object-cover border border-border shrink-0"
                 />
-                <span className="text-sm font-medium">{match.teamB.name}</span>
+                <span className="text-sm font-semibold leading-tight">
+                  {match.teamB.name}
+                </span>
               </div>
 
               {/* Bet Button */}
-              <div className="flex justify-end pr-4">
-                <button className="bg-[#00d65c] hover:bg-[#00b84d] text-white text-[10px] font-bold py-2 px-6 rounded-md uppercase tracking-wider shadow-sm transition-all focus:ring-2 focus:ring-primary/20">
+              <div className="flex justify-end pr-2">
+                <button className="bg-[#00d65c] hover:bg-[#00b84d] text-white text-[10px] font-bold py-2 px-6 rounded-md uppercase tracking-wider shadow-sm transition-all">
                   Bet
                 </button>
               </div>

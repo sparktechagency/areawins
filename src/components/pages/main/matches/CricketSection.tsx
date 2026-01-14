@@ -1,5 +1,14 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import Image from "next/image";
 import React from "react";
 
@@ -86,101 +95,135 @@ const cricketMatches: CricketMatch[] = [
 
 const CricketSection: React.FC = () => {
   return (
-    <section className="w-full container mx-auto mt-10 overflow-hidden">
-      <div className="flex flex-col items-center mb-8">
+    <section className="w-full container mx-auto mt-10">
+      <div className="flex flex-col items-center mb-6">
         <h2 className="text-xl md:text-2xl text-foreground font-semibold">
           Cricket Upcoming
         </h2>
       </div>
 
-      <div className="w-full bg-card rounded-xl border border-border overflow-hidden ">
-        {/* Table Header */}
-        <div className="grid grid-cols-[250px_1fr_250px_1fr_100px] gap-4 bg-primary/90 py-2 px-6 text-sm font-medium text-foreground/80 items-center">
-          <div className="pl-4">Date/League/Venue</div>
-          <div className="text-right">Team 1</div>
-          <div className="grid grid-cols-3 text-center">
-            <span>1</span>
-            <span>X</span>
-            <span>2</span>
-          </div>
-          <div className="text-left">Team 2</div>
-          <div className="text-center pr-4">Set</div>
-        </div>
+      <div className="w-full rounded-xl border border-border bg-card overflow-hidden">
+        <div className="overflow-x-auto no-scrollbar">
+          <Table>
+            <TableHeader className="bg-primary hover:bg-primary/95">
+              <TableRow className="hover:bg-transparent border-none">
+                <TableHead className="w-[100px] text-foreground font-bold py-3 pl-6">
+                  Date
+                </TableHead>
+                <TableHead className="w-[140px] text-foreground font-bold py-3">
+                  League
+                </TableHead>
+                <TableHead className="w-[160px] text-foreground font-bold py-3">
+                  Venue
+                </TableHead>
+                <TableHead className="text-right text-foreground font-bold py-3">
+                  Team 1
+                </TableHead>
+                <TableHead className="w-[70px] text-center text-foreground font-bold py-3">
+                  1
+                </TableHead>
+                <TableHead className="w-[70px] text-center text-foreground font-bold py-3">
+                  X
+                </TableHead>
+                <TableHead className="w-[70px] text-center text-foreground font-bold py-3">
+                  2
+                </TableHead>
+                <TableHead className="text-left text-foreground font-bold py-3">
+                  Team 2
+                </TableHead>
+                <TableHead className="w-[100px] text-center text-foreground font-bold py-3 pr-6">
+                  Set
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {cricketMatches.map((match) => (
+                <TableRow
+                  key={match.id}
+                  className="hover:bg-muted/30 transition-colors border-border"
+                >
+                  <TableCell className="pl-6 py-4">
+                    <div className="text-[12px] font-medium leading-tight whitespace-nowrap">
+                      {match.time} <br /> {match.date}
+                    </div>
+                  </TableCell>
+                  <TableCell className="py-4">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground whitespace-nowrap">
+                      <Image
+                        src={match.league.flag}
+                        alt=""
+                        width={16}
+                        height={12}
+                        className="rounded-sm shrink-0"
+                      />
+                      <span className="truncate max-w-[120px]">
+                        {match.league.name}
+                      </span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="py-4">
+                    <div className="text-sm text-muted-foreground truncate max-w-[150px]">
+                      {match.venue}
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-right py-4">
+                    <div className="flex items-center gap-2 justify-end">
+                      <span className="text-sm font-semibold leading-tight">
+                        {match.teamA.name}
+                      </span>
+                      <Image
+                        src={match.teamA.image}
+                        alt={match.teamA.name}
+                        width={28}
+                        height={28}
+                        className="h-7 w-7 rounded-full object-cover border border-border shrink-0"
+                      />
+                    </div>
+                  </TableCell>
 
-        {/* Table Rows */}
-        <div className="divide-y divide-border">
-          {cricketMatches.map((match) => (
-            <div
-              key={match.id}
-              className="grid grid-cols-[250px_1fr_250px_1fr_100px] gap-4 py-4 px-6 items-center bg-background hover:bg-muted/30 transition-colors"
-            >
-              {/* Match Info */}
-              <div className="pl-4 flex flex-col gap-0.5">
-                <span className="text-[12px] font-bold text-foreground">
-                  {match.date}, {match.time}
-                </span>
-                <span className="text-[11px] text-muted-foreground flex items-center gap-1">
-                  <Image
-                    src={match.league.flag}
-                    alt=""
-                    width={14}
-                    height={10}
-                    className="rounded-sm"
-                  />
-                  {match.league.name}
-                </span>
-                <span className="text-[10px] text-muted-foreground/80 italic shrink-0 truncate max-w-[200px]">
-                  {match.venue}
-                </span>
-              </div>
+                  {/* Odds */}
+                  <TableCell className="px-1 py-4">
+                    <button className="w-full bg-muted hover:bg-muted/80 py-2 rounded text-[11px] font-bold border border-border/50 transition-colors cursor-pointer">
+                      {match.odds.home}
+                    </button>
+                  </TableCell>
+                  <TableCell className="px-1 py-4">
+                    <button className="w-full bg-muted hover:bg-muted/80 py-2 rounded text-[11px] font-bold border border-border/50 transition-colors cursor-pointer">
+                      {match.odds.draw}
+                    </button>
+                  </TableCell>
+                  <TableCell className="px-1 py-4">
+                    <button className="w-full bg-muted hover:bg-muted/80 py-2 rounded text-[11px] font-bold border border-border/50 transition-colors cursor-pointer">
+                      {match.odds.away}
+                    </button>
+                  </TableCell>
 
-              {/* Team A */}
-              <div className="flex items-center gap-3 justify-end">
-                <span className="text-sm font-medium text-right">
-                  {match.teamA.name}
-                </span>
-                <Image
-                  src={match.teamA.image}
-                  alt={match.teamA.name}
-                  width={32}
-                  height={32}
-                  className="h-8 w-8 rounded-full object-cover border border-border"
-                />
-              </div>
-
-              {/* Odds */}
-              <div className="grid grid-cols-3 gap-2 px-2">
-                <button className="bg-muted/50 hover:bg-muted py-2 px-1 rounded text-xs font-bold border border-border/50">
-                  {match.odds.home}
-                </button>
-                <button className="bg-muted/50 hover:bg-muted py-2 px-1 rounded text-xs font-bold border border-border/50">
-                  {match.odds.draw}
-                </button>
-                <button className="bg-muted/50 hover:bg-muted py-2 px-1 rounded text-xs font-bold border border-border/50">
-                  {match.odds.away}
-                </button>
-              </div>
-
-              {/* Team B */}
-              <div className="flex items-center gap-3 justify-start">
-                <Image
-                  src={match.teamB.image}
-                  alt={match.teamB.name}
-                  width={32}
-                  height={32}
-                  className="h-8 w-8 rounded-full object-cover border border-border"
-                />
-                <span className="text-sm font-medium">{match.teamB.name}</span>
-              </div>
-
-              {/* Bet Button */}
-              <div className="flex justify-end pr-4">
-                <button className="bg-[#00d65c] hover:bg-[#00b84d] text-white text-[10px] font-bold py-2 px-6 rounded-md uppercase tracking-wider shadow-sm transition-all focus:ring-2 focus:ring-primary/20">
-                  Bet
-                </button>
-              </div>
-            </div>
-          ))}
+                  <TableCell className="text-left py-4">
+                    <div className="flex items-center gap-2 justify-start">
+                      <Image
+                        src={match.teamB.image}
+                        alt={match.teamB.name}
+                        width={28}
+                        height={28}
+                        className="h-7 w-7 rounded-full object-cover border border-border shrink-0"
+                      />
+                      <span className="text-sm font-semibold leading-tight">
+                        {match.teamB.name}
+                      </span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-center pr-6 py-4">
+                    <Button
+                      size="sm"
+                      className="bg-[#00d65c] hover:bg-[#00b84d] text-white text-[10px] font-bold uppercase py-1 px-4 h-8 cursor-pointer"
+                    >
+                      Bet
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
       </div>
     </section>
