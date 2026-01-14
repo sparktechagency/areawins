@@ -1,7 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import React from "react";
+import { Badge } from "@/components/ui/badge";
 import {
   Carousel,
   CarouselContent,
@@ -9,10 +8,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import Image from "next/image";
+import React from "react";
 
 /* =======================
    Types
-======================= */
+ ======================= */
 
 interface Team {
   name: string;
@@ -48,12 +49,14 @@ const liveEvents: LiveEvent[] = [
     teamA: {
       name: "Barcelona",
       score: 2,
-      image: "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf",
+      image:
+        "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=100&auto=format&fit=crop",
     },
     teamB: {
       name: "Real Madrid",
       score: 1,
-      image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d",
+      image:
+        "https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=100&auto=format&fit=crop",
     },
   },
   {
@@ -68,12 +71,14 @@ const liveEvents: LiveEvent[] = [
     teamA: {
       name: "Chelsea",
       score: 3,
-      image: "https://images.unsplash.com/photo-1521412644187-c49fa049e84d",
+      image:
+        "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=100&auto=format&fit=crop",
     },
     teamB: {
       name: "Arsenal",
       score: 2,
-      image: "https://images.unsplash.com/photo-1502877338535-766e1452684a",
+      image:
+        "https://images.unsplash.com/photo-1620506603004-972109673967?q=80&w=100&auto=format&fit=crop",
     },
   },
   {
@@ -88,12 +93,14 @@ const liveEvents: LiveEvent[] = [
     teamA: {
       name: "AC Milan",
       score: 1,
-      image: "https://images.unsplash.com/photo-1517649763962-0c623066013b",
+      image:
+        "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=100&auto=format&fit=crop",
     },
     teamB: {
       name: "Inter Milan",
       score: 1,
-      image: "https://images.unsplash.com/photo-1495567720989-cebdbdd97913",
+      image:
+        "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=100&auto=format&fit=crop",
     },
   },
   {
@@ -108,211 +115,140 @@ const liveEvents: LiveEvent[] = [
     teamA: {
       name: "Bayern Munich",
       score: 4,
-      image: "https://images.unsplash.com/photo-1605296867304-46d5465a13f1",
+      image:
+        "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?q=80&w=100&auto=format&fit=crop",
     },
     teamB: {
       name: "Dortmund",
       score: 2,
-      image: "https://images.unsplash.com/photo-1518098268026-4e89f1a2cd8e",
-    },
-  },
-  {
-    id: 5,
-    time: "39:30",
-    sport: "Football",
-    league: {
-      name: "Ligue 1",
-      country: "France",
-      flag: "https://flagcdn.com/w40/fr.png",
-    },
-    teamA: {
-      name: "PSG",
-      score: 2,
-      image: "https://images.unsplash.com/photo-1517649763962-0c623066013b",
-    },
-    teamB: {
-      name: "Lyon",
-      score: 0,
-      image: "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf",
-    },
-  },
-  {
-    id: 6,
-    time: "54:11",
-    sport: "Football",
-    league: {
-      name: "Eredivisie",
-      country: "Netherlands",
-      flag: "https://flagcdn.com/w40/nl.png",
-    },
-    teamA: {
-      name: "Ajax",
-      score: 1,
-      image: "https://images.unsplash.com/photo-1502877338535-766e1452684a",
-    },
-    teamB: {
-      name: "PSV",
-      score: 1,
-      image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d",
-    },
-  },
-  {
-    id: 7,
-    time: "19:08",
-    sport: "Football",
-    league: {
-      name: "Primeira Liga",
-      country: "Portugal",
-      flag: "https://flagcdn.com/w40/pt.png",
-    },
-    teamA: {
-      name: "Benfica",
-      score: 0,
-      image: "https://images.unsplash.com/photo-1521412644187-c49fa049e84d",
-    },
-    teamB: {
-      name: "Porto",
-      score: 1,
-      image: "https://images.unsplash.com/photo-1495567720989-cebdbdd97913",
-    },
-  },
-  {
-    id: 8,
-    time: "88:59",
-    sport: "Football",
-    league: {
-      name: "MLS",
-      country: "USA",
-      flag: "https://flagcdn.com/w40/us.png",
-    },
-    teamA: {
-      name: "LA Galaxy",
-      score: 2,
-      image: "https://images.unsplash.com/photo-1605296867304-46d5465a13f1",
-    },
-    teamB: {
-      name: "Inter Miami",
-      score: 2,
-      image: "https://images.unsplash.com/photo-1518098268026-4e89f1a2cd8e",
-    },
-  },
-  {
-    id: 9,
-    time: "12:40",
-    sport: "Football",
-    league: {
-      name: "Saudi Pro League",
-      country: "Saudi Arabia",
-      flag: "https://flagcdn.com/w40/sa.png",
-    },
-    teamA: {
-      name: "Al Nassr",
-      score: 1,
-      image: "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf",
-    },
-    teamB: {
-      name: "Al Hilal",
-      score: 0,
-      image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d",
-    },
-  },
-  {
-    id: 10,
-    time: "66:00",
-    sport: "Football",
-    league: {
-      name: "J1 League",
-      country: "Japan",
-      flag: "https://flagcdn.com/w40/jp.png",
-    },
-    teamA: {
-      name: "Kashima Antlers",
-      score: 2,
-      image: "https://images.unsplash.com/photo-1517649763962-0c623066013b",
-    },
-    teamB: {
-      name: "Urawa Reds",
-      score: 3,
-      image: "https://images.unsplash.com/photo-1495567720989-cebdbdd97913",
+      image:
+        "https://images.unsplash.com/photo-1518098268026-4e89f1a2cd8e?q=80&w=100&auto=format&fit=crop",
     },
   },
 ];
 
 const LiveEventsSection: React.FC = () => {
   return (
-    <section className="w-full container mx-auto mt-5">
-      <h2 className="mb-6 text-2xl font-bold text-foreground flex items-center gap-2">
-        <div className="size-3 rounded-full bg-rose-500 animate-pulse  shadow-lg shadow-white/60 mt-0.5 "></div>
-        Live Events Today
-      </h2>
+    <section className="w-full container mx-auto mt-8 relative">
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
+          </span>
+          Live Events
+        </h2>
+        <Badge
+          variant="outline"
+          className="text-primary border-primary/20 bg-primary/5 px-4 py-1"
+        >
+          {liveEvents.length} Matches Live
+        </Badge>
+      </div>
 
-      <Carousel opts={{ align: "start", loop: true }} className="w-full">
+      <Carousel opts={{ align: "start", loop: false }} className="w-full group">
         <CarouselContent className="-ml-6">
           {liveEvents.map((event) => (
-            <CarouselItem key={event.id} className="pl-6 basis-[320px]">
-              <div className="h-full bg rounded-lg border border-border bg-background p-6">
+            <CarouselItem
+              key={event.id}
+              className="pl-6 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+            >
+              <div className="group/card relative h-full overflow-hidden rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">
+                {/* Background Decor */}
+                <div className="absolute -right-4 -top-4 size-24 bg-primary/5 rounded-full blur-3xl group-hover/card:bg-primary/10 transition-colors"></div>
+
                 {/* Header */}
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="rounded bg-red-500 px-3 py-1 text-xs font-medium text-white">
-                    Live
-                  </span>
-                  <span className="text-sm text-muted-foreground">
-                    {event.time}
-                  </span>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5 bg-rose-500/10 px-2 py-0.5 rounded text-[10px] font-bold text-rose-500 uppercase tracking-wider border border-rose-500/20">
+                      <span className="size-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+                      Live
+                    </div>
+                    <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-tight">
+                      {event.time}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5 bg-primary/5 px-2 py-1 rounded-full border border-border">
+                    <Image
+                      src={event.league.flag}
+                      alt={event.league.country}
+                      width={14}
+                      height={10}
+                      className="rounded-[2px] object-cover"
+                    />
+                    <span className="text-[10px] font-bold text-foreground/80">
+                      {event.league.name}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Teams */}
-                <div className="flex items-center justify-center gap-6">
-                  <Image
-                    src={event.teamA.image}
-                    alt={event.teamA.name}
-                    width={64}
-                    height={64}
-                    className="h-16 w-16 rounded-full object-cover"
-                  />
-                  <span className="text-2xl font-bold text-foreground">VS</span>
-                  <Image
-                    src={event.teamB.image}
-                    alt={event.teamB.name}
-                    width={64}
-                    height={64}
-                    className="h-16 w-16 rounded-full object-cover"
-                  />
-                </div>
-
-                {/* League */}
-                <div className="mt-3 flex items-center justify-center gap-2">
-                  <Image
-                    src={event.league.flag}
-                    alt={event.league.country}
-                    width={20}
-                    height={14}
-                    className="rounded-sm"
-                  />
-                  <p className="text-sm text-foreground">{event.league.name}</p>
-                </div>
-
-                {/* Score */}
-                <div className="mt-6 text-center">
-                  <p className="text-lg text-foreground">
-                    <span className="font-bold">{event.teamA.name}</span>{" "}
-                    <span className="text-4xl font-bold">
+                {/* Match Display */}
+                <div className="relative flex flex-col gap-6">
+                  {/* Home Team */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="relative size-12 rounded-xl bg-muted/50 p-1 border border-border overflow-hidden">
+                        <Image
+                          src={event.teamA.image}
+                          alt={event.teamA.name}
+                          fill
+                          className="object-cover transition-transform group-hover/card:scale-110"
+                        />
+                      </div>
+                      <span className="text-sm font-bold text-foreground line-clamp-1">
+                        {event.teamA.name}
+                      </span>
+                    </div>
+                    <span className="text-3xl font-black text-primary drop-shadow-sm">
                       {event.teamA.score}
-                    </span>{" "}
-                    -{" "}
-                    <span className="text-4xl font-bold">
+                    </span>
+                  </div>
+
+                  {/* Divider with VS */}
+                  <div className="relative flex items-center justify-center py-1">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-dashed border-border"></div>
+                    </div>
+                    <span className="relative bg-card px-3 text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest italic">
+                      VS
+                    </span>
+                  </div>
+
+                  {/* Away Team */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="relative size-12 rounded-xl bg-muted/50 p-1 border border-border overflow-hidden">
+                        <Image
+                          src={event.teamB.image}
+                          alt={event.teamB.name}
+                          fill
+                          className="object-cover transition-transform group-hover/card:scale-110"
+                        />
+                      </div>
+                      <span className="text-sm font-bold text-foreground line-clamp-1">
+                        {event.teamB.name}
+                      </span>
+                    </div>
+                    <span className="text-3xl font-black text-primary drop-shadow-sm">
                       {event.teamB.score}
-                    </span>{" "}
-                    <span className="font-bold">{event.teamB.name}</span>
-                  </p>
+                    </span>
+                  </div>
+                </div>
+
+                {/* Watch Live Button */}
+                <div className="mt-8">
+                  <button className="w-full text-[11px] font-bold py-2.5 rounded-lg uppercase tracking-widest transition-all bg-background text-primary border border-primary cursor-pointer">
+                    View Match Details
+                  </button>
                 </div>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
 
-        <CarouselPrevious className="cursor-pointer left-1" />
-        <CarouselNext className="cursor-pointer right-1" />
+        {/* Custom Navigation */}
+        <CarouselPrevious className="hidden sm:flex -left-4 size-10 border-border bg-card shadow-lg hover:bg-primary hover:border-primary hover:text-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer" />
+        <CarouselNext className="hidden sm:flex -right-4 size-10 border-border bg-card shadow-lg hover:bg-primary hover:border-primary hover:text-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer" />
       </Carousel>
     </section>
   );

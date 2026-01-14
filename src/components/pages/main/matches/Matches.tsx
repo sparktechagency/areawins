@@ -7,16 +7,14 @@ import SportCategories from "./SportCategories";
 
 const Matches = () => {
   return (
-    <section className="w-full pt-16 md:pt-20 pb-5 bg-background ">
-      <div className="w-full container mx-auto  gap-5 pb-5 md:pb-10">
-        <SportCategories />
-        <AllTournamentsBanner />
-        <LiveEventsSection />
-        <FootballSection />
-        <CricketSection />
-        <BasketballSection />
-      </div>
-    </section>
+    <div className="w-full space-y-8">
+      <SportCategories />
+      <AllTournamentsBanner />
+      <LiveEventsSection />
+      <FootballSection />
+      <CricketSection />
+      <BasketballSection />
+    </div>
   );
 };
 
