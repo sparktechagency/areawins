@@ -8,8 +8,14 @@ import SportsMatchesSidebar from "./SportsMatchesSidebar";
 
 interface MatchesLayoutWrapperProps {
   children: React.ReactNode;
+  leftSidebar?: React.ReactNode;
+  hideRightSidebar?: boolean;
 }
-const MatchesLayoutWrapper = ({ children }: MatchesLayoutWrapperProps) => {
+const MatchesLayoutWrapper = ({
+  children,
+  leftSidebar,
+  hideRightSidebar = false,
+}: MatchesLayoutWrapperProps) => {
   const pathname = usePathname();
   const isMainMatchesPage = pathname === "/matches" || pathname === "/matches/";
   // Match details pages like /matches/football/1 (3 segments after matches)
@@ -25,24 +31,32 @@ const MatchesLayoutWrapper = ({ children }: MatchesLayoutWrapperProps) => {
           className={cn(
             "grid gap-6",
             showLeftSidebar
-              ? "grid-cols-1 lg:grid-cols-[280px_1fr] xl:grid-cols-[280px_1fr_320px]"
-              : "grid-cols-1 xl:grid-cols-[1fr_320px]"
+              ? cn(
+                  "grid-cols-1 lg:grid-cols-[280px_1fr]",
+                  !hideRightSidebar && "xl:grid-cols-[280px_1fr_320px]"
+                )
+              : cn(
+                  "grid-cols-1",
+                  !hideRightSidebar && "xl:grid-cols-[1fr_320px]"
+                )
           )}
         >
           {/* Left Sidebar - Only on Sport Category Pages, NOT on Main or Match Details */}
           {showLeftSidebar && (
             <aside className="hidden lg:block">
-              <SportsMatchesSidebar />
+              {leftSidebar || <SportsMatchesSidebar />}
             </aside>
           )}
 
           {/* Main Content */}
           <main className="w-full min-w-0">{children}</main>
 
-          {/* Right Sidebar - Bet Slip (Always visible on desktop) */}
-          <aside className="hidden xl:block">
-            <BetSlip />
-          </aside>
+          {/* Right Sidebar - Bet Slip (Always visible on desktop unless hidden) */}
+          {!hideRightSidebar && (
+            <aside className="hidden xl:block">
+              <BetSlip />
+            </aside>
+          )}
         </div>
       </div>
     </div>

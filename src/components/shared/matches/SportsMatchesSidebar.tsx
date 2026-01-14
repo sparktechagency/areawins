@@ -68,7 +68,7 @@ const SportsMatchesSidebar = () => {
   );
 };
 
-const SidebarLink = ({
+export const SidebarLink = ({
   icon,
   label,
   count,

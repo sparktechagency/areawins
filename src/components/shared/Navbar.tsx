@@ -29,7 +29,7 @@ const Navbar = () => {
   // Navigation Links Data to ensure consistency
   const navLinks = [
     { label: "Home", href: "/", icon: "🏠" },
-    { label: "All Matches", href: "/bets", icon: "⚽" },
+    { label: "All Matches", href: "/matches", icon: "⚽" },
     { label: "Bet Market", href: "/market", icon: "📈" },
     { label: "Support", href: "/support", icon: "❓" },
   ];

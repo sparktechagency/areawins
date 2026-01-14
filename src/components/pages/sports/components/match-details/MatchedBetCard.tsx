@@ -32,7 +32,7 @@ const MatchedBetCard: React.FC<MatchedBetCardProps> = ({ user, bet }) => {
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-[30px] p-6 transition-all duration-300 border border-border",
+        "relative overflow-hidden rounded-lg p-6 transition-all duration-300 border border-border",
       )}
     >
       {/* User Info Header */}
@@ -47,7 +47,7 @@ const MatchedBetCard: React.FC<MatchedBetCardProps> = ({ user, bet }) => {
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-black text-white text-lg tracking-tight">
+            <span className="font-black text-foreground text-lg tracking-tight">
               {user.name}
             </span>
             <span className="text-xs text-slate-400 font-bold">
@@ -58,7 +58,7 @@ const MatchedBetCard: React.FC<MatchedBetCardProps> = ({ user, bet }) => {
         </div>
         <Badge
           variant="secondary"
-          className="bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 rounded-full px-3 py-0.5 text-[10px] font-black tracking-widest border-none"
+          className="bg-primary text-white  rounded-full px-3 py-0.5 text-[10px] font-black tracking-widest border-none"
         >
           P2P
         </Badge>
@@ -69,7 +69,7 @@ const MatchedBetCard: React.FC<MatchedBetCardProps> = ({ user, bet }) => {
         <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">
           {bet.type}
         </span>
-        <h3 className="text-2xl font-black text-white leading-tight">
+        <h3 className="text-2xl font-black text-foreground leading-tight">
           {bet.selection}
         </h3>
       </div>
@@ -82,7 +82,7 @@ const MatchedBetCard: React.FC<MatchedBetCardProps> = ({ user, bet }) => {
           <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
             Stake Amount
           </span>
-          <span className="text-3xl font-black text-white">
+          <span className="text-3xl font-black text-foreground">
             ${bet.stake.toFixed(2)}
           </span>
           <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-sm mt-1">
@@ -115,7 +115,7 @@ const MatchedBetCard: React.FC<MatchedBetCardProps> = ({ user, bet }) => {
 
       {/* Locked Overlay Effect */}
       {isAccepted && (
-        <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-[1px] pointer-events-none flex items-center justify-center">
+        <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px] pointer-events-none flex items-center justify-center">
           <div className="bg-slate-900/80 p-2 rounded-full border border-white/10 shadow-2xl">
             <Lock className="size-6 text-primary" />
           </div>

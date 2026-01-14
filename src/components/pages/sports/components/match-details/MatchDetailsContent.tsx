@@ -160,16 +160,16 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
 
       {/* Tabs Section */}
       <Tabs defaultValue="matched" className="w-full">
-        <TabsList className="bg-transparent border-b border-border w-full justify-start h-auto p-0 rounded-none gap-8 overflow-x-auto no-scrollbar">
+        <TabsList className="bg-transparent border border-border w-full justify-start h-auto p-1 rounded-lg gap-8 overflow-x-auto no-scrollbar">
           <TabsTrigger
             value="market"
-            className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-0 pb-4 text-sm font-black text-muted-foreground data-[state=active]:text-foreground uppercase tracking-widest transition-all cursor-pointer"
+            className="rounded-lg border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-0 pb-4 text-sm font-black text-muted-foreground data-[state=active]:text-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
             All Market
           </TabsTrigger>
           <TabsTrigger
             value="matched"
-            className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-0 pb-4 text-sm font-black text-muted-foreground data-[state=active]:text-foreground uppercase tracking-widest transition-all cursor-pointer flex gap-3 items-center"
+            className="rounded-lg border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-0 pb-4 text-sm font-black text-muted-foreground data-[state=active]:text-foreground uppercase tracking-widest transition-all cursor-pointer flex gap-3 items-center"
           >
             All Matched Bets
             <span className="size-5 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[10px] font-black">
@@ -180,7 +180,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
 
         <div className="mt-8">
           <TabsContent value="market" className="m-0 space-y-4">
-            <div className="p-12 text-center bg-muted/20 rounded-[32px] border border-dashed border-border text-muted-foreground">
+            <div className="p-12 text-center bg-muted/20 rounded-4xl border border-dashed border-border text-muted-foreground">
               <Info className="size-8 mx-auto mb-4 opacity-30" />
               <p className="font-bold">
                 Market details and odds for match #{match.id} will be displayed
