@@ -12,84 +12,164 @@ export const getOutcomeStats = (
 ): MarketCategory[] => {
   const sportKey = sport.toLowerCase();
 
-  const commonMarkets: MarketCategory[] = [
-    {
-      marketName: "Match Results",
-      outcomes:
-        sportKey === "football"
-          ? [
-              {
-                label: match.homeTeam + " Win",
-                bets: 8,
-                pot: 3200,
-                open: 5,
-                icon: "⚽",
-              },
-              { label: "Draw", bets: 2, pot: 800, open: 1, icon: "🤝" },
-              {
-                label: match.awayTeam + " Win",
-                bets: 3,
-                pot: 1100,
-                open: 2,
-                icon: "⚽",
-              },
-            ]
-          : [
-              {
-                label: match.homeTeam + " Win",
-                bets: 15,
-                pot: 5400,
-                open: 8,
-                icon: "🏆",
-              },
-              {
-                label: match.awayTeam + " Win",
-                bets: 12,
-                pot: 4200,
-                open: 6,
-                icon: "🏆",
-              },
-            ],
-    },
-    {
-      marketName: "Total Goals / Points (Over/Under)",
-      outcomes: [
-        { label: "Over 2.5", bets: 12, pot: 4500, open: 4, icon: "⬆️" },
-        { label: "Under 2.5", bets: 7, pot: 2100, open: 3, icon: "⬇️" },
-      ],
-    },
-    {
-      marketName: "Handicap",
-      outcomes: [
-        {
-          label: match.homeTeam + " -1.5",
-          bets: 4,
-          pot: 1200,
-          open: 2,
-          icon: "🎯",
-        },
-        {
-          label: match.awayTeam + " +1.5",
-          bets: 6,
-          pot: 1800,
-          open: 3,
-          icon: "🎯",
-        },
-      ],
-    },
-  ];
+  const markets: MarketCategory[] = [];
 
+  // Match Results Market
+  markets.push({
+    marketName: "Match Results",
+    outcomes:
+      sportKey === "football" || sportKey === "volleyball"
+        ? [
+            {
+              id: "home",
+              label: match.homeTeam + " Win",
+              bets: 8,
+              pot: 3200,
+              open: 5,
+              icon: "🏠",
+            },
+            {
+              id: "draw",
+              label: "Draw",
+              bets: 2,
+              pot: 800,
+              open: 1,
+              icon: "🤝",
+            },
+            {
+              id: "away",
+              label: match.awayTeam + " Win",
+              bets: 3,
+              pot: 1100,
+              open: 2,
+              icon: "✈️",
+            },
+          ]
+        : [
+            {
+              id: "home",
+              label: match.homeTeam + " Win",
+              bets: 15,
+              pot: 5400,
+              open: 8,
+              icon: "🏆",
+            },
+            {
+              id: "away",
+              label: match.awayTeam + " Win",
+              bets: 12,
+              pot: 4200,
+              open: 6,
+              icon: "🏆",
+            },
+          ],
+  });
+
+  // Sport Specific Markets
   if (sportKey === "football") {
-    commonMarkets.push({
+    markets.push({
+      marketName: "Total Goals",
+      outcomes: [
+        {
+          id: "over25",
+          label: "Over 2.5",
+          bets: 12,
+          pot: 4500,
+          open: 4,
+          icon: "⬆️",
+        },
+        {
+          id: "under25",
+          label: "Under 2.5",
+          bets: 7,
+          pot: 2100,
+          open: 3,
+          icon: "⬇️",
+        },
+      ],
+    });
+    markets.push({
       marketName: "Both Teams to Score",
       outcomes: [
-        { label: "Yes", bets: 15, pot: 3000, open: 8, icon: "🥅" },
-        { label: "No", bets: 5, pot: 1000, open: 2, icon: "🚫" },
+        {
+          id: "btts_yes",
+          label: "Yes",
+          bets: 15,
+          pot: 3000,
+          open: 8,
+          icon: "🥅",
+        },
+        { id: "btts_no", label: "No", bets: 5, pot: 1000, open: 2, icon: "🚫" },
+      ],
+    });
+  } else if (sportKey === "cricket") {
+    markets.push({
+      marketName: "Top Batsman",
+      outcomes: [
+        {
+          id: "kohli",
+          label: "Virat Kohli",
+          bets: 25,
+          pot: 8000,
+          open: 12,
+          icon: "🏏",
+        },
+        {
+          id: "smith",
+          label: "Steve Smith",
+          bets: 20,
+          pot: 6500,
+          open: 10,
+          icon: "🏏",
+        },
+      ],
+    });
+    markets.push({
+      marketName: "Total Sixes",
+      outcomes: [
+        {
+          id: "sixes_over",
+          label: "Over 12.5",
+          bets: 18,
+          pot: 4200,
+          open: 7,
+          icon: "💥",
+        },
+        {
+          id: "sixes_under",
+          label: "Under 12.5",
+          bets: 9,
+          pot: 1800,
+          open: 4,
+          icon: "📉",
+        },
+      ],
+    });
+  } else if (sportKey === "basketball") {
+    markets.push({
+      marketName: "Total Points",
+      outcomes: [
+        {
+          id: "points_over",
+          label: "Over 210.5",
+          bets: 30,
+          pot: 12000,
+          open: 15,
+          icon: "🏀",
+        },
+        {
+          id: "points_under",
+          label: "Under 210.5",
+          bets: 25,
+          pot: 9500,
+          open: 10,
+          icon: "🏀",
+        },
       ],
     });
   }
 
-  return commonMarkets;
+  return markets;
 };
 
 const MOCK_SPORT: SportInfo = {

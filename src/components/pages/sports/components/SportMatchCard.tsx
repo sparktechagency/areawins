@@ -7,7 +7,9 @@ import {
   PlusCircle,
   Search,
   Target,
+  Trash2,
 } from "lucide-react";
+
 import Link from "next/link";
 import React, { useMemo } from "react";
 
@@ -18,8 +20,12 @@ import {
   TeamInfo,
   TournamentInfo,
 } from "@/interfaces/match.interface";
+import { renderSportScore } from "@/lib/sport-utils";
 
-export const SportMatchCard: React.FC<SportMatchCardProps> = ({ match }) => {
+export const SportMatchCard: React.FC<SportMatchCardProps> = ({
+  match,
+  onDelete,
+}) => {
   // Helper to extract names safely
   const getTeamName = (team: string | TeamInfo) =>
     typeof team === "string" ? "Team" : team.name;
@@ -64,11 +70,19 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({ match }) => {
             {tournamentName}
           </span>
         </div>
-        <div className="hidden sm:flex items-center gap-2 shrink-0">
-          <span className="text-[9px] font-black text-primary uppercase flex items-center gap-1">
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="hidden sm:flex text-[9px] font-black text-primary uppercase items-center gap-1">
             <Target className="size-2.5" />
             {stats.activeBets} Active
           </span>
+          {onDelete && (
+            <button
+              onClick={() => onDelete(match._id)}
+              className="size-6 flex items-center justify-center rounded-md hover:bg-rose-500/10 text-muted-foreground hover:text-rose-500 transition-colors cursor-pointer"
+            >
+              <Trash2 className="size-3" />
+            </button>
+          )}
         </div>
       </div>
 
@@ -88,25 +102,9 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({ match }) => {
                 {homeTeamName}
               </span>
             </div>
-
             {/* Score / VS Area */}
             <div className="flex flex-col items-center gap-1 flex-1 min-w-fit">
-              <div className="flex items-center gap-1 px-1 sm:px-2 bg-muted/30 rounded-lg py-1">
-                <span className="text-xl sm:text-2xl font-black text-foreground tabular-nums">
-                  {match.liveStatus?.homeScore ?? 0}
-                </span>
-                <span className="text-sm font-black text-muted-foreground/30 mx-0.5">
-                  :
-                </span>
-                <span className="text-xl sm:text-2xl font-black text-foreground tabular-nums">
-                  {match.liveStatus?.awayScore ?? 0}
-                </span>
-              </div>
-              {isLive && match.liveStatus?.minute && (
-                <span className="text-[9px] font-black text-rose-500/80 uppercase tracking-tighter animate-pulse">
-                  {match.liveStatus.minute}&apos;
-                </span>
-              )}
+              {renderSportScore(match)}
             </div>
 
             {/* Away Team */}

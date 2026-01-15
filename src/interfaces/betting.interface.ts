@@ -62,7 +62,9 @@ export interface P2PBet {
 }
 
 export interface OutcomeStat {
+  id: string;
   label: string;
+
   icon: string;
   bets: number;
   pot: number;
@@ -80,7 +82,9 @@ export interface CreateBetModalProps {
   match: {
     homeTeam: string;
     awayTeam: string;
+    sport: string;
   };
+
   selectedOutcome?: string | null;
   marketName?: string | null;
 }

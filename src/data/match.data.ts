@@ -33,6 +33,15 @@ export const MOCK_SPORTS: SportInfo[] = [
     displayOrder: 3,
     isActive: true,
   },
+  {
+    _id: "s4",
+    sportId: "SPORT-004",
+    name: "Volleyball",
+    slug: "volleyball",
+    icon: "🏐",
+    displayOrder: 4,
+    isActive: true,
+  },
 ];
 
 export const MOCK_TEAMS: TeamInfo[] = [
@@ -102,6 +111,28 @@ export const MOCK_TEAMS: TeamInfo[] = [
     logo: "https://api.dicebear.com/7.x/identicon/svg?seed=australia",
     isActive: true,
   },
+  {
+    _id: "t7",
+    teamId: "TEAM-007",
+    name: "Lakers",
+    shortName: "LAK",
+    slug: "lakers",
+    sport: "s3",
+    country: "US",
+    logo: "https://api.dicebear.com/7.x/identicon/svg?seed=lakers",
+    isActive: true,
+  },
+  {
+    _id: "t8",
+    teamId: "TEAM-008",
+    name: "Warriors",
+    shortName: "GSW",
+    slug: "warriors",
+    sport: "s3",
+    country: "US",
+    logo: "https://api.dicebear.com/7.x/identicon/svg?seed=warriors",
+    isActive: true,
+  },
 ];
 
 export const MOCK_TOURNAMENTS: TournamentInfo[] = [
@@ -140,13 +171,24 @@ export const MOCK_TOURNAMENTS: TournamentInfo[] = [
     displayOrder: 1,
     isActive: true,
   },
+  {
+    _id: "tr4",
+    tournamentId: "TRN-004",
+    name: "NBA",
+    slug: "nba",
+    sport: "s3",
+    type: "league",
+    isFeatured: true,
+    displayOrder: 1,
+    isActive: true,
+  },
 ];
 
 export const MOCK_MATCHES: MatchInfo[] = [
   {
     _id: "m1",
     matchId: "MATCH-101",
-    sport: MOCK_SPORTS[0],
+    sport: MOCK_SPORTS[0], // Football
     tournament: MOCK_TOURNAMENTS[0],
     homeTeam: MOCK_TEAMS[0],
     awayTeam: MOCK_TEAMS[1],
@@ -158,7 +200,7 @@ export const MOCK_MATCHES: MatchInfo[] = [
       homeScore: 2,
       awayScore: 1,
       minute: 65,
-      period: "Second Half",
+      period: "2nd Half",
       lastUpdated: new Date().toISOString(),
     },
     isResultVerified: false,
@@ -171,16 +213,26 @@ export const MOCK_MATCHES: MatchInfo[] = [
   {
     _id: "m2",
     matchId: "MATCH-102",
-    sport: MOCK_SPORTS[1],
+    sport: MOCK_SPORTS[1], // Cricket
     tournament: MOCK_TOURNAMENTS[2],
     homeTeam: MOCK_TEAMS[4],
     awayTeam: MOCK_TEAMS[5],
     scheduledStartTime: "2024-03-25T14:00:00Z",
-    status: "scheduled",
+    status: "live",
     source: "manual",
     availableBetTypes: ["bt3"],
+    liveStatus: {
+      homeScore: 145,
+      awayScore: 0,
+      homeWickets: 3,
+      awayWickets: 0,
+      homeOvers: "16.2",
+      awayOvers: "0.0",
+      period: "1st Innings",
+      lastUpdated: new Date().toISOString(),
+    },
     isResultVerified: false,
-    totalBetsCount: 8,
+    totalBetsCount: 42,
     isFeatured: true,
     createdBy: "admin",
     createdAt: new Date().toISOString(),
@@ -189,11 +241,36 @@ export const MOCK_MATCHES: MatchInfo[] = [
   {
     _id: "m3",
     matchId: "MATCH-103",
-    sport: MOCK_SPORTS[0],
+    sport: MOCK_SPORTS[2], // Basketball
+    tournament: MOCK_TOURNAMENTS[3],
+    homeTeam: MOCK_TEAMS[6],
+    awayTeam: MOCK_TEAMS[7],
+    scheduledStartTime: "2024-03-26T19:45:00Z",
+    status: "live",
+    source: "manual",
+    availableBetTypes: ["bt1"],
+    liveStatus: {
+      homeScore: 102,
+      awayScore: 98,
+      period: "Q4",
+      minute: 8,
+      lastUpdated: new Date().toISOString(),
+    },
+    isResultVerified: false,
+    totalBetsCount: 12,
+    isFeatured: true,
+    createdBy: "admin",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    _id: "m4",
+    matchId: "MATCH-104",
+    sport: MOCK_SPORTS[0], // Football
     tournament: MOCK_TOURNAMENTS[1],
     homeTeam: MOCK_TEAMS[2],
     awayTeam: MOCK_TEAMS[3],
-    scheduledStartTime: "2024-03-26T19:45:00Z",
+    scheduledStartTime: "2024-03-26T21:00:00Z",
     status: "scheduled",
     source: "api",
     apiMatchId: "api-123",

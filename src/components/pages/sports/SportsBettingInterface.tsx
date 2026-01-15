@@ -19,46 +19,67 @@ const config = {
     theme: "from-green-900 to-green-950",
     accent: "#00d65c",
     logo: "⚽",
-    banner: {
-      bg: "url('https://images.unsplash.com/photo-1522778119026-d647f0565c6a?auto=format&fit=crop&q=80')",
-      title: "Man City vs Arsenal",
-      subtitle: "Premier League",
-      promo: "Create a P2P bet on the match winner to earn up to 5x returns",
-    },
+    banners: [
+      {
+        bg: "url('https://images.unsplash.com/photo-1522778119026-d647f0565c6a?auto=format&fit=crop&q=80')",
+        title: "Man City vs Arsenal",
+        subtitle: "Premier League",
+        promo: "Create a P2P bet on the match winner to earn up to 5x returns",
+      },
+      {
+        bg: "url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80')",
+        title: "Champions League Finals",
+        subtitle: "Europe",
+        promo: "High volume in Correct Score markets. Join the P2P pool now!",
+      },
+    ],
   },
   cricket: {
     theme: "from-emerald-900 to-emerald-950",
     accent: "#10b981",
     logo: "🏏",
-    banner: {
-      bg: "url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80')",
-      title: "CSK vs RCB",
-      subtitle: "Indian Premier League",
-      promo:
-        "Open Market: CSK needs 145 to win - Browse available matched bets",
-    },
+    banners: [
+      {
+        bg: "url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80')",
+        title: "CSK vs RCB",
+        subtitle: "Indian Premier League",
+        promo:
+          "Open Market: CSK needs 145 to win - Browse available matched bets",
+      },
+      {
+        bg: "url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80')",
+        title: "T20 World Cup",
+        subtitle: "International",
+        promo: "Predict Top Batsman & Bowler in our new P2P categories.",
+      },
+    ],
   },
   volleyball: {
     theme: "from-blue-900 to-blue-950",
     accent: "#3b82f6",
     logo: "🏐",
-    banner: {
-      bg: "url('https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80')",
-      title: "Volleyball Nations League",
-      subtitle: "Group Stage",
-      promo: "High Volume detected in Sets Over/Under market - Join the action",
-    },
+    banners: [
+      {
+        bg: "url('https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80')",
+        title: "Volleyball Nations League",
+        subtitle: "Group Stage",
+        promo:
+          "High Volume detected in Sets Over/Under market - Join the action",
+      },
+    ],
   },
   basketball: {
     theme: "from-orange-900 to-orange-950",
     accent: "#f97316",
     logo: "🏀",
-    banner: {
-      bg: "url('https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&q=80')",
-      title: "NBA Finals 2024",
-      subtitle: "Playoffs",
-      promo: "P2P Market: Lakers favored at 1.8x - Accept or Create a bet",
-    },
+    banners: [
+      {
+        bg: "url('https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&q=80')",
+        title: "NBA Finals 2024",
+        subtitle: "Playoffs",
+        promo: "P2P Market: Lakers favored at 1.8x - Accept or Create a bet",
+      },
+    ],
   },
 };
 
@@ -66,11 +87,20 @@ export default function SportsBettingInterface({
   sport,
 }: SportsBettingInterfaceProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [matches, setMatches] = useState(MOCK_MATCHES);
+
   const sportKey = sport.toLowerCase() as keyof typeof config;
   const activeConfig = config[sportKey] || config.football;
   const sportName = sport.charAt(0).toUpperCase() + sport.slice(1);
 
-  const filteredMatches = MOCK_MATCHES.filter((m) => {
+  const handleDelete = (id: string) => {
+    setMatches((prev) => prev.filter((m) => m._id !== id));
+  };
+
+  // Cycle through banners or pick one
+  const banner = activeConfig.banners[0];
+
+  const filteredMatches = matches.filter((m) => {
     const mSport = typeof m.sport === "string" ? m.sport : m.sport.slug;
     const homeName = typeof m.homeTeam === "string" ? "" : m.homeTeam.name;
     const awayName = typeof m.awayTeam === "string" ? "" : m.awayTeam.name;
@@ -122,7 +152,7 @@ export default function SportsBettingInterface({
       </div>
 
       {/* Hero Banner */}
-      <SportHeroBanner config={activeConfig.banner} />
+      <SportHeroBanner config={banner} />
 
       {/* Tabs / Filter Navigation */}
       <Tabs defaultValue="all" className="w-full">
@@ -157,7 +187,11 @@ export default function SportsBettingInterface({
           <TabsContent value="all" className="space-y-6 m-0">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredMatches.map((match) => (
-                <SportMatchCard key={match._id} match={match} />
+                <SportMatchCard
+                  key={match._id}
+                  match={match}
+                  onDelete={handleDelete}
+                />
               ))}
             </div>
             {filteredMatches.length === 0 && (
@@ -172,7 +206,11 @@ export default function SportsBettingInterface({
               {filteredMatches
                 .filter((m) => m.status === "live")
                 .map((match) => (
-                  <SportMatchCard key={match._id} match={match} />
+                  <SportMatchCard
+                    key={match._id}
+                    match={match}
+                    onDelete={handleDelete}
+                  />
                 ))}
             </div>
           </TabsContent>

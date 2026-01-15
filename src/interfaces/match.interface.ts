@@ -41,8 +41,12 @@ export interface TournamentInfo {
 export interface MatchLiveStatus {
   homeScore: number;
   awayScore: number;
-  minute: number;
-  period: string; // "Second Half", "1st Innings", etc.
+  homeWickets?: number; // For Cricket
+  awayWickets?: number; // For Cricket
+  homeOvers?: string; // For Cricket, e.g. "18.4"
+  awayOvers?: string; // For Cricket
+  minute?: number; // For Football/Basketball
+  period: string; // "Second Half", "1st Innings", "Q3", etc.
   lastUpdated: string;
 }
 
@@ -93,4 +97,5 @@ export interface MatchDetailsContentProps {
 
 export interface SportMatchCardProps {
   match: MatchInfo;
+  onDelete?: (id: string) => void;
 }

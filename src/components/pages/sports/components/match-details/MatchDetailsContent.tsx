@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { renderSportScore } from "@/lib/sport-utils";
 import {
   Banknote,
   BarChart3,
@@ -24,6 +25,7 @@ import {
   MOCK_MATCH,
   MOCK_MATCHED_BETS,
 } from "@/data/match-details.data";
+
 import { MarketCategory } from "@/interfaces/betting.interface";
 import {
   MatchDetailsContentProps,
@@ -124,54 +126,34 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
                 {tournamentName}
               </span>
             </div>
-            <span className="text-[10px] text-muted-foreground font-black mt-2 uppercase tracking-widest flex items-center gap-2">
-              <span className="size-1 rounded-full bg-muted-foreground/30" />
-              {venue}
-              <span className="size-1 rounded-full bg-muted-foreground/30" />
-            </span>
           </div>
 
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-24 w-full max-w-4xl px-4">
             <div className="flex flex-col items-center gap-5">
-              <div className="relative size-24 md:size-32 rounded-full p-2 bg-muted overflow-hidden border-4 border-card group">
-                <div className="absolute inset-0 bg-primary/10 flex items-center justify-center text-5xl">
-                  ⚽
-                </div>
+              <div className="size-24 md:size-32 rounded-full p-2 bg-muted flex items-center justify-center text-4xl md:text-6xl border-4 border-card">
+                ⚽
               </div>
-              <h2 className="text-xl md:text-3xl font-black text-foreground text-center tracking-tight">
+              <span className="text-xl md:text-3xl font-black text-foreground text-center">
                 {homeTeamName}
-              </h2>
+              </span>
             </div>
 
-            <div className="flex flex-col items-center gap-4">
-              <div className="flex items-center gap-6">
-                <span className="text-6xl md:text-8xl font-black text-foreground tabular-nums">
-                  {match.liveStatus?.homeScore ?? 0}
-                </span>
-                <span className="text-4xl md:text-6xl font-black text-muted-foreground/10">
-                  :
-                </span>
-                <span className="text-6xl md:text-8xl font-black text-foreground tabular-nums">
-                  {match.liveStatus?.awayScore ?? 0}
-                </span>
+            <div className="flex flex-col items-center gap-2 pt-4">
+              {renderSportScore(match, "detailed")}
+              <div className="text-[10px] text-muted-foreground font-black uppercase tracking-widest flex items-center gap-2 mt-4">
+                <span className="size-1 rounded-full bg-muted-foreground/30" />
+                {venue}
+                <span className="size-1 rounded-full bg-muted-foreground/30" />
               </div>
-              {match.status === "live" && match.liveStatus?.minute && (
-                <div className="flex items-center gap-2.5 px-5 py-2 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-500 text-[11px] font-black uppercase tracking-[0.3em]">
-                  <span className="size-2 rounded-full bg-rose-500 animate-pulse" />
-                  {match.liveStatus.minute}&apos;
-                </div>
-              )}
             </div>
 
             <div className="flex flex-col items-center gap-5">
-              <div className="relative size-24 md:size-32 rounded-full p-2 bg-muted overflow-hidden border-4 border-card group">
-                <div className="absolute inset-0 bg-primary/10 flex items-center justify-center text-5xl">
-                  ⚽
-                </div>
+              <div className="size-24 md:size-32 rounded-full p-2 bg-muted flex items-center justify-center text-4xl md:text-6xl border-4 border-card">
+                ⚽
               </div>
-              <h2 className="text-xl md:text-3xl font-black text-foreground text-center tracking-tight">
+              <span className="text-xl md:text-3xl font-black text-foreground text-center">
                 {awayTeamName}
-              </h2>
+              </span>
             </div>
           </div>
         </div>
@@ -320,6 +302,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
         match={{
           homeTeam: homeTeamName,
           awayTeam: awayTeamName,
+          sport: sport,
         }}
         selectedOutcome={selectedMarket?.outcome}
         marketName={selectedMarket?.market}

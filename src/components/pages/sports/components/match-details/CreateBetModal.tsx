@@ -6,7 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { getBetOutcomesByMarket } from "@/data/betting.data";
-import { CreateBetModalProps } from "@/interfaces/betting.interface";
+import {
+  CreateBetModalProps,
+  OutcomeStat,
+} from "@/interfaces/betting.interface";
 import { cn } from "@/lib/utils";
 import {
   AlertCircle,
@@ -82,7 +85,11 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
     }, 1500);
   };
 
-  const marketOutcomes = useMemo(() => getBetOutcomesByMarket(match), [match]);
+  const sportName = match.sport;
+  const marketOutcomes = useMemo(
+    () => getBetOutcomesByMarket(sportName, match),
+    [match, sportName]
+  );
 
   return (
     <ReusableModal
@@ -134,7 +141,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
                     <div className="absolute top-1/2 left-0 w-full h-px bg-border/50" />
                   </h4>
                   <div className="grid grid-cols-1 gap-3">
-                    {market.outcomes.map((o) => (
+                    {market.outcomes.map((o: OutcomeStat) => (
                       <button
                         key={o.id}
                         onClick={() => {
