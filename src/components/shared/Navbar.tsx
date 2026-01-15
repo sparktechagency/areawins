@@ -16,6 +16,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import DarkModeToggle from "../ui/dark-mode-toggle";
+import { openAuthModal } from "@/lib/redux/features/authUiSlice";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();

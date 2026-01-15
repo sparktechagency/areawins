@@ -1,7 +1,15 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input"; // Or OTP Input if you have it
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   useResendVerificationEmailMutation,
   useVerifyEmailMutation,
@@ -13,9 +21,12 @@ import {
   setAuthView,
 } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import { verifyOtpSchema } from "@/lib/validations/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import * as z from "zod";
 
 export default function VerifyOtpForm() {
   const dispatch = useAppDispatch();
@@ -23,10 +34,15 @@ export default function VerifyOtpForm() {
   const [verifyEmail, { isLoading: isVerifying }] = useVerifyEmailMutation();
   const [resendEmail, { isLoading: isResending }] =
     useResendVerificationEmailMutation();
-  const [otp, setOtp] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const form = useForm<z.infer<typeof verifyOtpSchema>>({
+    resolver: zodResolver(verifyOtpSchema),
+    defaultValues: {
+      otp: "",
+    },
+  });
+
+  const onSubmit = async (values: z.infer<typeof verifyOtpSchema>) => {
     if (!email) {
       toast.error("Email missing. Please restart.");
       return;
@@ -34,20 +50,19 @@ export default function VerifyOtpForm() {
 
     if (otpReason === "REGISTER") {
       try {
-        await verifyEmail({ email, code: otp }).unwrap(); // Assuming API takes { email, code } or similar
+        // API expects 'code' usually for OTP
+        await verifyEmail({ email, code: values.otp }).unwrap();
         toast.success("Email verified! You can now log in.");
         dispatch(openAuthModal({ view: "LOGIN" }));
       } catch (err: any) {
         toast.error(err?.data?.message || "Verification failed");
       }
     } else if (otpReason === "FORGOT_PASSWORD") {
-      // Just move to Reset Password with OTP
-      dispatch(setAuthOtp(otp));
+      dispatch(setAuthOtp(values.otp));
       dispatch(setAuthView("RESET_PASSWORD"));
     } else {
-      // Fallback default (maybe verify email)
       try {
-        await verifyEmail({ email, code: otp }).unwrap();
+        await verifyEmail({ email, code: values.otp }).unwrap();
         toast.success("Verified!");
         dispatch(closeAuthModal());
       } catch (err: any) {
@@ -88,30 +103,38 @@ export default function VerifyOtpForm() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="space-y-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-            OTP Code
-          </label>
-          <Input
-            type="text"
-            placeholder="123456"
-            className="pl-4 bg-muted/50 border-border text-center tracking-[1em] font-bold text-lg"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-            maxLength={6}
-            required
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="otp"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  OTP Code
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="123456"
+                    className="pl-4 bg-muted/50 border-border text-center tracking-[1em] font-bold text-lg"
+                    maxLength={6}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </div>
 
-        <Button
-          type="submit"
-          className="w-full font-bold"
-          disabled={isVerifying}
-        >
-          {isVerifying ? "Verifying..." : "Verify Code"}
-        </Button>
-      </form>
+          <Button
+            type="submit"
+            className="w-full font-bold"
+            disabled={isVerifying}
+          >
+            {isVerifying ? "Verifying..." : "Verify Code"}
+          </Button>
+        </form>
+      </Form>
 
       <div className="text-center text-sm text-muted-foreground">
         Didn&apos;t receive it?{" "}

@@ -1,28 +1,46 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useLoginMutation } from "@/lib/redux/api/authApi";
 import { setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
+import { loginSchema } from "@/lib/validations/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import * as z from "zod";
 
 export default function LoginForm() {
   const dispatch = useAppDispatch();
   const [login, { isLoading }] = useLoginMutation();
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({ email: "", password: "" });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const form = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      rememberMe: false,
+    },
+  });
+
+  const onSubmit = async (values: z.infer<typeof loginSchema>) => {
     try {
-      const res = await login(formData).unwrap();
+      await login(values).unwrap();
       toast.success("Logged in successfully!");
-      // Modal close is handled in parent or global listener usually,
-      // but simplistic:
-      window.location.reload(); // Temporary reload or handle via global auth state
+      window.location.reload();
     } catch (err: any) {
       toast.error(err?.data?.message || "Login failed");
     }
@@ -37,31 +55,85 @@ export default function LoginForm() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="space-y-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-            Email
-          </label>
-          <div className="relative">
-            <Mail className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
-            <Input
-              type="email"
-              placeholder="name@example.com"
-              className="pl-9 bg-muted/50 border-border"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-              required
-            />
-          </div>
-        </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Email
+                </FormLabel>
+                <FormControl>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
+                    <Input
+                      placeholder="name@example.com"
+                      className="pl-9 bg-muted/50 border-border"
+                      {...field}
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <div className="space-y-2">
-          <div className="flex justify-between items-center">
-            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-              Password
-            </label>
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Password
+                </FormLabel>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
+                  <FormControl>
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="••••••••"
+                      className="pl-9 pr-9 bg-muted/50 border-border"
+                      {...field}
+                    />
+                  </FormControl>
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-2.5 text-muted-foreground hover:text-foreground"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="size-4" />
+                    ) : (
+                      <Eye className="size-4" />
+                    )}
+                  </button>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className="flex items-center justify-between">
+            <FormField
+              control={form.control}
+              name="rememberMe"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center space-x-2 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormLabel className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Remember me
+                  </FormLabel>
+                </FormItem>
+              )}
+            />
+
             <button
               type="button"
               onClick={() => dispatch(setAuthView("FORGOT_PASSWORD"))}
@@ -70,36 +142,16 @@ export default function LoginForm() {
               Forgot password?
             </button>
           </div>
-          <div className="relative">
-            <Lock className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
-            <Input
-              type={showPassword ? "text" : "password"}
-              placeholder="••••••••"
-              className="pl-9 pr-9 bg-muted/50 border-border"
-              value={formData.password}
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
-              required
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-2.5 text-muted-foreground hover:text-foreground"
-            >
-              {showPassword ? (
-                <EyeOff className="size-4" />
-              ) : (
-                <Eye className="size-4" />
-              )}
-            </button>
-          </div>
-        </div>
 
-        <Button type="submit" className="w-full font-bold" disabled={isLoading}>
-          {isLoading ? "Logging in..." : "Log In"}
-        </Button>
-      </form>
+          <Button
+            type="submit"
+            className="w-full font-bold"
+            disabled={isLoading}
+          >
+            {isLoading ? "Logging in..." : "Log In"}
+          </Button>
+        </form>
+      </Form>
 
       <div className="text-center text-sm text-muted-foreground">
         Don&apos;t have an account?{" "}
