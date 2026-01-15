@@ -20,11 +20,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import CreateBetModal from "./CreateBetModal";
 import MatchedBetCard from "./MatchedBetCard";
 
-import {
-  getOutcomeStats,
-  MOCK_MATCH,
-  MOCK_MATCHED_BETS,
-} from "@/data/match-details.data";
+import { getOutcomeStats, MOCK_MATCHED_BETS } from "@/data/match-details.data";
+import { MOCK_MATCHES } from "@/data/match.data";
 
 import { MarketCategory } from "@/interfaces/betting.interface";
 import {
@@ -48,19 +45,25 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
     typeof t === "string" ? "League" : t?.name ?? "League";
   const getVenue = (m: MatchInfo) => m.venue || "Stadium";
 
-  // Use Mock Match Data from external file
-  const match: MatchInfo = useMemo(
-    () => ({
-      ...MOCK_MATCH,
-      _id: id,
-    }),
-    [id]
-  );
+  // Find Match Data dynamically from our main match data source
+  const match: MatchInfo = useMemo(() => {
+    const found = MOCK_MATCHES.find((m) => m._id === id);
+    if (found) return found;
+
+    // Fallback if not found
+    return MOCK_MATCHES[0];
+  }, [id]);
 
   const homeTeamName = getTeamName(match.homeTeam);
   const awayTeamName = getTeamName(match.awayTeam);
   const tournamentName = getTournamentName(match.tournament);
   const venue = getVenue(match);
+
+  // Get the actual sport name from the match object
+  const actualSportName =
+    typeof match.sport === "string"
+      ? match.sport
+      : match.sport?.name || "Football";
 
   useEffect(() => {
     if (searchParams.get("action") === "create") {
@@ -69,13 +72,13 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
     }
   }, [searchParams]);
 
-  // Dynamic Market Categories based on Sport
+  // Dynamic Market Categories based on the ACTUAL sport from match data
   const marketCategories: MarketCategory[] = useMemo(() => {
-    return getOutcomeStats(sport, {
+    return getOutcomeStats(actualSportName, {
       homeTeam: homeTeamName,
       awayTeam: awayTeamName,
     });
-  }, [sport, homeTeamName, awayTeamName]);
+  }, [actualSportName, homeTeamName, awayTeamName]);
 
   const [selectedMarket, setSelectedMarket] = useState<{
     outcome: string;
@@ -131,9 +134,9 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-24 w-full max-w-4xl px-4">
             <div className="flex flex-col items-center gap-5">
               <div className="size-24 md:size-32 rounded-full p-2 bg-muted flex items-center justify-center text-4xl md:text-6xl border-4 border-card">
-                ⚽
+                {typeof match.sport === "string" ? "🏅" : match.sport.icon}
               </div>
-              <span className="text-xl md:text-3xl font-black text-foreground text-center">
+              <span className="text-xl md:text-3xl font-black text-foreground text-center line-clamp-2">
                 {homeTeamName}
               </span>
             </div>
@@ -149,9 +152,9 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
 
             <div className="flex flex-col items-center gap-5">
               <div className="size-24 md:size-32 rounded-full p-2 bg-muted flex items-center justify-center text-4xl md:text-6xl border-4 border-card">
-                ⚽
+                {typeof match.sport === "string" ? "🏅" : match.sport.icon}
               </div>
-              <span className="text-xl md:text-3xl font-black text-foreground text-center">
+              <span className="text-xl md:text-3xl font-black text-foreground text-center line-clamp-2">
                 {awayTeamName}
               </span>
             </div>
@@ -302,7 +305,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
         match={{
           homeTeam: homeTeamName,
           awayTeam: awayTeamName,
-          sport: sport,
+          sport: actualSportName,
         }}
         selectedOutcome={selectedMarket?.outcome}
         marketName={selectedMarket?.market}
