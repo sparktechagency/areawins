@@ -1,5 +1,7 @@
 "use client";
+import logo from "@/assets/logo/logo.png";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -9,14 +11,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+import { ROUTES } from "@/lib/constants";
 import { loginSchema, type LoginFormData } from "@/lib/validators/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
 import React from "react";
-import logo from "@/assets/logo/logo2.png";
+import { useForm } from "react-hook-form";
 
 const Login: React.FC = () => {
   const form = useForm<LoginFormData>({
@@ -37,8 +38,14 @@ const Login: React.FC = () => {
       <div className="w-full  max-w-3xl h-full overflow-y-auto bg-background p-5 md:p-12 lg:p-14 xl:p-16 border-r border-border">
         <div className="min-h-full flex flex-col justify-center max-w-md mx-auto">
           <div className="flex justify-center mb-8">
-            <Link href="/" className="flex items-center gap-2 text-foreground">
-              <Image width={150} height={100} src={logo.src} alt="Logo" />
+            <Link href={ROUTES.HOME} className="block">
+              <Image
+                src={logo}
+                alt="Logo"
+                width={150}
+                height={120}
+                className="rounded-xl"
+              />
             </Link>
           </div>
 
@@ -179,8 +186,8 @@ const Login: React.FC = () => {
               <span className="text-[#0bda5b]">your winnings</span>.
             </h2>
             <p className="text-lg text-gray-300 max-w-lg leading-relaxed">
-              Fast and secure password recovery. We&apos;ll help you get back in the
-              game in no time.
+              Fast and secure password recovery. We&apos;ll help you get back in
+              the game in no time.
             </p>
           </div>
         </div>

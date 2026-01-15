@@ -25,7 +25,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         <div className="relative z-10 text-center text-white max-w-md">
           {/* Logo */}
           <h1 className="text-6xl font-bold mb-4">
-            EASY BET
+            Area Wins 
           </h1>
 
           {/* Tagline */}
@@ -69,7 +69,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
           <div className="lg:hidden text-center mb-8">
-            <h1 className="text-4xl font-bold text-primary mb-2">EASY BET</h1>
+            <h1 className="text-4xl font-bold text-primary mb-2">Area Wins </h1>
             <p className="text-gray-600">Bet Smart! Win Fair!</p>
           </div>
 

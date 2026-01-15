@@ -77,7 +77,7 @@ export default function ForgotPasswordForm() {
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
+                    <Mail className="absolute left-3 top-4 size-4 text-muted-foreground" />
                     <Input
                       placeholder="name@example.com"
                       className="pl-9 bg-muted/50 border-border"

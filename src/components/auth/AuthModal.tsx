@@ -34,8 +34,8 @@ const AuthModal = () => {
     <ReusableModal
       isOpen={isOpen}
       onClose={() => dispatch(closeAuthModal())}
-      className="max-w-[400px] p-0"
-      maxWidth="sm"
+      className="max-w-[500px] p-0"
+      maxWidth="md"
     >
       {renderContent()}
     </ReusableModal>

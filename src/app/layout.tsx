@@ -15,13 +15,13 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: "EASY BET - Your Premier Sports Betting Platform",
+  title: "Area Wins - Your Premier Sports Betting Platform",
   description:
     "Place bets on football, cricket, basketball, and more. Live betting, competitive odds, and instant payouts.",
   keywords:
     "sports betting, live betting, football betting, cricket betting, online gambling",
   openGraph: {
-    title: "EASY BET - Your Premier Sports Betting Platform",
+    title: "Area Wins  - Your Premier Sports Betting Platform",
     description: "Place bets on football, cricket, basketball, and more.",
     type: "website",
   },

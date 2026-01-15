@@ -81,7 +81,7 @@ export const AnimatedDropdown = ({
                     setIsOpen(false);
                   }}
                   className={cn(
-                    "flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-muted/50 cursor-pointer block",
+                    "flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-muted/50 cursor-pointer ",
                     item.variant === "destructive"
                       ? "text-destructive hover:text-destructive/90"
                       : "text-foreground"

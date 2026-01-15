@@ -1,4 +1,5 @@
 "use client";
+import logo from "@/assets/logo/logo.png";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -22,7 +23,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import logo from "@/assets/logo/logo2.png";
 export default function ForgotPasswordPage() {
   const router = useRouter();
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();

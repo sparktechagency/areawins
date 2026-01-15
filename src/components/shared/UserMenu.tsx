@@ -66,7 +66,7 @@ export const UserMenu = ({
             ? "secondary"
             : "default"
         }
-        className={`transition-all duration-300 ${
+        className={`transition-all duration-300 cursor-pointer ${
           isHomePage && !scrolled
             ? "bg-white text-primary hover:bg-white/90"
             : ""
@@ -81,7 +81,7 @@ export const UserMenu = ({
     <AnimatedDropdown
       trigger={
         <div className="flex items-center gap-2">
-          <Avatar className="h-10 w-10 border border-border cursor-pointer">
+          <Avatar className="size-11 border border-border cursor-pointer">
             <AvatarImage src="/avatars/01.png" alt={user.username} />
             <AvatarFallback className="bg-primary/10 text-primary font-bold">
               {user.firstName?.[0]}

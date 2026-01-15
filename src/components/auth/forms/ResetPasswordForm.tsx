@@ -80,7 +80,7 @@ export default function ResetPasswordForm() {
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
+                    <Lock className="absolute left-3 top-4 size-4 text-muted-foreground" />
                     <Input
                       type={showPassword ? "text" : "password"}
                       placeholder="New password"
@@ -115,7 +115,7 @@ export default function ResetPasswordForm() {
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
+                    <Lock className="absolute left-3 top-4 size-4 text-muted-foreground" />
                     <Input
                       type={showPassword ? "text" : "password"}
                       placeholder="Confirm new password"

@@ -1,8 +1,9 @@
+import logo from "@/assets/logo/logo.png";
 import { Input } from "@/components/ui/input";
+import { ROUTES } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import logo from "@/assets/logo/logo2.png";
 
 const Register: React.FC = () => {
   return (
@@ -54,8 +55,14 @@ const Register: React.FC = () => {
       <div className="w-full  max-w-4xl h-full overflow-y-auto bg-background p-5 md:p-12 lg:p-14 xl:p-16">
         <div className="min-h-full flex flex-col justify-center max-w-[640px] mx-auto">
           <div className="flex justify-center mb-8">
-            <Link href="/" className="flex items-center gap-2 text-foreground">
-              <Image width={150} height={100} src={logo.src} alt="Logo" />
+            <Link href={ROUTES.HOME} className="block">
+              <Image
+                src={logo}
+                alt="Logo"
+                width={150}
+                height={120}
+                className="rounded-xl"
+              />
             </Link>
           </div>
 

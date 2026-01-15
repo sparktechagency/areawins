@@ -1,6 +1,6 @@
 "use client";
 
-import logo from "@/assets/logo/logo2.png";
+import logo from "@/assets/logo/logo.png";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/useAuth";
@@ -74,7 +74,7 @@ export default function DashboardSidebar() {
                 alt="Logo"
                 width={120}
                 height={120}
-                className="mx-auto"
+                className="mx-auto rounded-xl"
               />
             </Link>
           </div>

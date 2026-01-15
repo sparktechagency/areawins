@@ -16,7 +16,7 @@ import { openAuthModal, setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { registerSchema } from "@/lib/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
+import { Eye, EyeOff, Flag, Lock, Mail, User } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -33,7 +33,7 @@ export default function RegisterForm() {
     defaultValues: {
       firstName: "",
       lastName: "",
-      username: "",
+      country: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -70,66 +70,64 @@ export default function RegisterForm() {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="firstName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                    {t("auth.firstName")}
-                  </FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <User className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
-                      <Input
-                        placeholder="John"
-                        className="pl-9 bg-muted/50 border-border"
-                        {...field}
-                      />
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                    {t("auth.lastName")}
-                  </FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <User className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
-                      <Input
-                        placeholder="Doe"
-                        className="pl-9 bg-muted/50 border-border"
-                        {...field}
-                      />
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-
           <FormField
             control={form.control}
-            name="username"
+            name="firstName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  {t("auth.username")}
+                  {t("auth.firstName")}
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <User className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
+                    <User className="absolute left-3 top-4 size-4 text-muted-foreground" />
                     <Input
-                      placeholder="johndoe123"
+                      placeholder="John"
+                      className="pl-9 bg-muted/50 border-border"
+                      {...field}
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  {t("auth.lastName")}
+                </FormLabel>
+                <FormControl>
+                  <div className="relative">
+                    <User className="absolute left-3 top-4 size-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Doe"
+                      className="pl-9 bg-muted/50 border-border"
+                      {...field}
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="country"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  {t("auth.country")}
+                </FormLabel>
+                <FormControl>
+                  <div className="relative">
+                    <Flag className="absolute left-3 top-4 size-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Country"
                       className="pl-9 bg-muted/50 border-border"
                       {...field}
                     />
@@ -150,7 +148,7 @@ export default function RegisterForm() {
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
+                    <Mail className="absolute left-3 top-4 size-4 text-muted-foreground" />
                     <Input
                       placeholder="name@example.com"
                       className="pl-9 bg-muted/50 border-border"
@@ -173,7 +171,7 @@ export default function RegisterForm() {
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
+                    <Lock className="absolute left-3 top-4 size-4 text-muted-foreground" />
                     <Input
                       type={showPassword ? "text" : "password"}
                       placeholder="Create password"
@@ -183,7 +181,7 @@ export default function RegisterForm() {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-2.5 text-muted-foreground hover:text-foreground"
+                      className="absolute right-3 top-4 text-muted-foreground hover:text-foreground"
                     >
                       {showPassword ? (
                         <EyeOff className="size-4" />
@@ -200,33 +198,9 @@ export default function RegisterForm() {
 
           <FormField
             control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  {t("auth.confirmPassword")}
-                </FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
-                    <Input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Confirm password"
-                      className="pl-9 bg-muted/50 border-border"
-                      {...field}
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
             name="terms"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-border cursor-pointer p-4">
                 <FormControl>
                   <Checkbox
                     checked={field.value}

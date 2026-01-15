@@ -25,12 +25,58 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import DarkModeToggle from "../ui/dark-mode-toggle";
+import { ROUTES } from "@/lib/constants";
+
+const MobileUserMenu = ({ onClose }: { onClose: () => void }) => {
+  const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(clearAuth());
+    onClose();
+  };
+
+  if (!isAuthenticated) return null;
+
+  return (
+    <div className="border-t border-border mt-2 pt-2 space-y-2">
+      <div className="px-4 py-2 flex items-center gap-3">
+        <Avatar className="h-10 w-10 border border-border">
+          <AvatarFallback className="bg-primary/10 text-primary font-bold">
+            {user?.firstName?.[0]}
+            {user?.lastName?.[0]}
+          </AvatarFallback>
+        </Avatar>
+        <div>
+          <p className="text-sm font-bold">{user?.username}</p>
+          <p className="text-xs text-muted-foreground">{user?.email}</p>
+        </div>
+      </div>
+      <Link
+        href="/dashboard"
+        onClick={onClose}
+        className="flex items-center gap-3 px-4 py-3 hover:bg-muted rounded-lg transition-all font-medium"
+      >
+        <LayoutDashboard className="w-5 h-5" />
+        {t("navbar.dashboard")}
+      </Link>
+      <button
+        onClick={handleLogout}
+        className="w-full flex items-center gap-3 px-4 py-3 hover:bg-muted rounded-lg transition-all font-medium text-destructive"
+      >
+        <LogOut className="w-5 h-5" />
+        {t("navbar.logout")}
+      </button>
+    </div>
+  );
+};
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
   const { t, language, setLanguage } = useTranslation();
-  const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -47,10 +93,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleLogout = () => {
-    dispatch(clearAuth());
-  };
-
   const navLinks = [
     { label: t("navbar.home"), href: "/", icon: Home },
     { label: t("navbar.matches"), href: "/matches", icon: Trophy },
@@ -63,44 +105,6 @@ const Navbar = () => {
     { label: "English", onClick: () => setLanguage("en") },
     { label: "Español", onClick: () => setLanguage("es") },
   ];
-
-  const MobileUserMenu = () => {
-    if (!isAuthenticated) return null;
-    return (
-      <div className="border-t border-border mt-2 pt-2 space-y-2">
-        <div className="px-4 py-2 flex items-center gap-3">
-          <Avatar className="h-10 w-10 border border-border">
-            <AvatarFallback className="bg-primary/10 text-primary font-bold">
-              {user?.firstName?.[0]}
-              {user?.lastName?.[0]}
-            </AvatarFallback>
-          </Avatar>
-          <div>
-            <p className="text-sm font-bold">{user?.username}</p>
-            <p className="text-xs text-muted-foreground">{user?.email}</p>
-          </div>
-        </div>
-        <Link
-          href="/dashboard"
-          onClick={() => setIsMenuOpen(false)}
-          className="flex items-center gap-3 px-4 py-3 hover:bg-muted rounded-lg transition-all font-medium"
-        >
-          <LayoutDashboard className="w-5 h-5" />
-          {t("navbar.dashboard")}
-        </Link>
-        <button
-          onClick={() => {
-            handleLogout();
-            setIsMenuOpen(false);
-          }}
-          className="w-full flex items-center gap-3 px-4 py-3 hover:bg-muted rounded-lg transition-all font-medium text-destructive"
-        >
-          <LogOut className="w-5 h-5" />
-          {t("navbar.logout")}
-        </button>
-      </div>
-    );
-  };
 
   return (
     <>
@@ -115,12 +119,13 @@ const Navbar = () => {
       >
         <div className="container mx-auto flex items-center justify-between gap-5">
           {/* Logo */}
-          <Link href="/">
+          <Link href={ROUTES.HOME} className="block">
             <Image
               src={logo}
               alt="Logo"
-              className="w-full h-12 object-contain rounded-lg"
-              priority
+              width={150}
+              height={120}
+              className="rounded-xl"
             />
           </Link>
 
@@ -174,7 +179,7 @@ const Navbar = () => {
               <AnimatedDropdown
                 trigger={
                   <button
-                    className={`flex items-center gap-1 text-sm font-medium transition-colors ${
+                    className={`flex items-center gap-1  cursor-pointer text-sm font-medium transition-colors ${
                       isHomePage ? "text-white" : "text-foreground "
                     }`}
                   >
@@ -261,7 +266,7 @@ const Navbar = () => {
                 <div className="block w-full">
                   <Button
                     variant="destructive"
-                    className="w-full"
+                    className="w-full cursor-pointer"
                     onClick={() => {
                       setIsMenuOpen(false);
                       dispatch(openAuthModal({ view: "LOGIN" }));
@@ -272,7 +277,7 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-              <MobileUserMenu />
+              <MobileUserMenu onClose={() => setIsMenuOpen(false)} />
             )}
           </div>
         )}
