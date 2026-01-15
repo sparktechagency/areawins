@@ -1,12 +1,13 @@
 "use client";
 
 import DashboardLayout from "@/components/layouts/DashboardLayout";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { History, Info, Lock, Wallet } from "lucide-react";
+import { ArrowUpRight, History, Info, Lock, Wallet } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -93,26 +94,35 @@ export default function WithdrawPage() {
 
         {/* Balance Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Card className="bg-[#112218] border-primary/20 text-white">
-            <CardContent className="p-6 flex items-center justify-between">
+          <Card className="bg-primary/5 border-primary/20 text-foreground relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-3">
+              <Badge className="bg-emerald-500 hover:bg-emerald-600 text-[9px] font-black uppercase tracking-widest rounded-full">
+                Withdrawable
+              </Badge>
+            </div>
+            <CardContent className="p-6">
               <div>
-                <p className="text-sm text-green-400 font-medium flex items-center gap-2">
-                  <span className="text-lg">VES</span> AVAILABLE BALANCE
+                <p className="text-xs text-primary font-black uppercase tracking-widest flex items-center gap-2 mb-2">
+                  <ArrowUpRight className="w-4 h-4" /> WINNING BALANCE
                 </p>
-                <h2 className="text-3xl font-bold mt-2">VES 12,450.00</h2>
+                <h2 className="text-3xl font-black">VES 12,450.00</h2>
+                <p className="text-[10px] text-muted-foreground mt-2 font-medium">
+                  Funds available for immediate payout
+                </p>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-[#1a2c24] border-white/10 text-white">
-            <CardContent className="p-6 flex items-center justify-between">
+          <Card className="bg-muted/10 border-border text-foreground opacity-60">
+            <CardContent className="p-6">
               <div>
-                <p className="text-sm text-gray-400 font-medium flex items-center gap-2">
-                  <Lock className="w-4 h-4" /> LOCKED BONUS
+                <p className="text-xs text-muted-foreground font-black uppercase tracking-widest flex items-center gap-2 mb-2">
+                  <Lock className="w-4 h-4" /> DEPOSIT BALANCE
                 </p>
-                <h2 className="text-3xl font-bold mt-2 opacity-80">
-                  USD 500.00
-                </h2>
+                <h2 className="text-3xl font-black">VES 500.00</h2>
+                <p className="text-[10px] text-muted-foreground mt-2 font-medium italic">
+                  Locked for betting activity only
+                </p>
               </div>
             </CardContent>
           </Card>

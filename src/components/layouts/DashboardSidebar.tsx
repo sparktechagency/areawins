@@ -1,5 +1,6 @@
 "use client";
 
+import logo from "@/assets/logo/logo2.png";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/useAuth";
@@ -9,25 +10,28 @@ import {
   BarChart2,
   Gift,
   HeadphonesIcon,
+  History,
   LayoutDashboard,
   LogOut,
   Menu,
   MessageCircle,
   Settings,
   Trophy,
+  Users,
   Wallet,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import logo from "@/assets/logo/logo2.png";
-import Image from "next/image";
 
 const navigationItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: ROUTES.DASHBOARD },
   { icon: Trophy, label: "My Bets", href: ROUTES.MY_BETS },
 
   { icon: Wallet, label: "Wallet", href: ROUTES.WALLET },
+  { icon: History, label: "Transactions", href: ROUTES.TRANSACTIONS },
+  { icon: Users, label: "Friends", href: ROUTES.FRIENDS },
   { icon: MessageCircle, label: "Message", href: ROUTES.MESSAGES },
   { icon: Gift, label: "Bonuses", href: ROUTES.PROMOTIONS || "/promotions" },
   {

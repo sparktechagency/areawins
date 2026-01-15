@@ -52,6 +52,7 @@ export const ROUTES = {
   PROMOTIONS: "/dashboard/promotions",
   STATISTICS: "/dashboard/statistics",
   SUPPORT: "/dashboard/support",
+  FRIENDS: "/dashboard/friends",
 } as const;
 
 /**
@@ -118,4 +119,5 @@ export const ROUTE_NAMES: Record<string, string> = {
   [ROUTES.MESSAGES]: "Messages",
   [ROUTES.NOTIFICATIONS]: "Notifications",
   [ROUTES.SETTINGS]: "Settings",
+  [ROUTES.FRIENDS]: "Friends",
 };

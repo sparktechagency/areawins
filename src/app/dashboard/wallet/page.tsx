@@ -1,6 +1,7 @@
 "use client";
 
 import DashboardLayout from "@/components/layouts/DashboardLayout";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,7 +12,13 @@ import {
 } from "@/components/ui/card";
 import { ROUTES } from "@/lib/constants";
 import { formatCurrency } from "@/lib/utils";
-import { ArrowDownLeft, ArrowUpRight, CreditCard, Wallet } from "lucide-react";
+import {
+  ArrowDownLeft,
+  ArrowUpRight,
+  CreditCard,
+  Info,
+  Wallet,
+} from "lucide-react";
 import Link from "next/link";
 
 export default function WalletPage() {
@@ -27,37 +34,75 @@ export default function WalletPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {/* Balance Card */}
-          <Card className="bg-primary/5 border-primary/20 shadow-none">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          {/* Deposit Balance Card */}
+          <Card className="bg-card border-border shadow-none">
             <CardContent className="p-8">
-              <p className="text-sm font-medium text-muted-foreground mb-2">
-                Total Balance
-              </p>
-              <div className="text-4xl font-bold text-primary mb-6">
-                {formatCurrency(15450)}
+              <div className="flex items-center gap-2 text-muted-foreground mb-2">
+                <ArrowDownLeft className="size-4 text-emerald-500" />
+                <p className="text-sm font-medium">Deposit Balance</p>
               </div>
-              <div className="flex gap-4">
-                <Link
-                  href={ROUTES.WALLET_DEPOSIT || "/dashboard/wallet/deposit"}
-                  className="flex-1"
-                >
-                  <Button className="w-full h-12 text-lg">
-                    <ArrowDownLeft className="mr-2 h-5 w-5" /> Deposit
-                  </Button>
-                </Link>
-                <Link
-                  href={ROUTES.WALLET_WITHDRAW || "/dashboard/wallet/withdraw"}
-                  className="flex-1"
-                >
-                  <Button variant="outline" className="w-full h-12 text-lg">
-                    <ArrowUpRight className="mr-2 h-5 w-5" /> Withdraw
-                  </Button>
-                </Link>
+              <div className="text-3xl font-black text-foreground mb-6">
+                {formatCurrency(5450)}
               </div>
+              <Link
+                href={ROUTES.WALLET_DEPOSIT || "/dashboard/wallet/deposit"}
+                className="block"
+              >
+                <Button className="w-full h-11 text-base font-black uppercase tracking-widest rounded-lg">
+                  Deposit Funds
+                </Button>
+              </Link>
             </CardContent>
           </Card>
 
+          {/* Winning Balance Card */}
+          <Card className="bg-primary/5 border-primary/20 shadow-none relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-3">
+              <Badge className="bg-emerald-500 hover:bg-emerald-600 text-[9px] font-black uppercase tracking-widest rounded-full">
+                Withdrawable
+              </Badge>
+            </div>
+            <CardContent className="p-8">
+              <div className="flex items-center gap-2 text-primary mb-2">
+                <ArrowUpRight className="size-4" />
+                <p className="text-sm font-medium">Winning Balance</p>
+              </div>
+              <div className="text-3xl font-black text-primary mb-6">
+                {formatCurrency(10000)}
+              </div>
+              <Link
+                href={ROUTES.WALLET_WITHDRAW || "/dashboard/wallet/withdraw"}
+                className="block"
+              >
+                <Button
+                  variant="outline"
+                  className="w-full h-11 text-base font-black uppercase tracking-widest rounded-lg border-primary/20 text-primary hover:bg-primary/5"
+                >
+                  Withdraw Now
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          {/* Wallet Info Card */}
+          <Card className="bg-muted/10 border-dashed border-border shadow-none flex items-center p-8">
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-foreground font-black uppercase tracking-widest text-xs">
+                <Info className="size-4 text-primary" />
+                Withdrawal Rules
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Only your{" "}
+                <span className="text-primary font-bold">Winning Balance</span>{" "}
+                is eligible for withdrawal. Deposits must be used for betting
+                activity to ensure security and prevent platform misuse.
+              </p>
+            </div>
+          </Card>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* Payment Methods */}
           <Card className="border border-border shadow-none">
             <CardHeader>
