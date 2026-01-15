@@ -1,10 +1,11 @@
+import AuthModal from "@/components/auth/AuthModal";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { ReduxProvider } from "@/lib/redux/provider";
 import type { Metadata } from "next";
 import { Oswald } from "next/font/google";
-import "./globals.css";
-import { ReduxProvider } from "@/lib/redux/provider";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "react-hot-toast";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import "./globals.css";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ReduxProvider>
             {children}
+            <AuthModal />
             <Toaster position="top-right" />
             <Sonner />
           </ReduxProvider>

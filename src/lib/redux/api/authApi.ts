@@ -37,9 +37,15 @@ export const authApi = baseApi.injectEndpoints({
 
           // Store tokens in cookies
           const expiresInDays = arg.rememberMe ? 30 : 7;
-          Cookies.set(COOKIES.ACCESS_TOKEN, data.accessToken, { expires: expiresInDays });
-          Cookies.set(COOKIES.REFRESH_TOKEN, data.refreshToken, { expires: 30 });
-          Cookies.set(COOKIES.USER_ID, data.user.id, { expires: expiresInDays });
+          Cookies.set(COOKIES.ACCESS_TOKEN, data.accessToken, {
+            expires: expiresInDays,
+          });
+          Cookies.set(COOKIES.REFRESH_TOKEN, data.refreshToken, {
+            expires: 30,
+          });
+          Cookies.set(COOKIES.USER_ID, data.user.id, {
+            expires: expiresInDays,
+          });
         } catch (error) {
           // Handle error
           console.error("Login failed:", error);
@@ -61,7 +67,9 @@ export const authApi = baseApi.injectEndpoints({
 
           // Store tokens in cookies
           Cookies.set(COOKIES.ACCESS_TOKEN, data.accessToken, { expires: 7 });
-          Cookies.set(COOKIES.REFRESH_TOKEN, data.refreshToken, { expires: 30 });
+          Cookies.set(COOKIES.REFRESH_TOKEN, data.refreshToken, {
+            expires: 30,
+          });
           Cookies.set(COOKIES.USER_ID, data.user.id, { expires: 7 });
         } catch (error) {
           console.error("Registration failed:", error);
@@ -71,7 +79,10 @@ export const authApi = baseApi.injectEndpoints({
     }),
 
     // Forgot password
-    forgotPassword: builder.mutation<ForgotPasswordResponse, ForgotPasswordRequest>({
+    forgotPassword: builder.mutation<
+      ForgotPasswordResponse,
+      ForgotPasswordRequest
+    >({
       query: (data) => ({
         url: "/auth/forgot-password",
         method: "POST",
@@ -90,7 +101,10 @@ export const authApi = baseApi.injectEndpoints({
     }),
 
     // Reset password
-    resetPassword: builder.mutation<ResetPasswordResponse, ResetPasswordRequest>({
+    resetPassword: builder.mutation<
+      ResetPasswordResponse,
+      ResetPasswordRequest
+    >({
       query: (data) => ({
         url: "/auth/reset-password",
         method: "POST",
@@ -111,7 +125,9 @@ export const authApi = baseApi.injectEndpoints({
 
           // Update tokens in cookies
           Cookies.set(COOKIES.ACCESS_TOKEN, data.accessToken, { expires: 7 });
-          Cookies.set(COOKIES.REFRESH_TOKEN, data.refreshToken, { expires: 30 });
+          Cookies.set(COOKIES.REFRESH_TOKEN, data.refreshToken, {
+            expires: 30,
+          });
         } catch (error) {
           console.error("Token refresh failed:", error);
         }
@@ -136,7 +152,9 @@ export const authApi = baseApi.injectEndpoints({
 
           // Clear localStorage
           if (typeof window !== "undefined") {
-            Object.values(import("@/lib/constants").then(m => m.STORAGE_KEYS)).forEach((key) => {
+            Object.values(
+              import("@/lib/constants").then((m) => m.STORAGE_KEYS)
+            ).forEach((key) => {
               localStorage.removeItem(key as string);
             });
           }
@@ -149,11 +167,22 @@ export const authApi = baseApi.injectEndpoints({
           console.error("Logout failed:", error);
         }
       },
-      invalidatesTags: ["User", "Bets", "Wallet", "Transactions", "Favorites", "Messages", "Notifications"],
+      invalidatesTags: [
+        "User",
+        "Bets",
+        "Wallet",
+        "Transactions",
+        "Favorites",
+        "Messages",
+        "Notifications",
+      ],
     }),
 
     // Resend verification email
-    resendVerificationEmail: builder.mutation<{ message: string }, { email: string }>({
+    resendVerificationEmail: builder.mutation<
+      { message: string },
+      { email: string }
+    >({
       query: (data) => ({
         url: "/auth/resend-verification",
         method: "POST",

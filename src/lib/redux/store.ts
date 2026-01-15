@@ -7,6 +7,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { baseApi } from "./api/baseApi";
 import authReducer from "./features/authSlice";
+import authUiReducer from "./features/authUiSlice";
 import bettingReducer from "./features/bettingSlice";
 import userReducer from "./features/userSlice";
 import walletReducer from "./features/walletSlice";
@@ -18,6 +19,7 @@ export const store = configureStore({
 
     // Feature slices
     auth: authReducer,
+    authUi: authUiReducer,
     betting: bettingReducer,
     user: userReducer,
     wallet: walletReducer,
@@ -26,12 +28,8 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         // Ignore these paths in the state for serialization checks
-        ignoredActions: [
-          baseApi.util.resetApiState.type,
-        ],
-        ignoredPaths: [
-          baseApi.reducerPath,
-        ],
+        ignoredActions: [baseApi.util.resetApiState.type],
+        ignoredPaths: [baseApi.reducerPath],
       },
     }).concat(baseApi.middleware),
   devTools: process.env.NODE_ENV !== "production",

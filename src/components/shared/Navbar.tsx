@@ -1,13 +1,14 @@
 "use client";
 import logo from "@/assets/logo/logo.png";
 import logo2 from "@/assets/logo/logo2.png";
+import { useAppDispatch } from "@/lib/redux/hooks";
 import {
-  Menu,
-  Home,
-  Trophy,
-  TrendingUp,
-  Users,
   HelpCircle,
+  Home,
+  Menu,
+  TrendingUp,
+  Trophy,
+  Users,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,6 +18,7 @@ import { Button } from "../ui/button";
 import DarkModeToggle from "../ui/dark-mode-toggle";
 
 const Navbar = () => {
+  const dispatch = useAppDispatch();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -92,16 +94,15 @@ const Navbar = () => {
             >
               English <span className="ml-1">›</span>
             </button>
-            <Link href="/login">
-              <Button
-                variant={scrolled ? "default" : "secondary"}
-                className={`transition-all duration-300 ${
-                  !scrolled ? "bg-white text-primary hover:bg-white/90" : ""
-                }`}
-              >
-                Login
-              </Button>
-            </Link>
+            <Button
+              onClick={() => dispatch(openAuthModal({ view: "LOGIN" }))}
+              variant={scrolled ? "default" : "secondary"}
+              className={`transition-all duration-300 ${
+                !scrolled ? "bg-white text-primary hover:bg-white/90" : ""
+              }`}
+            >
+              Login
+            </Button>
           </div>
         </div>
       </nav>
@@ -147,11 +148,13 @@ const Navbar = () => {
           <button className="text-muted-foreground hidden md:block hover:text-foreground transition-colors text-sm">
             English <span className="ml-1">›</span>
           </button>
-          <Link href="/login" className="hidden md:block">
-            <Button variant="default" className="px-8">
-              Login
-            </Button>
-          </Link>
+          <Button
+            variant="default"
+            className="px-8 hidden md:block"
+            onClick={() => dispatch(openAuthModal({ view: "LOGIN" }))}
+          >
+            Login
+          </Button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -189,15 +192,18 @@ const Navbar = () => {
             );
           })}
           <div className="pt-2 border-t border-border mt-2 space-y-2">
-            <Link
-              href="/login"
-              onClick={() => setIsMenuOpen(false)}
-              className="block w-full"
-            >
-              <Button variant="destructive" className="w-full">
+            <div className="block w-full">
+              <Button
+                variant="destructive"
+                className="w-full"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  dispatch(openAuthModal({ view: "LOGIN" }));
+                }}
+              >
                 SIGN IN
               </Button>
-            </Link>
+            </div>
             <Link
               href="/dashboard/my-bets"
               onClick={() => setIsMenuOpen(false)}
