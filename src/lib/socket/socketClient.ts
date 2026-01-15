@@ -3,10 +3,10 @@
  * Handles live match updates, odds changes, and notifications
  */
 
-import { io, Socket } from "socket.io-client";
 import { API_CONFIG, COOKIES } from "@/lib/constants";
+import type { LiveMatchUpdate, Notification, OddsUpdate } from "@/types";
 import Cookies from "js-cookie";
-import type { LiveMatchUpdate, OddsUpdate } from "@/types";
+import { io, Socket } from "socket.io-client";
 
 class SocketClient {
   private socket: Socket | null = null;
@@ -85,7 +85,10 @@ class SocketClient {
   /**
    * Subscribe to live match updates
    */
-  subscribeToMatchUpdates(matchId: string, callback: (update: LiveMatchUpdate) => void): void {
+  subscribeToMatchUpdates(
+    matchId: string,
+    callback: (update: LiveMatchUpdate) => void
+  ): void {
     if (!this.socket) {
       console.error("Socket not initialized");
       return;
@@ -114,7 +117,10 @@ class SocketClient {
   /**
    * Subscribe to odds updates
    */
-  subscribeToOddsUpdates(matchId: string, callback: (update: OddsUpdate) => void): void {
+  subscribeToOddsUpdates(
+    matchId: string,
+    callback: (update: OddsUpdate) => void
+  ): void {
     if (!this.socket) {
       console.error("Socket not initialized");
       return;
@@ -143,7 +149,10 @@ class SocketClient {
   /**
    * Subscribe to bet result notifications
    */
-  subscribeToBetResults(userId: string, callback: (result: any) => void): void {
+  subscribeToBetResults(
+    userId: string,
+    callback: (result: unknown) => void
+  ): void {
     if (!this.socket) {
       console.error("Socket not initialized");
       return;
@@ -165,7 +174,10 @@ class SocketClient {
   /**
    * Subscribe to general notifications
    */
-  subscribeToNotifications(userId: string, callback: (notification: any) => void): void {
+  subscribeToNotifications(
+    userId: string,
+    callback: (notification: Notification) => void
+  ): void {
     if (!this.socket) {
       console.error("Socket not initialized");
       return;
@@ -187,7 +199,10 @@ class SocketClient {
   /**
    * Subscribe to wallet balance updates
    */
-  subscribeToWalletUpdates(userId: string, callback: (balance: number) => void): void {
+  subscribeToWalletUpdates(
+    userId: string,
+    callback: (balance: number) => void
+  ): void {
     if (!this.socket) {
       console.error("Socket not initialized");
       return;
@@ -209,7 +224,7 @@ class SocketClient {
   /**
    * Emit a custom event
    */
-  emit(event: string, data?: any): void {
+  emit<T>(event: string, data?: T): void {
     if (!this.socket) {
       console.error("Socket not initialized");
       return;
@@ -221,7 +236,7 @@ class SocketClient {
   /**
    * Listen to a custom event
    */
-  on(event: string, callback: (...args: any[]) => void): void {
+  on<T>(event: string, callback: (data: T) => void): void {
     if (!this.socket) {
       console.error("Socket not initialized");
       return;

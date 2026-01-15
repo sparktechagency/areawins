@@ -1,8 +1,3 @@
-/**
- * RTK Query base API configuration
- * Handles all API calls with authentication, retry logic, and error handling
- */
-
 import { API_CONFIG, COOKIES } from "@/lib/constants";
 import type {
   BaseQueryFn,
@@ -19,7 +14,6 @@ const baseQuery = fetchBaseQuery({
   baseUrl: API_CONFIG.BASE_URL,
   timeout: API_CONFIG.TIMEOUT,
   prepareHeaders: (headers) => {
-    // Get access token from cookies
     const token = Cookies.get(COOKIES.ACCESS_TOKEN);
 
     if (token) {
@@ -110,10 +104,6 @@ const baseQueryWithRetry = retry(baseQueryWithReauth, {
   maxRetries: API_CONFIG.RETRY_ATTEMPTS,
 });
 
-/**
- * Main API instance
- * All API endpoints should extend this base API
- */
 export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithRetry,
@@ -138,8 +128,12 @@ export const baseApi = createApi({
 /**
  * Custom error handler for API errors
  */
-export const handleApiError = (error: any): string => {
-  if ("status" in error) {
+interface ErrorData {
+  message?: string;
+}
+
+export const handleApiError = (error: unknown): string => {
+  if (error && typeof error === "object" && "status" in error) {
     // RTK Query error
     const fetchError = error as FetchBaseQueryError;
 
@@ -156,12 +150,11 @@ export const handleApiError = (error: any): string => {
     }
 
     if (typeof fetchError.status === "number") {
+      const errorData = fetchError.data as ErrorData | undefined;
+
       switch (fetchError.status) {
         case 400:
-          return (
-            (fetchError.data as any)?.message ||
-            "Bad request. Please check your input."
-          );
+          return errorData?.message || "Bad request. Please check your input.";
         case 401:
           return "Unauthorized. Please log in.";
         case 403:
@@ -169,14 +162,10 @@ export const handleApiError = (error: any): string => {
         case 404:
           return "Resource not found.";
         case 409:
-          return (
-            (fetchError.data as any)?.message ||
-            "Conflict. The resource already exists."
-          );
+          return errorData?.message || "Conflict. The resource already exists.";
         case 422:
           return (
-            (fetchError.data as any)?.message ||
-            "Validation error. Please check your input."
+            errorData?.message || "Validation error. Please check your input."
           );
         case 429:
           return "Too many requests. Please try again later.";
@@ -185,16 +174,13 @@ export const handleApiError = (error: any): string => {
         case 503:
           return "Service unavailable. Please try again later.";
         default:
-          return (
-            (fetchError.data as any)?.message ||
-            "An error occurred. Please try again."
-          );
+          return errorData?.message || "An error occurred. Please try again.";
       }
     }
   }
 
-  if (error?.message) {
-    return error.message;
+  if (error && typeof error === "object" && "message" in error) {
+    return (error as { message: string }).message;
   }
 
   return "An unexpected error occurred. Please try again.";

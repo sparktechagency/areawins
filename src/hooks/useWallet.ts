@@ -5,6 +5,7 @@
 
 "use client";
 
+import { handleApiError } from "@/lib/redux/api/baseApi";
 import {
   useDepositMutation,
   useGetBalanceQuery,
@@ -12,6 +13,7 @@ import {
   useWithdrawMutation,
 } from "@/lib/redux/api/walletApi";
 import { useAppSelector } from "@/lib/redux/hooks";
+import { PaymentDetails, PaymentMethod } from "@/types";
 import toast from "react-hot-toast";
 
 export function useWallet() {
@@ -28,40 +30,40 @@ export function useWallet() {
 
   const handleDeposit = async (
     amount: number,
-    paymentMethod: string,
-    paymentDetails: any
+    paymentMethod: PaymentMethod,
+    paymentDetails: PaymentDetails
   ) => {
     try {
       const result = await deposit({
         amount,
-        paymentMethod: paymentMethod as any,
+        paymentMethod,
         paymentDetails,
       }).unwrap();
 
       toast.success("Deposit successful!");
       return result;
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Deposit failed");
+    } catch (error) {
+      toast.error(handleApiError(error) || "Deposit failed");
       throw error;
     }
   };
 
   const handleWithdraw = async (
     amount: number,
-    paymentMethod: string,
-    paymentDetails: any
+    paymentMethod: PaymentMethod,
+    paymentDetails: PaymentDetails
   ) => {
     try {
       const result = await withdraw({
         amount,
-        paymentMethod: paymentMethod as any,
+        paymentMethod,
         paymentDetails,
       }).unwrap();
 
       toast.success("Withdrawal request submitted!");
       return result;
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Withdrawal failed");
+    } catch (error) {
+      toast.error(handleApiError(error) || "Withdrawal failed");
       throw error;
     }
   };
