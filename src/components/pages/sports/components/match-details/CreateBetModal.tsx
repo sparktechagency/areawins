@@ -9,6 +9,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { getBetOutcomes } from "@/data/betting.data";
+import { CreateBetModalProps } from "@/interfaces/betting.interface";
 import { cn } from "@/lib/utils";
 import {
   AlertCircle,
@@ -20,16 +22,7 @@ import {
   TrendingUp,
   Wallet,
 } from "lucide-react";
-import React, { useEffect, useState } from "react";
-
-interface CreateBetModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  match: {
-    homeTeam: string;
-    awayTeam: string;
-  };
-}
+import React, { useEffect, useMemo, useState } from "react";
 
 type Step = "SELECT_OUTCOME" | "SET_STAKE" | "CONFIRMATION";
 
@@ -37,6 +30,8 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
   isOpen,
   onClose,
   match,
+  selectedOutcome,
+  marketName,
 }) => {
   const [step, setStep] = useState<Step>("SELECT_OUTCOME");
   const [outcome, setOutcome] = useState<string | null>(null);
@@ -44,15 +39,27 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
   const [odds, setOdds] = useState<number>(2.0);
   const [isProcessing, setIsProcessing] = useState(false);
 
+  // Sync with props when modal opens
+  useEffect(() => {
+    if (isOpen && selectedOutcome) {
+      const timer = setTimeout(() => {
+        setOutcome(selectedOutcome);
+        setStep("SET_STAKE");
+      }, 0);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, selectedOutcome]);
+
   // Reset state when modal closes
   useEffect(() => {
     if (!isOpen) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setStep("SELECT_OUTCOME");
         setOutcome(null);
         setStake(50);
         setOdds(2.0);
       }, 300);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
@@ -68,11 +75,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
     }, 1500);
   };
 
-  const outcomes = [
-    { id: "home", label: match.homeTeam + " Win", icon: "🏠" },
-    { id: "draw", label: "Draw", icon: "🤝" },
-    { id: "away", label: match.awayTeam + " Win", icon: "✈️" },
-  ];
+  const outcomes = useMemo(() => getBetOutcomes(match), [match]);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -147,12 +150,14 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
         {step === "SET_STAKE" && (
           <div className="p-8 space-y-8">
             <div className="space-y-2">
-              <button
-                onClick={() => setStep("SELECT_OUTCOME")}
-                className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-2 hover:text-primary transition-colors flex items-center gap-1 cursor-pointer"
-              >
-                ← Back to Outcome
-              </button>
+              {!selectedOutcome && (
+                <button
+                  onClick={() => setStep("SELECT_OUTCOME")}
+                  className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-2 hover:text-primary transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  ← Back to Outcome
+                </button>
+              )}
               <Badge
                 variant="outline"
                 className="text-primary border-primary/20 bg-primary/5 px-3 py-0.5 font-black uppercase tracking-widest text-[10px]"
@@ -162,9 +167,11 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
               <DialogTitle className="text-3xl font-black text-foreground tracking-tight">
                 Configure your bet
               </DialogTitle>
-              <div className="flex items-center gap-2 text-primary font-black">
+              <div className="flex items-center gap-2 text-primary font-black uppercase tracking-tight text-sm">
                 <CheckCircle2 className="size-5" />
-                <span>Backing: {outcome}</span>
+                <span>
+                  {marketName ? `${marketName}: ` : ""} {outcome}
+                </span>
               </div>
             </div>
 

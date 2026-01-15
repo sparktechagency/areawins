@@ -7,20 +7,7 @@ import { ArrowRightLeft, CheckCircle2, Info, Lock } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 
-interface MatchedBetCardProps {
-  user: {
-    name: string;
-    avatar: string;
-    trust: number;
-    timeAgo: string;
-  };
-  bet: {
-    type: "BACKING" | "LAYING";
-    selection: string;
-    stake: number;
-    potentialWin: number;
-  };
-}
+import { MatchedBetCardProps } from "@/interfaces/betting.interface";
 
 const MatchedBetCard: React.FC<MatchedBetCardProps> = ({ user, bet }) => {
   const [isAccepted, setIsAccepted] = useState(false);

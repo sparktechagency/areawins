@@ -8,50 +8,11 @@ import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 
 // Mock data for display purposes to match design until real data is fully wired with this format
-const mockBets = [
-  {
-    id: "1",
-    date: "Oct 24, 18:30",
-    event: "Man City vs Arsenal",
-    market: "Match Winner - Man City",
-    stake: 500,
-    odds: 1.85,
-    return: 925,
-    status: "Won",
-  },
-  {
-    id: "2",
-    date: "Oct 25, 20:45",
-    event: "Real Madrid vs Barcelona",
-    market: "Both Teams to Score - Yes",
-    stake: 1000,
-    odds: 1.6,
-    return: 1600,
-    status: "Pending",
-  },
-  {
-    id: "3",
-    date: "Oct 23, 14:00",
-    event: "Bangladesh vs India",
-    market: "Cricket - Total Runs Over 300",
-    stake: 250,
-    odds: 2.1,
-    return: 525,
-    status: "Lost",
-  },
-  {
-    id: "4",
-    date: "Oct 22, 19:00",
-    event: "Lakers vs Warriors",
-    market: "Point Spread - Lakers +5.5",
-    stake: 2000,
-    odds: 1.9,
-    return: 3800,
-    status: "Won",
-  },
-];
+import { MOCK_RECENT_BETS } from "@/data/betting.data";
 
 export default function RecentBetsTable() {
+  const mockBets = MOCK_RECENT_BETS;
+
   // In a real scenario we would map 'data' from the API to this format
   // const { data: bets } = useGetBetStatisticsQuery();
 

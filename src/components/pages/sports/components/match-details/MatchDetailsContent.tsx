@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  ArrowUpRight,
   Banknote,
   BarChart3,
   ChevronLeft,
@@ -20,10 +19,16 @@ import React, { useEffect, useMemo, useState } from "react";
 import CreateBetModal from "./CreateBetModal";
 import MatchedBetCard from "./MatchedBetCard";
 
-interface MatchDetailsContentProps {
-  sport: string;
-  id: string;
-}
+import {
+  getOutcomeStats,
+  MOCK_MATCH,
+  MOCK_MATCHED_BETS,
+} from "@/data/match-details.data";
+import { MarketCategory } from "@/interfaces/betting.interface";
+import {
+  MatchDetailsContentProps,
+  MatchInfo,
+} from "@/interfaces/match.interface";
 
 const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
   sport,
@@ -32,17 +37,11 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const searchParams = useSearchParams();
 
-  // Mock Match Data
-  const match = useMemo(
+  // Use Mock Match Data from external file
+  const match: MatchInfo = useMemo(
     () => ({
+      ...MOCK_MATCH,
       id: id,
-      homeTeam: "Chelsea",
-      awayTeam: "Arsenal",
-      league: "Premier League",
-      venue: "Stamford Bridge",
-      time: "Live 67'",
-      score: { home: 1, away: 0 },
-      date: "14 Jan 2026",
     }),
     [id]
   );
@@ -54,110 +53,22 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
     }
   }, [searchParams]);
 
-  // Dynamic Outcome Statistics based on Sport
-  const outcomeStats = useMemo(() => {
-    const baseStats = {
-      football: [
-        {
-          label: match.homeTeam + " Win",
-          bets: 8,
-          pot: 3200,
-          open: 5,
-          icon: "⚽",
-        },
-        { label: "Draw", bets: 2, pot: 800, open: 1, icon: "🤝" },
-        {
-          label: match.awayTeam + " Win",
-          bets: 3,
-          pot: 1100,
-          open: 2,
-          icon: "⚽",
-        },
-      ],
-      cricket: [
-        {
-          label: match.homeTeam + " Win",
-          bets: 15,
-          pot: 5400,
-          open: 8,
-          icon: "🏏",
-        },
-        {
-          label: match.awayTeam + " Win",
-          bets: 12,
-          pot: 4200,
-          open: 6,
-          icon: "🏏",
-        },
-      ],
-      basketball: [
-        {
-          label: match.homeTeam + " Win",
-          bets: 22,
-          pot: 8500,
-          open: 12,
-          icon: "🏀",
-        },
-        {
-          label: match.awayTeam + " Win",
-          bets: 18,
-          pot: 6100,
-          open: 9,
-          icon: "🏀",
-        },
-      ],
-      tennis: [
-        {
-          label: match.homeTeam + " Win",
-          bets: 5,
-          pot: 1200,
-          open: 3,
-          icon: "🎾",
-        },
-        {
-          label: match.awayTeam + " Win",
-          bets: 6,
-          pot: 1500,
-          open: 4,
-          icon: "🎾",
-        },
-      ],
-    };
-
-    const key = sport.toLowerCase() as keyof typeof baseStats;
-    return baseStats[key] || baseStats.football;
+  // Dynamic Market Categories based on Sport
+  const marketCategories: MarketCategory[] = useMemo(() => {
+    return getOutcomeStats(sport, match);
   }, [sport, match]);
 
-  const matchedBets = [
-    {
-      user: {
-        name: "MadridistaKing",
-        avatar: "https://i.pravatar.cc/150?u=1",
-        trust: 98,
-        timeAgo: "2m ago",
-      },
-      bet: {
-        type: "BACKING" as const,
-        selection: match.homeTeam + " Win",
-        stake: 50.0,
-        potentialWin: 125.0,
-      },
-    },
-    {
-      user: {
-        name: "BetMaster99",
-        avatar: "https://i.pravatar.cc/150?u=3",
-        trust: 89,
-        timeAgo: "1h ago",
-      },
-      bet: {
-        type: "BACKING" as const,
-        selection: "Draw",
-        stake: 100.0,
-        potentialWin: 185.0,
-      },
-    },
-  ];
+  const [selectedMarket, setSelectedMarket] = useState<{
+    outcome: string;
+    market: string;
+  } | null>(null);
+
+  const matchedBets = MOCK_MATCHED_BETS;
+
+  const handleCreateBetClick = (outcome: string, marketName: string) => {
+    setSelectedMarket({ outcome, market: marketName });
+    setIsCreateModalOpen(true);
+  };
 
   return (
     <div className="w-full space-y-8">
@@ -270,61 +181,74 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
         </TabsList>
 
         <div className="mt-8">
-          <TabsContent value="market" className="m-0 space-y-8">
-            {/* P2P Outcome Boxes Moved Here */}
-            <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6">
-              {outcomeStats.map((stat, idx) => (
-                <div
-                  key={idx}
-                  className="bg-card rounded-lg p-6 border border-border flex flex-col items-center gap-6 group hover:border-primary/30 transition-all"
-                >
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="text-4xl">{stat.icon}</span>
-                    <h3 className="text-xl font-black text-foreground">
-                      {stat.label}
+          <TabsContent value="market" className="m-0 space-y-12">
+            {marketCategories
+              .filter((c) => c.marketName === "Match Results")
+              .map((category, catIdx) => (
+                <div key={catIdx} className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="h-px flex-1 bg-border" />
+                    <h3 className="text-[11px] font-black text-primary uppercase tracking-[0.4em] bg-background px-4">
+                      {category.marketName}
                     </h3>
+                    <div className="h-px flex-1 bg-border" />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4 w-full">
-                    <div className="bg-muted/30 p-4 rounded-lg flex flex-col items-center gap-1 border border-border/50">
-                      <Target className="size-4 text-primary" />
-                      <span className="text-[10px] font-black text-muted-foreground uppercase">
-                        {stat.bets} Bets
-                      </span>
-                      <span className="text-sm font-black text-foreground">
-                        Matched
-                      </span>
-                    </div>
-                    <div className="bg-muted/30 p-4 rounded-lg flex flex-col items-center gap-1 border border-border/50">
-                      <Banknote className="size-4 text-emerald-500" />
-                      <span className="text-[10px] font-black text-muted-foreground uppercase">
-                        {stat.open} Open
-                      </span>
-                      <span className="text-sm font-black text-foreground">
-                        ${stat.pot} Pot
-                      </span>
-                    </div>
-                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+                    {category.outcomes.map((stat, idx) => (
+                      <div
+                        key={idx}
+                        className="bg-card rounded-lg p-6 border border-border flex flex-col items-center gap-6 group hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5"
+                      >
+                        <div className="flex flex-col items-center gap-2">
+                          <span className="text-4xl group-hover:scale-110 transition-transform duration-300">
+                            {stat.icon}
+                          </span>
+                          <h3 className="text-xl font-black text-foreground text-center">
+                            {stat.label}
+                          </h3>
+                        </div>
 
-                  <div className="flex flex-col w-full gap-3 mt-auto">
-                    <Button
-                      onClick={() => setIsCreateModalOpen(true)}
-                      className="w-full h-12 rounded-lg bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[11px]"
-                    >
-                      <PlusCircle className="size-4 mr-2" />
-                      Create Bet
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="w-full h-12 rounded-lg border-border hover:bg-muted text-muted-foreground hover:text-foreground font-black uppercase tracking-widest text-[11px]"
-                    >
-                      <ArrowUpRight className="size-4 mr-2" />
-                      View Market Depth
-                    </Button>
+                        <div className="grid grid-cols-2 gap-4 w-full">
+                          <div className="bg-muted/30 p-4 rounded-lg flex flex-col items-center gap-1 border border-border/50">
+                            <Target className="size-4 text-primary" />
+                            <span className="text-[10px] font-black text-muted-foreground uppercase">
+                              {stat.bets} Bets
+                            </span>
+                            <span className="text-sm font-black text-foreground">
+                              Matched
+                            </span>
+                          </div>
+                          <div className="bg-muted/30 p-4 rounded-lg flex flex-col items-center gap-1 border border-border/50">
+                            <Banknote className="size-4 text-emerald-500" />
+                            <span className="text-[10px] font-black text-muted-foreground uppercase">
+                              {stat.open} Open
+                            </span>
+                            <span className="text-sm font-black text-foreground">
+                              ${stat.pot} Pot
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col w-full gap-3 mt-auto">
+                          <Button
+                            onClick={() =>
+                              handleCreateBetClick(
+                                stat.label,
+                                category.marketName
+                              )
+                            }
+                            className="w-full h-12 rounded-lg bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[11px]"
+                          >
+                            <PlusCircle className="size-4 mr-2" />
+                            Create Bet
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               ))}
-            </div>
 
             <div className="p-16 text-center bg-muted/20 rounded-lg border border-dashed border-border text-muted-foreground">
               <BarChart3 className="size-12 mx-auto mb-4 opacity-10" />
@@ -370,11 +294,16 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
 
       <CreateBetModal
         isOpen={isCreateModalOpen}
-        onClose={() => setIsCreateModalOpen(false)}
+        onClose={() => {
+          setIsCreateModalOpen(false);
+          setSelectedMarket(null);
+        }}
         match={{
           homeTeam: match.homeTeam,
           awayTeam: match.awayTeam,
         }}
+        selectedOutcome={selectedMarket?.outcome}
+        marketName={selectedMarket?.market}
       />
     </div>
   );

@@ -11,47 +11,8 @@ import {
 import Link from "next/link";
 import React, { useMemo } from "react";
 
-interface Match {
-  id: string;
-  homeTeam: string;
-  awayTeam: string;
-  date: string;
-  time: string;
-  league: string;
-  isLive: boolean;
-  score?: { home: number | string; away: number | string; time?: string };
-  sport: "football" | "cricket" | "basketball" | "volleyball";
-  p2pStats?: {
-    activeBets: number;
-    potAmount: number;
-    openBets: number;
-    popularOutcome?: string;
-  };
-}
-
-interface SportMatchCardProps {
-  match: Match;
-}
-
-// Fixed mock data generator for stable values based on ID
-const getMockStats = (id: string, homeTeam: string) => {
-  // Simple seed based on string ID
-  let hash = 0;
-  for (let i = 0; i < id.length; i++) {
-    hash = id.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const pseudoRandom = (seed: number) => {
-    const x = Math.sin(seed) * 10000;
-    return x - Math.floor(x);
-  };
-
-  return {
-    activeBets: Math.floor(pseudoRandom(hash) * 20) + 5,
-    potAmount: Math.floor(pseudoRandom(hash + 1) * 5000) + 500,
-    openBets: Math.floor(pseudoRandom(hash + 2) * 10) + 2,
-    popularOutcome: homeTeam + " Win",
-  };
-};
+import { getMockStats } from "@/data/match.data";
+import { SportMatchCardProps } from "@/interfaces/match.interface";
 
 export const SportMatchCard: React.FC<SportMatchCardProps> = ({ match }) => {
   // Use useMemo with stable deterministic mock data generator
