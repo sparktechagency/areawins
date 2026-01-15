@@ -196,43 +196,43 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
                   <div className="h-px flex-1 bg-border" />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
                   {category?.outcomes.map((stat, idx) => (
                     <div
                       key={idx}
-                      className="bg-card rounded-lg p-6 border border-border flex flex-col items-center gap-6 group hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5"
+                      className="bg-card rounded-lg p-3 border border-border flex flex-col items-center gap-3 group hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5"
                     >
-                      <div className="flex flex-col items-center gap-2">
-                        <span className="text-4xl group-hover:scale-110 transition-transform duration-300">
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
                           {stat.icon}
                         </span>
-                        <h3 className="text-xl font-black text-foreground text-center">
+                        <h3 className="text-sm font-black text-foreground text-center leading-tight">
                           {stat.label}
                         </h3>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4 w-full">
-                        <div className="bg-muted/30 p-4 rounded-lg flex flex-col items-center gap-1 border border-border/50">
-                          <Target className="size-4 text-primary" />
-                          <span className="text-[10px] font-black text-muted-foreground uppercase">
-                            {stat.bets} Bets
-                          </span>
-                          <span className="text-sm font-black text-foreground">
+                      <div className="grid grid-cols-2 gap-2 w-full">
+                        <div className="bg-muted/30 p-2 rounded flex flex-col items-center gap-0.5 border border-border/50">
+                          <div className="flex items-center gap-1 text-[9px] font-black text-muted-foreground uppercase">
+                            <Target className="size-3 text-primary" />
+                            {stat.bets}
+                          </div>
+                          <span className="text-[10px] font-bold text-foreground">
                             Matched
                           </span>
                         </div>
-                        <div className="bg-muted/30 p-4 rounded-lg flex flex-col items-center gap-1 border border-border/50">
-                          <Banknote className="size-4 text-emerald-500" />
-                          <span className="text-[10px] font-black text-muted-foreground uppercase">
-                            {stat.open} Open
-                          </span>
-                          <span className="text-sm font-black text-foreground">
-                            ${stat.pot} Pot
+                        <div className="bg-muted/30 p-2 rounded flex flex-col items-center gap-0.5 border border-border/50">
+                          <div className="flex items-center gap-1 text-[9px] font-black text-muted-foreground uppercase">
+                            <Banknote className="size-3 text-emerald-500" />$
+                            {stat.pot}
+                          </div>
+                          <span className="text-[10px] font-bold text-foreground">
+                            Pot
                           </span>
                         </div>
                       </div>
 
-                      <div className="flex flex-col w-full gap-3 mt-auto">
+                      <div className="flex flex-col w-full mt-auto">
                         <Button
                           onClick={() =>
                             handleCreateBetClick(
@@ -240,10 +240,11 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
                               category.marketName
                             )
                           }
-                          className="w-full h-12 rounded-lg bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[11px]"
+                          size="sm"
+                          className="w-full h-8 rounded bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[9px]"
                         >
-                          <PlusCircle className="size-4 mr-2" />
-                          Create Bet
+                          <PlusCircle className="size-3 mr-1.5" />
+                          Bet
                         </Button>
                       </div>
                     </div>
