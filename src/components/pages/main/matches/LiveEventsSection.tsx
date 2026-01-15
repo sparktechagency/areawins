@@ -1,5 +1,4 @@
 "use client";
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -58,7 +57,7 @@ const LiveEventsSection: React.FC = () => {
                         alt={event.league.country}
                         width={14}
                         height={10}
-                        className="rounded-[2px] object-cover"
+                        className="rounded-xs object-cover"
                       />
                       <span className="text-[10px] font-black text-foreground uppercase tracking-tighter">
                         {event.league.name}

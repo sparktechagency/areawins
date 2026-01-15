@@ -42,6 +42,42 @@ export const MOCK_SPORTS: SportInfo[] = [
     displayOrder: 4,
     isActive: true,
   },
+  {
+    _id: "s5",
+    sportId: "SPORT-005",
+    name: "Tennis",
+    slug: "tennis",
+    icon: "🎾",
+    displayOrder: 5,
+    isActive: true,
+  },
+  {
+    _id: "s6",
+    sportId: "SPORT-006",
+    name: "Baseball",
+    slug: "baseball",
+    icon: "⚾",
+    displayOrder: 6,
+    isActive: true,
+  },
+  {
+    _id: "s7",
+    sportId: "SPORT-007",
+    name: "Boxing",
+    slug: "boxing",
+    icon: "🥊",
+    displayOrder: 7,
+    isActive: true,
+  },
+  {
+    _id: "s8",
+    sportId: "SPORT-008",
+    name: "Rugby",
+    slug: "rugby",
+    icon: "🏉",
+    displayOrder: 8,
+    isActive: false, // Example: Admin can disable this
+  },
 ];
 
 export const MOCK_TEAMS: TeamInfo[] = [
