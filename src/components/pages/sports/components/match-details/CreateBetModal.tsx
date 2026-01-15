@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { getBetOutcomes } from "@/data/betting.data";
+import { getBetOutcomesByMarket } from "@/data/betting.data";
 import { CreateBetModalProps } from "@/interfaces/betting.interface";
 import { cn } from "@/lib/utils";
 import {
@@ -35,20 +35,30 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
 }) => {
   const [step, setStep] = useState<Step>("SELECT_OUTCOME");
   const [outcome, setOutcome] = useState<string | null>(null);
+  const [selectedMarketName, setSelectedMarketName] = useState<string | null>(
+    null
+  );
   const [stake, setStake] = useState<number>(50);
   const [odds, setOdds] = useState<number>(2.0);
   const [isProcessing, setIsProcessing] = useState(false);
 
   // Sync with props when modal opens
   useEffect(() => {
-    if (isOpen && selectedOutcome) {
+    if (isOpen) {
       const timer = setTimeout(() => {
-        setOutcome(selectedOutcome);
-        setStep("SET_STAKE");
+        if (selectedOutcome) {
+          setOutcome(selectedOutcome);
+          setSelectedMarketName(marketName || "Match Results");
+          setStep("SET_STAKE");
+        } else {
+          setOutcome(null);
+          setSelectedMarketName(null);
+          setStep("SELECT_OUTCOME");
+        }
       }, 0);
       return () => clearTimeout(timer);
     }
-  }, [isOpen, selectedOutcome]);
+  }, [isOpen, selectedOutcome, marketName]);
 
   // Reset state when modal closes
   useEffect(() => {
@@ -56,6 +66,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
       const timer = setTimeout(() => {
         setStep("SELECT_OUTCOME");
         setOutcome(null);
+        setSelectedMarketName(null);
         setStake(50);
         setOdds(2.0);
       }, 300);
@@ -75,7 +86,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
     }, 1500);
   };
 
-  const outcomes = useMemo(() => getBetOutcomes(match), [match]);
+  const marketOutcomes = useMemo(() => getBetOutcomesByMarket(match), [match]); // Changed to getBetOutcomesByMarket
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -96,7 +107,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
         </div>
 
         {step === "SELECT_OUTCOME" && (
-          <div className="p-8 space-y-8">
+          <div className="p-8 space-y-8 max-h-[85vh] overflow-y-auto no-scrollbar">
             <div className="space-y-2">
               <Badge
                 variant="outline"
@@ -108,32 +119,44 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
                 What&apos;s your prediction?
               </DialogTitle>
               <DialogDescription className="text-muted-foreground font-medium">
-                Select which result you are backing for {match.homeTeam} vs{" "}
-                {match.awayTeam}.
+                Select which market and result you are backing.
               </DialogDescription>
             </div>
 
-            <div className="grid grid-cols-1 gap-4">
-              {outcomes.map((o) => (
-                <button
-                  key={o.id}
-                  onClick={() => {
-                    setOutcome(o.label);
-                    setStep("SET_STAKE");
-                  }}
-                  className={cn(
-                    "group relative overflow-hidden bg-muted/30 hover:bg-primary/5 border border-border hover:border-primary/50 p-6 rounded-lg transition-all flex items-center justify-between cursor-pointer",
-                    outcome === o.label && "border-primary bg-primary/10"
-                  )}
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="text-3xl">{o.icon}</span>
-                    <span className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                      {o.label}
+            <div className="space-y-8">
+              {marketOutcomes.map((market, mIdx) => (
+                <div key={mIdx} className="space-y-4">
+                  <h4 className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] relative">
+                    <span className="bg-card pr-3 relative z-10">
+                      {market.marketName}
                     </span>
+                    <div className="absolute top-1/2 left-0 w-full h-px bg-border/50" />
+                  </h4>
+                  <div className="grid grid-cols-1 gap-3">
+                    {market.outcomes.map((o) => (
+                      <button
+                        key={o.id}
+                        onClick={() => {
+                          setOutcome(o.label);
+                          setSelectedMarketName(market.marketName); // Set the selected market name
+                          setStep("SET_STAKE");
+                        }}
+                        className={cn(
+                          "group relative overflow-hidden bg-muted/20 hover:bg-primary/5 border border-border/50 hover:border-primary/50 p-4 rounded-lg transition-all flex items-center justify-between cursor-pointer",
+                          outcome === o.label && "border-primary bg-primary/10"
+                        )}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">{o.icon}</span>
+                          <span className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
+                            {o.label}
+                          </span>
+                        </div>
+                        <ArrowRight className="size-4 text-muted-foreground group-hover:text-primary transition-all group-hover:translate-x-1" />
+                      </button>
+                    ))}
                   </div>
-                  <ArrowRight className="size-5 text-muted-foreground group-hover:text-primary transition-all group-hover:translate-x-1" />
-                </button>
+                </div>
               ))}
             </div>
 
@@ -170,7 +193,8 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
               <div className="flex items-center gap-2 text-primary font-black uppercase tracking-tight text-sm">
                 <CheckCircle2 className="size-5" />
                 <span>
-                  {marketName ? `${marketName}: ` : ""} {outcome}
+                  {selectedMarketName ? `${selectedMarketName}: ` : ""}{" "}
+                  {outcome}
                 </span>
               </div>
             </div>
