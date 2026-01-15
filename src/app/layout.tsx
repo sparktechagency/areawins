@@ -1,6 +1,7 @@
 import AuthModal from "@/components/auth/AuthModal";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import { ReduxProvider } from "@/lib/redux/provider";
 import type { Metadata } from "next";
 import { Oswald } from "next/font/google";
@@ -38,12 +39,14 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ReduxProvider>
-            {children}
-            <AuthModal />
-            <Toaster position="top-right" />
-            <Sonner />
-          </ReduxProvider>
+          <LanguageProvider>
+            <ReduxProvider>
+              {children}
+              <AuthModal />
+              <Toaster position="top-right" />
+              <Sonner />
+            </ReduxProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

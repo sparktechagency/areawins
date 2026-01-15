@@ -10,19 +10,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useForgotPasswordMutation } from "@/lib/redux/api/authApi";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { openAuthModal, setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { forgotPasswordSchema } from "@/lib/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, Mail } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
 export default function ForgotPasswordForm() {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof forgotPasswordSchema>>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -32,8 +34,9 @@ export default function ForgotPasswordForm() {
   });
 
   const onSubmit = async (values: z.infer<typeof forgotPasswordSchema>) => {
-    try {
-      await forgotPassword(values).unwrap();
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
       toast.success("OTP sent to your email");
       dispatch(
         openAuthModal({
@@ -42,9 +45,7 @@ export default function ForgotPasswordForm() {
           otpReason: "FORGOT_PASSWORD",
         })
       );
-    } catch (err: any) {
-      toast.error(err?.data?.message || "Failed to send OTP");
-    }
+    }, 1500);
   };
 
   return (
@@ -54,11 +55,13 @@ export default function ForgotPasswordForm() {
           onClick={() => dispatch(setAuthView("LOGIN"))}
           className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground mb-4"
         >
-          <ArrowLeft className="size-4" /> Back to Login
+          <ArrowLeft className="size-4" /> {t("auth.backToLogin")}
         </button>
-        <h2 className="text-2xl font-black text-foreground">Reset Password</h2>
+        <h2 className="text-2xl font-black text-foreground">
+          {t("auth.resetPassword")}
+        </h2>
         <p className="text-sm text-muted-foreground">
-          Enter your email to receive a reset code
+          {t("auth.createStrongPwd")}
         </p>
       </div>
 
@@ -70,7 +73,7 @@ export default function ForgotPasswordForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  Email
+                  {t("auth.email")}
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
@@ -92,7 +95,7 @@ export default function ForgotPasswordForm() {
             className="w-full font-bold"
             disabled={isLoading}
           >
-            {isLoading ? "Sending..." : "Send Reset Code"}
+            {isLoading ? t("auth.sending") : t("auth.sendResetCode")}
           </Button>
         </form>
       </Form>

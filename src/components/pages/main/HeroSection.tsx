@@ -19,7 +19,8 @@ const HeroSection = () => {
         {/* Hero Content */}
         <div className="flex flex-col items-center justify-center min-h-[calc(100vh-200px)] px-4 text-center">
           <h1 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 drop-shadow-2xl">
-            Bet Smart! <span className="text-primary">Win Big</span> , Play Fair!
+            Bet Smart! <span className="text-primary">Win Big</span> , Play
+            Fair!
           </h1>
           <p className="text-sm md:text-base lg:text-lg text-white/90 mb-8 max-w-2xl drop-shadow-lg">
             Fast bets, generous outs, and live market odds — All in one place.
@@ -32,7 +33,7 @@ const HeroSection = () => {
                 Get Started Now
               </Button>
             </Link>
-            <Link href="/register">
+            <Link href="/market">
               <Button
                 variant="default"
                 className="px-10 cursor-pointer bg-white text-gray-900 hover:bg-white/90"
@@ -40,14 +41,6 @@ const HeroSection = () => {
                 View Markets
               </Button>
             </Link>
-            {/* <Link href="/register">
-              <Button
-                variant="default"
-                className="px-10 cursor-pointer bg-white text-gray-900 hover:bg-white/90"
-              >
-                Sign Up
-              </Button>
-            </Link> */}
           </div>
         </div>
       </div>

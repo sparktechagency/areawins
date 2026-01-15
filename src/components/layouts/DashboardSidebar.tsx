@@ -33,16 +33,10 @@ const navigationItems = [
   { icon: History, label: "Transactions", href: ROUTES.TRANSACTIONS },
   { icon: Users, label: "Friends", href: ROUTES.FRIENDS },
   { icon: MessageCircle, label: "Message", href: ROUTES.MESSAGES },
-  { icon: Gift, label: "Bonuses", href: ROUTES.PROMOTIONS || "/promotions" },
   {
     icon: BarChart2,
     label: "Statistics",
     href: ROUTES.STATISTICS || "/statistics",
-  },
-  {
-    icon: HeadphonesIcon,
-    label: "Support",
-    href: ROUTES.SUPPORT || "/support",
   },
   { icon: Settings, label: "Settings", href: ROUTES.SETTINGS },
 ];

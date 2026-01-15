@@ -27,7 +27,7 @@ export default function DashboardHeader() {
   });
 
   return (
-    <header className="w-full py-4.5 border-b border-border sticky top-0 z-40 bg-background">
+    <header className="w-full py-[14px] border-b border-border sticky top-0 z-40 bg-background">
       <div className="w-full h-full flex items-center justify-between px-4">
         {/* Left Side: Breadcrumbs */}
         <div className="hidden md:flex items-center text-sm text-muted-foreground">

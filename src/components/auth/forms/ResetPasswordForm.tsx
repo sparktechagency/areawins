@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useResetPasswordMutation } from "@/lib/redux/api/authApi";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { openAuthModal, setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { resetPasswordSchema } from "@/lib/validations/auth";
@@ -22,10 +22,11 @@ import { toast } from "sonner";
 import * as z from "zod";
 
 export default function ResetPasswordForm() {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { email, otp } = useAppSelector((state) => state.authUi);
-  const [resetPassword, { isLoading }] = useResetPasswordMutation();
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof resetPasswordSchema>>({
     resolver: zodResolver(resetPasswordSchema),
@@ -42,17 +43,12 @@ export default function ResetPasswordForm() {
       return;
     }
 
-    try {
-      await resetPassword({
-        email,
-        code: otp,
-        password: values.password,
-      }).unwrap();
-      toast.success("Password reset successfully! Please log in.");
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      toast.success(t("auth.resetSuccess"));
       dispatch(openAuthModal({ view: "LOGIN" }));
-    } catch (err: any) {
-      toast.error(err?.data?.message || "Reset failed");
-    }
+    }, 1500);
   };
 
   return (
@@ -62,13 +58,13 @@ export default function ResetPasswordForm() {
           onClick={() => dispatch(setAuthView("VERIFY_OTP"))}
           className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground mb-4"
         >
-          <ArrowLeft className="size-4" /> Back to OTP
+          <ArrowLeft className="size-4" /> {t("auth.backToOtp")}
         </button>
         <h2 className="text-2xl font-black text-foreground">
-          Set New Password
+          {t("auth.setNewPassword")}
         </h2>
         <p className="text-sm text-muted-foreground">
-          Create a strong password for your account
+          {t("auth.createStrongPwd")}
         </p>
       </div>
 
@@ -80,7 +76,7 @@ export default function ResetPasswordForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  New Password
+                  {t("auth.password")}
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
@@ -115,7 +111,7 @@ export default function ResetPasswordForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  Confirm Password
+                  {t("auth.confirmPassword")}
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
@@ -138,7 +134,7 @@ export default function ResetPasswordForm() {
             className="w-full font-bold"
             disabled={isLoading}
           >
-            {isLoading ? "Resetting..." : "Reset Password"}
+            {isLoading ? t("auth.sending") : t("auth.resetPassword")}
           </Button>
         </form>
       </Form>

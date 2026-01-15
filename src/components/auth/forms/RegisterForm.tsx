@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRegisterMutation } from "@/lib/redux/api/authApi";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { openAuthModal, setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { registerSchema } from "@/lib/validations/auth";
@@ -23,9 +23,10 @@ import { toast } from "sonner";
 import * as z from "zod";
 
 export default function RegisterForm() {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const [register, { isLoading }] = useRegisterMutation();
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -41,20 +42,11 @@ export default function RegisterForm() {
   });
 
   const onSubmit = async (values: z.infer<typeof registerSchema>) => {
-    try {
-      // Map form values to API request structure
-      const apiData = {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        username: values.username,
-        email: values.email,
-        password: values.password,
-        confirmPassword: values.confirmPassword,
-        termsAccepted: values.terms,
-      };
-
-      await register(apiData).unwrap();
-      toast.success("Account created successfully!");
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      toast.success(t("auth.successRegister"));
+      // Move to OTP Verify
       dispatch(
         openAuthModal({
           view: "VERIFY_OTP",
@@ -62,17 +54,17 @@ export default function RegisterForm() {
           otpReason: "REGISTER",
         })
       );
-    } catch (err: any) {
-      toast.error(err?.data?.message || "Registration failed");
-    }
+    }, 1500);
   };
 
   return (
     <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
       <div className="text-center space-y-2">
-        <h2 className="text-2xl font-black text-foreground">Create Account</h2>
+        <h2 className="text-2xl font-black text-foreground">
+          {t("auth.createAccount")}
+        </h2>
         <p className="text-sm text-muted-foreground">
-          Join us to start betting
+          {t("auth.registerSubtitle")}
         </p>
       </div>
 
@@ -85,7 +77,7 @@ export default function RegisterForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                    First Name
+                    {t("auth.firstName")}
                   </FormLabel>
                   <FormControl>
                     <div className="relative">
@@ -107,7 +99,7 @@ export default function RegisterForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                    Last Name
+                    {t("auth.lastName")}
                   </FormLabel>
                   <FormControl>
                     <div className="relative">
@@ -131,7 +123,7 @@ export default function RegisterForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  Username
+                  {t("auth.username")}
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
@@ -154,7 +146,7 @@ export default function RegisterForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  Email
+                  {t("auth.email")}
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
@@ -177,7 +169,7 @@ export default function RegisterForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  Password
+                  {t("auth.password")}
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
@@ -212,7 +204,7 @@ export default function RegisterForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  Confirm Password
+                  {t("auth.confirmPassword")}
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
@@ -242,9 +234,9 @@ export default function RegisterForm() {
                   />
                 </FormControl>
                 <div className="space-y-1 leading-none">
-                  <FormLabel>I accept terms and conditions</FormLabel>
+                  <FormLabel>{t("auth.terms")}</FormLabel>
                   <p className="text-[0.8rem] text-muted-foreground">
-                    You agree to our Terms of Service and Privacy Policy.
+                    {t("auth.termsDesc")}
                   </p>
                 </div>
               </FormItem>
@@ -256,18 +248,18 @@ export default function RegisterForm() {
             className="w-full font-bold"
             disabled={isLoading}
           >
-            {isLoading ? "Creating Account..." : "Sign Up"}
+            {isLoading ? t("auth.sending") : t("auth.signUp")}
           </Button>
         </form>
       </Form>
 
       <div className="text-center text-sm text-muted-foreground">
-        Already have an account?{" "}
+        {t("auth.haveAccount")}{" "}
         <button
           onClick={() => dispatch(setAuthView("LOGIN"))}
           className="text-primary font-bold hover:underline"
         >
-          Log in
+          {t("auth.logIn")}
         </button>
       </div>
     </div>

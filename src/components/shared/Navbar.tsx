@@ -1,13 +1,29 @@
 "use client";
 import logo from "@/assets/logo/logo.png";
 import logo2 from "@/assets/logo/logo2.png";
-import { useAppDispatch } from "@/lib/redux/hooks";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { clearAuth } from "@/lib/redux/features/authSlice";
+import { openAuthModal } from "@/lib/redux/features/authUiSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import {
+  Globe,
   HelpCircle,
   Home,
+  LayoutDashboard,
+  LogOut,
   Menu,
   TrendingUp,
   Trophy,
+  User as UserIcon,
   Users,
 } from "lucide-react";
 import Image from "next/image";
@@ -16,11 +32,13 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import DarkModeToggle from "../ui/dark-mode-toggle";
-import { openAuthModal } from "@/lib/redux/features/authUiSlice";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
+  const { t, language, setLanguage } = useTranslation();
+  const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -36,14 +54,168 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Navigation Links Data to ensure consistency
+  const handleLogout = () => {
+    dispatch(clearAuth());
+  };
+
   const navLinks = [
-    { label: "Home", href: "/", icon: Home },
-    { label: "All Matches", href: "/matches", icon: Trophy },
-    { label: "Bet Market", href: "/market", icon: TrendingUp },
-    { label: "Friends", href: "/friends", icon: Users },
-    { label: "Support", href: "/support", icon: HelpCircle },
+    { label: t("navbar.home"), href: "/", icon: Home },
+    { label: t("navbar.matches"), href: "/matches", icon: Trophy },
+    { label: t("navbar.market"), href: "/market", icon: TrendingUp },
+    { label: t("navbar.friends"), href: "/friends", icon: Users },
+    { label: t("navbar.support"), href: "/support", icon: HelpCircle },
   ];
+
+  const LanguageSwitcher = () => (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          className={`flex items-center gap-1 text-sm font-medium transition-colors ${
+            isHomePage && !scrolled
+              ? "text-white hover:text-white/80"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          <Globe className="w-4 h-4" />
+          {language === "en" ? "English" : "Español"}
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setLanguage("en")}>
+          English
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setLanguage("es")}>
+          Español
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+
+  const UserMenu = () => {
+    if (!isAuthenticated || !user) {
+      return (
+        <Button
+          onClick={() => dispatch(openAuthModal({ view: "LOGIN" }))}
+          variant={
+            isHomePage && scrolled
+              ? "default"
+              : isHomePage
+              ? "secondary"
+              : "default"
+          }
+          className={`transition-all duration-300 ${
+            isHomePage && !scrolled
+              ? "bg-white text-primary hover:bg-white/90"
+              : ""
+          }`}
+        >
+          {t("navbar.login")}
+        </Button>
+      );
+    }
+
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+            <Avatar className="h-10 w-10 border border-border">
+              <AvatarImage src="/avatars/01.png" alt={user.username} />
+              <AvatarFallback className="bg-primary/10 text-primary font-bold">
+                {user.firstName?.[0]}
+                {user.lastName?.[0]}
+              </AvatarFallback>
+            </Avatar>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56" align="end" forceMount>
+          <DropdownMenuLabel className="font-normal">
+            <div className="flex flex-col space-y-1">
+              <p className="text-sm font-medium leading-none">
+                {user.firstName} {user.lastName}
+              </p>
+              <p className="text-xs leading-none text-muted-foreground">
+                {user.email}
+              </p>
+            </div>
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild>
+            <Link
+              href="/dashboard"
+              className="cursor-pointer flex items-center"
+            >
+              <LayoutDashboard className="mr-2 h-4 w-4" />
+              {t("navbar.dashboard")}
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link
+              href="/dashboard/my-bets"
+              className="cursor-pointer flex items-center"
+            >
+              <Trophy className="mr-2 h-4 w-4" />
+              {t("navbar.myBets")}
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link
+              href="/dashboard/profile"
+              className="cursor-pointer flex items-center"
+            >
+              <UserIcon className="mr-2 h-4 w-4" />
+              Profile
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onClick={handleLogout}
+            className="text-destructive focus:text-destructive cursor-pointer"
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            {t("navbar.logout")}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  };
+
+  const MobileUserMenu = () => {
+    if (!isAuthenticated) return null;
+    return (
+      <div className="border-t border-border mt-2 pt-2 space-y-2">
+        <div className="px-4 py-2 flex items-center gap-3">
+          <Avatar className="h-10 w-10 border border-border">
+            <AvatarFallback className="bg-primary/10 text-primary font-bold">
+              {user?.firstName?.[0]}
+              {user?.lastName?.[0]}
+            </AvatarFallback>
+          </Avatar>
+          <div>
+            <p className="text-sm font-bold">{user?.username}</p>
+            <p className="text-xs text-muted-foreground">{user?.email}</p>
+          </div>
+        </div>
+        <Link
+          href="/dashboard"
+          onClick={() => setIsMenuOpen(false)}
+          className="flex items-center gap-3 px-4 py-3 hover:bg-muted rounded-lg transition-all font-medium"
+        >
+          <LayoutDashboard className="w-5 h-5" />
+          {t("navbar.dashboard")}
+        </Link>
+        <button
+          onClick={() => {
+            handleLogout();
+            setIsMenuOpen(false);
+          }}
+          className="w-full flex items-center gap-3 px-4 py-3 hover:bg-muted rounded-lg transition-all font-medium text-destructive"
+        >
+          <LogOut className="w-5 h-5" />
+          {t("navbar.logout")}
+        </button>
+      </div>
+    );
+  };
 
   if (isHomePage) {
     return (
@@ -87,23 +259,15 @@ const Navbar = () => {
 
           {/* Right Side */}
           <div className="flex items-center justify-end gap-4">
-            <div className="text-white">
+            <div className={`${!scrolled ? "text-white" : ""}`}>
               <DarkModeToggle />
             </div>
-            <button
-              className={`hidden md:block drop-shadow-md text-white transition-colors`}
-            >
-              English <span className="ml-1">›</span>
-            </button>
-            <Button
-              onClick={() => dispatch(openAuthModal({ view: "LOGIN" }))}
-              variant={scrolled ? "default" : "secondary"}
-              className={`transition-all duration-300 ${
-                !scrolled ? "bg-white text-primary hover:bg-white/90" : ""
-              }`}
-            >
-              Login
-            </Button>
+
+            <LanguageSwitcher />
+
+            <div className="hidden md:block">
+              <UserMenu />
+            </div>
           </div>
         </div>
       </nav>
@@ -146,32 +310,31 @@ const Navbar = () => {
         {/* Right Side */}
         <div className="flex items-center gap-3">
           <DarkModeToggle />
-          <button className="text-muted-foreground hidden md:block hover:text-foreground transition-colors text-sm">
-            English <span className="ml-1">›</span>
-          </button>
-          <Button
-            variant="default"
-            className="px-8 hidden md:block"
-            onClick={() => dispatch(openAuthModal({ view: "LOGIN" }))}
-          >
-            Login
-          </Button>
-        </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-foreground ml-4"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <Menu className="w-6 h-6" />
-        </button>
+          <div className="hidden md:block text-muted-foreground">
+            <LanguageSwitcher />
+          </div>
+
+          <div className="hidden md:block">
+            <UserMenu />
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-foreground ml-4"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu with Glassmorphism */}
       {isMenuOpen && (
         <div className="md:hidden mt-4 pb-4 bg-background/95 backdrop-blur-md rounded-lg border border-border p-4 space-y-2 shadow-xl">
-          <div className="flex justify-end mb-2">
+          <div className="flex justify-between items-center mb-2">
+            <LanguageSwitcher />
             <DarkModeToggle />
           </div>
           {navLinks.map((link) => {
@@ -192,29 +355,25 @@ const Navbar = () => {
               </Link>
             );
           })}
-          <div className="pt-2 border-t border-border mt-2 space-y-2">
-            <div className="block w-full">
-              <Button
-                variant="destructive"
-                className="w-full"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  dispatch(openAuthModal({ view: "LOGIN" }));
-                }}
-              >
-                SIGN IN
-              </Button>
+
+          {!isAuthenticated ? (
+            <div className="pt-2 border-t border-border mt-2 space-y-2">
+              <div className="block w-full">
+                <Button
+                  variant="destructive"
+                  className="w-full"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    dispatch(openAuthModal({ view: "LOGIN" }));
+                  }}
+                >
+                  {t("navbar.signIn")}
+                </Button>
+              </div>
             </div>
-            <Link
-              href="/dashboard/my-bets"
-              onClick={() => setIsMenuOpen(false)}
-              className="block w-full"
-            >
-              <Button variant="default" className="w-full">
-                My bets
-              </Button>
-            </Link>
-          </div>
+          ) : (
+            <MobileUserMenu />
+          )}
         </div>
       )}
     </nav>

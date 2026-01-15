@@ -11,8 +11,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useLoginMutation } from "@/lib/redux/api/authApi";
-import { setAuthView } from "@/lib/redux/features/authUiSlice";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { setUser } from "@/lib/redux/features/authSlice";
+import { closeAuthModal, setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { loginSchema } from "@/lib/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,9 +24,10 @@ import { toast } from "sonner";
 import * as z from "zod";
 
 export default function LoginForm() {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const [login, { isLoading }] = useLoginMutation();
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -37,21 +39,36 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (values: z.infer<typeof loginSchema>) => {
-    try {
-      await login(values).unwrap();
-      toast.success("Logged in successfully!");
-      window.location.reload();
-    } catch (err: any) {
-      toast.error(err?.data?.message || "Login failed");
-    }
+    setIsLoading(true);
+    // Mock Login Delay
+    setTimeout(() => {
+      setIsLoading(false);
+      // Mock User Data
+      const mockUser = {
+        id: "u123",
+        email: values.email,
+        firstName: "John",
+        lastName: "Doe",
+        username: "johndoe",
+        role: "user",
+      };
+      // Dispatch set user
+      dispatch(setUser(mockUser));
+      toast.success(t("auth.successLogin"));
+      dispatch(closeAuthModal());
+      // Optional: Redirect to home or dashboard if logic demands
+      // window.location.href = "/dashboard";
+    }, 1500);
   };
 
   return (
     <div className="p-6 space-y-6">
       <div className="text-center space-y-2">
-        <h2 className="text-2xl font-black text-foreground">Welcome Back</h2>
+        <h2 className="text-2xl font-black text-foreground">
+          {t("auth.welcomeBack")}
+        </h2>
         <p className="text-sm text-muted-foreground">
-          Log in to view your bets
+          {t("auth.loginSubtitle")}
         </p>
       </div>
 
@@ -63,7 +80,7 @@ export default function LoginForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  Email
+                  {t("auth.email")}
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
@@ -86,7 +103,7 @@ export default function LoginForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  Password
+                  {t("auth.password")}
                 </FormLabel>
                 <div className="relative">
                   <Lock className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
@@ -128,7 +145,7 @@ export default function LoginForm() {
                     />
                   </FormControl>
                   <FormLabel className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                    Remember me
+                    {t("auth.rememberMe")}
                   </FormLabel>
                 </FormItem>
               )}
@@ -139,7 +156,7 @@ export default function LoginForm() {
               onClick={() => dispatch(setAuthView("FORGOT_PASSWORD"))}
               className="text-xs text-primary font-bold hover:underline"
             >
-              Forgot password?
+              {t("auth.forgotPassword")}
             </button>
           </div>
 
@@ -148,18 +165,18 @@ export default function LoginForm() {
             className="w-full font-bold"
             disabled={isLoading}
           >
-            {isLoading ? "Logging in..." : "Log In"}
+            {isLoading ? t("auth.sending") : t("auth.logIn")}
           </Button>
         </form>
       </Form>
 
       <div className="text-center text-sm text-muted-foreground">
-        Don&apos;t have an account?{" "}
+        {t("auth.noAccount")}{" "}
         <button
           onClick={() => dispatch(setAuthView("REGISTER"))}
           className="text-primary font-bold hover:underline"
         >
-          Sign up
+          {t("auth.signUp")}
         </button>
       </div>
     </div>
