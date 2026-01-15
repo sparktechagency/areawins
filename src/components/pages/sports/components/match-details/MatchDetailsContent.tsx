@@ -213,7 +213,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
                     <div className="h-px flex-1 bg-border" />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                     {category.outcomes.map((stat, idx) => (
                       <div
                         key={idx}
@@ -292,7 +292,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {matchedBets.map((bet, idx) => (
                 <MatchedBetCard key={idx} user={bet.user} bet={bet.bet} />
               ))}

@@ -1,14 +1,10 @@
 "use client";
 
+import { ReusableModal } from "@/components/shared/ReusableModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+
 import { getBetOutcomesByMarket } from "@/data/betting.data";
 import { CreateBetModalProps } from "@/interfaces/betting.interface";
 import { cn } from "@/lib/utils";
@@ -86,11 +82,16 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
     }, 1500);
   };
 
-  const marketOutcomes = useMemo(() => getBetOutcomesByMarket(match), [match]); // Changed to getBetOutcomesByMarket
+  const marketOutcomes = useMemo(() => getBetOutcomesByMarket(match), [match]);
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden bg-card border-none rounded-lg">
+    <ReusableModal
+      isOpen={isOpen}
+      onClose={onClose}
+      maxWidth="md"
+      className="p-0"
+    >
+      <div className="relative">
         {/* Progress Bar */}
         <div className="absolute top-0 left-0 w-full h-1 bg-muted">
           <div
@@ -115,12 +116,12 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
               >
                 Step 1: Choose Outcome
               </Badge>
-              <DialogTitle className="text-3xl font-black text-foreground tracking-tight">
+              <h2 className="text-3xl font-black text-foreground tracking-tight">
                 What&apos;s your prediction?
-              </DialogTitle>
-              <DialogDescription className="text-muted-foreground font-medium">
+              </h2>
+              <p className="text-muted-foreground font-medium">
                 Select which market and result you are backing.
-              </DialogDescription>
+              </p>
             </div>
 
             <div className="space-y-8">
@@ -187,9 +188,9 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
               >
                 Step 2: Set Stake & Odds
               </Badge>
-              <DialogTitle className="text-3xl font-black text-foreground tracking-tight">
+              <h2 className="text-3xl font-black text-foreground tracking-tight">
                 Configure your bet
-              </DialogTitle>
+              </h2>
               <div className="flex items-center gap-2 text-primary font-black uppercase tracking-tight text-sm">
                 <CheckCircle2 className="size-5" />
                 <span>
@@ -356,8 +357,8 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
             </p>
           </div>
         )}
-      </DialogContent>
-    </Dialog>
+      </div>
+    </ReusableModal>
   );
 };
 

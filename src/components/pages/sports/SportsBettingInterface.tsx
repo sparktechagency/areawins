@@ -155,7 +155,7 @@ export default function SportsBettingInterface({
 
         <div className="mt-8 space-y-6">
           <TabsContent value="all" className="space-y-6 m-0">
-            <div className="grid grid-cols-1 md:grid-cols-3  gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredMatches.map((match) => (
                 <SportMatchCard key={match._id} match={match} />
               ))}
@@ -168,7 +168,7 @@ export default function SportsBettingInterface({
           </TabsContent>
 
           <TabsContent value="live" className="space-y-6 m-0">
-            <div className="grid grid-cols-1 md:grid-cols-3  gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredMatches
                 .filter((m) => m.status === "live")
                 .map((match) => (
