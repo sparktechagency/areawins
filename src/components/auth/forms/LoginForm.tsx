@@ -49,14 +49,16 @@ export default function LoginForm() {
         firstName: "John",
         lastName: "Doe",
         username: "johndoe",
-        role: "user",
+        currency: "USD",
+        isEmailVerified: true,
+        isPhoneVerified: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
       // Dispatch set user
       dispatch(setUser(mockUser));
       toast.success(t("auth.successLogin"));
       dispatch(closeAuthModal());
-      // Optional: Redirect to home or dashboard if logic demands
-      // window.location.href = "/dashboard";
     }, 1500);
   };
 
@@ -83,7 +85,7 @@ export default function LoginForm() {
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
+                    <Mail className="absolute left-3 top-4 size-4 text-muted-foreground" />
                     <Input
                       placeholder="name@example.com"
                       className="pl-9 bg-muted/50 border-border"
@@ -105,7 +107,7 @@ export default function LoginForm() {
                   {t("auth.password")}
                 </FormLabel>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
+                  <Lock className="absolute left-3 top-4 size-4 text-muted-foreground" />
                   <FormControl>
                     <Input
                       type={showPassword ? "text" : "password"}
@@ -117,7 +119,7 @@ export default function LoginForm() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-2.5 text-muted-foreground hover:text-foreground"
+                    className="absolute right-3 top-4 cursor-pointer text-muted-foreground hover:text-foreground"
                   >
                     {showPassword ? (
                       <EyeOff className="size-4" />
@@ -161,7 +163,7 @@ export default function LoginForm() {
 
           <Button
             type="submit"
-            className="w-full font-bold"
+            className="w-full font-bold cursor-pointer"
             disabled={isLoading}
           >
             {isLoading ? t("auth.sending") : t("auth.logIn")}
@@ -173,7 +175,7 @@ export default function LoginForm() {
         {t("auth.noAccount")}{" "}
         <button
           onClick={() => dispatch(setAuthView("REGISTER"))}
-          className="text-primary font-bold hover:underline"
+          className="text-primary font-bold hover:underline cursor-pointer"
         >
           {t("auth.signUp")}
         </button>
