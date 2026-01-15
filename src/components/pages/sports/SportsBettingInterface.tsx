@@ -256,9 +256,6 @@ export default function SportsBettingInterface({
     setMatches((prev) => prev.filter((m) => m._id !== id));
   };
 
-  // Cycle through banners or pick one
-  const banner = activeConfig.banners[0];
-
   const filteredMatches = matches.filter((m) => {
     const mSport = typeof m.sport === "string" ? m.sport : m.sport.slug;
     const homeName = typeof m.homeTeam === "string" ? "" : m.homeTeam.name;
@@ -311,7 +308,7 @@ export default function SportsBettingInterface({
       </div>
 
       {/* Hero Banner */}
-      <SportHeroBanner config={banner} />
+      <SportHeroBanner config={activeConfig.banners} />
 
       {/* Tabs / Filter Navigation */}
       <Tabs defaultValue="all" className="w-full">
