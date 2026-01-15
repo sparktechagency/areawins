@@ -5,11 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 import {
   BarChart2,
-  Gift,
-  HeadphonesIcon,
   History,
   LayoutDashboard,
   LogOut,
@@ -25,26 +24,42 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-const navigationItems = [
-  { icon: LayoutDashboard, label: "Dashboard", href: ROUTES.DASHBOARD },
-  { icon: Trophy, label: "My Bets", href: ROUTES.MY_BETS },
-
-  { icon: Wallet, label: "Wallet", href: ROUTES.WALLET },
-  { icon: History, label: "Transactions", href: ROUTES.TRANSACTIONS },
-  { icon: Users, label: "Friends", href: ROUTES.FRIENDS },
-  { icon: MessageCircle, label: "Message", href: ROUTES.MESSAGES },
-  {
-    icon: BarChart2,
-    label: "Statistics",
-    href: ROUTES.STATISTICS || "/statistics",
-  },
-  { icon: Settings, label: "Settings", href: ROUTES.SETTINGS },
-];
-
 export default function DashboardSidebar() {
   const pathname = usePathname();
   const { logout } = useAuth();
+  const { t } = useTranslation();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  const navigationItems = [
+    {
+      icon: LayoutDashboard,
+      label: t("dashboard.menu.dashboard"),
+      href: ROUTES.DASHBOARD,
+    },
+    { icon: Trophy, label: t("dashboard.menu.myBets"), href: ROUTES.MY_BETS },
+    { icon: Wallet, label: t("dashboard.menu.wallet"), href: ROUTES.WALLET },
+    {
+      icon: History,
+      label: t("dashboard.menu.transactions"),
+      href: ROUTES.TRANSACTIONS,
+    },
+    { icon: Users, label: t("dashboard.menu.friends"), href: ROUTES.FRIENDS },
+    {
+      icon: MessageCircle,
+      label: t("dashboard.menu.message"),
+      href: ROUTES.MESSAGES,
+    },
+    {
+      icon: BarChart2,
+      label: t("dashboard.menu.statistics"),
+      href: ROUTES.STATISTICS || "/statistics",
+    },
+    {
+      icon: Settings,
+      label: t("dashboard.menu.settings"),
+      href: ROUTES.SETTINGS,
+    },
+  ];
 
   return (
     <>
@@ -104,7 +119,7 @@ export default function DashboardSidebar() {
               className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
             >
               <LogOut className="w-5 h-5" />
-              <span>Logout</span>
+              <span>{t("dashboard.menu.logout")}</span>
             </button>
           </div>
         </div>
@@ -136,7 +151,6 @@ export default function DashboardSidebar() {
               {/* Logo Area */}
               <div className="p-6 border-b border-border">
                 <Link href={ROUTES.HOME} className="flex items-center gap-2">
-                  {/* Placeholder for Logo Icon if needed, otherwise just text */}
                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                     <Trophy className="w-5 h-5 text-primary-foreground" />
                   </div>
@@ -190,7 +204,7 @@ export default function DashboardSidebar() {
                   className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
                 >
                   <LogOut className="w-5 h-5" />
-                  <span>Logout</span>
+                  <span>{t("dashboard.menu.logout")}</span>
                 </button>
               </div>
             </div>

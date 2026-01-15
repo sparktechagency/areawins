@@ -1,6 +1,7 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { ArrowRight, Flame } from "lucide-react";
 import React, {
   useCallback,
@@ -23,6 +24,7 @@ interface SportHeroBannerProps {
 }
 
 const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
+  const { t } = useTranslation();
   const banners = useMemo(() => config, [config]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -78,7 +80,7 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
         <div className="flex items-center gap-3 mb-6">
           <Badge className="bg-primary text-white font-black border-none px-4 py-1.5 uppercase tracking-widest text-[10px] rounded-full flex items-center gap-2">
             <Flame className="size-3.5" />
-            Active Market
+            {t("banner.activeMarket")}
           </Badge>
           <span className="text-white font-black text-[10px] bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-xl border border-white/20 uppercase tracking-[0.2em]">
             {currentBanner.subtitle}
@@ -107,13 +109,13 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
 
         <div className="flex items-center gap-4">
           <Button className="h-14 px-10 rounded-lg bg-white text-black hover:bg-white/90 font-black uppercase tracking-widest transition-all active:scale-95">
-            Join Market
+            {t("banner.joinMarket")}
           </Button>
           <Button
             variant="ghost"
             className="h-14 px-8 rounded-lg text-white font-black uppercase tracking-widest hover:bg-white/10"
           >
-            View Charts
+            {t("banner.viewCharts")}
             <ArrowRight className="size-4 ml-2" />
           </Button>
         </div>

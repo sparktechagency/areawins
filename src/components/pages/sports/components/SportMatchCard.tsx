@@ -7,9 +7,9 @@ import {
   PlusCircle,
   Search,
   Target,
-  Trash2,
 } from "lucide-react";
 
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import Link from "next/link";
 import React, { useMemo } from "react";
 
@@ -26,6 +26,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
   match,
   onDelete,
 }) => {
+  const { t } = useTranslation();
   // Helper to extract names safely
   const getTeamName = (team: string | TeamInfo) =>
     typeof team === "string" ? "Team" : team.name;
@@ -56,7 +57,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
           {isLive ? (
             <span className="flex items-center gap-1 text-[9px] font-black text-rose-500 uppercase bg-rose-500/10 px-1.5 py-0.5 rounded-full shrink-0">
               <span className="size-1 rounded-full bg-rose-500 animate-pulse"></span>
-              Live
+              {t("matchCard.live")}
             </span>
           ) : (
             <span className="text-[9px] font-black text-muted-foreground uppercase bg-muted/50 px-1.5 py-0.5 rounded-full shrink-0">
@@ -73,7 +74,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
         <div className="flex items-center gap-2 shrink-0">
           <span className="hidden sm:flex text-[9px] font-black text-primary uppercase items-center gap-1">
             <Target className="size-2.5" />
-            {stats.activeBets} Active
+            {stats.activeBets} {t("matchCard.active")}
           </span>
         </div>
       </div>
@@ -117,7 +118,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
             <div className="bg-muted/20 rounded-lg p-2 border border-border/50">
               <span className="text-[8px] font-black text-muted-foreground uppercase flex items-center gap-1 mb-0.5">
                 <Banknote className="size-2.5 text-emerald-500" />
-                Pot
+                {t("matchCard.pot")}
               </span>
               <span className="text-xs sm:text-sm font-black text-foreground block">
                 ${stats.potAmount.toLocaleString()}
@@ -126,10 +127,10 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
             <div className="bg-muted/20 rounded-lg p-2 border border-border/50">
               <span className="text-[8px] font-black text-muted-foreground uppercase flex items-center gap-1 mb-0.5">
                 <Search className="size-2.5 text-blue-500" />
-                Open
+                {t("matchCard.open")}
               </span>
               <span className="text-xs sm:text-sm font-black text-foreground block">
-                {stats.openBets} Bets
+                {stats.openBets} {t("matchCard.bets")}
               </span>
             </div>
           </div>
@@ -143,7 +144,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
             >
               <Link href={`/matches/${sportSlug}/${match._id}?action=create`}>
                 <PlusCircle className="size-3" />
-                Create
+                {t("matchCard.create")}
               </Link>
             </Button>
             <Button
@@ -152,7 +153,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
               asChild
             >
               <Link href={`/matches/${sportSlug}/${match._id}`}>
-                Browse
+                {t("matchCard.browse")}
                 <ChevronRight className="size-3" />
               </Link>
             </Button>

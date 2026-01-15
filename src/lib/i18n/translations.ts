@@ -13,6 +13,19 @@ export const translations = {
       profile: "Profile",
       logout: "Logout",
     },
+    dashboard: {
+      menu: {
+        dashboard: "Dashboard",
+        myBets: "My Bets",
+        wallet: "Wallet",
+        transactions: "Transactions",
+        friends: "Friends",
+        message: "Message",
+        statistics: "Statistics",
+        settings: "Settings",
+        logout: "Logout",
+      },
+    },
     hero: {
       titlePart1: "Bet Smart!",
       titlePart2: "Win Big",
@@ -28,6 +41,20 @@ export const translations = {
       today: "TODAY",
       tomorrow: "TOMORROW",
       popularCountries: "Popular Countries",
+    },
+    matchCard: {
+      live: "Live",
+      active: "Active",
+      pot: "Pot",
+      open: "Open",
+      bets: "Bets",
+      create: "Create",
+      browse: "Browse",
+    },
+    banner: {
+      activeMarket: "Active Market",
+      joinMarket: "Join Market",
+      viewCharts: "View Charts",
     },
     auth: {
       welcomeBack: "Welcome Back",
@@ -85,6 +112,19 @@ export const translations = {
       profile: "Perfil",
       logout: "Cerrar Sesión",
     },
+    dashboard: {
+      menu: {
+        dashboard: "Panel",
+        myBets: "Mis Apuestas",
+        wallet: "Billetera",
+        transactions: "Transacciones",
+        friends: "Amigos",
+        message: "Mensaje",
+        statistics: "Estadísticas",
+        settings: "Ajustes",
+        logout: "Cerrar Sesión",
+      },
+    },
     hero: {
       titlePart1: "¡Apuesta Inteligente!",
       titlePart2: "Gana a lo Grande",
@@ -100,6 +140,20 @@ export const translations = {
       today: "HOY",
       tomorrow: "MAÑANA",
       popularCountries: "Países Populares",
+    },
+    matchCard: {
+      live: "En Vivo",
+      active: "Activo",
+      pot: "Bote",
+      open: "Abiertas",
+      bets: "Apuestas",
+      create: "Crear",
+      browse: "Explorar",
+    },
+    banner: {
+      activeMarket: "Mercado Activo",
+      joinMarket: "Unirse",
+      viewCharts: "Ver Gráficos",
     },
     auth: {
       welcomeBack: "Bienvenido de nuevo",
