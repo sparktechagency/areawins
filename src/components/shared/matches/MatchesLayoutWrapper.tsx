@@ -39,10 +39,6 @@ const MatchesLayoutWrapper = ({
         <div
           className={cn(
             "grid gap-8",
-            // 3 Columns: [280px_1fr_320px]
-            // 2 Columns (No Left): [1fr_320px]
-            // 2 Columns (No Right): [280px_1fr]
-            // 1 Column: [1fr]
             (showLeft || leftSidebar) && showRight
               ? "grid-cols-1 lg:grid-cols-[280px_1fr] xl:grid-cols-[280px_1fr_320px]"
               : (showLeft || leftSidebar) && !showRight
