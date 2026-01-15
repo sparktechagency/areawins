@@ -51,7 +51,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
   return (
     <div className="bg-card rounded-lg border border-border transition-all hover:bg-muted/5 group overflow-hidden flex flex-col h-full">
       {/* Header Row (League Info) */}
-      <div className="bg-muted/20 px-3 py-1.5 border-b border-border flex items-center justify-between shrink-0">
+      <div className="bg-muted/20 px-3 py-2.5 border-b border-border flex items-center justify-between shrink-0">
         <div className="flex items-center gap-2 overflow-hidden">
           {isLive ? (
             <span className="flex items-center gap-1 text-[9px] font-black text-rose-500 uppercase bg-rose-500/10 px-1.5 py-0.5 rounded-full shrink-0">
@@ -75,14 +75,6 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
             <Target className="size-2.5" />
             {stats.activeBets} Active
           </span>
-          {onDelete && (
-            <button
-              onClick={() => onDelete(match._id)}
-              className="size-6 flex items-center justify-center rounded-md hover:bg-rose-500/10 text-muted-foreground hover:text-rose-500 transition-colors cursor-pointer"
-            >
-              <Trash2 className="size-3" />
-            </button>
-          )}
         </div>
       </div>
 

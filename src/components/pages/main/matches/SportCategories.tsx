@@ -27,7 +27,7 @@ const SportCategories = () => {
 
   return (
     <section className="bg-background border-b border-border w-full overflow-hidden">
-      <nav className="container mx-auto flex items-center gap-8 py-3 md:py-4 overflow-x-auto no-scrollbar">
+      <nav className="container mx-auto flex items-center gap-6 py-3 md:py-4 overflow-x-auto no-scrollbar">
         {sportCategories.map((sport) => {
           const isActive =
             pathname === sport.href ||
@@ -38,14 +38,14 @@ const SportCategories = () => {
             <Link
               key={sport.slug}
               href={sport.href}
-              className={`flex items-center gap-2 shrink-0 whitespace-nowrap transition-colors ${
+              className={`flex items-center gap-1 shrink-0 whitespace-nowrap transition-colors ${
                 isActive
                   ? "text-primary hover:text-primary/80"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <span className="text-2xl">{sport.icon}</span>
-              <span className="font-medium">{sport.name}</span>
+              <span className="text-xl">{sport.icon}</span>
+              <span className="text-sm">{sport.name}</span>
             </Link>
           );
         })}

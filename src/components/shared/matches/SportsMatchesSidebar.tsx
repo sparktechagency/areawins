@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { MOCK_SPORTS, MOCK_TOURNAMENTS } from "@/data/match.data";
 import { cn } from "@/lib/utils";
-import { Calendar, ChevronDown, ChevronRight, Globe } from "lucide-react";
+import { Calendar, ChevronRight, Globe } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";

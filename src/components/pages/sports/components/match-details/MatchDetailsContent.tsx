@@ -92,6 +92,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
     setIsCreateModalOpen(true);
   };
 
+
   return (
     <div className="w-full space-y-8">
       {/* Navigation Header */}
@@ -199,7 +200,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                    {category.outcomes.map((stat, idx) => (
+                    {category?.outcomes.map((stat, idx) => (
                       <div
                         key={idx}
                         className="bg-card rounded-lg p-6 border border-border flex flex-col items-center gap-6 group hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5"
