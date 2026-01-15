@@ -2,9 +2,27 @@
  * Wallet, transactions, and payment related TypeScript type definitions
  */
 
-export type TransactionType = "deposit" | "withdraw" | "bet" | "winning" | "refund" | "bonus" | "cashout";
-export type TransactionStatus = "pending" | "completed" | "failed" | "cancelled" | "processing";
-export type PaymentMethod = "credit_card" | "debit_card" | "paypal" | "bank_transfer" | "crypto" | "e_wallet";
+export type TransactionType =
+  | "deposit"
+  | "withdraw"
+  | "bet"
+  | "winning"
+  | "refund"
+  | "bonus"
+  | "cashout";
+export type TransactionStatus =
+  | "pending"
+  | "completed"
+  | "failed"
+  | "cancelled"
+  | "processing";
+export type PaymentMethod =
+  | "credit_card"
+  | "debit_card"
+  | "paypal"
+  | "bank_transfer"
+  | "crypto"
+  | "e_wallet";
 
 export interface Wallet {
   id: string;
@@ -170,7 +188,7 @@ export interface ClaimBonusResponse {
   bonus: BonusOffer;
   bonusAmount: number;
   newBalance: number;
-  wagering Requirement: number;
+  wageringRequirement: number;
   message: string;
 }
 

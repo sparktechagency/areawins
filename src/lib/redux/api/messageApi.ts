@@ -2,18 +2,16 @@
  * Messaging and notifications API endpoints
  */
 
-import { baseApi } from "./baseApi";
 import type {
   Conversation,
-  Message,
-  SendMessageRequest,
-  SendMessageResponse,
   GetMessagesRequest,
   GetMessagesResponse,
-  Notification,
   NotificationFilter,
   NotificationsResponse,
+  SendMessageRequest,
+  SendMessageResponse,
 } from "@/types";
+import { baseApi } from "./baseApi";
 
 export const messageApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -29,7 +27,9 @@ export const messageApi = baseApi.injectEndpoints({
         url: `/messages/${conversationId}`,
         params,
       }),
-      providesTags: (result, error, { conversationId }) => [{ type: "Messages", id: conversationId }],
+      providesTags: (result, error, { conversationId }) => [
+        { type: "Messages", id: conversationId },
+      ],
     }),
 
     // Send message
@@ -43,7 +43,10 @@ export const messageApi = baseApi.injectEndpoints({
     }),
 
     // Mark messages as read
-    markAsRead: builder.mutation<{ success: boolean }, { messageIds: string[] }>({
+    markAsRead: builder.mutation<
+      { success: boolean },
+      { messageIds: string[] }
+    >({
       query: (data) => ({
         url: "/messages/mark-read",
         method: "POST",
@@ -53,7 +56,10 @@ export const messageApi = baseApi.injectEndpoints({
     }),
 
     // Get notifications
-    getNotifications: builder.query<NotificationsResponse, NotificationFilter | void>({
+    getNotifications: builder.query<
+      NotificationsResponse,
+      NotificationFilter | undefined
+    >({
       query: (filter) => ({
         url: "/notifications",
         params: filter,
@@ -61,14 +67,20 @@ export const messageApi = baseApi.injectEndpoints({
       providesTags: (result) =>
         result
           ? [
-              ...result.notifications.map(({ id }) => ({ type: "Notifications" as const, id })),
+              ...result.notifications.map(({ id }) => ({
+                type: "Notifications" as const,
+                id,
+              })),
               { type: "Notifications", id: "LIST" },
             ]
           : [{ type: "Notifications", id: "LIST" }],
     }),
 
     // Mark notifications as read
-    markNotificationsAsRead: builder.mutation<{ success: boolean }, { notificationIds: string[] }>({
+    markNotificationsAsRead: builder.mutation<
+      { success: boolean },
+      { notificationIds: string[] }
+    >({
       query: (data) => ({
         url: "/notifications/mark-read",
         method: "POST",
@@ -78,7 +90,10 @@ export const messageApi = baseApi.injectEndpoints({
     }),
 
     // Delete notifications
-    deleteNotifications: builder.mutation<{ success: boolean }, { notificationIds: string[] }>({
+    deleteNotifications: builder.mutation<
+      { success: boolean },
+      { notificationIds: string[] }
+    >({
       query: (data) => ({
         url: "/notifications",
         method: "DELETE",

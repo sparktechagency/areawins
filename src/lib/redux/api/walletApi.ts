@@ -2,21 +2,20 @@
  * Wallet and payment API endpoints
  */
 
-import { baseApi } from "./baseApi";
 import type {
-  Wallet,
   BalanceResponse,
+  DepositLimits,
   DepositRequest,
   DepositResponse,
-  WithdrawRequest,
-  WithdrawResponse,
-  TransactionFilter,
-  TransactionsResponse,
   PaymentMethodsResponse,
   SavedPaymentMethod,
-  DepositLimits,
+  TransactionFilter,
+  TransactionsResponse,
   WithdrawLimits,
+  WithdrawRequest,
+  WithdrawResponse,
 } from "@/types";
+import { baseApi } from "./baseApi";
 
 export const walletApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -47,7 +46,10 @@ export const walletApi = baseApi.injectEndpoints({
     }),
 
     // Get transactions
-    getTransactions: builder.query<TransactionsResponse, TransactionFilter | void>({
+    getTransactions: builder.query<
+      TransactionsResponse,
+      TransactionFilter | undefined
+    >({
       query: (filter) => ({
         url: "/wallet/transactions",
         params: filter,
@@ -55,7 +57,10 @@ export const walletApi = baseApi.injectEndpoints({
       providesTags: (result) =>
         result
           ? [
-              ...result.transactions.map(({ id }) => ({ type: "Transactions" as const, id })),
+              ...result.transactions.map(({ id }) => ({
+                type: "Transactions" as const,
+                id,
+              })),
               { type: "Transactions", id: "LIST" },
             ]
           : [{ type: "Transactions", id: "LIST" }],
@@ -68,7 +73,10 @@ export const walletApi = baseApi.injectEndpoints({
     }),
 
     // Add payment method
-    addPaymentMethod: builder.mutation<{ paymentMethod: SavedPaymentMethod }, Partial<SavedPaymentMethod>>({
+    addPaymentMethod: builder.mutation<
+      { paymentMethod: SavedPaymentMethod },
+      Partial<SavedPaymentMethod>
+    >({
       query: (data) => ({
         url: "/wallet/payment-methods",
         method: "POST",

@@ -5,23 +5,32 @@
 
 "use client";
 
-import { useAppSelector } from "@/lib/redux/hooks";
 import {
-  useGetBalanceQuery,
   useDepositMutation,
-  useWithdrawMutation,
+  useGetBalanceQuery,
   useGetTransactionsQuery,
+  useWithdrawMutation,
 } from "@/lib/redux/api/walletApi";
+import { useAppSelector } from "@/lib/redux/hooks";
 import toast from "react-hot-toast";
 
 export function useWallet() {
   const wallet = useAppSelector((state) => state.wallet.wallet);
-  const { data: balanceData, isLoading: isLoadingBalance, refetch: refetchBalance } = useGetBalanceQuery();
-  const { data: transactionsData, isLoading: isLoadingTransactions } = useGetTransactionsQuery();
+  const {
+    data: balanceData,
+    isLoading: isLoadingBalance,
+    refetch: refetchBalance,
+  } = useGetBalanceQuery();
+  const { data: transactionsData, isLoading: isLoadingTransactions } =
+    useGetTransactionsQuery(undefined);
   const [deposit, { isLoading: isDepositing }] = useDepositMutation();
   const [withdraw, { isLoading: isWithdrawing }] = useWithdrawMutation();
 
-  const handleDeposit = async (amount: number, paymentMethod: string, paymentDetails: any) => {
+  const handleDeposit = async (
+    amount: number,
+    paymentMethod: string,
+    paymentDetails: any
+  ) => {
     try {
       const result = await deposit({
         amount,
@@ -37,7 +46,11 @@ export function useWallet() {
     }
   };
 
-  const handleWithdraw = async (amount: number, paymentMethod: string, paymentDetails: any) => {
+  const handleWithdraw = async (
+    amount: number,
+    paymentMethod: string,
+    paymentDetails: any
+  ) => {
     try {
       const result = await withdraw({
         amount,

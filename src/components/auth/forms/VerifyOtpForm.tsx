@@ -59,7 +59,11 @@ export default function VerifyOtpForm() {
           firstName: "John",
           lastName: "Doe",
           username: "johndoe",
-          role: "user",
+          currency: "USD",
+          isEmailVerified: true,
+          isPhoneVerified: false,
+          createdAt: new Date(),
+          updatedAt: new Date(),
         };
         dispatch(setUser(mockUser));
         dispatch(closeAuthModal());

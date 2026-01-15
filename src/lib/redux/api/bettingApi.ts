@@ -3,26 +3,28 @@
  * Handles placing bets, getting odds, bet history, cash out, etc.
  */
 
-import { baseApi } from "./baseApi";
 import type {
-  PlaceBetRequest,
-  PlaceBetResponse,
-  CashOutRequest,
-  CashOutResponse,
+  AccumulatorBet,
+  Bet,
   BetHistoryFilter,
   BetHistoryResponse,
-  Bet,
-  AccumulatorBet,
   BettingLimits,
   BettingMarket,
+  CashOutRequest,
+  CashOutResponse,
+  PlaceBetRequest,
+  PlaceBetResponse,
 } from "@/types";
+import { baseApi } from "./baseApi";
 
 export const bettingApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // Get odds for a match
     getOdds: builder.query<{ markets: BettingMarket[] }, string>({
       query: (matchId) => `/betting/odds/${matchId}`,
-      providesTags: (result, error, matchId) => [{ type: "Matches", id: matchId }],
+      providesTags: (result, error, matchId) => [
+        { type: "Matches", id: matchId },
+      ],
     }),
 
     // Place a bet
@@ -42,7 +44,10 @@ export const bettingApi = baseApi.injectEndpoints({
     }),
 
     // Get bet history
-    getBetHistory: builder.query<BetHistoryResponse, BetHistoryFilter | void>({
+    getBetHistory: builder.query<
+      BetHistoryResponse,
+      BetHistoryFilter | undefined
+    >({
       query: (filter) => ({
         url: "/betting/history",
         params: filter,
@@ -92,7 +97,9 @@ export const bettingApi = baseApi.injectEndpoints({
     // Get betting markets
     getBettingMarkets: builder.query<{ markets: BettingMarket[] }, string>({
       query: (matchId) => `/betting/markets/${matchId}`,
-      providesTags: (result, error, matchId) => [{ type: "Matches", id: matchId }],
+      providesTags: (result, error, matchId) => [
+        { type: "Matches", id: matchId },
+      ],
     }),
 
     // Get betting limits
@@ -107,16 +114,19 @@ export const bettingApi = baseApi.injectEndpoints({
     }),
 
     // Get bet statistics
-    getBetStatistics: builder.query<{
-      totalBets: number;
-      activeBets: number;
-      wonBets: number;
-      lostBets: number;
-      totalStaked: number;
-      totalWinnings: number;
-      netProfit: number;
-      winRate: number;
-    }, void>({
+    getBetStatistics: builder.query<
+      {
+        totalBets: number;
+        activeBets: number;
+        wonBets: number;
+        lostBets: number;
+        totalStaked: number;
+        totalWinnings: number;
+        netProfit: number;
+        winRate: number;
+      },
+      void
+    >({
       query: () => "/betting/statistics",
       providesTags: ["Bets"],
     }),

@@ -3,9 +3,13 @@
  * Handles all API calls with authentication, retry logic, and error handling
  */
 
-import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
-import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { API_CONFIG, COOKIES } from "@/lib/constants";
+import type {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+} from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 import Cookies from "js-cookie";
 
 /**
@@ -60,7 +64,10 @@ const baseQueryWithReauth: BaseQueryFn<
 
       if (refreshResult.data) {
         // Store the new token
-        const data = refreshResult.data as { accessToken: string; refreshToken: string };
+        const data = refreshResult.data as {
+          accessToken: string;
+          refreshToken: string;
+        };
         Cookies.set(COOKIES.ACCESS_TOKEN, data.accessToken, { expires: 7 });
         Cookies.set(COOKIES.REFRESH_TOKEN, data.refreshToken, { expires: 30 });
 
@@ -73,7 +80,10 @@ const baseQueryWithReauth: BaseQueryFn<
         Cookies.remove(COOKIES.USER_ID);
 
         // Only redirect if we're not already on an auth page
-        if (typeof window !== "undefined" && !window.location.pathname.startsWith("/login")) {
+        if (
+          typeof window !== "undefined" &&
+          !window.location.pathname.startsWith("/login")
+        ) {
           window.location.href = "/login";
         }
       }
@@ -81,7 +91,10 @@ const baseQueryWithReauth: BaseQueryFn<
       // No refresh token - redirect to login
       Cookies.remove(COOKIES.ACCESS_TOKEN);
 
-      if (typeof window !== "undefined" && !window.location.pathname.startsWith("/login")) {
+      if (
+        typeof window !== "undefined" &&
+        !window.location.pathname.startsWith("/login")
+      ) {
         window.location.href = "/login";
       }
     }
@@ -145,7 +158,10 @@ export const handleApiError = (error: any): string => {
     if (typeof fetchError.status === "number") {
       switch (fetchError.status) {
         case 400:
-          return fetchError.data?.message || "Bad request. Please check your input.";
+          return (
+            (fetchError.data as any)?.message ||
+            "Bad request. Please check your input."
+          );
         case 401:
           return "Unauthorized. Please log in.";
         case 403:
@@ -153,9 +169,15 @@ export const handleApiError = (error: any): string => {
         case 404:
           return "Resource not found.";
         case 409:
-          return fetchError.data?.message || "Conflict. The resource already exists.";
+          return (
+            (fetchError.data as any)?.message ||
+            "Conflict. The resource already exists."
+          );
         case 422:
-          return fetchError.data?.message || "Validation error. Please check your input.";
+          return (
+            (fetchError.data as any)?.message ||
+            "Validation error. Please check your input."
+          );
         case 429:
           return "Too many requests. Please try again later.";
         case 500:
@@ -163,7 +185,10 @@ export const handleApiError = (error: any): string => {
         case 503:
           return "Service unavailable. Please try again later.";
         default:
-          return fetchError.data?.message || "An error occurred. Please try again.";
+          return (
+            (fetchError.data as any)?.message ||
+            "An error occurred. Please try again."
+          );
       }
     }
   }
