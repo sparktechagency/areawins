@@ -1,40 +1,96 @@
+export interface SportInfo {
+  _id: string; // ObjectId
+  sportId: string; // Unique, e.g., "SPORT-001"
+  name: string; // Unique, e.g., "Football", "Cricket"
+  slug: string; // Unique, lowercase
+  icon: string; // URL or emoji
+  displayOrder: number;
+  isActive: boolean;
+  createdAt?: string;
+}
+
+export interface TeamInfo {
+  _id: string;
+  teamId: string;
+  name: string;
+  shortName: string;
+  slug: string;
+  sport: string; // ObjectId Reference
+  country: string;
+  logo?: string;
+  isActive: boolean;
+  createdAt?: string;
+}
+
+export interface TournamentInfo {
+  _id: string;
+  tournamentId: string;
+  name: string;
+  slug: string;
+  sport: string; // ObjectId Reference
+  type: "league" | "tournament" | "cup" | "international" | "grand_slam";
+  year?: string;
+  country?: string;
+  logo?: string;
+  isFeatured: boolean;
+  displayOrder: number;
+  isActive: boolean;
+  createdAt?: string;
+}
+
+export interface MatchLiveStatus {
+  homeScore: number;
+  awayScore: number;
+  minute: number;
+  period: string; // "Second Half", "1st Innings", etc.
+  lastUpdated: string;
+}
+
+export interface MatchFinalResult {
+  homeScore: number;
+  awayScore: number;
+  winner: string | null; // ObjectId Reference to TeamInfo
+  isDraw: boolean;
+  resultByBetType: Array<{
+    betType: string; // ObjectId Reference
+    winningOutcome: string;
+  }>;
+}
+
+export interface MatchInfo {
+  _id: string;
+  matchId: string;
+  sport: string | SportInfo; // ObjectId Reference or populated
+  tournament?: string | TournamentInfo; // ObjectId Reference or populated
+  homeTeam: string | TeamInfo; // ObjectId Reference or populated
+  awayTeam: string | TeamInfo; // ObjectId Reference or populated
+  scheduledStartTime: string;
+  status: "scheduled" | "live" | "finished" | "cancelled" | "postponed";
+  source: "manual" | "api";
+  apiMatchId?: string;
+  apiProvider?: string;
+  availableBetTypes: string[]; // Array of ObjectIds
+  venue?: string;
+  city?: string;
+  country?: string;
+  liveStatus?: MatchLiveStatus;
+  finalResult?: MatchFinalResult;
+  isResultVerified: boolean;
+  resultSettledBy?: string; // ObjectId User
+  resultSettledAt?: string;
+  totalBetsCount: number;
+  isFeatured: boolean;
+  createdBy: string; // ObjectId User
+  createdAt: string;
+  updatedAt: string;
+}
+
+// For frontend display components
 export interface MatchDetailsContentProps {
   sport: string;
   id: string;
 }
 
-export interface MatchInfo {
-  id: string;
-  homeTeam: string;
-  awayTeam: string;
-  league: string;
-  venue: string;
-  time: string;
-  score: {
-    home: number;
-    away: number;
-  };
-  date: string;
-}
-
-export interface SportMatch {
-  id: string;
-  homeTeam: string;
-  awayTeam: string;
-  date: string;
-  time: string;
-  league: string;
-  isLive: boolean;
-  score?: { home: number | string; away: number | string; time?: string };
-  sport: "football" | "cricket" | "basketball" | "volleyball";
-  p2pStats?: {
-    activeBets: number;
-    potAmount: number;
-    openBets: number;
-    popularOutcome?: string;
-  };
-}
-
 export interface SportMatchCardProps {
-  match: SportMatch;
+  match: MatchInfo;
 }

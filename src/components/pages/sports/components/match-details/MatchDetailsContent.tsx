@@ -28,6 +28,8 @@ import { MarketCategory } from "@/interfaces/betting.interface";
 import {
   MatchDetailsContentProps,
   MatchInfo,
+  TeamInfo,
+  TournamentInfo,
 } from "@/interfaces/match.interface";
 
 const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
@@ -37,14 +39,26 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const searchParams = useSearchParams();
 
+  // Helper to extract names safely from populated fields
+  const getTeamName = (team: string | TeamInfo) =>
+    typeof team === "string" ? "Team" : team.name;
+  const getTournamentName = (t: string | TournamentInfo | undefined) =>
+    typeof t === "string" ? "League" : t?.name ?? "League";
+  const getVenue = (m: MatchInfo) => m.venue || "Stadium";
+
   // Use Mock Match Data from external file
   const match: MatchInfo = useMemo(
     () => ({
       ...MOCK_MATCH,
-      id: id,
+      _id: id,
     }),
     [id]
   );
+
+  const homeTeamName = getTeamName(match.homeTeam);
+  const awayTeamName = getTeamName(match.awayTeam);
+  const tournamentName = getTournamentName(match.tournament);
+  const venue = getVenue(match);
 
   useEffect(() => {
     if (searchParams.get("action") === "create") {
@@ -55,8 +69,11 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
 
   // Dynamic Market Categories based on Sport
   const marketCategories: MarketCategory[] = useMemo(() => {
-    return getOutcomeStats(sport, match);
-  }, [sport, match]);
+    return getOutcomeStats(sport, {
+      homeTeam: homeTeamName,
+      awayTeam: awayTeamName,
+    });
+  }, [sport, homeTeamName, awayTeamName]);
 
   const [selectedMarket, setSelectedMarket] = useState<{
     outcome: string;
@@ -104,12 +121,12 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
             <div className="flex items-center gap-2 px-4 py-1.5 bg-primary/10 rounded-full border border-primary/20">
               <Trophy className="size-3.5 text-primary" />
               <span className="text-[11px] font-black text-primary uppercase tracking-[0.2em]">
-                {match.league}
+                {tournamentName}
               </span>
             </div>
             <span className="text-[10px] text-muted-foreground font-black mt-2 uppercase tracking-widest flex items-center gap-2">
               <span className="size-1 rounded-full bg-muted-foreground/30" />
-              {match.venue}
+              {venue}
               <span className="size-1 rounded-full bg-muted-foreground/30" />
             </span>
           </div>
@@ -122,26 +139,28 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
                 </div>
               </div>
               <h2 className="text-xl md:text-3xl font-black text-foreground text-center tracking-tight">
-                {match.homeTeam}
+                {homeTeamName}
               </h2>
             </div>
 
             <div className="flex flex-col items-center gap-4">
               <div className="flex items-center gap-6">
-                <span className="text-6xl md:text-8xl font-black text-foreground">
-                  {match.score.home}
+                <span className="text-6xl md:text-8xl font-black text-foreground tabular-nums">
+                  {match.liveStatus?.homeScore ?? 0}
                 </span>
                 <span className="text-4xl md:text-6xl font-black text-muted-foreground/10">
                   :
                 </span>
-                <span className="text-6xl md:text-8xl font-black text-foreground">
-                  {match.score.away}
+                <span className="text-6xl md:text-8xl font-black text-foreground tabular-nums">
+                  {match.liveStatus?.awayScore ?? 0}
                 </span>
               </div>
-              <div className="flex items-center gap-2.5 px-5 py-2 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-500 text-[11px] font-black uppercase tracking-[0.3em]">
-                <span className="size-2 rounded-full bg-rose-500 animate-pulse" />
-                {match.time}
-              </div>
+              {match.status === "live" && match.liveStatus?.minute && (
+                <div className="flex items-center gap-2.5 px-5 py-2 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-500 text-[11px] font-black uppercase tracking-[0.3em]">
+                  <span className="size-2 rounded-full bg-rose-500 animate-pulse" />
+                  {match.liveStatus.minute}&apos;
+                </div>
+              )}
             </div>
 
             <div className="flex flex-col items-center gap-5">
@@ -151,7 +170,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
                 </div>
               </div>
               <h2 className="text-xl md:text-3xl font-black text-foreground text-center tracking-tight">
-                {match.awayTeam}
+                {awayTeamName}
               </h2>
             </div>
           </div>
@@ -299,8 +318,8 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
           setSelectedMarket(null);
         }}
         match={{
-          homeTeam: match.homeTeam,
-          awayTeam: match.awayTeam,
+          homeTeam: homeTeamName,
+          awayTeam: awayTeamName,
         }}
         selectedOutcome={selectedMarket?.outcome}
         marketName={selectedMarket?.market}

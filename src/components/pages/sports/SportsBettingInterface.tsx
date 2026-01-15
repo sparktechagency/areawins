@@ -8,25 +8,7 @@ import { useState } from "react";
 import SportHeroBanner from "./components/SportHeroBanner";
 import SportMatchCard from "./components/SportMatchCard";
 
-// Updated Type for P2P
-interface Match {
-  id: string;
-  homeTeam: string;
-  awayTeam: string;
-  date: string;
-  time: string;
-  league: string;
-  isLive: boolean;
-  score?: { home: number | string; away: number | string; time?: string };
-  p2pStats: {
-    activeBets: number;
-    potAmount: number;
-    openBets: number;
-    popularOutcome?: string;
-  };
-  markets: number;
-  sport: "football" | "cricket" | "basketball" | "volleyball";
-}
+import { MOCK_MATCHES } from "@/data/match.data";
 
 interface SportsBettingInterfaceProps {
   sport: string;
@@ -80,77 +62,6 @@ const config = {
   },
 };
 
-const matches: Match[] = [
-  {
-    id: "f1",
-    sport: "football",
-    homeTeam: "Man City",
-    awayTeam: "Arsenal",
-    date: "Today",
-    time: "20:00",
-    league: "Premier League",
-    isLive: true,
-    score: { home: 1, away: 0, time: "34'" },
-    p2pStats: {
-      activeBets: 15,
-      potAmount: 2800,
-      openBets: 5,
-      popularOutcome: "Man City Win",
-    },
-    markets: 154,
-  },
-  {
-    id: "f2",
-    sport: "football",
-    homeTeam: "Liverpool",
-    awayTeam: "Chelsea",
-    date: "Today",
-    time: "22:00",
-    league: "Premier League",
-    isLive: false,
-    p2pStats: {
-      activeBets: 8,
-      potAmount: 1450,
-      openBets: 12,
-      popularOutcome: "Over 2.5 Goals",
-    },
-    markets: 112,
-  },
-  {
-    id: "c1",
-    sport: "cricket",
-    homeTeam: "CSK",
-    awayTeam: "RCB",
-    date: "Today",
-    time: "19:30",
-    league: "IPL T20",
-    isLive: true,
-    score: { home: "145/3", away: "Yet to Bat", time: "16.2 Ov" },
-    p2pStats: {
-      activeBets: 42,
-      potAmount: 12500,
-      openBets: 18,
-    },
-    markets: 42,
-  },
-  {
-    id: "b1",
-    sport: "basketball",
-    homeTeam: "Celtics",
-    awayTeam: "Mavericks",
-    date: "Today",
-    time: "06:00",
-    league: "NBA",
-    isLive: false,
-    p2pStats: {
-      activeBets: 12,
-      potAmount: 4300,
-      openBets: 8,
-    },
-    markets: 86,
-  },
-];
-
 export default function SportsBettingInterface({
   sport,
 }: SportsBettingInterfaceProps) {
@@ -159,13 +70,20 @@ export default function SportsBettingInterface({
   const activeConfig = config[sportKey] || config.football;
   const sportName = sport.charAt(0).toUpperCase() + sport.slice(1);
 
-  const filteredMatches = matches.filter(
-    (m) =>
-      m.sport === sportKey &&
-      (m.homeTeam.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        m.awayTeam.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        m.league.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
+  const filteredMatches = MOCK_MATCHES.filter((m) => {
+    const mSport = typeof m.sport === "string" ? m.sport : m.sport.slug;
+    const homeName = typeof m.homeTeam === "string" ? "" : m.homeTeam.name;
+    const awayName = typeof m.awayTeam === "string" ? "" : m.awayTeam.name;
+    const tournamentName =
+      typeof m.tournament === "string" ? "" : m.tournament?.name ?? "";
+
+    return (
+      mSport === sportKey &&
+      (homeName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        awayName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        tournamentName.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+  });
 
   return (
     <div className="w-full min-w-0">
@@ -237,9 +155,9 @@ export default function SportsBettingInterface({
 
         <div className="mt-8 space-y-6">
           <TabsContent value="all" className="space-y-6 m-0">
-            <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3  gap-6">
               {filteredMatches.map((match) => (
-                <SportMatchCard key={match.id} match={match} />
+                <SportMatchCard key={match._id} match={match} />
               ))}
             </div>
             {filteredMatches.length === 0 && (
@@ -250,11 +168,11 @@ export default function SportsBettingInterface({
           </TabsContent>
 
           <TabsContent value="live" className="space-y-6 m-0">
-            <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3  gap-6">
               {filteredMatches
-                .filter((m) => m.isLive)
+                .filter((m) => m.status === "live")
                 .map((match) => (
-                  <SportMatchCard key={match.id} match={match} />
+                  <SportMatchCard key={match._id} match={match} />
                 ))}
             </div>
           </TabsContent>

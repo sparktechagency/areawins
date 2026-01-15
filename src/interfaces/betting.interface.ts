@@ -1,3 +1,52 @@
+export interface OutcomeInfo {
+  outcomeId: string;
+  label: string;
+  displayOrder: number;
+}
+
+export interface BetTypeInfo {
+  _id: string;
+  betTypeId: string;
+  sport: string; // ObjectId Reference
+  name: string;
+  slug: string;
+  outcomes: OutcomeInfo[];
+  isDefault: boolean;
+  displayOrder: number;
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface BetInfo {
+  _id: string;
+  betId: string;
+  match: string; // ObjectId Reference
+  betType: string; // ObjectId Reference
+  creator: string; // ObjectId User
+  selectedOutcome: string;
+  stakeAmount: number;
+  creatorOdds?: number;
+  status: "open" | "matched" | "cancelled" | "settled" | "refunded";
+  matchedWith?: string; // ObjectId Reference to another Bet
+  opponent?: string; // ObjectId User
+  matchedAt?: string;
+  oppositeOutcome?: string;
+  oppositeStakeAmount?: number;
+  totalPot?: number;
+  winnerUser?: string; // ObjectId User
+  winnerPayout?: number;
+  loserUser?: string; // ObjectId User
+  platformCommission?: number;
+  commissionRate: number;
+  settledAt?: string;
+  isReferralBet: boolean;
+  referralUser?: string; // ObjectId User
+  createdAt: string;
+  expiresAt?: string;
+  updatedAt: string;
+}
+
+// For frontend UI components
 export interface UserTrust {
   name: string;
   avatar: string;

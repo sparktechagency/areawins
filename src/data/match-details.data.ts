@@ -1,4 +1,10 @@
 import { MarketCategory } from "@/interfaces/betting.interface";
+import {
+  MatchInfo,
+  SportInfo,
+  TeamInfo,
+  TournamentInfo,
+} from "@/interfaces/match.interface";
 
 export const getOutcomeStats = (
   sport: string,
@@ -83,27 +89,80 @@ export const getOutcomeStats = (
     });
   }
 
-  if (sportKey === "cricket") {
-    commonMarkets.push({
-      marketName: "Team Top Batsman",
-      outcomes: [
-        { label: "Virat Kohli", bets: 25, pot: 10000, open: 10, icon: "🏏" },
-        { label: "Rohit Sharma", bets: 18, pot: 7000, open: 5, icon: "🏏" },
-      ],
-    });
-  }
-
   return commonMarkets;
 };
 
-export const MOCK_MATCH = {
-  homeTeam: "Chelsea",
-  awayTeam: "Arsenal",
-  league: "Premier League",
-  venue: "Stamford Bridge",
-  time: "Live 67'",
-  score: { home: 1, away: 0 },
-  date: "14 Jan 2026",
+const MOCK_SPORT: SportInfo = {
+  _id: "s1",
+  sportId: "SPORT-001",
+  name: "Football",
+  slug: "football",
+  icon: "⚽",
+  displayOrder: 1,
+  isActive: true,
+};
+
+const MOCK_HOME_TEAM: TeamInfo = {
+  _id: "t1",
+  teamId: "TEAM-001",
+  name: "Barcelona",
+  shortName: "BAR",
+  slug: "barcelona",
+  sport: "s1",
+  country: "ES",
+  isActive: true,
+};
+
+const MOCK_AWAY_TEAM: TeamInfo = {
+  _id: "t2",
+  teamId: "TEAM-002",
+  name: "Real Madrid",
+  shortName: "RMA",
+  slug: "real-madrid",
+  sport: "s1",
+  country: "ES",
+  isActive: true,
+};
+
+const MOCK_TOURNAMENT: TournamentInfo = {
+  _id: "tr1",
+  tournamentId: "TRN-001",
+  name: "La Liga",
+  slug: "la-liga",
+  sport: "s1",
+  type: "league",
+  isFeatured: true,
+  displayOrder: 1,
+  isActive: true,
+};
+
+export const MOCK_MATCH: MatchInfo = {
+  _id: "m1",
+  matchId: "MATCH-101",
+  sport: MOCK_SPORT,
+  tournament: MOCK_TOURNAMENT,
+  homeTeam: MOCK_HOME_TEAM,
+  awayTeam: MOCK_AWAY_TEAM,
+  scheduledStartTime: "2024-03-24T20:00:00Z",
+  status: "live",
+  source: "manual",
+  availableBetTypes: ["bt1"],
+  liveStatus: {
+    homeScore: 2,
+    awayScore: 1,
+    minute: 65,
+    period: "Second Half",
+    lastUpdated: new Date().toISOString(),
+  },
+  isResultVerified: false,
+  totalBetsCount: 15,
+  isFeatured: true,
+  createdBy: "admin",
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+  venue: "Camp Nou",
+  city: "Barcelona",
+  country: "ES",
 };
 
 export const MOCK_MATCHED_BETS = [
@@ -116,7 +175,7 @@ export const MOCK_MATCHED_BETS = [
     },
     bet: {
       type: "BACKING" as const,
-      selection: "Chelsea Win",
+      selection: "Barcelona Win",
       stake: 50.0,
       potentialWin: 125.0,
     },

@@ -12,133 +12,158 @@ import Link from "next/link";
 import React, { useMemo } from "react";
 
 import { getMockStats } from "@/data/match.data";
-import { SportMatchCardProps } from "@/interfaces/match.interface";
+import {
+  SportInfo,
+  SportMatchCardProps,
+  TeamInfo,
+  TournamentInfo,
+} from "@/interfaces/match.interface";
 
 export const SportMatchCard: React.FC<SportMatchCardProps> = ({ match }) => {
-  // Use useMemo with stable deterministic mock data generator
+  // Helper to extract names safely
+  const getTeamName = (team: string | TeamInfo) =>
+    typeof team === "string" ? "Team" : team.name;
+  const getSportSlug = (sport: string | SportInfo) =>
+    typeof sport === "string" ? "football" : sport.slug;
+  const getSportIcon = (sport: string | SportInfo) =>
+    typeof sport === "string" ? "⚽" : sport.icon;
+  const getTournamentName = (t: string | TournamentInfo | undefined) =>
+    typeof t === "string" ? "League" : t?.name ?? "League";
+
+  const homeTeamName = getTeamName(match.homeTeam);
+  const awayTeamName = getTeamName(match.awayTeam);
+  const sportSlug = getSportSlug(match.sport);
+  const sportIcon = getSportIcon(match.sport);
+  const tournamentName = getTournamentName(match.tournament);
+
   const stats = useMemo(() => {
-    if (match.p2pStats) return match.p2pStats;
-    return getMockStats(match.id, match.homeTeam);
-  }, [match.id, match.p2pStats, match.homeTeam]);
+    return getMockStats(match._id, homeTeamName);
+  }, [match._id, homeTeamName]);
+
+  const isLive = match.status === "live";
 
   return (
-    <div className="bg-card rounded-lg border border-border transition-all hover:bg-muted/5 group overflow-hidden">
+    <div className="bg-card rounded-lg border border-border transition-all hover:bg-muted/5 group overflow-hidden flex flex-col h-full">
       {/* Header Row (League Info) */}
-      <div className="bg-muted/20 px-4 py-2 border-b border-border flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          {match.isLive ? (
-            <span className="flex items-center gap-1.5 text-[10px] font-black text-rose-500 uppercase bg-rose-500/10 px-2 py-0.5 rounded-full">
-              <span className="size-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+      <div className="bg-muted/20 px-3 py-1.5 border-b border-border flex items-center justify-between shrink-0">
+        <div className="flex items-center gap-2 overflow-hidden">
+          {isLive ? (
+            <span className="flex items-center gap-1 text-[9px] font-black text-rose-500 uppercase bg-rose-500/10 px-1.5 py-0.5 rounded-full shrink-0">
+              <span className="size-1 rounded-full bg-rose-500 animate-pulse"></span>
               Live
             </span>
           ) : (
-            <span className="text-[10px] font-black text-muted-foreground uppercase bg-muted/50 px-2 py-0.5 rounded-full">
-              {match.time}
+            <span className="text-[9px] font-black text-muted-foreground uppercase bg-muted/50 px-1.5 py-0.5 rounded-full shrink-0">
+              {new Date(match.scheduledStartTime).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
             </span>
           )}
-          <span className="text-[10px] font-bold text-muted-foreground/80 uppercase tracking-widest">
-            {match.league}
+          <span className="text-[10px] font-bold text-muted-foreground/80 uppercase tracking-widest truncate">
+            {tournamentName}
           </span>
         </div>
-        <div className="hidden md:flex items-center gap-4">
-          <span className="text-[10px] font-black text-primary uppercase flex items-center gap-1.5">
-            <Target className="size-3" />
-            {stats.activeBets} Active Bets
+        <div className="hidden sm:flex items-center gap-2 shrink-0">
+          <span className="text-[9px] font-black text-primary uppercase flex items-center gap-1">
+            <Target className="size-2.5" />
+            {stats.activeBets} Active
           </span>
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row items-center p-4 gap-6">
+      <div className="flex flex-col flex-1 p-3 sm:p-4">
         {/* Teams & Score Section */}
         <Link
-          href={`/matches/${match.sport}/${match.id}`}
-          className="flex-1 w-full min-w-0 group/teams"
+          href={`/matches/${sportSlug}/${match._id}`}
+          className="flex-1 w-full mb-4 group/teams"
         >
-          <div className="flex items-center gap-4 md:gap-8 justify-between md:justify-start">
+          <div className="flex items-center justify-between gap-2 sm:gap-4 h-full">
             {/* Home Team */}
-            <div className="flex flex-col items-center md:items-end gap-1 flex-1">
-              <div className="size-10 rounded-full bg-muted border border-border flex items-center justify-center text-lg">
-                ⚽
+            <div className="flex flex-col items-center gap-1.5 flex-2 min-w-0">
+              <div className="size-10 sm:size-12 rounded-full bg-muted border border-border flex items-center justify-center text-xl sm:text-2xl shrink-0">
+                {sportIcon}
               </div>
-              <span className="font-black text-foreground text-sm group-hover/teams:text-primary transition-colors truncate max-w-[120px]">
-                {match.homeTeam}
+              <span className="font-black text-foreground text-[11px] sm:text-xs text-center group-hover/teams:text-primary transition-colors line-clamp-2 w-full">
+                {homeTeamName}
               </span>
             </div>
 
             {/* Score / VS Area */}
-            <div className="flex flex-col items-center gap-1 px-4">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl font-black text-primary">
-                  {match.score?.home ?? "0"}
+            <div className="flex flex-col items-center gap-1 flex-1 min-w-fit">
+              <div className="flex items-center gap-1 px-1 sm:px-2 bg-muted/30 rounded-lg py-1">
+                <span className="text-xl sm:text-2xl font-black text-foreground tabular-nums">
+                  {match.liveStatus?.homeScore ?? 0}
                 </span>
-                <span className="text-lg font-black text-muted-foreground/30 mx-1">
+                <span className="text-sm font-black text-muted-foreground/30 mx-0.5">
                   :
                 </span>
-                <span className="text-2xl font-black text-primary">
-                  {match.score?.away ?? "0"}
+                <span className="text-xl sm:text-2xl font-black text-foreground tabular-nums">
+                  {match.liveStatus?.awayScore ?? 0}
                 </span>
               </div>
-              {match.score?.time && (
-                <span className="text-[10px] font-bold text-rose-500/80 uppercase tracking-tighter">
-                  {match.score.time}
+              {isLive && match.liveStatus?.minute && (
+                <span className="text-[9px] font-black text-rose-500/80 uppercase tracking-tighter animate-pulse">
+                  {match.liveStatus.minute}&apos;
                 </span>
               )}
             </div>
 
             {/* Away Team */}
-            <div className="flex flex-col items-center md:items-start gap-1 flex-1">
-              <div className="size-10 rounded-full bg-muted border border-border flex items-center justify-center text-lg">
-                ⚽
+            <div className="flex flex-col items-center gap-1.5 flex-2 min-w-0">
+              <div className="size-10 sm:size-12 rounded-full bg-muted border border-border flex items-center justify-center text-xl sm:text-2xl shrink-0">
+                {sportIcon}
               </div>
-              <span className="font-black text-foreground text-sm group-hover/teams:text-primary transition-colors truncate max-w-[120px]">
-                {match.awayTeam}
+              <span className="font-black text-foreground text-[11px] sm:text-xs text-center group-hover/teams:text-primary transition-colors line-clamp-2 w-full">
+                {awayTeamName}
               </span>
             </div>
           </div>
         </Link>
 
-        {/* P2P Activity Section */}
-        <div className="flex flex-wrap items-center gap-3 md:gap-6 border-t md:border-t-0 md:border-l border-border pt-4 md:pt-0 md:pl-6 w-full md:w-auto">
-          <div className="flex flex-col gap-0.5">
-            <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest flex items-center gap-1">
-              <Banknote className="size-3 text-emerald-500" />
-              Market Value
-            </span>
-            <span className="text-lg font-black text-foreground tracking-tight">
-              ${stats.potAmount.toLocaleString()}
-            </span>
+        {/* P2P Activity Section - Compact for cards */}
+        <div className="mt-auto space-y-3">
+          <div className="grid grid-cols-2 gap-2">
+            <div className="bg-muted/20 rounded-lg p-2 border border-border/50">
+              <span className="text-[8px] font-black text-muted-foreground uppercase flex items-center gap-1 mb-0.5">
+                <Banknote className="size-2.5 text-emerald-500" />
+                Pot
+              </span>
+              <span className="text-xs sm:text-sm font-black text-foreground block">
+                ${stats.potAmount.toLocaleString()}
+              </span>
+            </div>
+            <div className="bg-muted/20 rounded-lg p-2 border border-border/50">
+              <span className="text-[8px] font-black text-muted-foreground uppercase flex items-center gap-1 mb-0.5">
+                <Search className="size-2.5 text-blue-500" />
+                Open
+              </span>
+              <span className="text-xs sm:text-sm font-black text-foreground block">
+                {stats.openBets} Bets
+              </span>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-0.5">
-            <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest flex items-center gap-1">
-              <Search className="size-3 text-blue-500" />
-              Open Bets
-            </span>
-            <span className="text-lg font-black text-foreground tracking-tight">
-              {stats.openBets} Available
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2 ml-auto">
+          <div className="flex gap-2">
             <Button
               variant="outline"
               size="sm"
-              className="h-10 rounded-lg font-black text-[10px] uppercase tracking-widest border-primary/20 hover:bg-primary/5 text-primary gap-2"
+              className="flex-1 h-9 rounded-lg font-black text-[9px] uppercase tracking-widest border-primary/20 hover:bg-primary/5 text-primary p-0"
               asChild
             >
-              <Link href={`/matches/${match.sport}/${match.id}?action=create`}>
-                <PlusCircle className="size-3.5" />
+              <Link href={`/matches/${sportSlug}/${match._id}?action=create`}>
+                <PlusCircle className="size-3" />
                 Create
               </Link>
             </Button>
             <Button
               size="sm"
-              className="h-10 px-5 rounded-lg bg-primary hover:bg-primary/90 text-white font-black text-[10px] uppercase tracking-widest gap-2"
+              className="flex-1 h-9 rounded-lg bg-primary hover:bg-primary/90 text-white font-black text-[9px] uppercase tracking-widest p-0"
               asChild
             >
-              <Link href={`/matches/${match.sport}/${match.id}`}>
+              <Link href={`/matches/${sportSlug}/${match._id}`}>
                 Browse
-                <ChevronRight className="size-3.5" />
+                <ChevronRight className="size-3" />
               </Link>
             </Button>
           </div>
