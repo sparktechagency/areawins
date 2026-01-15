@@ -10,7 +10,24 @@ export const translations = {
       signIn: "Sign In",
       myBets: "My Bets",
       dashboard: "Dashboard",
+      profile: "Profile",
       logout: "Logout",
+    },
+    hero: {
+      titlePart1: "Bet Smart!",
+      titlePart2: "Win Big",
+      titlePart3: ", Play Fair!",
+      subtitle:
+        "Fast bets, generous outs, and live market odds — All in one place.",
+      getStarted: "Get Started Now",
+      viewMarkets: "View Markets",
+    },
+    sidebar: {
+      sports: "Sports",
+      selectDate: "Select Date",
+      today: "TODAY",
+      tomorrow: "TOMORROW",
+      popularCountries: "Popular Countries",
     },
     auth: {
       welcomeBack: "Welcome Back",
@@ -65,7 +82,24 @@ export const translations = {
       signIn: "Iniciar Sesión",
       myBets: "Mis Apuestas",
       dashboard: "Panel",
+      profile: "Perfil",
       logout: "Cerrar Sesión",
+    },
+    hero: {
+      titlePart1: "¡Apuesta Inteligente!",
+      titlePart2: "Gana a lo Grande",
+      titlePart3: ", ¡Juega Limpio!",
+      subtitle:
+        "Apuestas rápidas, pagos generosos y cuotas en vivo — Todo en un solo lugar.",
+      getStarted: "Empezar Ahora",
+      viewMarkets: "Ver Mercados",
+    },
+    sidebar: {
+      sports: "Deportes",
+      selectDate: "Seleccionar Fecha",
+      today: "HOY",
+      tomorrow: "MAÑANA",
+      popularCountries: "Países Populares",
     },
     auth: {
       welcomeBack: "Bienvenido de nuevo",

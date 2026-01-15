@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { MOCK_SPORTS, MOCK_TOURNAMENTS } from "@/data/match.data";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 import { Calendar, ChevronRight, Globe } from "lucide-react";
 import Link from "next/link";
@@ -10,6 +11,7 @@ import { useState } from "react";
 
 const SportsMatchesSidebar = () => {
   const pathname = usePathname();
+  const { t } = useTranslation();
   const [expandedSport, setExpandedSport] = useState<string | null>(null);
 
   // Get active sports sorted by displayOrder
@@ -26,21 +28,19 @@ const SportsMatchesSidebar = () => {
 
   return (
     <div className="w-full space-y-6 sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto pr-2">
-      {/* Sport Categories with Expandable Tournaments */}
+      {/* Sport Categories */}
       <div className="space-y-1">
         <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider px-3 mb-2">
-          Sports
+          {t("sidebar.sports")}
         </h3>
         {activeSports?.map((sport) => {
           const isActive = pathname.includes(`/matches/${sport.slug}`);
           const isExpanded = expandedSport === sport._id;
           const tournaments = getTournamentsForSport(sport._id);
-          // Mock count based on sport order (deterministic)
           const matchCount = 50 + sport.displayOrder * 10;
 
           return (
             <div key={sport._id} className="space-y-2">
-              {/* Sport Link */}
               <div className="flex items-center gap-1">
                 <Link
                   href={`/matches/${sport.slug}`}
@@ -69,7 +69,6 @@ const SportsMatchesSidebar = () => {
                 </Link>
               </div>
 
-              {/* Tournaments Dropdown */}
               {isExpanded && tournaments.length > 0 && (
                 <div className="ml-6 space-y-1 border-l-2 border-border pl-3">
                   {tournaments.map((tournament) => (
@@ -92,7 +91,7 @@ const SportsMatchesSidebar = () => {
       <div className="space-y-3 pt-4 border-t border-border">
         <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider px-3 flex items-center gap-2">
           <Calendar className="size-3" />
-          Select Date
+          {t("sidebar.selectDate")}
         </h3>
         <div className="grid grid-cols-2 gap-2 px-3">
           <Button
@@ -100,14 +99,14 @@ const SportsMatchesSidebar = () => {
             size="sm"
             className="text-[10px] h-8 font-bold border-border hover:bg-primary/10 hover:text-primary transition-all"
           >
-            TODAY
+            {t("sidebar.today")}
           </Button>
           <Button
             variant="outline"
             size="sm"
             className="text-[10px] h-8 font-bold border-border"
           >
-            TOMORROW
+            {t("sidebar.tomorrow")}
           </Button>
         </div>
       </div>
@@ -115,7 +114,7 @@ const SportsMatchesSidebar = () => {
       {/* Popular Countries */}
       <div className="space-y-1 pt-4 border-t border-border">
         <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider px-3 mb-2">
-          Popular Countries
+          {t("sidebar.popularCountries")}
         </h3>
         <SidebarLink icon={<Globe className="size-4" />} label="England" />
         <SidebarLink icon={<Globe className="size-4" />} label="Spain" />

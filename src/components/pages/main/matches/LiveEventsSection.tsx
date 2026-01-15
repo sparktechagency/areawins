@@ -41,7 +41,7 @@ const LiveEventsSection: React.FC = () => {
           {liveEvents.map((event) => (
             <CarouselItem
               key={event.id}
-              className="pl-6 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+              className="pl-6 basis-full sm:basis-1/2 lg:basis-1/3"
             >
               <div className="group/card relative h-full overflow-hidden rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/50">
                 {/* Header */}

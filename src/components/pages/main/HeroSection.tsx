@@ -1,8 +1,13 @@
+"use client";
+
 import hero from "@/assets/hero/herosection.png";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import Link from "next/link";
 
 const HeroSection = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       {/* Background Image */}
@@ -19,18 +24,19 @@ const HeroSection = () => {
         {/* Hero Content */}
         <div className="flex flex-col items-center justify-center min-h-[calc(100vh-200px)] px-4 text-center">
           <h1 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 drop-shadow-2xl">
-            Bet Smart! <span className="text-primary">Win Big</span> , Play
-            Fair!
+            {t("hero.titlePart1")}{" "}
+            <span className="text-primary">{t("hero.titlePart2")}</span>{" "}
+            {t("hero.titlePart3")}
           </h1>
           <p className="text-sm md:text-base lg:text-lg text-white/90 mb-8 max-w-2xl drop-shadow-lg">
-            Fast bets, generous outs, and live market odds — All in one place.
+            {t("hero.subtitle")}
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href="/matches">
               <Button className="px-10 cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground">
-                Get Started Now
+                {t("hero.getStarted")}
               </Button>
             </Link>
             <Link href="/market">
@@ -38,7 +44,7 @@ const HeroSection = () => {
                 variant="default"
                 className="px-10 cursor-pointer bg-white text-gray-900 hover:bg-white/90"
               >
-                View Markets
+                {t("hero.viewMarkets")}
               </Button>
             </Link>
           </div>
