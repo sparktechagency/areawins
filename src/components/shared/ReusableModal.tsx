@@ -75,7 +75,7 @@ export const ReusableModal: React.FC<ReusableModalProps> = ({
             )}
           </DialogHeader>
         )}
-        <div className="p-6">{children}</div>
+        <div className="p-2">{children}</div>
       </DialogContent>
     </Dialog>
   );

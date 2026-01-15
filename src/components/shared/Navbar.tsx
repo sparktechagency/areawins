@@ -1,7 +1,14 @@
 "use client";
 import logo from "@/assets/logo/logo.png";
 import logo2 from "@/assets/logo/logo2.png";
-import { Menu } from "lucide-react";
+import {
+  Menu,
+  Home,
+  Trophy,
+  TrendingUp,
+  Users,
+  HelpCircle,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -28,11 +35,11 @@ const Navbar = () => {
 
   // Navigation Links Data to ensure consistency
   const navLinks = [
-    { label: "Home", href: "/", icon: "🏠" },
-    { label: "All Matches", href: "/matches", icon: "⚽" },
-    { label: "Bet Market", href: "/market", icon: "📈" },
-    { label: "Friends", href: "/friends", icon: "👥" },
-    { label: "Support", href: "/support", icon: "❓" },
+    { label: "Home", href: "/", icon: Home },
+    { label: "All Matches", href: "/matches", icon: Trophy },
+    { label: "Bet Market", href: "/market", icon: TrendingUp },
+    { label: "Friends", href: "/friends", icon: Users },
+    { label: "Support", href: "/support", icon: HelpCircle },
   ];
 
   if (isHomePage) {
@@ -117,20 +124,21 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <div className="hidden md:flex items-center gap-2 bg-transparent backdrop-blur-sm rounded-full px-2 py-1 border border-border">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full hover:bg-background/80 dark:hover:bg-primary/10 hover:shadow-sm transition-all cursor-pointer group ${
-                pathname === link.href ? "bg-primary/10 text-primary" : ""
-              }`}
-            >
-              <span className="text-muted-foreground group-hover:scale-110 transition-transform">
-                {link.icon}
-              </span>
-              <span className="font-medium text-sm">{link.label}</span>
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const IconComponent = link.icon;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full hover:bg-background/80 dark:hover:bg-primary/10 hover:shadow-sm transition-all cursor-pointer group ${
+                  pathname === link.href ? "bg-primary/10 text-primary" : ""
+                }`}
+              >
+                <IconComponent className="w-4 h-4 text-muted-foreground group-hover:scale-110 transition-transform" />
+                <span className="font-medium text-sm">{link.label}</span>
+              </Link>
+            );
+          })}
         </div>
 
         {/* Right Side */}
@@ -162,20 +170,24 @@ const Navbar = () => {
           <div className="flex justify-end mb-2">
             <DarkModeToggle />
           </div>
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsMenuOpen(false)}
-              className={`block px-4 py-3 hover:bg-muted rounded-lg transition-all font-medium ${
-                pathname === link.href
-                  ? "bg-primary/10 text-primary"
-                  : "text-foreground"
-              }`}
-            >
-              {link.icon} {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const IconComponent = link.icon;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className={`flex items-center gap-3 px-4 py-3 hover:bg-muted rounded-lg transition-all font-medium ${
+                  pathname === link.href
+                    ? "bg-primary/10 text-primary"
+                    : "text-foreground"
+                }`}
+              >
+                <IconComponent className="w-5 h-5" />
+                <span>{link.label}</span>
+              </Link>
+            );
+          })}
           <div className="pt-2 border-t border-border mt-2 space-y-2">
             <Link
               href="/login"

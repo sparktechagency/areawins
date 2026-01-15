@@ -28,7 +28,7 @@ const SuggestedFriends = () => {
   ];
 
   return (
-    <div className="bg-card rounded-[32px] border border-border p-6 space-y-6">
+    <div className="bg-card rounded-lg border border-border p-6 space-y-6">
       <div className="flex items-center justify-between">
         <h3 className="text-xs font-black text-muted-foreground uppercase tracking-[0.2em] flex items-center gap-2">
           <UserPlus className="size-3.5 text-primary" />
@@ -68,7 +68,7 @@ const SuggestedFriends = () => {
       </div>
       <Button
         variant="outline"
-        className="w-full text-[10px] font-black uppercase tracking-widest h-10 rounded-xl border-border"
+        className="w-full text-[10px] font-black uppercase tracking-widest h-10 rounded-lg border-border"
       >
         View All Community
       </Button>
@@ -84,7 +84,7 @@ const UpcomingMiniCards = () => {
   ];
 
   return (
-    <div className="bg-card rounded-[32px] border border-border p-6 space-y-6">
+    <div className="bg-card rounded-lg border border-border p-6 space-y-6">
       <h3 className="text-xs font-black text-muted-foreground uppercase tracking-[0.2em] flex items-center gap-2">
         <Calendar className="size-3.5 text-emerald-500" />
         Hot Upcoming
@@ -122,7 +122,7 @@ const UpcomingMiniCards = () => {
 };
 
 const MarketplacePromo = () => (
-  <div className="bg-primary/5 border border-primary/20 rounded-[32px] p-6 relative overflow-hidden group">
+  <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 relative overflow-hidden group">
     <div className="absolute -right-4 -top-4 size-20 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all" />
     <div className="relative z-10 space-y-4">
       <Badge className="bg-primary text-white text-[8px] font-black uppercase tracking-widest mb-1">
@@ -134,7 +134,7 @@ const MarketplacePromo = () => (
       <p className="text-[10px] font-medium text-muted-foreground">
         Start a peer-to-peer battle and set the terms of your own bet.
       </p>
-      <Button className="w-full h-10 rounded-xl bg-primary text-white font-black uppercase text-[10px] tracking-widest flex gap-2">
+      <Button className="w-full h-10 rounded-lg bg-primary text-white font-black uppercase text-[10px] tracking-widest flex gap-2">
         Create Market
         <Flame className="size-3.5" />
       </Button>
