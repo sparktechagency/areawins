@@ -12,7 +12,7 @@ const AllTournamentsBanner: React.FC = () => {
   const banners = useMemo(
     () => [
       {
-        src: "https://images.unsplash.com/photo-1579952363873-27f3bade8f55?auto=format&fit=crop&q=80",
+        src: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80",
         alt: "Premier League Football",
         title: "FOOTBALL: PREMIER LEAGUE",
         linkText: "View Fixtures",

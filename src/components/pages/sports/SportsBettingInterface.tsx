@@ -21,7 +21,7 @@ const config = {
     logo: "⚽",
     banners: [
       {
-        bg: "url('https://images.unsplash.com/photo-1522778119026-d647f0565c6a?auto=format&fit=crop&q=80')",
+        bg: "url('https://images.unsplash.com/photo-1570498839593-e565b39455fc')",
         title: "Man City vs Arsenal",
         subtitle: "Premier League",
         promo: "Create a P2P bet on the match winner to earn up to 5x returns",

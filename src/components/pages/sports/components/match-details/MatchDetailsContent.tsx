@@ -92,7 +92,6 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
     setIsCreateModalOpen(true);
   };
 
-
   return (
     <div className="w-full space-y-8">
       {/* Navigation Header */}
@@ -187,73 +186,71 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
 
         <div className="mt-8">
           <TabsContent value="market" className="m-0 space-y-12">
-            {marketCategories
-              .filter((c) => c.marketName === "Match Results")
-              .map((category, catIdx) => (
-                <div key={catIdx} className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="h-px flex-1 bg-border" />
-                    <h3 className="text-[11px] font-black text-primary uppercase tracking-[0.4em] bg-background px-4">
-                      {category.marketName}
-                    </h3>
-                    <div className="h-px flex-1 bg-border" />
-                  </div>
+            {marketCategories.map((category, catIdx) => (
+              <div key={catIdx} className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="h-px flex-1 bg-border" />
+                  <h3 className="text-[11px] font-black text-primary uppercase tracking-[0.4em] bg-background px-4">
+                    {category.marketName}
+                  </h3>
+                  <div className="h-px flex-1 bg-border" />
+                </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                    {category?.outcomes.map((stat, idx) => (
-                      <div
-                        key={idx}
-                        className="bg-card rounded-lg p-6 border border-border flex flex-col items-center gap-6 group hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5"
-                      >
-                        <div className="flex flex-col items-center gap-2">
-                          <span className="text-4xl group-hover:scale-110 transition-transform duration-300">
-                            {stat.icon}
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {category?.outcomes.map((stat, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-card rounded-lg p-6 border border-border flex flex-col items-center gap-6 group hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5"
+                    >
+                      <div className="flex flex-col items-center gap-2">
+                        <span className="text-4xl group-hover:scale-110 transition-transform duration-300">
+                          {stat.icon}
+                        </span>
+                        <h3 className="text-xl font-black text-foreground text-center">
+                          {stat.label}
+                        </h3>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4 w-full">
+                        <div className="bg-muted/30 p-4 rounded-lg flex flex-col items-center gap-1 border border-border/50">
+                          <Target className="size-4 text-primary" />
+                          <span className="text-[10px] font-black text-muted-foreground uppercase">
+                            {stat.bets} Bets
                           </span>
-                          <h3 className="text-xl font-black text-foreground text-center">
-                            {stat.label}
-                          </h3>
+                          <span className="text-sm font-black text-foreground">
+                            Matched
+                          </span>
                         </div>
-
-                        <div className="grid grid-cols-2 gap-4 w-full">
-                          <div className="bg-muted/30 p-4 rounded-lg flex flex-col items-center gap-1 border border-border/50">
-                            <Target className="size-4 text-primary" />
-                            <span className="text-[10px] font-black text-muted-foreground uppercase">
-                              {stat.bets} Bets
-                            </span>
-                            <span className="text-sm font-black text-foreground">
-                              Matched
-                            </span>
-                          </div>
-                          <div className="bg-muted/30 p-4 rounded-lg flex flex-col items-center gap-1 border border-border/50">
-                            <Banknote className="size-4 text-emerald-500" />
-                            <span className="text-[10px] font-black text-muted-foreground uppercase">
-                              {stat.open} Open
-                            </span>
-                            <span className="text-sm font-black text-foreground">
-                              ${stat.pot} Pot
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-col w-full gap-3 mt-auto">
-                          <Button
-                            onClick={() =>
-                              handleCreateBetClick(
-                                stat.label,
-                                category.marketName
-                              )
-                            }
-                            className="w-full h-12 rounded-lg bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[11px]"
-                          >
-                            <PlusCircle className="size-4 mr-2" />
-                            Create Bet
-                          </Button>
+                        <div className="bg-muted/30 p-4 rounded-lg flex flex-col items-center gap-1 border border-border/50">
+                          <Banknote className="size-4 text-emerald-500" />
+                          <span className="text-[10px] font-black text-muted-foreground uppercase">
+                            {stat.open} Open
+                          </span>
+                          <span className="text-sm font-black text-foreground">
+                            ${stat.pot} Pot
+                          </span>
                         </div>
                       </div>
-                    ))}
-                  </div>
+
+                      <div className="flex flex-col w-full gap-3 mt-auto">
+                        <Button
+                          onClick={() =>
+                            handleCreateBetClick(
+                              stat.label,
+                              category.marketName
+                            )
+                          }
+                          className="w-full h-12 rounded-lg bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[11px]"
+                        >
+                          <PlusCircle className="size-4 mr-2" />
+                          Create Bet
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+            ))}
 
             <div className="p-16 text-center bg-muted/20 rounded-lg border border-dashed border-border text-muted-foreground">
               <BarChart3 className="size-12 mx-auto mb-4 opacity-10" />
