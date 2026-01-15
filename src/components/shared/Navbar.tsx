@@ -1,8 +1,9 @@
 "use client";
 import logo from "@/assets/logo/logo.png";
-import logo2 from "@/assets/logo/logo2.png";
+
 import { AnimatedDropdown } from "@/components/shared/AnimatedDropdown";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { UserMenu } from "@/components/shared/UserMenu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { clearAuth } from "@/lib/redux/features/authSlice";
 import { openAuthModal } from "@/lib/redux/features/authUiSlice";
@@ -16,7 +17,6 @@ import {
   Menu,
   TrendingUp,
   Trophy,
-  User as UserIcon,
   Users,
 } from "lucide-react";
 import Image from "next/image";
@@ -64,72 +64,6 @@ const Navbar = () => {
     { label: "Español", onClick: () => setLanguage("es") },
   ];
 
-  const userMenuItems = [
-    {
-      label: t("navbar.dashboard"),
-      icon: <LayoutDashboard className="h-4 w-4" />,
-      href: "/dashboard",
-    },
-    {
-      label: t("navbar.myBets"),
-      icon: <Trophy className="h-4 w-4" />,
-      href: "/dashboard/my-bets",
-    },
-    {
-      label: t("navbar.profile"),
-      icon: <UserIcon className="h-4 w-4" />,
-      href: "/dashboard/profile",
-    },
-    {
-      label: t("navbar.logout"),
-      icon: <LogOut className="h-4 w-4" />,
-      onClick: handleLogout,
-      variant: "destructive" as const,
-    },
-  ];
-
-  const UserMenu = () => {
-    if (!isAuthenticated || !user) {
-      return (
-        <Button
-          onClick={() => dispatch(openAuthModal({ view: "LOGIN" }))}
-          variant={
-            isHomePage && scrolled
-              ? "default"
-              : isHomePage
-              ? "secondary"
-              : "default"
-          }
-          className={`transition-all duration-300 ${
-            isHomePage && !scrolled
-              ? "bg-white text-primary hover:bg-white/90"
-              : ""
-          }`}
-        >
-          {t("navbar.login")}
-        </Button>
-      );
-    }
-
-    return (
-      <AnimatedDropdown
-        trigger={
-          <div className="flex items-center gap-2">
-            <Avatar className="h-10 w-10 border border-border">
-              <AvatarImage src="/avatars/01.png" alt={user.username} />
-              <AvatarFallback className="bg-primary/10 text-primary font-bold">
-                {user.firstName?.[0]}
-                {user.lastName?.[0]}
-              </AvatarFallback>
-            </Avatar>
-          </div>
-        }
-        items={userMenuItems}
-        width="w-56"
-      />
-    );
-  };
-
   const MobileUserMenu = () => {
     if (!isAuthenticated) return null;
     return (
@@ -170,11 +104,8 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Desktop & Mobile Navbar Logic Combined via conditional rendering or just styling */}
-      {/* We can reuse the same structure but apply classes conditionally based on isHomePage */}
-
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 px-4 py-3 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 px-4 py-5 transition-all duration-300 ${
           isHomePage
             ? scrolled
               ? "bg-white/80 dark:bg-black/20 backdrop-blur-lg shadow-sm h-20 flex justify-center items-center"
@@ -184,11 +115,11 @@ const Navbar = () => {
       >
         <div className="container mx-auto flex items-center justify-between gap-5">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/">
             <Image
-              src={isHomePage && !scrolled ? logo : logo2}
+              src={logo}
               alt="Logo"
-              className="w-36 h-10 object-contain transition-all duration-300"
+              className="w-full h-12 object-contain rounded-lg"
               priority
             />
           </Link>
@@ -235,7 +166,7 @@ const Navbar = () => {
 
           {/* Right Side */}
           <div className="flex items-center justify-end gap-3 md:gap-4">
-            <div className={`${isHomePage && !scrolled ? "text-white" : ""}`}>
+            <div className={`${isHomePage ? "text-white" : "text-foreground"}`}>
               <DarkModeToggle />
             </div>
 
@@ -244,9 +175,7 @@ const Navbar = () => {
                 trigger={
                   <button
                     className={`flex items-center gap-1 text-sm font-medium transition-colors ${
-                      isHomePage && !scrolled
-                        ? "text-white hover:text-white/80"
-                        : "text-muted-foreground hover:text-foreground"
+                      isHomePage ? "text-white" : "text-foreground "
                     }`}
                   >
                     <Globe className="w-4 h-4" />
@@ -259,7 +188,7 @@ const Navbar = () => {
             </div>
 
             <div className="hidden md:block">
-              <UserMenu />
+              <UserMenu isHomePage={isHomePage} scrolled={scrolled} />
             </div>
 
             {/* Mobile Menu Button */}

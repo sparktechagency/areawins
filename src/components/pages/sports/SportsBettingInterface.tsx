@@ -317,13 +317,13 @@ export default function SportsBettingInterface({
             value="all"
             className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
-            All Market Activity
+            All Matches
           </TabsTrigger>
           <TabsTrigger
             value="live"
             className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
-            Live Market
+            Live Matches
           </TabsTrigger>
           <TabsTrigger
             value="upcoming"
@@ -341,7 +341,7 @@ export default function SportsBettingInterface({
 
         <div className="mt-8 space-y-6">
           <TabsContent value="all" className="space-y-6 m-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {filteredMatches.map((match) => (
                 <SportMatchCard
                   key={match._id}
@@ -358,7 +358,7 @@ export default function SportsBettingInterface({
           </TabsContent>
 
           <TabsContent value="live" className="space-y-6 m-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {filteredMatches
                 .filter((m) => m.status === "live")
                 .map((match) => (
