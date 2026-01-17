@@ -34,10 +34,10 @@ const AuthModal = () => {
     <ReusableModal
       isOpen={isOpen}
       onClose={() => dispatch(closeAuthModal())}
-      className="max-w-[500px] p-0"
       maxWidth="md"
+      padding="none"
     >
-      {renderContent()}
+      <div className="flex flex-col h-full bg-card">{renderContent()}</div>
     </ReusableModal>
   );
 };

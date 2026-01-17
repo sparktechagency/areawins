@@ -3,13 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import {
-  AlertTriangle,
-  CheckCircle2,
-  Clock,
-  LayoutGrid,
-  List,
-} from "lucide-react";
+import { Clock, LayoutGrid, List } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -74,6 +68,7 @@ const openBets: OpenBet[] = [
 ];
 
 import { ReusableModal } from "@/components/shared/ReusableModal";
+import AcceptBetModalContent from "./AcceptBetModalContent";
 
 const MarketPageContent = () => {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -98,7 +93,7 @@ const MarketPageContent = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
-          <h1 className="text-4xl font-black text-foreground tracking-tight mb-2 text-center md:text-left">
+          <h1 className="text-3xl sm:text-4xl font-black text-foreground tracking-tight mb-2 text-center md:text-left">
             Open Market
           </h1>
           <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.3em] text-center md:text-left">
@@ -153,7 +148,7 @@ const MarketPageContent = () => {
           <Badge
             key={f}
             variant="outline"
-            className="border-border px-5 py-2 rounded-full font-black text-[10px] uppercase tracking-widest shrink-0 cursor-pointer hover:bg-muted transition-colors"
+            className="border-border px-5 py-2 rounded-full font-black text-[10px] uppercase tracking-widest shrink-0 cursor-pointer hover:bg-muted transition-colors whitespace-nowrap"
           >
             {f}
           </Badge>
@@ -163,8 +158,10 @@ const MarketPageContent = () => {
       {/* Market Grid */}
       <div
         className={cn(
-          "grid gap-6",
-          viewMode === "grid" ? "grid-cols-2 lg:grid-cols-3" : "grid-cols-1"
+          "grid gap-4 sm:gap-6",
+          viewMode === "grid"
+            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+            : "grid-cols-1"
         )}
       >
         {openBets.map((bet) => {
@@ -174,7 +171,7 @@ const MarketPageContent = () => {
           return (
             <div
               key={bet.id}
-              className="bg-card rounded-lg border border-border overflow-hidden hover:border-primary/20 transition-all group"
+              className="bg-card rounded-xl border border-border overflow-hidden hover:border-primary/20 transition-all group shadow-sm hover:shadow-md"
             >
               {/* Card Header */}
               <div className="bg-muted/20 px-4 py-3 border-b border-border flex items-center justify-between">
@@ -206,7 +203,7 @@ const MarketPageContent = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <span className="font-black text-foreground text-xs truncate max-w-[80px]">
+                      <span className="font-black text-foreground text-xs truncate max-w-[100px]">
                         {bet.creator.name}
                       </span>
                       <span className="text-[8px] font-bold text-primary uppercase">
@@ -271,132 +268,15 @@ const MarketPageContent = () => {
         isOpen={!!selectedBet}
         onClose={() => !isProcessing && setSelectedBet(null)}
         maxWidth="md"
-        className="p-0"
+        padding="none"
       >
-        {selectedBet && !isAccepted ? (
-          <div className="p-8 space-y-8">
-            <div className="space-y-2 text-center">
-              <h2 className="text-3xl font-black text-foreground tracking-tight uppercase">
-                Confirm Acceptance
-              </h2>
-              <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-widest italic">
-                Peer-to-Peer Agreement
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              {/* Details Table */}
-              <div className="bg-muted/30 rounded-lg overflow-hidden border border-border">
-                <div className="p-4 bg-primary/5 border-b border-primary/10 flex justify-between items-center px-6">
-                  <span className="text-[10px] font-black text-primary uppercase">
-                    {selectedBet.match}
-                  </span>
-                  <Badge className="bg-primary text-white text-[8px] font-black uppercase">
-                    P2P Secured
-                  </Badge>
-                </div>
-
-                <div className="p-6 space-y-6">
-                  <div className="flex justify-between items-start pb-6 border-b border-border/50">
-                    <div className="space-y-1">
-                      <span className="text-[9px] font-black text-muted-foreground uppercase opacity-50">
-                        Creator: {selectedBet.creator.name}
-                      </span>
-                      <div className="text-sm font-black text-foreground">
-                        Backing: {selectedBet.backing}
-                      </div>
-                      <div className="text-[10px] font-bold text-muted-foreground">
-                        Stake: ${selectedBet.stake} @ {selectedBet.odds}x
-                      </div>
-                    </div>
-                    <div className="text-right space-y-1">
-                      <span className="text-[9px] font-black text-primary uppercase">
-                        Your Lay Position
-                      </span>
-                      <div className="text-sm font-black text-primary underline underline-offset-4 decoration-primary/30">
-                        Against {selectedBet.backing}
-                      </div>
-                      <div className="text-xl font-black text-foreground">
-                        $
-                        {(
-                          selectedBet.stake * selectedBet.odds -
-                          selectedBet.stake
-                        ).toFixed(2)}{" "}
-                        Stake
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3 text-amber-500 bg-amber-500/5 p-4 rounded-lg border border-amber-500/10">
-                      <AlertTriangle className="size-5 shrink-0" />
-                      <p className="text-[10px] font-bold leading-relaxed uppercase tracking-widest">
-                        $
-                        {(
-                          selectedBet.stake * selectedBet.odds -
-                          selectedBet.stake
-                        ).toFixed(2)}{" "}
-                        will be held in escrow immediately.
-                      </p>
-                    </div>
-
-                    <div className="bg-slate-950 p-6 rounded-lg border border-white/5 space-y-3 shadow-2xl">
-                      <span className="text-[9px] font-black text-white/50 uppercase tracking-widest">
-                        Settlement Rules
-                      </span>
-                      <div className="flex justify-between items-center text-xs font-black">
-                        <span className="text-white/60">
-                          {selectedBet.backing} happens
-                        </span>
-                        <span className="text-rose-400">Lose Stake</span>
-                      </div>
-                      <div className="flex justify-between items-center text-xs font-black">
-                        <span className="text-white/60">Anything else</span>
-                        <span className="text-emerald-400">
-                          Win $
-                          {(
-                            selectedBet.stake +
-                            (selectedBet.stake * selectedBet.odds -
-                              selectedBet.stake)
-                          ).toFixed(2)}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <Button
-                variant="ghost"
-                onClick={() => setSelectedBet(null)}
-                className="flex-1 h-14 rounded-lg font-black uppercase tracking-widest text-muted-foreground"
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={handleAccept}
-                disabled={isProcessing}
-                className="flex-2 h-14 rounded-lg bg-[#00d65c] hover:bg-[#00b84d] text-white font-black uppercase tracking-widest"
-              >
-                {isProcessing ? "Matching..." : "Confirm Accept"}
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <div className="p-16 flex flex-col items-center text-center space-y-6">
-            <div className="size-20 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
-              <CheckCircle2 className="size-12 animate-in zoom-in duration-300" />
-            </div>
-            <h3 className="text-2xl font-black text-foreground uppercase tracking-tight">
-              Bet Matched!
-            </h3>
-            <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-[0.2em]">
-              You matched with {selectedBet?.creator.name}
-            </p>
-          </div>
-        )}
+        <AcceptBetModalContent
+          selectedBet={selectedBet}
+          isAccepted={isAccepted}
+          isProcessing={isProcessing}
+          onAccept={handleAccept}
+          onCancel={() => setSelectedBet(null)}
+        />
       </ReusableModal>
     </div>
   );

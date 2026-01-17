@@ -19,7 +19,7 @@ const FutureOfBetting = () => {
         {/* 4 Feature Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {/* Card 1: P2P Betting */}
-          <div className="bg-card border border-border rounded-xl p-6 md:p-8 text-center ">
+          <div className="bg-card border border-border rounded-lg p-6 md:p-8 text-center ">
             <div className="size-14 mx-auto mb-4 rounded-full bg-primary/90 border border-primary/30 flex items-center justify-center  p-2 ">
               <Users className="size-6 text-white" />
             </div>
@@ -33,7 +33,7 @@ const FutureOfBetting = () => {
           </div>
 
           {/* Card 2: Fair & Transparent */}
-          <div className="bg-card border border-border rounded-xl p-6 md:p-8 text-center ">
+          <div className="bg-card border border-border rounded-lg p-6 md:p-8 text-center ">
             <div className="size-14 mx-auto mb-4 rounded-full bg-primary/90 border border-primary/30 flex items-center justify-center  p-2 ">
               <Verified className="size-6 text-white" />
             </div>
@@ -47,7 +47,7 @@ const FutureOfBetting = () => {
           </div>
 
           {/* Card 3: Instant Payouts */}
-          <div className="bg-card border border-border rounded-xl p-6 md:p-8 text-center ">
+          <div className="bg-card border border-border rounded-lg p-6 md:p-8 text-center ">
             <div className="size-14 mx-auto mb-4 rounded-full bg-primary/90 border border-primary/30 flex items-center justify-center  p-2 ">
               <RectangleHorizontal className="size-6 text-white" />
             </div>
@@ -61,7 +61,7 @@ const FutureOfBetting = () => {
           </div>
 
           {/* Card 4: Social Betting */}
-          <div className="bg-card border border-border rounded-xl p-6 md:p-8 text-center ">
+          <div className="bg-card border border-border rounded-lg p-6 md:p-8 text-center ">
             <div className="size-14 mx-auto mb-4 rounded-full bg-primary/90 border border-primary/30 flex items-center justify-center  p-2 ">
               <MessageSquare className="size-6 text-white" />
             </div>

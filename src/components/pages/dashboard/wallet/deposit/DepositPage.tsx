@@ -137,7 +137,7 @@ const DepositPage = () => {
                       key={method.id}
                       onClick={() => setSelectedMethod(method.id)}
                       className={cn(
-                        "cursor-pointer rounded-xl border-2 p-4 flex flex-col items-center justify-center gap-3 transition-all h-32 relative",
+                        "cursor-pointer rounded-lg border-2 p-4 flex flex-col items-center justify-center gap-3 transition-all h-32 relative",
                         isSelected
                           ? "border-primary bg-primary/10"
                           : "border-border hover:border-primary/50 bg-card"

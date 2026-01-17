@@ -129,7 +129,7 @@ const MessagePage = () => {
 
   return (
     <DashboardLayout>
-      <div className="flex h-[calc(100vh-150px)] overflow-hidden bg-background border border-border rounded-xl">
+      <div className="flex h-[calc(100vh-150px)] overflow-hidden bg-background border border-border rounded-lg">
         {/* Sidebar List */}
         <div className="w-full md:w-80 shrink-0 h-full ">
           <ChatList

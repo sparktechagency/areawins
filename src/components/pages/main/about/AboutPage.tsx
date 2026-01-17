@@ -133,7 +133,7 @@ const AboutPage = () => {
           <div className="grid md:grid-cols-3 gap-6">
             {/* Card 1 */}
             <div className="p-8 rounded-2xl bg-background/50 border border-border hover:border-primary/50 transition-colors group">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                 <Shield className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">
@@ -147,7 +147,7 @@ const AboutPage = () => {
 
             {/* Card 2 */}
             <div className="p-8 rounded-2xl bg-background/50 border border-border hover:border-primary/50 transition-colors group">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                 <Zap className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">
@@ -161,7 +161,7 @@ const AboutPage = () => {
 
             {/* Card 3 */}
             <div className="p-8 rounded-2xl bg-background/50 border border-border hover:border-primary/50 transition-colors group">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                 <Users className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">
@@ -175,7 +175,7 @@ const AboutPage = () => {
 
             {/* Card 4 */}
             <div className="p-8 rounded-2xl bg-background/50 border border-border hover:border-primary/50 transition-colors group">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                 <Wallet className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">
@@ -189,7 +189,7 @@ const AboutPage = () => {
 
             {/* Card 5 */}
             <div className="p-8 rounded-2xl bg-background/50 border border-border hover:border-primary/50 transition-colors group">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                 <Trophy className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">
@@ -203,7 +203,7 @@ const AboutPage = () => {
 
             {/* Card 6 */}
             <div className="p-8 rounded-2xl bg-background/50 border border-border hover:border-primary/50 transition-colors group">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                 <Lock className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">
@@ -221,7 +221,7 @@ const AboutPage = () => {
       {/* CTA Section */}
       <section className="py-24 container mx-auto px-4">
         <div className="bg-card rounded-3xl p-12 text-center border border-border relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
           <div className="relative z-10">
             <h2 className="text-4xl font-bold text-foreground mb-6">
               Ready to Win?
