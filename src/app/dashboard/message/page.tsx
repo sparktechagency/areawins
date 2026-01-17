@@ -131,7 +131,7 @@ export default function MessagePage() {
     <DashboardLayout>
       <div className="flex h-[calc(100vh-150px)] overflow-hidden bg-background border border-border rounded-xl">
         {/* Sidebar List */}
-        <div className="w-full md:w-80 lg:w-96 shrink-0 h-full ">
+        <div className="w-full md:w-80 shrink-0 h-full ">
           <ChatList
             chats={chats}
             activeChatId={activeChatId || ""}

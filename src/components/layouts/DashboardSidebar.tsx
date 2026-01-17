@@ -128,10 +128,13 @@ export default function DashboardSidebar() {
       {/* Mobile Sidebar Trigger */}
       <div className="lg:hidden p-4 sticky top-0 z-50 bg-background border-b border-border flex items-center justify-between">
         <Link href={ROUTES.HOME} className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-            <Trophy className="w-4 h-4 text-primary-foreground" />
-          </div>
-          <span className="font-bold text-foreground">BetPro BD</span>
+          <Image
+            src={logo}
+            alt="Logo"
+            width={120}
+            height={120}
+            className="mx-auto rounded-xl"
+          />
         </Link>
         <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>
           <SheetTrigger asChild>
@@ -151,12 +154,13 @@ export default function DashboardSidebar() {
               {/* Logo Area */}
               <div className="p-6 border-b border-border">
                 <Link href={ROUTES.HOME} className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                    <Trophy className="w-5 h-5 text-primary-foreground" />
-                  </div>
-                  <h1 className="text-xl font-bold tracking-tight text-foreground">
-                    BetPro BD
-                  </h1>
+                  <Image
+                    src={logo}
+                    alt="Logo"
+                    width={120}
+                    height={120}
+                    className="mx-auto rounded-xl"
+                  />
                 </Link>
               </div>
 
