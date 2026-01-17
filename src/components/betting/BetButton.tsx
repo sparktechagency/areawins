@@ -1,8 +1,3 @@
-/**
- * BetButton Component
- * Green button for placing bets
- */
-
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 

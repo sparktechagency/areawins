@@ -25,7 +25,7 @@ const SupportPage = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <Card className="text-center hover:border-primary transition-colors">
+          <Card className="text-center border-border  transition-colors">
             <CardHeader>
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
                 <MessageCircle className="w-6 h-6" />
@@ -41,7 +41,7 @@ const SupportPage = () => {
             </CardContent>
           </Card>
 
-          <Card className="text-center hover:border-primary transition-colors">
+          <Card className="text-center border-border transition-colors">
             <CardHeader>
               <div className="w-12 h-12 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-500">
                 <Mail className="w-6 h-6" />
@@ -59,7 +59,7 @@ const SupportPage = () => {
             </CardContent>
           </Card>
 
-          <Card className="text-center hover:border-primary transition-colors">
+          <Card className="text-center border-border transition-colors">
             <CardHeader>
               <div className="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4 text-green-500">
                 <Phone className="w-6 h-6" />

@@ -1,10 +1,5 @@
 "use client";
 
-/**
- * LiveEventCard Component
- * Card displaying live match with team logos, score, and countdown
- */
-
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn, formatTime, getTimeUntilMatch } from "@/lib/utils";
@@ -16,19 +11,25 @@ interface LiveEventCardProps {
   className?: string;
 }
 
-export default function LiveEventCard({ match, className }: LiveEventCardProps) {
+export default function LiveEventCard({
+  match,
+  className,
+}: LiveEventCardProps) {
   const isLive = match.status === "live";
   const timeUntil = getTimeUntilMatch(match.startTime);
 
   return (
     <Link href={`/bets/match/${match.id}`}>
-      <Card className={cn("match-card hover:shadow-lg transition-all cursor-pointer", className)}>
+      <Card
+        className={cn(
+          "match-card hover:shadow-lg transition-all cursor-pointer",
+          className
+        )}
+      >
         <CardContent className="p-4">
           {/* Live Badge */}
           {isLive && (
-            <Badge className="bg-accent text-white mb-3 live-pulse">
-              LIVE
-            </Badge>
+            <Badge className="bg-accent text-white mb-3 live-pulse">LIVE</Badge>
           )}
 
           {/* Teams */}
@@ -36,9 +37,7 @@ export default function LiveEventCard({ match, className }: LiveEventCardProps) 
             {/* Home Team */}
             <div className="flex flex-col items-center flex-1">
               <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-2">
-                <span className="text-2xl">
-                  {match.homeTeam.logo || "⚽"}
-                </span>
+                <span className="text-2xl">{match.homeTeam.logo || "⚽"}</span>
               </div>
               <p className="text-sm font-semibold text-center">
                 {match.homeTeam.shortName || match.homeTeam.name}
@@ -56,9 +55,7 @@ export default function LiveEventCard({ match, className }: LiveEventCardProps) 
             {/* Away Team */}
             <div className="flex flex-col items-center flex-1">
               <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-2">
-                <span className="text-2xl">
-                  {match.awayTeam.logo || "⚽"}
-                </span>
+                <span className="text-2xl">{match.awayTeam.logo || "⚽"}</span>
               </div>
               <p className="text-sm font-semibold text-center">
                 {match.awayTeam.shortName || match.awayTeam.name}
@@ -78,9 +75,7 @@ export default function LiveEventCard({ match, className }: LiveEventCardProps) 
               <p className="text-xs">{match.liveData.period}</p>
             )}
             {!isLive && (
-              <p className="text-xs">
-                {formatTime(match.startTime)}
-              </p>
+              <p className="text-xs">{formatTime(match.startTime)}</p>
             )}
           </div>
 
@@ -91,9 +86,7 @@ export default function LiveEventCard({ match, className }: LiveEventCardProps) 
                 {match.liveData?.minute ? `${match.liveData.minute}'` : "LIVE"}
               </Badge>
             ) : (
-              <p className="text-xs font-mono text-gray-500">
-                {timeUntil}
-              </p>
+              <p className="text-xs font-mono text-gray-500">{timeUntil}</p>
             )}
           </div>
         </CardContent>

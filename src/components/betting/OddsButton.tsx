@@ -1,8 +1,3 @@
-/**
- * OddsButton Component
- * Clickable button displaying odds with hover and selected states
- */
-
 import { cn } from "@/lib/utils";
 import { formatOdds } from "@/lib/utils";
 
@@ -39,13 +34,9 @@ export default function OddsButton({
       )}
     >
       {label && (
-        <span className="text-xs font-medium mb-1 opacity-80">
-          {label}
-        </span>
+        <span className="text-xs font-medium mb-1 opacity-80">{label}</span>
       )}
-      <span className="text-lg font-bold">
-        {formatOdds(odds)}
-      </span>
+      <span className="text-lg font-bold">{formatOdds(odds)}</span>
     </button>
   );
 }

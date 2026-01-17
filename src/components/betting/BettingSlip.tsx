@@ -1,10 +1,5 @@
 "use client";
 
-/**
- * BettingSlip Component
- * Fixed sidebar showing selected bets with stake input and place bet button
- */
-
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

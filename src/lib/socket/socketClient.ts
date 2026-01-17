@@ -1,7 +1,3 @@
-/**
- * Socket.io client for real-time updates
- * Handles live match updates, odds changes, and notifications
- */
 
 import { API_CONFIG, COOKIES } from "@/lib/constants";
 import type { LiveMatchUpdate, Notification, OddsUpdate } from "@/types";
