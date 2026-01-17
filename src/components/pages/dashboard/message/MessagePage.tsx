@@ -1,8 +1,8 @@
 "use client";
 
-import ChatList from "@/components/dashboard/message/ChatList";
-import MessageList from "@/components/dashboard/message/MessageList";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
+import ChatList from "@/components/pages/dashboard/message/ChatList";
+import MessageList from "@/components/pages/dashboard/message/MessageList";
 import { useState } from "react";
 
 // Mock Data
