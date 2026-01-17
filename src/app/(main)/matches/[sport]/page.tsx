@@ -1,4 +1,4 @@
-import SportsBettingInterface from "@/components/pages/sports/SportsBettingInterface";
+import SportsBettingInterface from "@/components/pages/main/matches/sports/SportsBettingInterface";
 
 interface PageProps {
   params: Promise<{

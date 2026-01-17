@@ -1,4 +1,4 @@
-import MatchDetailsContent from "@/components/pages/sports/components/match-details/MatchDetailsContent";
+import MatchDetailsContent from "@/components/pages/main/matches/match-details/MatchDetailsContent";
 
 interface PageProps {
   params: Promise<{

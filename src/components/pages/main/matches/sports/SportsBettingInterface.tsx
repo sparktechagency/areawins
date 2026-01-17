@@ -5,8 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar, Filter, Search } from "lucide-react";
 import { useState } from "react";
-import SportHeroBanner from "./components/SportHeroBanner";
-import SportMatchCard from "./components/SportMatchCard";
+import SportHeroBanner from "./SportHeroBanner";
+import SportMatchCard from "./SportMatchCard";
 
 import { MOCK_MATCHES } from "@/data/match.data";
 

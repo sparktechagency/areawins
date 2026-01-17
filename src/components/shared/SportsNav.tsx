@@ -1,10 +1,5 @@
 "use client";
 
-/**
- * SportsNav Component
- * Sports navigation bar with icons for different sports
- */
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SPORTS } from "@/lib/constants";
