@@ -80,7 +80,7 @@ export default function StatsOverview() {
                 {formatCurrency(655.0)}
               </div>
               <Link
-                href={ROUTES.FRIENDS}
+                href={ROUTES.REFERRAL_FRIENDS}
                 className="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-foreground/70 hover:text-primary transition-all"
               >
                 Invite Friends <ArrowRight className="w-3 h-3 ml-1" />

@@ -29,7 +29,7 @@
 
 :root {
   /* Primary Brand Colors */
-  --primary: #00d65c; /* Bright Green - Main brand color */
+  --primary: #65C257; /* Bright Green - Main brand color */
   --primary-rgb: 0, 214, 92;
   --primary-foreground: #ffffff;
 
@@ -69,7 +69,7 @@
   --input: #ebeff5;
 
   /* Ring */
-  --ring: #00d65c;
+  --ring: #65C257;
 
   /* Radius */
   --radius: 0.5rem;
@@ -77,17 +77,17 @@
   /* Betting Specific Colors */
   --odds-background: #ffffff;
   --odds-hover: #f0fdf4;
-  --odds-selected: #00d65c;
+  --odds-selected: #65C257;
   --odds-text: #1a1a1a;
 
   /* Status Colors */
   --live: #ff3b3b;
-  --won: #00d65c;
+  --won: #65C257;
   --lost: #64748b;
   --pending: #f59e0b;
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #00d65c 0%, #00b84d 100%);
+  --gradient-primary: linear-gradient(135deg, #65C257 0%, #00b84d 100%);
   --gradient-dark: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   --gradient-card: linear-gradient(
     135deg,
@@ -103,7 +103,7 @@
 
 .dark {
   /* Primary Brand Colors */
-  --primary: #00d65c; /* Bright Green - Main brand color */
+  --primary: #65C257; /* Bright Green - Main brand color */
   --primary-rgb: 0, 214, 92;
   --primary-foreground: #ffffff;
 
@@ -148,17 +148,17 @@
   /* Betting Specific Colors */
   --odds-background: #112218;
   --odds-hover: #2d3748;
-  --odds-selected: #00d65c;
+  --odds-selected: #65C257;
   --odds-text: #e2e8f0;
 
   /* Status Colors */
   --live: #ff6b6b;
-  --won: #00d65c;
+  --won: #65C257;
   --lost: #a0aec0;
   --pending: #f6e05e;
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #00d65c 0%, #00b84d 100%);
+  --gradient-primary: linear-gradient(135deg, #65C257 0%, #00b84d 100%);
   --gradient-dark: linear-gradient(135deg, #1a242d 0%, #2d3748 100%);
   --gradient-card: linear-gradient(
     135deg,
@@ -169,7 +169,7 @@
   /* Scrollbar */
   --scrollbar-thumb: #244732; /* Slightly lighter than background */
   --scrollbar-track: transparent;
-  --scrollbar-thumb-hover: #00d65c; /* Primary green on hover */
+  --scrollbar-thumb-hover: #65C257; /* Primary green on hover */
 }
 
 @theme inline {
@@ -363,7 +363,7 @@ body {
   margin-right: auto;
   padding-left: 1rem;
   padding-right: 1rem;
-  max-width: 1400px;
+  max-width: 1420px;
 }
 
 
