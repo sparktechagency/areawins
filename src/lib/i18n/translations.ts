@@ -19,7 +19,7 @@ export const translations = {
         myBets: "My Bets",
         wallet: "Wallet",
         transactions: "Transactions",
-        friends: "Friends",
+        referral_friends: "Referral Friends",
         message: "Message",
         statistics: "Statistics",
         settings: "Settings",

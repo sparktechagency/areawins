@@ -43,7 +43,7 @@ export default function DashboardSidebar() {
       label: t("dashboard.menu.transactions"),
       href: ROUTES.TRANSACTIONS,
     },
-    { icon: Users, label: t("dashboard.menu.friends"), href: ROUTES.FRIENDS },
+    { icon: Users, label: t("dashboard.menu.referral_friends"), href: ROUTES.REFERRAL_FRIENDS },
     {
       icon: MessageCircle,
       label: t("dashboard.menu.message"),

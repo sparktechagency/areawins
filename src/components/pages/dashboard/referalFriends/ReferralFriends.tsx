@@ -1,5 +1,4 @@
 "use client";
-
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -27,7 +26,7 @@ import { toast } from "sonner";
 
 import { MOCK_REFERRED_FRIENDS } from "@/data/friends.data";
 
-export default function FriendsReferralPage() {
+const ReferralFriends = () => {
   const referFriends = MOCK_REFERRED_FRIENDS;
 
   const [referralCode] = useState("BETPRO-99-PRO");
@@ -299,4 +298,6 @@ export default function FriendsReferralPage() {
       </div>
     </DashboardLayout>
   );
-}
+};
+
+export default ReferralFriends;
