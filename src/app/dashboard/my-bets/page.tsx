@@ -1,4 +1,4 @@
-import MyBetsPage from "@/components/pages/dashboard/MyBetsPage"
+import MyBetsPage from "@/components/pages/dashboard/myBets/MyBetsPage"
 
 const page = () => {
    return <MyBetsPage />

@@ -1,7 +1,7 @@
 "use client";
 
 import DashboardLayout from "@/components/layouts/DashboardLayout";
-import ProfitLossChart from "@/components/pages/dashboard/ProfitLossChart";
+import ProfitLossChart from "@/components/pages/dashboard/dashboardHome/ProfitLossChart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { formatCurrency } from "@/lib/utils";
