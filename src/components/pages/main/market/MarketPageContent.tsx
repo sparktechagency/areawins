@@ -101,29 +101,29 @@ const MarketPageContent = () => {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="bg-muted/30 p-1 rounded-xl border border-border flex gap-1">
+          <div className="bg-muted/30 p-1 rounded-lg border border-border flex gap-1">
             <Button
-              variant="ghost"
+              variant="outline"
               size="icon"
               onClick={() => setViewMode("grid")}
               className={cn(
-                "size-9 rounded-lg transition-all",
+                "size-9 rounded-lg transition-all cursor-pointer",
                 viewMode === "grid"
                   ? "bg-primary text-white"
-                  : "text-muted-foreground"
+                  : "text-foreground"
               )}
             >
               <LayoutGrid className="size-4" />
             </Button>
             <Button
-              variant="ghost"
+              variant="outline"
               size="icon"
               onClick={() => setViewMode("list")}
               className={cn(
-                "size-9 rounded-lg transition-all",
+                "size-9 rounded-lg transition-all cursor-pointer",
                 viewMode === "list"
                   ? "bg-primary text-white"
-                  : "text-muted-foreground"
+                  : "text-foreground"
               )}
             >
               <List className="size-4" />
@@ -171,20 +171,20 @@ const MarketPageContent = () => {
           return (
             <div
               key={bet.id}
-              className="bg-card rounded-xl border border-border overflow-hidden hover:border-primary/20 transition-all group shadow-sm hover:shadow-md"
+              className="bg-card rounded-xl border border-border overflow-hidden hover:border-primary/20 transition-all group"
             >
               {/* Card Header */}
               <div className="bg-muted/20 px-4 py-3 border-b border-border flex items-center justify-between">
                 <div className="flex items-center gap-2 overflow-hidden">
-                  <span className="text-[9px] font-black text-primary uppercase tracking-[0.2em]">
+                  <span className="text-[10px] font-black text-primary uppercase">
                     {bet.sport}
                   </span>
                   <span className="size-0.5 rounded-full bg-muted-foreground/30" />
-                  <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest truncate">
+                  <span className="text-[10px] font-black text-muted-foreground  tracking-widest truncate">
                     {bet.match}
                   </span>
                 </div>
-                <span className="flex items-center gap-1 text-[8px] font-bold text-muted-foreground uppercase whitespace-nowrap">
+                <span className="flex items-center gap-1 text-[10px] font-bold text-muted-foreground  whitespace-nowrap">
                   <Clock className="size-3" />
                   {bet.timeAgo}
                 </span>
@@ -194,7 +194,7 @@ const MarketPageContent = () => {
                 {/* Creator Info */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="relative size-8 rounded-full border border-primary/20 overflow-hidden shrink-0">
+                    <div className="relative size-10 rounded-full border border-primary/20 overflow-hidden shrink-0">
                       <Image
                         src={bet.creator.avatar}
                         alt={bet.creator.name}
@@ -203,16 +203,16 @@ const MarketPageContent = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <span className="font-black text-foreground text-xs truncate max-w-[100px]">
+                      <span className="font-black text-foreground text-[12px] truncate max-w-[100px]">
                         {bet.creator.name}
                       </span>
-                      <span className="text-[8px] font-bold text-primary uppercase">
+                      <span className="text-[9px] font-bold text-primary uppercase">
                         {bet.creator.trust}% Trust
                       </span>
                     </div>
                   </div>
                   <div className="flex flex-col items-end">
-                    <span className="text-[8px] font-black text-muted-foreground uppercase">
+                    <span className="text-xs font-black text-muted-foreground uppercase">
                       Total Pot
                     </span>
                     <span className="text-sm font-black text-foreground">
@@ -225,23 +225,23 @@ const MarketPageContent = () => {
                 <div className="bg-muted/30 rounded-lg p-3 border border-border/50 space-y-3 relative overflow-hidden">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-0.5">
-                      <span className="text-[7px] font-black text-primary uppercase">
+                      <span className="text-[10px] font-black text-primary uppercase">
                         Backing
                       </span>
-                      <h4 className="text-[11px] font-black text-foreground truncate">
+                      <h4 className="text-xs font-black text-foreground truncate">
                         {bet.backing}
                       </h4>
                     </div>
                     <div className="space-y-0.5 text-right">
-                      <span className="text-[7px] font-black text-rose-500 uppercase">
+                      <span className="text-[10px] font-black text-rose-500 uppercase">
                         Accept (Lay)
                       </span>
-                      <h4 className="text-[11px] font-black text-foreground">
+                      <h4 className="text-xs font-black text-foreground">
                         Against
                       </h4>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between text-[9px] font-bold">
+                  <div className="flex items-center justify-between text-[11px] font-bold">
                     <span className="text-muted-foreground">
                       Stake: ${bet.stake}
                     </span>
@@ -253,7 +253,7 @@ const MarketPageContent = () => {
 
                 <Button
                   onClick={() => setSelectedBet(bet)}
-                  className="w-full h-10 rounded-lg bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[9px] transition-all active:scale-95"
+                  className="w-full cursor-pointer"
                 >
                   Accept Bet
                 </Button>

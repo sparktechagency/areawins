@@ -142,11 +142,6 @@ const Navbar = () => {
                       : "bg-white/20 dark:bg-black/20 text-white border-white/30 placeholder:text-white"
                   } border outline-none`}
                 />
-                <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                  <Menu
-                    className={`w-5 h-5 transition-colors duration-300 text-white`}
-                  />
-                </button>
               </div>
             </div>
           ) : (

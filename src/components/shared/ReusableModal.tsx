@@ -102,20 +102,31 @@ export const ReusableModal: React.FC<ReusableModalProps> = ({
               </div>
 
               <div className="flex flex-col h-full overflow-hidden">
-                {(title || description) && (
-                  <DialogHeader className="px-5 py-5 sm:px-8 sm:py-6 sm:pb-2 text-left shrink-0">
-                    {title && (
-                      <DialogTitle className="text-xl sm:text-2xl font-black text-foreground tracking-tight pr-8">
-                        {title}
-                      </DialogTitle>
+                <DialogHeader
+                  className={cn(
+                    "text-left shrink-0",
+                    title || description
+                      ? "px-5 py-5 sm:px-8 sm:py-6 sm:pb-2"
+                      : "sr-only"
+                  )}
+                >
+                  <DialogTitle
+                    className={cn(
+                      "text-xl sm:text-2xl font-black text-foreground tracking-tight pr-8",
+                      !title && "sr-only"
                     )}
-                    {description && (
-                      <DialogDescription className="text-muted-foreground text-xs sm:text-sm font-medium mt-1">
-                        {description}
-                      </DialogDescription>
+                  >
+                    {title || "Modal Title"}
+                  </DialogTitle>
+                  <DialogDescription
+                    className={cn(
+                      "text-muted-foreground text-xs sm:text-sm font-medium mt-1",
+                      !description && "sr-only"
                     )}
-                  </DialogHeader>
-                )}
+                  >
+                    {description || "Modal Description"}
+                  </DialogDescription>
+                </DialogHeader>
 
                 <div
                   className={cn(

@@ -46,7 +46,7 @@ const AcceptBetModalContent: React.FC<AcceptBetModalContentProps> = ({
         <h3 className="text-xl sm:text-2xl font-black text-foreground uppercase tracking-tight">
           Bet Matched!
         </h3>
-        <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-[0.2em]">
+        <p className="text-muted-foreground font-medium uppercase text-xs tracking-[0.2em]">
           You matched with {selectedBet.creator.name}
         </p>
       </div>
@@ -56,12 +56,12 @@ const AcceptBetModalContent: React.FC<AcceptBetModalContentProps> = ({
   const layStake = selectedBet.stake * selectedBet.odds - selectedBet.stake;
 
   return (
-    <div className="p-5 sm:p-8 space-y-6 sm:space-y-8">
+    <div className="p-5 sm:p-6 space-y-6 sm:space-y-8">
       <div className="space-y-2 text-center">
-        <h2 className="text-2xl sm:text-3xl font-black text-foreground tracking-tight uppercase">
+        <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight uppercase">
           Confirm Acceptance
         </h2>
-        <p className="text-muted-foreground font-semibold uppercase text-[10px] tracking-widest italic opacity-70">
+        <p className="text-muted-foreground font-semibold uppercase text-xs tracking-widest italic opacity-70">
           Peer-to-Peer Agreement
         </p>
       </div>
@@ -69,7 +69,7 @@ const AcceptBetModalContent: React.FC<AcceptBetModalContentProps> = ({
       <div className="space-y-6">
         <div className="bg-muted/30 rounded-lg overflow-hidden border border-border">
           <div className="p-4 bg-primary/5 border-b border-primary/10 flex justify-between items-center px-4 sm:px-6">
-            <span className="text-[10px] font-black text-primary uppercase truncate max-w-[200px]">
+            <span className="text-xs font-black text-primary uppercase truncate max-w-[200px]">
               {selectedBet.match}
             </span>
             <Badge className="bg-primary text-white text-[8px] font-black uppercase shrink-0">
@@ -79,19 +79,19 @@ const AcceptBetModalContent: React.FC<AcceptBetModalContentProps> = ({
 
           <div className="p-4 sm:p-6 space-y-6">
             <div className="flex flex-col sm:flex-row justify-between items-start gap-4 pb-6 border-b border-border/50">
-              <div className="space-y-1">
-                <span className="text-[9px] font-black text-muted-foreground uppercase opacity-50">
+              <div className="space-y-2">
+                <span className="text-xs font-black text-muted-foreground uppercase opacity-50">
                   Creator: {selectedBet.creator.name}
                 </span>
-                <div className="text-sm font-black text-foreground">
+                <div className="text-xs font-black text-foreground">
                   Backing: {selectedBet.backing}
                 </div>
-                <div className="text-[10px] font-bold text-muted-foreground">
+                <div className="text-xs font-bold text-muted-foreground">
                   Stake: ${selectedBet.stake} @ {selectedBet.odds}x
                 </div>
               </div>
-              <div className="sm:text-right space-y-1">
-                <span className="text-[9px] font-black text-primary uppercase">
+              <div className="sm:text-right space-y-2">
+                <span className="text-xs font-black text-primary ">
                   Your Lay Position
                 </span>
                 <div className="text-sm font-black text-primary underline underline-offset-4 decoration-primary/30">
@@ -104,25 +104,25 @@ const AcceptBetModalContent: React.FC<AcceptBetModalContentProps> = ({
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-start gap-3 text-amber-500 bg-amber-500/5 p-4 rounded-xl border border-amber-500/10">
-                <AlertTriangle className="size-5 shrink-0 mt-0.5" />
-                <p className="text-[10px] font-bold leading-relaxed uppercase tracking-widest">
+              <div className="flex items-start gap-3 text-amber-500 bg-amber-500/5 p-4 rounded-lg border border-amber-500/10">
+                <AlertTriangle className="size-5 shrink-0 " />
+                <p className="text-xs font-bold leading-relaxed uppercase tracking-widest">
                   ${layStake.toFixed(2)} will be held in escrow immediately.
                 </p>
               </div>
 
-              <div className="bg-slate-900 dark:bg-slate-950 p-5 sm:p-6 rounded-xl border border-white/5 space-y-3 shadow-2xl">
-                <span className="text-[9px] font-black text-white/50 uppercase tracking-widest">
+              <div className="p-5 sm:p-6 rounded-lg border border-border ">
+                <span className="text-xs font-black text-foreground  tracking-widest mb-2">
                   Settlement Rules
                 </span>
-                <div className="flex justify-between items-center text-xs font-black">
-                  <span className="text-white/60">
+                <div className="flex justify-between items-center text-xs font-black space-y-2">
+                  <span className="text-foreground/80">
                     {selectedBet.backing} happens
                   </span>
                   <span className="text-rose-400">Lose Stake</span>
                 </div>
-                <div className="flex justify-between items-center text-xs font-black">
-                  <span className="text-white/60">Anything else</span>
+                <div className="flex justify-between items-center text-xs font-black space-y-2">
+                  <span className="text-foreground/60">Anything else</span>
                   <span className="text-emerald-400">
                     Win ${(selectedBet.stake + layStake).toFixed(2)}
                   </span>
@@ -133,18 +133,14 @@ const AcceptBetModalContent: React.FC<AcceptBetModalContentProps> = ({
         </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-        <Button
-          variant="ghost"
-          onClick={onCancel}
-          className="flex-1 h-14 rounded-xl font-black uppercase tracking-widest text-muted-foreground hover:bg-muted"
-        >
+      <div className="flex flex-col sm:flex-row gap-3 justify-end sm:gap-4">
+        <Button variant="outline" onClick={onCancel} className="cursor-pointer">
           Cancel
         </Button>
         <Button
           onClick={onAccept}
           disabled={isProcessing}
-          className="flex-2 h-14 rounded-xl bg-[#00d65c] hover:bg-[#00b84d] text-white font-black uppercase tracking-widest shadow-lg shadow-emerald-500/20 active:scale-95 transition-all"
+          className="cursor-pointer"
         >
           {isProcessing ? "Matching..." : "Confirm Accept"}
         </Button>
