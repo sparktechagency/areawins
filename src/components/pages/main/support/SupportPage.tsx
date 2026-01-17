@@ -11,7 +11,7 @@ import {
 import { Mail, MessageCircle, Phone } from "lucide-react";
 import Link from "next/link";
 
-export default function SupportPage() {
+const SupportPage = () => {
   return (
     <div className="min-h-screen bg-background pt-24 pb-12">
       <div className="container mx-auto px-4 max-w-4xl">
@@ -95,6 +95,6 @@ export default function SupportPage() {
       </div>
     </div>
   );
-}
+};
 
-export  default SupportPage
+export default SupportPage;
