@@ -89,7 +89,7 @@ export const ReusableModal: React.FC<ReusableModalProps> = ({
               }}
               className={cn(
                 "bg-card border border-border w-full rounded-2xl overflow-hidden shadow-2xl relative flex flex-col",
-                "max-h-[80vh]", // Responsive max height
+                "max-h-[85vh]", // Responsive max height
                 className
               )}
             >

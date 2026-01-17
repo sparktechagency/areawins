@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 const BetsSection = () => {
   return (
@@ -55,9 +56,9 @@ const BetsSection = () => {
               identity verification documents.
             </p>
 
-            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-10 py-4 cursor-pointer h-12 rounded-md text-lg">
-              Create
-            </Button>
+            <Link href="/matches">
+              <Button variant="default" className="cursor-pointer">Create</Button>
+            </Link>
           </div>
         </div>
       </div>

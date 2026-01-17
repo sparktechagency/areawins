@@ -117,7 +117,7 @@ const FriendsPage = () => {
   };
 
   return (
-    <div className="container mx-auto pt-32 pb-20 px-4">
+    <div className="w-full container mx-auto pt-32 pb-20 px-4">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
         <div className="space-y-2">
@@ -127,13 +127,13 @@ const FriendsPage = () => {
           >
             Community
           </Badge>
-          <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight flex items-center gap-4">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-black text-foreground tracking-tight flex items-center gap-4">
             Find Players
             <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center">
               <Users className="size-6 text-primary" />
             </div>
           </h1>
-          <p className="text-muted-foreground font-medium max-w-xl">
+          <p className="text-xs md:text-sm text-muted-foreground font-medium max-w-xl">
             Connect with top punters, follow their bets, and challenge them in
             P2P markets.
           </p>
@@ -174,17 +174,17 @@ const FriendsPage = () => {
 
         <div className="relative z-10 flex flex-col md:flex-row gap-4 items-center">
           <div className="relative flex-1 w-full">
-            <Search className="absolute left-6 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" />
             <Input
               placeholder="Search by username or betting style..."
-              className="w-full h-16 pl-14 pr-6 bg-muted/30 border-none rounded-lg text-lg font-bold placeholder:text-muted-foreground/50 focus-visible:ring-primary"
+              className="w-full  pl-11 pr-6"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           <Button
             variant="outline"
-            className="h-16 px-8 rounded-lg border-border hover:bg-muted font-black uppercase tracking-widest text-xs flex gap-2"
+            className="px-8 rounded-lg border-border hover:bg-muted font-black uppercase tracking-widest text-xs flex gap-2"
           >
             <Filter className="size-4" />
             Filters
@@ -216,7 +216,7 @@ const FriendsPage = () => {
               {/* User Identity */}
               <div className="flex flex-col items-center mb-8">
                 <div className="relative mb-4">
-                  <div className="size-28 rounded-full p-1.5 border-4 border-muted/50 group-hover:border-primary/30 transition-all overflow-hidden bg-muted">
+                  <div className="size-28 rounded-full p-1 border-2 border-muted/50 group-hover:border-primary/30 transition-all overflow-hidden bg-muted">
                     <Image
                       src={user.avatar}
                       alt={user.name}
@@ -224,9 +224,6 @@ const FriendsPage = () => {
                       height={120}
                       className="rounded-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
-                  </div>
-                  <div className="absolute -bottom-1 -right-1 size-10 rounded-full bg-slate-900 border-4 border-card flex items-center justify-center text-[10px] font-black text-white">
-                    Lv.{user.level}
                   </div>
                 </div>
                 <h3 className="text-2xl font-black text-foreground mb-1 group-hover:text-primary transition-colors">
@@ -279,7 +276,7 @@ const FriendsPage = () => {
                   }
                   disabled={isFriend || isPending}
                   className={cn(
-                    "flex-1 h-12 rounded-lg font-black uppercase tracking-widest text-[10px] gap-2 transition-all",
+                    "flex-1 rounded-lg font-black uppercase tracking-widest text-[10px] gap-2 transition-all cursor-pointer",
                     isFriend
                       ? "bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/10"
                       : isPending
