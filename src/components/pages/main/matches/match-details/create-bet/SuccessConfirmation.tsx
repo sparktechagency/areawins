@@ -16,16 +16,16 @@ const SuccessConfirmation: React.FC<SuccessConfirmationProps> = ({
   onClose,
 }) => {
   return (
-    <div className="p-8 sm:p-12 flex flex-col items-center text-center space-y-6 sm:space-y-8">
-      <div className="size-20 sm:size-24 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-500 animate-in zoom-in duration-500">
+    <div className="p-5 sm:p-6 flex flex-col items-center text-center space-y-6 sm:space-y-8">
+      <div className="size-20 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-500 animate-in zoom-in duration-500">
         <CheckCircle2 className="size-12 sm:size-16" />
       </div>
 
       <div className="space-y-3">
-        <h2 className="text-2xl sm:text-3xl font-black text-foreground tracking-tight uppercase">
+        <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight uppercase">
           Bet Posted Successfully!
         </h2>
-        <p className="text-sm sm:text-base text-muted-foreground font-medium">
+        <p className="text-xs  text-muted-foreground font-medium">
           Your prediction for{" "}
           <strong className="text-foreground">{outcome}</strong> has been placed
           in the open market at{" "}
@@ -34,17 +34,10 @@ const SuccessConfirmation: React.FC<SuccessConfirmationProps> = ({
       </div>
 
       <div className="grid grid-cols-1 w-full gap-3 sm:gap-4 mt-4">
-        <Button
-          onClick={onClose}
-          className="h-14 rounded-xl bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest transition-all active:scale-95 shadow-lg shadow-primary/20"
-        >
+        <Button onClick={onClose} className="w-full cursor-pointer">
           View in Open Market
         </Button>
-        <Button
-          variant="ghost"
-          onClick={onClose}
-          className="h-14 rounded-xl font-black text-muted-foreground uppercase tracking-widest hover:text-foreground hover:bg-muted/50 transition-all active:scale-95"
-        >
+        <Button variant="outline" onClick={onClose} className="w-full cursor-pointer border">
           Go to My Bets
         </Button>
       </div>

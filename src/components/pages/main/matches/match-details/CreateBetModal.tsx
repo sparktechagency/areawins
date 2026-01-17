@@ -94,7 +94,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
       onClose={onClose}
       maxWidth="md"
       padding="none"
-      className="max-sm:h-[90vh] sm:max-h-[85vh]"
+      className="max-sm:h-[80vh]"
     >
       <div className="relative h-full flex flex-col">
         {/* Progress Bar */}

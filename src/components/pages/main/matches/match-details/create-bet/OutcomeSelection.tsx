@@ -18,7 +18,7 @@ const OutcomeSelection: React.FC<OutcomeSelectionProps> = ({
   onSelect,
 }) => {
   return (
-    <div className="p-5 sm:p-8 space-y-6 sm:space-y-8">
+    <div className="p-5 sm:p-6 space-y-6 sm:space-y-8">
       <div className="space-y-2">
         <Badge
           variant="outline"
@@ -26,10 +26,10 @@ const OutcomeSelection: React.FC<OutcomeSelectionProps> = ({
         >
           Step 1: Choose Outcome
         </Badge>
-        <h2 className="text-2xl sm:text-3xl font-black text-foreground tracking-tight">
+        <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
           What&apos;s your prediction?
         </h2>
-        <p className="text-sm text-muted-foreground font-medium">
+        <p className="text-xs text-muted-foreground font-medium">
           Select which market and result you are backing.
         </p>
       </div>
@@ -49,7 +49,7 @@ const OutcomeSelection: React.FC<OutcomeSelectionProps> = ({
                   key={o.id}
                   onClick={() => onSelect(o.label, market.marketName)}
                   className={cn(
-                    "group relative overflow-hidden bg-muted/20 hover:bg-primary/5 border border-border/50 hover:border-primary/50 p-4 rounded-xl transition-all flex items-center justify-between cursor-pointer active:scale-[0.98]",
+                    "group relative overflow-hidden bg-muted/20 hover:bg-primary/5 border border-border/50 hover:border-primary/50 px-4 py-2 rounded-lg transition-all flex items-center justify-between cursor-pointer active:scale-[0.98]",
                     outcome === o.label && "border-primary bg-primary/10"
                   )}
                 >

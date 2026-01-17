@@ -71,7 +71,7 @@ export const ReusableModal: React.FC<ReusableModalProps> = ({
         className={cn(
           "px-4 sm:px-0", // Side margin on mobile
           "fixed left-[50%] top-[50%] z-50 w-full translate-x-[-50%] translate-y-[-50%] transition-none",
-          "bg-transparent border-none shadow-none duration-0",
+          "bg-transparent border-none shadow-none duration-0 flex justify-center items-center",
           maxWidthMap[maxWidth]
         )}
       >
@@ -89,7 +89,7 @@ export const ReusableModal: React.FC<ReusableModalProps> = ({
               }}
               className={cn(
                 "bg-card border border-border w-full rounded-2xl overflow-hidden shadow-2xl relative flex flex-col",
-                "max-h-[92vh] sm:max-h-[85vh]", // Responsive max height
+                "max-h-[80vh]", // Responsive max height
                 className
               )}
             >
