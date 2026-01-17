@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const ContactUs = () => {
@@ -22,28 +23,50 @@ const ContactUs = () => {
           {/* Form */}
           <form className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
-              <Input type="text" placeholder="First Name" className="bg-input text-foreground" />
-              <Input type="text" placeholder="Last Name" className="bg-input text-foreground" />
+              <Input
+                type="text"
+                placeholder="First Name"
+                className="bg-input text-foreground"
+              />
+              <Input
+                type="text"
+                placeholder="Last Name"
+                className="bg-input text-foreground"
+              />
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              <Input type="tel" placeholder="Phone *" required className="bg-input text-foreground" />
-              <Input type="email" placeholder="Email *" required className="bg-input text-foreground" />
+              <Input
+                type="tel"
+                placeholder="Phone *"
+                required
+                className="bg-input text-foreground"
+              />
+              <Input
+                type="email"
+                placeholder="Email *"
+                required
+                className="bg-input text-foreground"
+              />
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              <Input type="text" placeholder="Country" className="bg-input text-foreground" />
-              <Input type="email" placeholder="Email *" required className="bg-input text-foreground" />
+              <Input
+                type="text"
+                placeholder="Country"
+                className="bg-input text-foreground"
+              />
+              <Input
+                type="email"
+                placeholder="Email *"
+                required
+                className="bg-input text-foreground"
+              />
             </div>
 
             {/* Submit Button */}
-            <div className="text-left pt-6">
-              <button
-                type="submit"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-10 py-4 rounded-lg"
-              >
-                Submit
-              </button>
+            <div className="text-left pt-6 flex justify-end">
+              <Button type="submit" className="cursor-pointer">Submit</Button>
             </div>
           </form>
         </div>

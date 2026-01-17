@@ -1,5 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Check, MessageSquare, RectangleHorizontal, Users, Verified } from "lucide-react";
+import {
+  Check,
+  MessageSquare,
+  RectangleHorizontal,
+  Users,
+  Verified,
+} from "lucide-react";
+import Link from "next/link";
 
 const FutureOfBetting = () => {
   return (
@@ -76,10 +83,12 @@ const FutureOfBetting = () => {
         </div>
 
         {/* Optional CTA Button - centered below cards */}
-        <div className="text-center mt-12">
-          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-10 py-6 h-14 text-lg rounded-md">
-            Get Started Now
-          </Button>
+        <div className="text-center mt-12 ">
+          <Link href="/matches">
+            <Button variant="default" className="cursor-pointer">
+              Get Started Now
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
