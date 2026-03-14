@@ -1,6 +1,3 @@
-/**
- * User profile and settings related TypeScript type definitions
- */
 
 import { User } from "./auth.types";
 

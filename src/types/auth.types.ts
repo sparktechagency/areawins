@@ -1,6 +1,3 @@
-/**
- * Authentication related TypeScript type definitions
- */
 
 export interface User {
   id: string;
