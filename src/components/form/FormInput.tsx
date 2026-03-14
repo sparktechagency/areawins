@@ -1,110 +1,71 @@
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { Eye, EyeOff, LucideIcon } from "lucide-react";
 import React from "react";
-import { Control, FieldPath, FieldValues } from "react-hook-form";
 
-interface FormInputProps<TFieldValues extends FieldValues> extends Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "name"
-> {
-  name: FieldPath<TFieldValues>;
-  control: Control<TFieldValues>;
+interface FormInputProps extends React.ComponentProps<typeof Input> {
   label?: string;
   icon?: LucideIcon;
+  error?: string | string[];
   required?: boolean;
-  showPasswordToggle?: boolean;
-  containerClassName?: string;
-  labelClassName?: string;
-  inputClassName?: string;
 }
 
-export const FormInput = <TFieldValues extends FieldValues>(
-  props: FormInputProps<TFieldValues>,
-) => {
-  const {
-    name,
-    control,
-    label,
-    icon: Icon,
-    required,
-    showPasswordToggle,
-    containerClassName,
-    labelClassName,
-    inputClassName,
-    type = "text",
-    placeholder,
-    disabled,
-    ...rest
-  } = props;
-  const [showPassword, setShowPassword] = React.useState(false);
+const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
+  ({ label, icon: Icon, error, className, required, type, ...props }, ref) => {
+    const [showPassword, setShowPassword] = React.useState(false);
+    const isPassword = type === "password";
+    const inputType = isPassword ? (showPassword ? "text" : "password") : type;
 
-  const inputType = showPasswordToggle
-    ? showPassword
-      ? "text"
-      : "password"
-    : type;
-
-  return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field, fieldState }) => (
-        <FormItem className={cn("flex flex-col gap-1.5", containerClassName)}>
-          {label && (
-            <FormLabel className={cn("text-sm text-gray-700", labelClassName)}>
-              {label} {required && <span className="text-red-500">*</span>}
-            </FormLabel>
+    return (
+      <div className="flex flex-col gap-1.5">
+        {label && (
+          <Label
+            htmlFor={props.id || props.name}
+            className="text-sm font-semibold text-gray-700"
+          >
+            {label} {required && <span className="text-red-500">*</span>}
+          </Label>
+        )}
+        <div className="relative">
+          {Icon && (
+            <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
           )}
-          <FormControl>
-            <div className="relative">
-              {Icon && (
-                <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+          <Input
+            ref={ref}
+            type={inputType}
+            className={cn(
+              "w-full h-12  rounded-md outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary transition-all text-sm",
+              Icon && "pl-10",
+              isPassword && "pr-10",
+              error ? "border-red-500" : "bg-gray-50 border-gray-100",
+              className,
+            )}
+            {...props}
+          />
+          {isPassword && (
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+            >
+              {showPassword ? (
+                <EyeOff className="w-5 h-5" />
+              ) : (
+                <Eye className="w-5 h-5" />
               )}
-              <Input
-                type={inputType}
-                placeholder={placeholder}
-                disabled={disabled}
-                className={cn(
-                  "h-12 text-sm border-gray-200 rounded-md focus:border-primary transition-all",
-                  Icon && "pl-10",
-                  showPasswordToggle && "pr-10",
-                  fieldState.error
-                    ? "border-rose-500 bg-red-50/10"
-                    : "bg-gray-50/30",
-                  inputClassName,
-                )}
-                {...field}
-                {...rest}
-                value={field.value ?? ""}
-              />
-              {showPasswordToggle && (
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
-                >
-                  {showPassword ? (
-                    <EyeOff className="size-5" />
-                  ) : (
-                    <Eye className="size-5" />
-                  )}
-                </button>
-              )}
-            </div>
-          </FormControl>
-          <FormMessage className="text-xs font-medium text-red-500 mt-1" />
-        </FormItem>
-      )}
-    />
-  );
-};
+            </button>
+          )}
+        </div>
+        {error && (
+          <p className="text-xs font-medium text-red-500 mt-1">
+            {Array.isArray(error) ? error[0] : error}
+          </p>
+        )}
+      </div>
+    );
+  },
+);
+FormInput.displayName = "FormInput";
 
-export default FormInput;
+export { FormInput };

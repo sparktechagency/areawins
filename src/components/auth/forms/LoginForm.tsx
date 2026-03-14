@@ -1,66 +1,39 @@
 "use client";
+import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { setUser } from "@/lib/redux/features/authSlice";
-import { closeAuthModal, setAuthView } from "@/lib/redux/features/authUiSlice";
+import { setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
-import { loginSchema } from "@/lib/validations/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, Lock, Mail } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import * as z from "zod";
+import { AuthActionState, loginUser } from "@/services/auth.service";
+import { Lock, Mail } from "lucide-react";
+import { useActionState, useEffect } from "react";
+import toast from "react-hot-toast";
 
+const initialState: AuthActionState = {
+  success: false,
+  message: "",
+  errors: undefined,
+  inputs: {
+    email: "",
+    password: "",
+  },
+  timestamp: 0,
+};
 export default function LoginForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [state, formAction, isPending] = useActionState(
+    loginUser,
+    initialState,
+  );
 
-  const form = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-      rememberMe: false,
-    },
-  });
-
-  const onSubmit = async (values: z.infer<typeof loginSchema>) => {
-    setIsLoading(true);
-    // Mock Login Delay
-    setTimeout(() => {
-      setIsLoading(false);
-      // Mock User Data
-      const mockUser = {
-        id: "u123",
-        email: values.email,
-        firstName: "John",
-        lastName: "Doe",
-        username: "johndoe",
-        currency: "USD",
-        isEmailVerified: true,
-        isPhoneVerified: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-      // Dispatch set user
-      dispatch(setUser(mockUser));
-      toast.success(t("auth.successLogin"));
-      dispatch(closeAuthModal());
-    }, 1500);
-  };
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state?.message || "Login successful!");
+    } else if (state?.message && !state?.success) {
+      toast.error(state?.message);
+    }
+  }, [state]);
 
   return (
     <div className="p-6 space-y-6">
@@ -73,103 +46,48 @@ export default function LoginForm() {
         </p>
       </div>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  {t("auth.email")}
-                </FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-4 size-4 text-muted-foreground" />
-                    <Input
-                      placeholder="name@example.com"
-                      className="pl-9 bg-muted/50 border-border"
-                      {...field}
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+      <form action={formAction} className="space-y-4">
+        <FormInput
+          id="email"
+          name="email"
+          type="email"
+          label="Email Address"
+          icon={Mail}
+          defaultValue={state?.inputs?.email ?? undefined}
+          placeholder="Enter your email"
+          error={state?.errors?.email}
+          required
+        />
+        <FormInput
+          id="password"
+          name="password"
+          type="password"
+          label="Password"
+          icon={Lock}
+          defaultValue={state?.inputs?.password ?? undefined}
+          placeholder="Enter your password"
+          error={state?.errors?.password}
+          required
+        />
 
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  {t("auth.password")}
-                </FormLabel>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-4 size-4 text-muted-foreground" />
-                  <FormControl>
-                    <Input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="••••••••"
-                      className="pl-9 pr-9 bg-muted/50 border-border"
-                      {...field}
-                    />
-                  </FormControl>
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-4 cursor-pointer text-muted-foreground hover:text-foreground"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="size-4" />
-                    ) : (
-                      <Eye className="size-4" />
-                    )}
-                  </button>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <div className="flex items-center justify-between">
-            <FormField
-              control={form.control}
-              name="rememberMe"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-center space-x-2 space-y-0">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <FormLabel className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                    {t("auth.rememberMe")}
-                  </FormLabel>
-                </FormItem>
-              )}
-            />
-
-            <button
-              type="button"
-              onClick={() => dispatch(setAuthView("FORGOT_PASSWORD"))}
-              className="text-xs text-primary font-bold hover:underline"
-            >
-              {t("auth.forgotPassword")}
-            </button>
-          </div>
-
-          <Button
-            type="submit"
-            className="w-full font-bold cursor-pointer"
-            disabled={isLoading}
+        <div className="flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => dispatch(setAuthView("FORGOT_PASSWORD"))}
+            className="text-xs text-primary font-bold hover:underline"
           >
-            {isLoading ? t("auth.sending") : t("auth.logIn")}
-          </Button>
-        </form>
-      </Form>
+            {t("auth.forgotPassword")}
+          </button>
+        </div>
+
+        <Button
+          type="submit"
+          className="w-full font-bold cursor-pointer"
+          disabled={isPending}
+        >
+          {isPending ? t("auth.sending") : t("auth.logIn")}
+        </Button>
+      </form>
 
       <div className="text-center text-sm text-muted-foreground">
         {t("auth.noAccount")}{" "}
