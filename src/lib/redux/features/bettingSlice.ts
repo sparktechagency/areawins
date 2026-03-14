@@ -1,7 +1,4 @@
-/**
- * Betting slip state slice
- * Manages betting slip items and calculations
- */
+
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { BettingSlipState, BettingSlipItem, BetType } from "@/types";
