@@ -1,19 +1,14 @@
-/**
- * Betting slip hook
- * Manages betting slip state and operations
- */
 
 "use client";
 
-import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import {
   addToBettingSlip,
-  removeFromBettingSlip,
   clearBettingSlip,
-  setStake,
+  removeFromBettingSlip,
   setBetType,
+  setStake,
 } from "@/lib/redux/features/bettingSlice";
-import { usePlaceBetMutation } from "@/lib/redux/api/bettingApi";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import type { BettingSlipItem, BetType } from "@/types";
 import toast from "react-hot-toast";
 

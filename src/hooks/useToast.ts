@@ -1,7 +1,4 @@
-/**
- * Toast hook
- * Wrapper around react-hot-toast for consistent toast notifications
- */
+
 
 "use client";
 

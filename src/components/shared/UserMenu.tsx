@@ -1,9 +1,8 @@
 "use client";
-
 import { AnimatedDropdown } from "@/components/shared/AnimatedDropdown";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/useAuth";
+import { IUser } from "@/interfaces/user.interface";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import {
   LayoutDashboard,
@@ -13,17 +12,22 @@ import {
 } from "lucide-react";
 
 interface UserMenuProps {
+  user: IUser | null;
   isHomePage?: boolean;
   scrolled?: boolean;
 }
 
 export const UserMenu = ({
+  user,
   isHomePage = false,
   scrolled = false,
 }: UserMenuProps) => {
   const { t } = useTranslation();
-  const { user, logout } = useAuth();
-  
+
+  const handleLogout = () => {
+    window.location.href = "/login";
+  };
+
   const userMenuItems = [
     {
       label: t("navbar.dashboard"),
@@ -43,7 +47,7 @@ export const UserMenu = ({
     {
       label: t("navbar.logout"),
       icon: <LogOut className="h-4 w-4" />,
-      onClick: logout,
+      onClick: handleLogout,
       variant: "destructive" as const,
     },
   ];
@@ -51,13 +55,13 @@ export const UserMenu = ({
   if (!user) {
     return (
       <Button
-        onClick={() => logout()}
+        onClick={handleLogout}
         variant={
           isHomePage && scrolled
             ? "default"
             : isHomePage
-            ? "secondary"
-            : "default"
+              ? "secondary"
+              : "default"
         }
         className={`transition-all duration-300 cursor-pointer ${
           isHomePage && !scrolled
@@ -75,10 +79,9 @@ export const UserMenu = ({
       trigger={
         <div className="flex items-center gap-2">
           <Avatar className="size-11 border border-border cursor-pointer">
-            <AvatarImage src="/avatars/01.png" alt={user.username} />
+            <AvatarImage src={user.profileImage} alt={user.fullName} />
             <AvatarFallback className="bg-primary/10 text-primary font-bold">
-              {user.firstName?.[0]}
-              {user.lastName?.[0]}
+              {user.fullName?.[0]}
             </AvatarFallback>
           </Avatar>
         </div>
