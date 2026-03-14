@@ -120,20 +120,16 @@ export async function register(
     role: values.role || "user",
   };
 
-  // Only add referralCode if it exists
   if (values.referralCode && values.referralCode.trim() !== "") {
     registrationData.referralCode = values.referralCode;
   }
 
-  console.log("Register Data", registrationData);
   const parsed = registerSchema.safeParse(registrationData);
-
-  console.log("Parsed", parsed);
 
   if (!parsed.success) {
     return {
       success: false,
-      message: "Please fix the errors in the form",
+      message: "Invalid input ! please check the form",
       errors: parsed.error?.flatten().fieldErrors || {},
       inputs: values,
       timestamp: Date.now(),
@@ -282,7 +278,7 @@ export async function verifyOtp(
         timestamp: Date.now(),
       };
     }
-    
+
     // 2. Handle Email Verification Flow - Save tokens and remove sessionId
     if (verifyData?.tokens) {
       const isProduction = process.env.NODE_ENV === "production";
@@ -299,7 +295,7 @@ export async function verifyOtp(
         maxAge: 3600 * 24 * 90,
         path: "/",
       });
-      
+
       // set userRole in cookie
       await setCookie("userRole", verifyData.user.role, {
         secure: isProduction,
@@ -307,11 +303,11 @@ export async function verifyOtp(
         maxAge: 3600,
         path: "/",
       });
-      
+
       // Remove sessionId after successful verification
       await deleteCookie("sessionId");
     }
-    
+
     return {
       success: true,
       message: res.message,

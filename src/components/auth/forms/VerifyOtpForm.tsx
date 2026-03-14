@@ -33,8 +33,8 @@ export default function VerifyOtpForm() {
     if (state?.success) {
       toast.success(state?.message || "Email verified successfully!");
       dispatch(closeAuthModal());
-    } else if (state?.message && !state?.success) {
-      toast.error(state?.message);
+    } else if (state.message && !state.errors) {
+      toast.error(state.message);
     }
   }, [state, dispatch]);
 

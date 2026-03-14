@@ -33,8 +33,8 @@ export default function ResetPasswordForm() {
     if (state?.success) {
       toast.success(state?.message || "Password reset successful!");
       dispatch(setAuthView("LOGIN"));
-    } else if (state?.message && !state?.success) {
-      toast.error(state?.message);
+    } else if (state.message && !state.errors) {
+      toast.error(state.message);
     }
   }, [state, dispatch]);
   return (

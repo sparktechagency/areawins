@@ -35,8 +35,8 @@ export default function RegisterForm() {
     if (state?.success) {
       toast.success(state?.message || "Registration successful!");
       dispatch(setAuthView("VERIFY_OTP"));
-    } else if (state?.message && !state?.success) {
-      toast.error(state?.message);
+    } else if (state.message && !state.errors) {
+      toast.error(state.message);
     }
   }, [state, dispatch]);
 
