@@ -43,7 +43,7 @@ export default function RootLayout({
             <ReduxProvider>
               {children}
               <AuthModal />
-              <Toaster position="top-right" />
+              <Toaster position="top-center" />
               <Sonner />
             </ReduxProvider>
           </LanguageProvider>

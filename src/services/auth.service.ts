@@ -20,16 +20,6 @@ export async function loginUser(
   formData: FormData,
 ): Promise<AuthActionState> {
   const values = Object.fromEntries(formData.entries());
-
-  console.log("values", values);
-  return {
-    success: false,
-    message: "Invalid fields",
-    errors: {},
-    inputs: values,
-    timestamp: Date.now(),
-  };
-
   const parsed = loginSchema.safeParse(values);
   if (!parsed.success) {
     return {
@@ -124,11 +114,17 @@ export async function register(
   const values = Object.fromEntries(payload.entries());
 
   const registrationData: any = {
-    fullName: values.fullName,
-    email: values.email,
-    password: values.password,
-    role: values.role,
+    fullName: values.fullName || "",
+    email: values.email || "",
+    password: values.password || "",
+    phoneNumber: values.phoneNumber || "",
+    role: values.role || "user",
   };
+
+  // Only add referralCode if it exists
+  if (values.referralCode && values.referralCode.trim() !== "") {
+    registrationData.referralCode = values.referralCode;
+  }
 
   const parsed = registerSchema.safeParse(registrationData);
 

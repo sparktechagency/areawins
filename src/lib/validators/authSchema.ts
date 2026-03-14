@@ -8,30 +8,33 @@ export const loginSchema = z.object({
   rememberMe: z.boolean().default(false).optional(),
 });
 
-export const registerSchema = z
-  .object({
-    firstName: z
-      .string()
-      .min(2, { message: "First name must be at least 2 characters" }),
-    lastName: z
-      .string()
-      .min(2, { message: "Last name must be at least 2 characters" }),
-    country: z
-      .string()
-      .min(3, { message: "Country must be at least 3 characters" }),
-    email: z.string().email({ message: "Invalid email address" }),
-    password: z
-      .string()
-      .min(6, { message: "Password must be at least 6 characters" }),
-    confirmPassword: z.string(),
-    terms: z.boolean().refine((val) => val === true, {
-      message: "You must accept the terms and conditions",
-    }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
+export const registerSchema = z.object({
+  fullName: z
+    .string()
+    .min(3, { message: "Full name must be at least 3 characters" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters" }),
+  phoneNumber: z
+    .string()
+    .min(10, { message: "Phone number must be at least 10 characters" }),
+  referralCode: z
+    .string()
+    .optional()
+    .refine(
+      (val) => {
+        if (!val || val.trim() === "") return true; // Optional - no validation if empty
+        return /^[A-Z0-9]{8}$/.test(val.toUpperCase());
+      },
+      {
+        message: "Referral code must be exactly 8 alphanumeric characters",
+      },
+    ),
+  terms: z.boolean().refine((val) => val === true, {
+    message: "You must accept the terms and conditions",
+  }),
+});
 
 export const forgotPasswordSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),

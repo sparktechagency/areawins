@@ -2,12 +2,13 @@
 
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { AuthActionState, register } from "@/services/auth.service";
-import { Flag, Lock, Mail, User } from "lucide-react";
-import { useActionState, useEffect, useState } from "react";
+import { Lock, Mail, Phone, User } from "lucide-react";
+import { useActionState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 const initialState: AuthActionState = {
@@ -15,12 +16,11 @@ const initialState: AuthActionState = {
   message: "",
   errors: undefined,
   inputs: {
-    firstName: "",
-    lastName: "",
-    country: "",
+    fullName: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    phoneNumber: "",
+    referralCode: "",
     terms: false,
   },
   timestamp: 0,
@@ -53,89 +53,95 @@ export default function RegisterForm() {
 
       <form action={formAction} className="space-y-4">
         <FormInput
-          id="firstName"
-          name="firstName"
+          id="fullName"
+          name="fullName"
           type="text"
-          label="First Name"
+          label="Full Name"
           icon={User}
-          defaultValue={state?.inputs?.firstName ?? undefined}
-          placeholder="Enter your first name"
-          error={state?.errors?.firstName}
+          defaultValue={state?.inputs?.fullName || ""}
+          placeholder="John Doe"
+          error={state?.errors?.fullName}
           required
         />
-        <FormInput
-          id="lastName"
-          name="lastName"
-          type="text"
-          label="Last Name"
-          icon={User}
-          defaultValue={state?.inputs?.lastName ?? undefined}
-          placeholder="Enter your last name"
-          error={state?.errors?.lastName}
-          required
-        />
-        <FormInput
-          id="country"
-          name="country"
-          type="text"
-          label="Country"
-          icon={Flag}
-          defaultValue={state?.inputs?.country ?? undefined}
-          placeholder="Enter your country"
-          error={state?.errors?.country}
-          required
-        />
+
         <FormInput
           id="email"
           name="email"
           type="email"
           label="Email Address"
           icon={Mail}
-          defaultValue={state?.inputs?.email ?? undefined}
-          placeholder="Enter your email"
+          defaultValue={state?.inputs?.email || ""}
+          placeholder="john@example.com"
           error={state?.errors?.email}
           required
         />
+        <FormInput
+          id="phoneNumber"
+          name="phoneNumber"
+          type="tel"
+          label="Phone Number"
+          icon={Phone}
+          defaultValue={state?.inputs?.phoneNumber || ""}
+          placeholder="+1234567890"
+          error={state?.errors?.phoneNumber}
+          required
+        />
+        <FormInput
+          id="referralCode"
+          name="referralCode"
+          type="text"
+          label="Referral Code (Optional)"
+          icon={User}
+          defaultValue={state?.inputs?.referralCode || ""}
+          placeholder="YRSVUQYN"
+          error={state?.errors?.referralCode}
+        />
+
         <FormInput
           id="password"
           name="password"
           type="password"
           label="Password"
           icon={Lock}
-          defaultValue={state?.inputs?.password ?? undefined}
-          placeholder="Create password"
+          defaultValue={state?.inputs?.password || ""}
+          placeholder="Min. 6 characters"
           error={state?.errors?.password}
           required
         />
-        <FormInput
-          id="confirmPassword"
-          name="confirmPassword"
-          type="password"
-          label="Confirm Password"
-          icon={Lock}
-          defaultValue={state?.inputs?.confirmPassword ?? undefined}
-          placeholder="Confirm your password"
-          error={state?.errors?.confirmPassword}
-          required
-        />
 
-        <div className="flex items-center space-x-2">
-          <input
-            type="checkbox"
+        <div className="flex items-start space-x-2">
+          <Checkbox
             id="terms"
             name="terms"
             defaultChecked={state?.inputs?.terms ?? false}
-            className="h-4 w-4 rounded border-border cursor-pointer"
+            className="mt-0.5"
           />
           <div className="space-y-1 leading-none">
             <label
               htmlFor="terms"
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
-              {t("auth.terms")}
+              I agree to the{" "}
+              <a
+                href="/terms"
+                className="text-primary hover:underline underline-offset-4"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Terms of Service
+              </a>{" "}
+              and{" "}
+              <a
+                href="/privacy"
+                className="text-primary hover:underline underline-offset-4"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Privacy Policy
+              </a>
             </label>
             <p className="text-[0.8rem] text-muted-foreground">
-              {t("auth.termsDesc")}
+              By creating an account, you agree to our terms and privacy policy
             </p>
           </div>
         </div>
