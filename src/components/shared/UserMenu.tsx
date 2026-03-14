@@ -4,12 +4,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { IUser } from "@/interfaces/user.interface";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { deleteCookie } from "@/utils/tokenHandlers";
 import {
   LayoutDashboard,
   LogOut,
   Trophy,
   User as UserIcon,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface UserMenuProps {
   user: IUser | null;
@@ -23,9 +25,17 @@ export const UserMenu = ({
   scrolled = false,
 }: UserMenuProps) => {
   const { t } = useTranslation();
+  const router = useRouter();
 
   const handleLogout = () => {
-    window.location.href = "/login";
+    // Delete all authentication cookies
+    deleteCookie("accessToken"); // accessToken
+    deleteCookie("refreshToken"); // refreshToken
+    deleteCookie("sessionId"); // sessionId
+    deleteCookie("userRole"); // userRole
+
+    // Redirect to home page
+    router.push("/");
   };
 
   const userMenuItems = [

@@ -1,22 +1,33 @@
 "use client";
 import logo from "@/assets/logo/logo.png";
 import { AnimatedDropdown } from "@/components/shared/AnimatedDropdown";
+import { useAuth } from "@/hooks/useAuth";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { openAuthModal } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
-import { Globe, HelpCircle, Home, Menu, TrendingUp, Trophy, Users } from "lucide-react";
+import {
+  Globe,
+  HelpCircle,
+  Home,
+  Menu,
+  TrendingUp,
+  Trophy,
+  Users,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import DarkModeToggle from "../ui/dark-mode-toggle";
+import { IUser } from "@/interfaces/user.interface";
+import { UserMenu } from "./UserMenu";
+import MobileUserMenu from "./MobileUserMenu";
 
-const NavbarClient = () => {
+const NavbarClient = ({ user }: { user: IUser }) => {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
   const { t, language, setLanguage } = useTranslation();
-  const { isAuthenticated, user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -127,23 +138,31 @@ const NavbarClient = () => {
             </div>
 
             <div className="hidden md:block">
-              <Button
-                onClick={() => dispatch(openAuthModal({ view: "LOGIN" }))}
-                variant={
-                  isHomePage && scrolled
-                    ? "default"
-                    : isHomePage
-                      ? "secondary"
-                      : "default"
-                }
-                className={`transition-all duration-300 cursor-pointer ${
-                  isHomePage && !scrolled
-                    ? "bg-white text-primary hover:bg-white/90"
-                    : ""
-                }`}
-              >
-                {t("navbar.login")}
-              </Button>
+              {user ? (
+                <UserMenu
+                  user={user}
+                  isHomePage={isHomePage}
+                  scrolled={scrolled}
+                />
+              ) : (
+                <Button
+                  onClick={() => dispatch(openAuthModal({ view: "LOGIN" }))}
+                  variant={
+                    isHomePage && scrolled
+                      ? "default"
+                      : isHomePage
+                        ? "secondary"
+                        : "default"
+                  }
+                  className={`transition-all duration-300 cursor-pointer ${
+                    isHomePage && !scrolled
+                      ? "bg-white text-primary hover:bg-white/90"
+                      : ""
+                  }`}
+                >
+                  {t("navbar.login")}
+                </Button>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -163,8 +182,14 @@ const NavbarClient = () => {
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 bg-background/95 backdrop-blur-md rounded-lg border border-border p-4 space-y-2 shadow-xl absolute top-full left-0 right-0 mx-4">
             <div className="flex justify-between items-center mb-2 px-2">
-              <span className="text-sm font-bold text-muted-foreground">Menu</span>
-              <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(false)}>
+              <span className="text-sm font-bold text-muted-foreground">
+                Menu
+              </span>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Close
               </Button>
             </div>
@@ -176,7 +201,9 @@ const NavbarClient = () => {
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3 hover:bg-muted rounded-lg transition-all font-medium ${
-                    pathname === link.href ? "bg-primary/10 text-primary" : "text-foreground"
+                    pathname === link.href
+                      ? "bg-primary/10 text-primary"
+                      : "text-foreground"
                   }`}
                 >
                   <IconComponent className="w-5 h-5" />
@@ -187,15 +214,24 @@ const NavbarClient = () => {
 
             {/* Mobile Language Switcher */}
             <div className="flex gap-2 px-4 py-2 border-t border-border mt-2">
-              <Button variant={language === "en" ? "default" : "outline"} size="sm" onClick={() => setLanguage("en")}>
+              <Button
+                variant={language === "en" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setLanguage("en")}
+              >
                 English
               </Button>
-              <Button variant={language === "es" ? "default" : "outline"} size="sm" onClick={() => setLanguage("es")}>
+              <Button
+                variant={language === "es" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setLanguage("es")}
+              >
                 Español
               </Button>
             </div>
 
-            <div className="pt-2 border-t border-border mt-2 space-y-2">
+            {!user ? (
+              <div className="pt-2 border-t border-border mt-2 space-y-2">
                 <div className="block w-full">
                   <Button
                     variant="destructive"
@@ -209,6 +245,12 @@ const NavbarClient = () => {
                   </Button>
                 </div>
               </div>
+            ) : (
+              <MobileUserMenu
+                user={user}
+                onClose={() => setIsMenuOpen(false)}
+              />
+            )}
           </div>
         )}
       </nav>

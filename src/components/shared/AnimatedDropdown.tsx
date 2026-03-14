@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 interface DropdownItemProps {
@@ -70,28 +71,47 @@ export const AnimatedDropdown = ({
           >
             <div className="py-1">
               {items.map((item, index) => (
-                <a
-                  key={index}
-                  href={item.href}
-                  onClick={(e) => {
-                    if (item.onClick) {
-                      e.preventDefault();
-                      item.onClick();
-                    }
-                    setIsOpen(false);
-                  }}
-                  className={cn(
-                    "flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-muted/50 cursor-pointer ",
-                    item.variant === "destructive"
-                      ? "text-destructive hover:text-destructive/90"
-                      : "text-foreground"
+                <div key={index}>
+                  {item.href ? (
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className={cn(
+                        "flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-muted/50 cursor-pointer ",
+                        item.variant === "destructive"
+                          ? "text-destructive hover:text-destructive/90"
+                          : "text-foreground"
+                      )}
+                    >
+                      {item.icon && (
+                        <span className="text-muted-foreground">{item.icon}</span>
+                      )}
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a
+                      key={index}
+                      onClick={(e) => {
+                        if (item.onClick) {
+                          e.preventDefault();
+                          item.onClick();
+                        }
+                        setIsOpen(false);
+                      }}
+                      className={cn(
+                        "flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-muted/50 cursor-pointer ",
+                        item.variant === "destructive"
+                          ? "text-destructive hover:text-destructive/90"
+                          : "text-foreground"
+                      )}
+                    >
+                      {item.icon && (
+                        <span className="text-muted-foreground">{item.icon}</span>
+                      )}
+                      {item.label}
+                    </a>
                   )}
-                >
-                  {item.icon && (
-                    <span className="text-muted-foreground">{item.icon}</span>
-                  )}
-                  {item.label}
-                </a>
+                </div>
               ))}
             </div>
           </motion.div>

@@ -1,9 +1,9 @@
 "use server";
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { ActionState } from "@/interfaces/action-state.interface";
 import { getCookie } from "@/utils/tokenHandlers";
 import { revalidateTag } from "next/cache";
 import { api } from "./api";
-import { ActionState } from "@/interfaces/action-state.interface";
 
 export type UserActionState = ActionState;
 
@@ -14,7 +14,7 @@ export async function getMyProfile() {
     return null;
   }
   try {
-    const res = await api.get("/users/profile/me", {
+    const res = await api.get("/users/my-profile", {
       next: {
         tags: ["profile"],
         revalidate: 180,
@@ -40,7 +40,7 @@ export async function updateMyProfile(data: any) {
   }
 
   try {
-    const res = await api.patch("/users/profile/me", data);
+    const res = await api.patch("/users/update-profile", data);
     if (!res.success) {
       throw new Error(res.message || "Failed to update profile");
     }

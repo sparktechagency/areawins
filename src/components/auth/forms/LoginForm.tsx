@@ -2,7 +2,7 @@
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { setAuthView } from "@/lib/redux/features/authUiSlice";
+import { closeAuthModal, setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { AuthActionState, loginUser } from "@/services/auth.service";
 import { Lock, Mail } from "lucide-react";
@@ -30,6 +30,8 @@ export default function LoginForm() {
   useEffect(() => {
     if (state?.success) {
       toast.success(state?.message || "Login successful!");
+
+      dispatch(closeAuthModal());
     } else if (state.message && !state.errors) {
       toast.error(state.message);
     }

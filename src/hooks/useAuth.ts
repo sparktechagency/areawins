@@ -1,4 +1,5 @@
 "use client";
+import { IUser } from "@/interfaces/user.interface";
 import { ROUTES } from "@/lib/constants";
 import { openAuthModal } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
@@ -10,32 +11,23 @@ export function useAuth() {
   const dispatch = useAppDispatch();
   
   const [isAuthenticated, setIsAuthenticated] = useState(true);
-  const [user, setUser] = useState<{
-    id: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    username: string;
-    phone: string;
-    avatar: string;
-    currency: string;
-    isEmailVerified: boolean;
-    isPhoneVerified: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-  } | null>({
-    id: "u123",
+  const [user, setUser] = useState<IUser | null>({
+    _id: "u123",
+    fullName: "John Doe",
     email: "john@example.com",
-    firstName: "John",
-    lastName: "Doe",
-    username: "johndoe",
-    phone: "1711223344",
-    avatar: "https://i.pravatar.cc/150?img=1",
-    currency: "USD",
-    isEmailVerified: true,
-    isPhoneVerified: false,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    role: "user",
+    nickname: "johndoe",
+    customerId: "cust123",
+    profileImage: "https://i.pravatar.cc/150?img=1",
+    referralCode: "REF123",
+    referredUsers: [],
+    referralEarnings: 0,
+    isVerified: true,
+    isBlocked: false,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    lastLoginAt: new Date().toISOString(),
   });
   
   const isLoading = false;
