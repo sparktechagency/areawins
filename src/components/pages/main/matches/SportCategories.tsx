@@ -1,23 +1,22 @@
-"use client";
-
-import { MOCK_SPORTS } from "@/data/match.data";
+import { ISportCategories } from "@/interfaces/sportCategories.interface";
+import { getSportCategories } from "@/services/sportCategories.service";
+import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
-const SportCategories = () => {
-  const pathname = usePathname();
+const SportCategories = async () => {
+  const sportCategoriesResponse = await getSportCategories({});
+  const sportCategoriesData = sportCategoriesResponse?.results;
 
-  // Create "All" category + dynamic sports from data
   const allCategory = {
     name: "All",
-    icon: "🏆",
+    icon: null, 
     href: "/matches",
     slug: "all",
   };
 
   const sportCategories = [
     allCategory,
-    ...MOCK_SPORTS.filter((sport) => sport.isActive).map((sport) => ({
+    ...sportCategoriesData?.map((sport: ISportCategories) => ({
       name: sport.name,
       icon: sport.icon,
       href: `/matches/${sport.slug}`,
@@ -28,23 +27,26 @@ const SportCategories = () => {
   return (
     <section className="bg-background border-b border-border w-full overflow-hidden">
       <nav className="container mx-auto flex items-center gap-6 py-3 md:py-4 overflow-x-auto no-scrollbar">
-        {sportCategories.map((sport) => {
+        {sportCategories?.map((sport) => {
           const isActive =
-            pathname === sport.href ||
+            sport.href === "/matches" ||
             (sport.slug !== "all" &&
-              pathname.startsWith(`/matches/${sport.slug}`));
+              sport.href.startsWith(`/matches/${sport.slug}`));
 
           return (
             <Link
               key={sport.slug}
               href={sport.href}
-              className={`flex items-center gap-1 shrink-0 whitespace-nowrap transition-colors ${
-                isActive
-                  ? "text-primary hover:text-primary/80"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`flex items-center gap-1.5 shrink-0 whitespace-nowrap transition-colors text-muted-foreground hover:text-foreground`}
             >
-              <span className="text-xl">{sport.icon}</span>
+              {sport.icon && (
+                <Image
+                  src={sport.icon}
+                  alt={sport.name}
+                  width={18}
+                  height={18}
+                />
+              )}
               <span className="text-sm">{sport.name}</span>
             </Link>
           );

@@ -41,7 +41,7 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
 
   useEffect(() => {
     resetTimeout();
-    timeoutRef.current = setTimeout(nextSlide, 6000); // Auto-slide every 6 seconds
+    timeoutRef.current = setTimeout(nextSlide, 6000); 
 
     return () => resetTimeout();
   }, [currentIndex, nextSlide]);

@@ -39,6 +39,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "upload.wikimedia.org",
       },
+      {
+        protocol: "https",
+        hostname: "areawins.s3.us-east-2.amazonaws.com",
+      },
     ],
   },
 };
