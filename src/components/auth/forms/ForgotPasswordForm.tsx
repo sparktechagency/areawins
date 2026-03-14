@@ -1,104 +1,79 @@
 "use client";
-
+import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { openAuthModal, setAuthView } from "@/lib/redux/features/authUiSlice";
+import { setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
-import { forgotPasswordSchema } from "@/lib/validations/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { AuthActionState, forgotPassword } from "@/services/auth.service";
 import { ArrowLeft, Mail } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import * as z from "zod";
+import { useActionState, useEffect } from "react";
+import toast from "react-hot-toast";
+
+const initialState: AuthActionState = {
+  success: false,
+  message: "",
+  errors: undefined,
+  inputs: {
+    email: "",
+  },
+  timestamp: 0,
+};
 
 export default function ForgotPasswordForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const [state, formAction, isPending] = useActionState(
+    forgotPassword,
+    initialState,
+  );
 
-  const form = useForm<z.infer<typeof forgotPasswordSchema>>({
-    resolver: zodResolver(forgotPasswordSchema),
-    defaultValues: {
-      email: "",
-    },
-  });
-
-  const onSubmit = async (values: z.infer<typeof forgotPasswordSchema>) => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      toast.success("OTP sent to your email");
-      dispatch(
-        openAuthModal({
-          view: "VERIFY_OTP",
-          email: values.email,
-          otpReason: "FORGOT_PASSWORD",
-        })
-      );
-    }, 1500);
-  };
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state?.message || "Reset link sent!");
+      dispatch(setAuthView("VERIFY_OTP"));
+    } else if (state?.message && !state?.success) {
+      toast.error(state?.message);
+    }
+  }, [state, dispatch]);
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="space-y-2">
-        <button
-          onClick={() => dispatch(setAuthView("LOGIN"))}
-          className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground mb-4"
-        >
-          <ArrowLeft className="size-4" /> {t("auth.backToLogin")}
-        </button>
+    <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
+      <div className="text-center space-y-2">
         <h2 className="text-2xl font-black text-foreground">
-          {t("auth.resetPassword")}
+          {t("auth.forgotPassword")}
         </h2>
         <p className="text-sm text-muted-foreground">
-          {t("auth.createStrongPwd")}
+          {t("auth.forgotPasswordSubtitle")}
         </p>
       </div>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  {t("auth.email")}
-                </FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-4 size-4 text-muted-foreground" />
-                    <Input
-                      placeholder="name@example.com"
-                      className="pl-9 bg-muted/50 border-border"
-                      {...field}
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+      <form action={formAction} className="space-y-4">
+        <FormInput
+          id="email"
+          name="email"
+          type="email"
+          label="Email Address"
+          icon={Mail}
+          defaultValue={state?.inputs?.email ?? undefined}
+          placeholder="Enter your email"
+          error={state?.errors?.email}
+          required
+        />
 
-          <Button
-            type="submit"
-            className="w-full font-bold"
-            disabled={isLoading}
-          >
-            {isLoading ? t("auth.sending") : t("auth.sendResetCode")}
-          </Button>
-        </form>
-      </Form>
+        <Button type="submit" className="w-full font-bold" disabled={isPending}>
+          {isPending ? t("auth.sending") : t("auth.sendResetLink")}
+        </Button>
+      </form>
+
+      <div className="text-center">
+        <button
+          onClick={() => dispatch(setAuthView("LOGIN"))}
+          className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm"
+        >
+          <ArrowLeft className="size-4" />
+          {t("auth.backToLogin")}
+        </button>
+      </div>
     </div>
   );
 }

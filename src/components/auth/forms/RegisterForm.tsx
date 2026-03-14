@@ -1,61 +1,44 @@
 "use client";
 
+import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { openAuthModal, setAuthView } from "@/lib/redux/features/authUiSlice";
+import { setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
-import { registerSchema } from "@/lib/validations/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, Flag, Lock, Mail, User } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import * as z from "zod";
+import { AuthActionState, register } from "@/services/auth.service";
+import { Flag, Lock, Mail, User } from "lucide-react";
+import { useActionState, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
+const initialState: AuthActionState = {
+  success: false,
+  message: "",
+  errors: undefined,
+  inputs: {
+    firstName: "",
+    lastName: "",
+    country: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    terms: false,
+  },
+  timestamp: 0,
+};
 
 export default function RegisterForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [state, formAction, isPending] = useActionState(register, initialState);
 
-  const form = useForm<z.infer<typeof registerSchema>>({
-    resolver: zodResolver(registerSchema),
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      country: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      terms: false,
-    },
-  });
-
-  const onSubmit = async (values: z.infer<typeof registerSchema>) => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      toast.success(t("auth.successRegister"));
-      // Move to OTP Verify
-      dispatch(
-        openAuthModal({
-          view: "VERIFY_OTP",
-          email: values.email,
-          otpReason: "REGISTER",
-        })
-      );
-    }, 1500);
-  };
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state?.message || "Registration successful!");
+      dispatch(setAuthView("VERIFY_OTP"));
+    } else if (state?.message && !state?.success) {
+      toast.error(state?.message);
+    }
+  }, [state, dispatch]);
 
   return (
     <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
@@ -68,164 +51,99 @@ export default function RegisterForm() {
         </p>
       </div>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="firstName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  {t("auth.firstName")}
-                </FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <User className="absolute left-3 top-4 size-4 text-muted-foreground" />
-                    <Input
-                      placeholder="John"
-                      className="pl-9 bg-muted/50 border-border"
-                      {...field}
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  {t("auth.lastName")}
-                </FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <User className="absolute left-3 top-4 size-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Doe"
-                      className="pl-9 bg-muted/50 border-border"
-                      {...field}
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+      <form action={formAction} className="space-y-4">
+        <FormInput
+          id="firstName"
+          name="firstName"
+          type="text"
+          label="First Name"
+          icon={User}
+          defaultValue={state?.inputs?.firstName ?? undefined}
+          placeholder="Enter your first name"
+          error={state?.errors?.firstName}
+          required
+        />
+        <FormInput
+          id="lastName"
+          name="lastName"
+          type="text"
+          label="Last Name"
+          icon={User}
+          defaultValue={state?.inputs?.lastName ?? undefined}
+          placeholder="Enter your last name"
+          error={state?.errors?.lastName}
+          required
+        />
+        <FormInput
+          id="country"
+          name="country"
+          type="text"
+          label="Country"
+          icon={Flag}
+          defaultValue={state?.inputs?.country ?? undefined}
+          placeholder="Enter your country"
+          error={state?.errors?.country}
+          required
+        />
+        <FormInput
+          id="email"
+          name="email"
+          type="email"
+          label="Email Address"
+          icon={Mail}
+          defaultValue={state?.inputs?.email ?? undefined}
+          placeholder="Enter your email"
+          error={state?.errors?.email}
+          required
+        />
+        <FormInput
+          id="password"
+          name="password"
+          type="password"
+          label="Password"
+          icon={Lock}
+          defaultValue={state?.inputs?.password ?? undefined}
+          placeholder="Create password"
+          error={state?.errors?.password}
+          required
+        />
+        <FormInput
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          label="Confirm Password"
+          icon={Lock}
+          defaultValue={state?.inputs?.confirmPassword ?? undefined}
+          placeholder="Confirm your password"
+          error={state?.errors?.confirmPassword}
+          required
+        />
 
-          <FormField
-            control={form.control}
-            name="country"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  {t("auth.country")}
-                </FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Flag className="absolute left-3 top-4 size-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Country"
-                      className="pl-9 bg-muted/50 border-border"
-                      {...field}
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  {t("auth.email")}
-                </FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-4 size-4 text-muted-foreground" />
-                    <Input
-                      placeholder="name@example.com"
-                      className="pl-9 bg-muted/50 border-border"
-                      {...field}
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  {t("auth.password")}
-                </FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-4 size-4 text-muted-foreground" />
-                    <Input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Create password"
-                      className="pl-9 pr-9 bg-muted/50 border-border"
-                      {...field}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-4 text-muted-foreground hover:text-foreground"
-                    >
-                      {showPassword ? (
-                        <EyeOff className="size-4" />
-                      ) : (
-                        <Eye className="size-4" />
-                      )}
-                    </button>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
+        <div className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            id="terms"
             name="terms"
-            render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-border cursor-pointer p-4">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel>{t("auth.terms")}</FormLabel>
-                  <p className="text-[0.8rem] text-muted-foreground">
-                    {t("auth.termsDesc")}
-                  </p>
-                </div>
-              </FormItem>
-            )}
+            defaultChecked={state?.inputs?.terms ?? false}
+            className="h-4 w-4 rounded border-border cursor-pointer"
           />
+          <div className="space-y-1 leading-none">
+            <label
+              htmlFor="terms"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              {t("auth.terms")}
+            </label>
+            <p className="text-[0.8rem] text-muted-foreground">
+              {t("auth.termsDesc")}
+            </p>
+          </div>
+        </div>
 
-          <Button
-            type="submit"
-            className="w-full font-bold"
-            disabled={isLoading}
-          >
-            {isLoading ? t("auth.sending") : t("auth.signUp")}
-          </Button>
-        </form>
-      </Form>
+        <Button type="submit" className="w-full font-bold" disabled={isPending}>
+          {isPending ? t("auth.sending") : t("auth.signUp")}
+        </Button>
+      </form>
 
       <div className="text-center text-sm text-muted-foreground">
         {t("auth.haveAccount")}{" "}

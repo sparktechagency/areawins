@@ -1,24 +1,22 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { setUser } from "@/lib/redux/features/authSlice";
 import {
-  closeAuthModal,
-  setAuthOtp,
-  setAuthView,
+    closeAuthModal,
+    setAuthOtp,
+    setAuthView,
 } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
-import { verifyOtpSchema } from "@/lib/validations/auth";
+import { verifyOtpSchema } from "@/lib/validators/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
@@ -52,20 +50,6 @@ export default function VerifyOtpForm() {
 
       if (otpReason === "REGISTER") {
         toast.success(t("auth.successVerify"));
-        // Mock Auto Login
-        const mockUser = {
-          id: "u123",
-          email: email,
-          firstName: "John",
-          lastName: "Doe",
-          username: "johndoe",
-          currency: "USD",
-          isEmailVerified: true,
-          isPhoneVerified: false,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
-        dispatch(setUser(mockUser));
         dispatch(closeAuthModal());
       } else if (otpReason === "FORGOT_PASSWORD") {
         dispatch(setAuthOtp(values.otp));

@@ -11,13 +11,12 @@ import { useAuth } from "@/hooks/useAuth";
 import {
   Bell,
   Camera,
-  CheckCircle2,
   Copy,
   CreditCard,
   Gift,
   Lock,
   ShieldCheck,
-  User,
+  User
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner"; // Assuming sonner
@@ -42,7 +41,7 @@ export default function EditProfilePage() {
   const [is2FAEnabled, setIs2FAEnabled] = useState(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));

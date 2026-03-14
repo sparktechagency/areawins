@@ -1,13 +1,11 @@
 "use client";
 import logo from "@/assets/logo/logo.png";
-
 import { AnimatedDropdown } from "@/components/shared/AnimatedDropdown";
 import { UserMenu } from "@/components/shared/UserMenu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useAuth } from "@/hooks/useAuth";
+import { ROUTES } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { clearAuth } from "@/lib/redux/features/authSlice";
-import { openAuthModal } from "@/lib/redux/features/authUiSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import {
   Globe,
   HelpCircle,
@@ -25,19 +23,17 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import DarkModeToggle from "../ui/dark-mode-toggle";
-import { ROUTES } from "@/lib/constants";
 
 const MobileUserMenu = ({ onClose }: { onClose: () => void }) => {
-  const { user, isAuthenticated } = useAppSelector((state) => state.auth);
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
+  const { user, logout } = useAuth();
 
   const handleLogout = () => {
-    dispatch(clearAuth());
+    logout();
     onClose();
   };
 
-  if (!isAuthenticated) return null;
+  if (!user) return null;
 
   return (
     <div className="border-t border-border mt-2 pt-2 space-y-2">
@@ -73,10 +69,9 @@ const MobileUserMenu = ({ onClose }: { onClose: () => void }) => {
 };
 
 const Navbar = () => {
-  const dispatch = useAppDispatch();
+  const { logout, user } = useAuth();
   const pathname = usePathname();
   const { t, language, setLanguage } = useTranslation();
-  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -256,7 +251,7 @@ const Navbar = () => {
               </Button>
             </div>
 
-            {!isAuthenticated ? (
+            {!user ? (
               <div className="pt-2 border-t border-border mt-2 space-y-2">
                 <div className="block w-full">
                   <Button
@@ -264,7 +259,7 @@ const Navbar = () => {
                     className="w-full cursor-pointer"
                     onClick={() => {
                       setIsMenuOpen(false);
-                      dispatch(openAuthModal({ view: "LOGIN" }));
+                      logout();
                     }}
                   >
                     {t("navbar.signIn")}

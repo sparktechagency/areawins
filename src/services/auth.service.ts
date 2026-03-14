@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { ActionState } from "@/interfaces/action-state.interface";
+import {
+  forgotPasswordSchema,
+  loginSchema,
+  registerSchema,
+  resetPasswordSchema,
+  verifyOtpSchema,
+} from "@/lib/validators/authSchema";
 import { api } from "@/services/api";
 import { getDefaultDashboardRoute } from "@/utils/auth-utils";
 import { deleteCookie, getCookie, setCookie } from "@/utils/tokenHandlers";
-import {
-  forgotPasswordValidationSchema,
-  loginValidationSchema,
-  registerFormValidationSchema,
-  resetPasswordValidationSchema,
-  verifyOtpValidationSchema,
-} from "@/validation/auth.validation";
 import { cookies } from "next/headers";
 
 export type AuthActionState = ActionState;
@@ -30,7 +30,7 @@ export async function loginUser(
     timestamp: Date.now(),
   };
 
-  const parsed = loginValidationSchema.safeParse(values);
+  const parsed = loginSchema.safeParse(values);
   if (!parsed.success) {
     return {
       success: false,
@@ -130,7 +130,7 @@ export async function register(
     role: values.role,
   };
 
-  const parsed = registerFormValidationSchema.safeParse(registrationData);
+  const parsed = registerSchema.safeParse(registrationData);
 
   if (!parsed.success) {
     return {
@@ -185,7 +185,7 @@ export async function forgotPassword(
   payload: any,
 ): Promise<AuthActionState> {
   const values = Object.fromEntries(payload.entries());
-  const parsed = forgotPasswordValidationSchema.safeParse(values);
+  const parsed = forgotPasswordSchema.safeParse(values);
 
   if (!parsed.success) {
     return {
@@ -243,7 +243,7 @@ export async function verifyOtp(
     sessionId: sessionId,
     code: values.otp || values.code,
   };
-  const parsed = verifyOtpValidationSchema.safeParse(data);
+  const parsed = verifyOtpSchema.safeParse(data);
 
   if (!parsed.success) {
     return {
@@ -315,7 +315,7 @@ export async function resetPassword(
 ): Promise<AuthActionState> {
   const values = Object.fromEntries(payload.entries());
 
-  const parsed = resetPasswordValidationSchema.safeParse({
+  const parsed = resetPasswordSchema.safeParse({
     password: values.password,
     confirmPassword: values.confirmPassword,
   });

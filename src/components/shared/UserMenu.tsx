@@ -3,10 +3,8 @@
 import { AnimatedDropdown } from "@/components/shared/AnimatedDropdown";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { clearAuth } from "@/lib/redux/features/authSlice";
-import { openAuthModal } from "@/lib/redux/features/authUiSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import {
   LayoutDashboard,
   LogOut,
@@ -23,14 +21,9 @@ export const UserMenu = ({
   isHomePage = false,
   scrolled = false,
 }: UserMenuProps) => {
-  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const { user, isAuthenticated } = useAppSelector((state) => state.auth);
-
-  const handleLogout = () => {
-    dispatch(clearAuth());
-  };
-
+  const { user, logout } = useAuth();
+  
   const userMenuItems = [
     {
       label: t("navbar.dashboard"),
@@ -50,15 +43,15 @@ export const UserMenu = ({
     {
       label: t("navbar.logout"),
       icon: <LogOut className="h-4 w-4" />,
-      onClick: handleLogout,
+      onClick: logout,
       variant: "destructive" as const,
     },
   ];
 
-  if (!isAuthenticated || !user) {
+  if (!user) {
     return (
       <Button
-        onClick={() => dispatch(openAuthModal({ view: "LOGIN" }))}
+        onClick={() => logout()}
         variant={
           isHomePage && scrolled
             ? "default"
