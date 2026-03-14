@@ -3,23 +3,18 @@
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import React from "react";
-import RightMarketSidebar from "./RightMarketSidebar";
 import SportsMatchesSidebar from "./SportsMatchesSidebar";
 
 interface MatchesLayoutWrapperProps {
   children: React.ReactNode;
   leftSidebar?: React.ReactNode;
-  rightSidebar?: React.ReactNode;
   hideLeftSidebar?: boolean;
-  hideRightSidebar?: boolean;
 }
 
 const MatchesLayoutWrapper = ({
   children,
   leftSidebar,
-  rightSidebar,
   hideLeftSidebar = false,
-  hideRightSidebar = false,
 }: MatchesLayoutWrapperProps) => {
   const pathname = usePathname();
 
@@ -31,21 +26,19 @@ const MatchesLayoutWrapper = ({
 
   const showLeft =
     !hideLeftSidebar && !isMainMatchesPage && !isMatchDetailsPage;
-  const showRight = !hideRightSidebar;
+  const showRight = false; // Always false since we don't use right sidebar
 
   return (
-    <div className="w-full bg-background min-h-screen pt-20 transition-all duration-300">
+    <div className="w-full  min-h-screen pt-20 transition-all duration-300">
       <div className="container mx-auto px-4 py-6">
         <div
           className={cn(
             "grid gap-8",
-            (showLeft || leftSidebar) && showRight
-              ? "grid-cols-1 lg:grid-cols-[280px_1fr] xl:grid-cols-[280px_1fr_320px]"
-              : (showLeft || leftSidebar) && !showRight
+            // Only left sidebar
+            (showLeft || leftSidebar)
               ? "grid-cols-1 lg:grid-cols-[280px_1fr]"
-              : !(showLeft || leftSidebar) && showRight
-              ? "grid-cols-1 xl:grid-cols-[1fr_320px]"
-              : "grid-cols-1"
+              : // No sidebars
+              "grid-cols-1",
           )}
         >
           {/* Left Sidebar */}
@@ -56,16 +49,8 @@ const MatchesLayoutWrapper = ({
               </div>
             </aside>
           )}
-
           {/* Main Content */}
           <main className="w-full min-w-0">{children}</main>
-
-          {/* Right Sidebar */}
-          {showRight && (
-            <aside className="hidden xl:block">
-              {rightSidebar || <RightMarketSidebar />}
-            </aside>
-          )}
         </div>
       </div>
     </div>

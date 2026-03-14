@@ -6,7 +6,7 @@ import MatchesLayoutWrapper from "@/components/shared/matches/MatchesLayoutWrapp
 
 export default function MarketPage() {
   return (
-    <MatchesLayoutWrapper leftSidebar={<MarketSidebar />} hideRightSidebar>
+    <MatchesLayoutWrapper leftSidebar={<MarketSidebar />}>
       <MarketPageContent />
     </MatchesLayoutWrapper>
   );

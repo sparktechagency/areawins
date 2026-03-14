@@ -20,13 +20,13 @@ export async function getMyProfile() {
         revalidate: 180,
       },
     });
+
     if (!res.success) {
-      console.error("Profile fetch failed:", res.message);
       return null;
     }
+
     return res.data;
   } catch (error: any) {
-    console.error("Failed to fetch profile:", error.message);
     return null;
   }
 }
