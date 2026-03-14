@@ -1,4 +1,3 @@
-"use client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,10 +12,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-import { MOCK_LIVE_EVENTS } from "@/data/live-events.data";
 
 const LiveEventsSection: React.FC = () => {
-  const liveEvents = MOCK_LIVE_EVENTS;
 
   return (
     <section className="w-full container mx-auto mt-8 relative">
