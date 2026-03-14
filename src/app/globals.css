@@ -25,11 +25,16 @@
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Container & Max-width customization */
+  --breakpoint-2xl: 1320px;
+  --max-width-2xl: 1320px;
+  --container-2xl: 1320px;
 }
 
 :root {
   /* Primary Brand Colors */
-  --primary: #65C257; /* Bright Green - Main brand color */
+  --primary: #65c257; /* Bright Green - Main brand color */
   --primary-rgb: 0, 214, 92;
   --primary-foreground: #ffffff;
 
@@ -69,7 +74,7 @@
   --input: #ebeff5;
 
   /* Ring */
-  --ring: #65C257;
+  --ring: #65c257;
 
   /* Radius */
   --radius: 0.5rem;
@@ -77,17 +82,17 @@
   /* Betting Specific Colors */
   --odds-background: #ffffff;
   --odds-hover: #f0fdf4;
-  --odds-selected: #65C257;
+  --odds-selected: #65c257;
   --odds-text: #1a1a1a;
 
   /* Status Colors */
   --live: #ff3b3b;
-  --won: #65C257;
+  --won: #65c257;
   --lost: #64748b;
   --pending: #f59e0b;
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #65C257 0%, #00b84d 100%);
+  --gradient-primary: linear-gradient(135deg, #65c257 0%, #00b84d 100%);
   --gradient-dark: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   --gradient-card: linear-gradient(
     135deg,
@@ -103,13 +108,12 @@
 
 .dark {
   /* Primary Brand Colors */
-  --primary: #65C257; /* Bright Green - Main brand color */
+  --primary: #65c257; /* Bright Green - Main brand color */
   --primary-rgb: 0, 214, 92;
   --primary-foreground: #ffffff;
 
   /* Secondary Colors */
-  --secondary: #112218 /* Lighter dark gray */
-  --secondary-rgb: 45, 45, 45;
+  --secondary: #112218 /* Lighter dark gray */ --secondary-rgb: 45, 45, 45;
   --secondary-foreground: #ffffff;
 
   /* Accent Colors */
@@ -148,17 +152,17 @@
   /* Betting Specific Colors */
   --odds-background: #112218;
   --odds-hover: #2d3748;
-  --odds-selected: #65C257;
+  --odds-selected: #65c257;
   --odds-text: #e2e8f0;
 
   /* Status Colors */
   --live: #ff6b6b;
-  --won: #65C257;
+  --won: #65c257;
   --lost: #a0aec0;
   --pending: #f6e05e;
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #65C257 0%, #00b84d 100%);
+  --gradient-primary: linear-gradient(135deg, #65c257 0%, #00b84d 100%);
   --gradient-dark: linear-gradient(135deg, #1a242d 0%, #2d3748 100%);
   --gradient-card: linear-gradient(
     135deg,
@@ -169,7 +173,7 @@
   /* Scrollbar */
   --scrollbar-thumb: #244732; /* Slightly lighter than background */
   --scrollbar-track: transparent;
-  --scrollbar-thumb-hover: #65C257; /* Primary green on hover */
+  --scrollbar-thumb-hover: #65c257; /* Primary green on hover */
 }
 
 @theme inline {
@@ -218,7 +222,6 @@ body {
   color: var(--foreground);
   overflow-x: hidden;
 }
-
 
 /* ========================================
    Utility Classes
@@ -356,18 +359,6 @@ body {
   font-feature-settings: "tnum";
 }
 
-/* Container */
-.container {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  max-width: 1420px;
-}
-
-
-
 /* ========================================
    Responsive Design Helpers
    ======================================== */
@@ -423,8 +414,8 @@ body {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 /* Custom scrollbar styles */
