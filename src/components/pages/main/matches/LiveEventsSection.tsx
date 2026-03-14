@@ -7,13 +7,54 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Banknote, PlusCircle, Search } from "lucide-react";
+import { IMatch } from "@/interfaces/match.interface";
+import { getAllLiveMatches } from "@/services/match.service";
+import { Banknote, MapPin, PlusCircle, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
+const LiveEventsSection = async () => {
+  let liveEvents: IMatch[] = [];
+  let error: string | null = null;
 
-const LiveEventsSection: React.FC = () => {
+  try {
+    const getAllLiveResponse = await getAllLiveMatches({
+      page: 1,
+      limit: 10,
+    });
+    liveEvents = getAllLiveResponse.results || [];
+  } catch (err) {
+    console.error("Error fetching live matches:", err);
+    error = "Failed to load live matches";
+  }
+
+  if (error || liveEvents.length === 0) {
+    return (
+      <section className="w-full container mx-auto mt-8 relative">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-black text-foreground flex items-center gap-3 decoration-primary decoration-2">
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gray-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-gray-500"></span>
+            </span>
+            Live Market Activity
+          </h2>
+          <Badge
+            variant="outline"
+            className="text-muted-foreground border-border px-4 py-1 font-black uppercase tracking-widest text-[10px]"
+          >
+            {error ? "Error" : "No Live Matches"}
+          </Badge>
+        </div>
+
+        <div className="text-center py-12 border border-border rounded-lg bg-card">
+          <div className="text-muted-foreground text-sm">
+            {error || "No live matches available at the moment"}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="w-full container mx-auto mt-8 relative">
@@ -35,137 +76,183 @@ const LiveEventsSection: React.FC = () => {
 
       <Carousel opts={{ align: "start", loop: false }} className="w-full group">
         <CarouselContent className="-ml-6">
-          {liveEvents.map((event) => (
+          {liveEvents.map((event: IMatch) => (
             <CarouselItem
-              key={event.id}
+              key={event?._id}
               className="pl-6 basis-full sm:basis-1/2 lg:basis-1/3"
             >
-              <div className="group/card relative h-full overflow-hidden rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/50">
+              <div className="group/card relative h-full overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">
                 {/* Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex flex-col gap-1">
-                    <div className="flex items-center gap-1.5 bg-rose-500/10 px-2 py-0.5 rounded-full text-[9px] font-black text-rose-500 uppercase tracking-widest border border-rose-500/10 w-fit">
-                      <span className="size-1 rounded-full bg-rose-500 animate-pulse"></span>
-                      Live {event.time}
+                <div className="flex items-center justify-between p-4 border-b border-border/50">
+                  <div className="flex gap-1.5">
+                    <div className="flex items-center gap-1.5 bg-rose-500/10 px-2 py-1 rounded-full text-[9px] font-black text-rose-500 uppercase tracking-widest border border-rose-500/20 w-fit">
+                      <span className="size-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+                      LIVE
+                      {event.liveStatus?.minute && (
+                        <span className="text-[8px]">
+                          {event.liveStatus.minute}'
+                        </span>
+                      )}
                     </div>
-                    <div className="flex items-center gap-1.5 opacity-60">
-                      <Image
-                        src={event.league.flag}
-                        alt={event.league.country}
-                        width={14}
-                        height={10}
-                        className="rounded-xs object-cover"
-                      />
+                    <div className="flex items-center gap-1.5 opacity-70">
+                      {event.tournament && event.tournament.logo && (
+                        <Image
+                          src={event.tournament.logo}
+                          alt={event.tournament.name || ""}
+                          width={16}
+                          height={12}
+                          className="rounded-sm object-cover"
+                        />
+                      )}
                       <span className="text-[10px] font-black text-foreground uppercase tracking-tighter">
-                        {event.league.name}
+                        {event.tournament?.name || "Unknown Tournament"}
                       </span>
                     </div>
                   </div>
-                  <div className="flex -space-x-2">
-                    {[1, 2, 3].map((i) => (
-                      <div
-                        key={i}
-                        className="size-6 rounded-full border-2 border-card bg-muted overflow-hidden"
-                      >
+
+                  {/* Sport Icon */}
+                  <div className="flex items-center gap-1">
+                    {event.sport && event.sport.icon && (
+                      <div className="size-8 rounded-lg bg-muted p-1.5 border border-border/50">
                         <Image
-                          src={`https://i.pravatar.cc/100?u=${event.id + i}`}
-                          alt="user"
-                          width={20}
-                          height={20}
-                          className="object-cover"
+                          src={event.sport.icon}
+                          alt={event.sport.name}
+                          width={16}
+                          height={16}
+                          className="object-contain"
                         />
                       </div>
-                    ))}
-                    <div className="size-6 rounded-full border-2 border-card bg-primary/10 text-primary flex items-center justify-center text-[8px] font-black">
-                      +{event.p2pStats.activeBets}
-                    </div>
+                    )}
                   </div>
                 </div>
 
                 {/* Match Display */}
-                <div className="relative flex items-center justify-between mb-8 px-2">
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="relative size-14 rounded-full bg-muted p-1 overflow-hidden border border-border">
+                <div className="relative flex items-center justify-between p-6">
+                  <div className="flex flex-col items-center gap-3 flex-1">
+                    <div className="relative size-16 rounded-full bg-linear-to-br from-muted to-muted/50 p-1.5 overflow-hidden border-2 border-border/50  transition-all">
+                      <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0  transition-all"></div>
                       <Image
-                        src={event.teamA.image}
-                        alt={event.teamA.name}
+                        src={
+                          event.homeTeam && event.homeTeam.logo
+                            ? event.homeTeam.logo
+                            : "/placeholder-team.png"
+                        }
+                        alt={event.homeTeam ? event.homeTeam.name : "Home Team"}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                       />
                     </div>
-                    <span className="text-[10px] font-black text-center max-w-[70px] leading-tight uppercase truncate">
-                      {event.teamA.name}
+                    <span className="text-[11px] font-black text-center max-w-[80px] leading-tight uppercase truncate  transition-all">
+                      {event.homeTeam ? event.homeTeam.name : "Home Team"}
                     </span>
                   </div>
 
-                  <div className="flex flex-col items-center">
-                    <div className="flex items-center gap-3">
-                      <span className="text-3xl font-black text-foreground">
-                        {event.teamA.score}
-                      </span>
-                      <span className="text-lg font-black text-muted-foreground/20">
-                        :
-                      </span>
-                      <span className="text-3xl font-black text-foreground">
-                        {event.teamB.score}
-                      </span>
+                  <div className="flex flex-col items-center gap-2 px-4">
+                    <div className="relative">
+                      <div className="flex items-center gap-3">
+                        <span className="text-3xl font-black text-foreground tabular-nums">
+                          {event.homeScore || 0}
+                        </span>
+                        <span className="text-xl font-black text-muted-foreground/30">
+                          :
+                        </span>
+                        <span className="text-3xl font-black text-foreground tabular-nums">
+                          {event.awayScore || 0}
+                        </span>
+                      </div>
+                      {event.liveStatus?.period && (
+                        <div className="text-[8px] text-muted-foreground text-center mt-1 uppercase tracking-wider">
+                          {event.liveStatus.period}
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="relative size-14 rounded-full bg-muted p-1 overflow-hidden border border-border">
+                  <div className="flex flex-col items-center gap-3 flex-1">
+                    <div className="relative size-16 rounded-full bg-linear-to-br from-muted to-muted/50 p-1.5 overflow-hidden border-2 border-border/50 group-hover:border-primary/30 transition-all">
+                      <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all"></div>
                       <Image
-                        src={event.teamB.image}
-                        alt={event.teamB.name}
+                        src={
+                          event.awayTeam && event.awayTeam.logo
+                            ? event.awayTeam.logo
+                            : "/placeholder-team.png"
+                        }
+                        alt={event.awayTeam ? event.awayTeam.name : "Away Team"}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                       />
                     </div>
-                    <span className="text-[10px] font-black text-center max-w-[70px] leading-tight uppercase truncate">
-                      {event.teamB.name}
+                    <span className="text-[11px] font-black text-center max-w-[80px] leading-tight uppercase truncate  transition-all">
+                      {event.awayTeam ? event.awayTeam.name : "Away Team"}
                     </span>
                   </div>
                 </div>
 
-                {/* P2P Stats Grid */}
-                <div className="grid grid-cols-2 gap-4 p-4 bg-muted/30 rounded-lg border border-border/50 mb-6">
-                  <div className="flex flex-col">
-                    <span className="text-[9px] font-black text-muted-foreground uppercase flex items-center gap-1 mb-1">
+                {/* Match Info */}
+                {(event.venue || event.city) && (
+                  <div className="px-4 pb-2">
+                    <div className="flex items-center gap-1 text-[9px] text-muted-foreground">
+                      <MapPin className="size-3" />
+                      <span>
+                        {event.venue && `${event.venue}`}
+                        {event.venue && event.city && ", "}
+                        {event.city && `${event.city}`}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Stats Grid */}
+                <div className="grid grid-cols-2 gap-3 p-4 bg-linear-to-br from-muted/20 to-muted/10 border-t border-border/50">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[9px] font-black text-muted-foreground uppercase flex items-center gap-1">
                       <Banknote className="size-3 text-emerald-500" />
                       Total Pot
                     </span>
-                    <span className="text-base font-black text-foreground">
-                      ${event.p2pStats.potAmount.toLocaleString()}
+                    <span className="text-lg font-black text-foreground tabular-nums">
+                      ${(event.totalBetsAmount || 0).toLocaleString()}
                     </span>
                   </div>
-                  <div className="flex flex-col">
-                    <span className="text-[9px] font-black text-muted-foreground uppercase flex items-center gap-1 mb-1">
-                      <Search className="size-3 text-blue-500" />
-                      Open Bets
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[9px] font-black text-muted-foreground uppercase flex items-center gap-1">
+                      <Users className="size-3 text-blue-500" />
+                      Active Bets
                     </span>
-                    <span className="text-base font-black text-foreground">
-                      {event.p2pStats.openBets} Waiting
+                    <span className="text-lg font-black text-foreground tabular-nums">
+                      {event.totalBetsCount || 0}
                     </span>
                   </div>
                 </div>
 
                 {/* CTAs */}
-                <div className="flex items-center gap-2 mt-auto">
+                <div className="flex items-center gap-2 p-4 pt-0">
                   <Button
-                    className="flex-1 bg-primary hover:bg-primary/90 text-white font-black text-[10px] uppercase tracking-widest h-11 rounded-lg"
+                    className="flex-1 bg-linear-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white font-black text-[10px] uppercase tracking-widest h-11 rounded-lg shadow-lg hover:shadow-primary/25 transition-all"
                     asChild
                   >
-                    <Link href={`/matches/football/${event.id}`}>
+                    <Link
+                      href={
+                        event.sport
+                          ? `/matches/${event.sport.slug}/${event._id}`
+                          : `/matches/unknown/${event._id}`
+                      }
+                    >
                       Browse Market
                     </Link>
                   </Button>
                   <Button
                     variant="outline"
                     size="icon"
-                    className="size-11 rounded-lg border-border hover:bg-muted text-foreground transition-all shrink-0"
+                    className="size-11 rounded-lg border-border hover:bg-primary hover:border-primary hover:text-white transition-all shrink-0"
                     asChild
                   >
-                    <Link href={`/matches/football/${event.id}?action=create`}>
+                    <Link
+                      href={
+                        event.sport
+                          ? `/matches/${event.sport.slug}/${event._id}?action=create`
+                          : `/matches/unknown/${event._id}?action=create`
+                      }
+                    >
                       <PlusCircle className="size-5" />
                     </Link>
                   </Button>
@@ -175,9 +262,9 @@ const LiveEventsSection: React.FC = () => {
           ))}
         </CarouselContent>
 
-        {/* Custom Navigation */}
-        <CarouselPrevious className="hidden sm:flex -left-4 size-10 border-border bg-card hover:bg-primary hover:border-primary hover:text-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer" />
-        <CarouselNext className="hidden sm:flex -right-4 size-10 border-border bg-card hover:bg-primary hover:border-primary hover:text-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer" />
+        {/* Enhanced Navigation */}
+        <CarouselPrevious className="hidden sm:flex -left-6 size-12 border-border bg-card hover:bg-primary hover:border-primary hover:text-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer shadow-lg hover:shadow-primary/25" />
+        <CarouselNext className="hidden sm:flex -right-6 size-12 border-border bg-card hover:bg-primary hover:border-primary hover:text-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer shadow-lg hover:shadow-primary/25" />
       </Carousel>
     </section>
   );

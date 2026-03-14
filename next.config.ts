@@ -43,6 +43,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "areawins.s3.us-east-2.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "r2.thesportsdb.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.thesportsdb.com",
+      },
     ],
   },
 };

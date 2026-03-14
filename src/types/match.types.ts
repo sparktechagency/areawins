@@ -205,6 +205,7 @@ export interface LiveMatchUpdate {
 export interface SportCategory {
   id: SportType;
   name: string;
+  slug: string;
   icon: string;
   activeMatches: number;
   upcomingMatches: number;
