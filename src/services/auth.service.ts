@@ -11,7 +11,6 @@ import {
 import { api } from "@/services/api";
 import { getDefaultDashboardRoute } from "@/utils/auth-utils";
 import { deleteCookie, getCookie, setCookie } from "@/utils/tokenHandlers";
-import { cookies } from "next/headers";
 
 export type AuthActionState = ActionState;
 
@@ -156,10 +155,9 @@ export async function register(
     // Set sessionId in cookies
     const sessionId = res?.data?.sessionId;
     if (sessionId) {
-      const cookieStore = await cookies();
-      cookieStore.set("sessionId", sessionId, {
+      await setCookie("sessionId", sessionId, {
+        secure: process.env.NODE_ENV === "production",
         httpOnly: true,
-        secure: true,
         maxAge: 3600, // 1 hour
       });
     }
@@ -202,10 +200,9 @@ export async function forgotPassword(
     // Set sessionId in cookies for reset password flow
     const sessionId = res?.data?.sessionId;
     if (sessionId) {
-      const cookieStore = await cookies();
-      cookieStore.set("sessionId", sessionId, {
+      await setCookie("sessionId", sessionId, {
+        secure: process.env.NODE_ENV === "production",
         httpOnly: true,
-        secure: true,
         maxAge: 3600,
       });
     }
@@ -231,8 +228,7 @@ export async function verifyOtp(
   payload: any,
 ): Promise<AuthActionState> {
   const values = Object.fromEntries(payload.entries());
-  const cookieStore = await cookies();
-  const sessionId = cookieStore.get("sessionId")?.value;
+  const sessionId = await getCookie("sessionId");
 
   if (!sessionId) {
     return { success: false, message: "Session expired", inputs: values };
@@ -266,7 +262,7 @@ export async function verifyOtp(
     }
 
     const verifyData = res?.data;
-    // 2. Handle Forgot Password Flow (resetToken)
+    // 1. Handle Forgot Password Flow (resetToken)
     if (verifyData?.resetToken) {
       const isProduction = process.env.NODE_ENV === "production";
       await setCookie("resetPasswordToken", verifyData.resetToken, {
@@ -286,6 +282,36 @@ export async function verifyOtp(
         timestamp: Date.now(),
       };
     }
+    
+    // 2. Handle Email Verification Flow - Save tokens and remove sessionId
+    if (verifyData?.tokens) {
+      const isProduction = process.env.NODE_ENV === "production";
+      await setCookie("accessToken", verifyData.tokens.accessToken, {
+        secure: isProduction,
+        httpOnly: true,
+        maxAge: 3600,
+        path: "/",
+      });
+
+      await setCookie("refreshToken", verifyData.tokens.refreshToken, {
+        secure: isProduction,
+        httpOnly: true,
+        maxAge: 3600 * 24 * 90,
+        path: "/",
+      });
+      
+      // set userRole in cookie
+      await setCookie("userRole", verifyData.user.role, {
+        secure: isProduction,
+        httpOnly: true,
+        maxAge: 3600,
+        path: "/",
+      });
+      
+      // Remove sessionId after successful verification
+      await deleteCookie("sessionId");
+    }
+    
     return {
       success: true,
       message: res.message,
