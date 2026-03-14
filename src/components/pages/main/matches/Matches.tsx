@@ -3,12 +3,12 @@ import BasketballSection from "./BasketballSection";
 import CricketSection from "./CricketSection";
 import FootballSection from "./FootballSection";
 import LiveEventsSection from "./LiveEventsSection";
-import SportCategories from "./SportCategories";
+import SportCategoriesServer from "./SportCategoriesServer";
 
 const Matches = () => {
   return (
     <div className="w-full space-y-8">
-      <SportCategories />
+      <SportCategoriesServer />
       <AllTournamentsBanner />
       <LiveEventsSection />
       <FootballSection />
