@@ -110,12 +110,7 @@ export default function RegisterForm() {
         />
 
         <div className="flex items-start space-x-2">
-          <Checkbox
-            id="terms"
-            name="terms"
-            defaultChecked={state?.inputs?.terms ?? false}
-            className="mt-0.5"
-          />
+          <Checkbox id="terms" className="mt-0.5" />
           <div className="space-y-1 leading-none">
             <label
               htmlFor="terms"

@@ -1,140 +1,80 @@
 "use client";
+
+import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import {
-    closeAuthModal,
-    setAuthOtp,
-    setAuthView,
+  closeAuthModal,
+  setAuthView,
 } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
-import { verifyOtpSchema } from "@/lib/validators/authSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import * as z from "zod";
+import { verifyOtp } from "@/services/auth.service";
+import { useActionState, useEffect } from "react";
+import toast from "react-hot-toast";
+
+const initialState = {
+  success: false,
+  message: "",
+  errors: undefined,
+  inputs: {
+    sessionId: "",
+    code: "",
+  },
+  timestamp: 0,
+};
 
 export default function VerifyOtpForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { email, otpReason } = useAppSelector((state) => state.authUi);
-  const [isVerifying, setIsVerifying] = useState(false);
-  const [isResending, setIsResending] = useState(false);
+  const [state, formAction, isPending] = useActionState(verifyOtp, initialState);
 
-  const form = useForm<z.infer<typeof verifyOtpSchema>>({
-    resolver: zodResolver(verifyOtpSchema),
-    defaultValues: {
-      otp: "",
-    },
-  });
-
-  const onSubmit = async (values: z.infer<typeof verifyOtpSchema>) => {
-    if (!email) {
-      toast.error("Email missing. Please restart.");
-      return;
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state?.message || "Email verified successfully!");
+      dispatch(closeAuthModal());
+    } else if (state?.message && !state?.success) {
+      toast.error(state?.message);
     }
-
-    setIsVerifying(true);
-    setTimeout(() => {
-      setIsVerifying(false);
-
-      if (otpReason === "REGISTER") {
-        toast.success(t("auth.successVerify"));
-        dispatch(closeAuthModal());
-      } else if (otpReason === "FORGOT_PASSWORD") {
-        dispatch(setAuthOtp(values.otp));
-        dispatch(setAuthView("RESET_PASSWORD"));
-      } else {
-        toast.success(t("auth.successVerify"));
-        dispatch(closeAuthModal());
-      }
-    }, 1500);
-  };
-
-  const handleResend = async () => {
-    if (!email) return;
-    setIsResending(true);
-    setTimeout(() => {
-      setIsResending(false);
-      toast.success("Code resent!");
-    }, 1000);
-  };
+  }, [state, dispatch]);
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="space-y-2">
-        <button
-          onClick={() =>
-            dispatch(
-              setAuthView(
-                otpReason === "REGISTER" ? "REGISTER" : "FORGOT_PASSWORD"
-              )
-            )
-          }
-          className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground mb-4"
-        >
-          <ArrowLeft className="size-4" /> {t("auth.backToOtp")}
-        </button>
+    <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
+      <div className="text-center space-y-2">
         <h2 className="text-2xl font-black text-foreground">
           {t("auth.verifyEmail")}
         </h2>
         <p className="text-sm text-muted-foreground">
-          {t("auth.enterCode")}{" "}
-          <span className="text-foreground font-bold">{email}</span>
+          {otpReason === "REGISTER" 
+            ? `We've sent a verification code to ${email}`
+            : "Enter the verification code sent to your email"
+          }
         </p>
       </div>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="otp"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  {t("auth.otpCode")}
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="123456"
-                    className="pl-4 bg-muted/50 border-border text-center tracking-[1em] font-bold text-lg"
-                    maxLength={6}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+      <form action={formAction} className="space-y-4">
+        <FormInput
+          id="code"
+          name="code"
+          type="text"
+          label="Verification Code"
+          defaultValue={state?.inputs?.code || ""}
+          placeholder="Enter 6-digit code"
+          error={state?.errors?.code}
+          required
+        />
 
-          <Button
-            type="submit"
-            className="w-full font-bold"
-            disabled={isVerifying}
-          >
-            {isVerifying ? t("auth.verifying") : t("auth.verifyCode")}
-          </Button>
-        </form>
-      </Form>
+        <Button type="submit" className="w-full font-bold" disabled={isPending}>
+          {isPending ? t("auth.verifying") : t("auth.verifyEmail")}
+        </Button>
+      </form>
 
       <div className="text-center text-sm text-muted-foreground">
-        {t("auth.didntReceive")}{" "}
         <button
-          onClick={handleResend}
-          disabled={isResending}
-          className="text-primary font-bold hover:underline disabled:opacity-50"
+          onClick={() => dispatch(setAuthView("LOGIN"))}
+          className="text-primary font-bold hover:underline"
         >
-          {t("auth.resendCode")}
+          {t("auth.backToLogin")}
         </button>
       </div>
     </div>

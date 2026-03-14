@@ -31,9 +31,6 @@ export const registerSchema = z.object({
         message: "Referral code must be exactly 8 alphanumeric characters",
       },
     ),
-  terms: z.boolean().refine((val) => val === true, {
-    message: "You must accept the terms and conditions",
-  }),
 });
 
 export const forgotPasswordSchema = z.object({
@@ -41,7 +38,8 @@ export const forgotPasswordSchema = z.object({
 });
 
 export const verifyOtpSchema = z.object({
-  otp: z.string().length(6, { message: "OTP must be exactly 6 digits" }),
+  sessionId: z.string().min(1, { message: "Session ID is required" }),
+  code: z.string().length(6, { message: "Code must be exactly 6 digits" }),
 });
 
 export const resetPasswordSchema = z

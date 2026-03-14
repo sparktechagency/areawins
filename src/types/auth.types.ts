@@ -41,7 +41,6 @@ export interface RegisterRequest {
   phone?: string;
   dateOfBirth?: string;
   country?: string;
-  termsAccepted: boolean;
 }
 
 export interface RegisterResponse {

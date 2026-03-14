@@ -126,7 +126,10 @@ export async function register(
     registrationData.referralCode = values.referralCode;
   }
 
+  console.log("Register Data", registrationData);
   const parsed = registerSchema.safeParse(registrationData);
+
+  console.log("Parsed", parsed);
 
   if (!parsed.success) {
     return {
