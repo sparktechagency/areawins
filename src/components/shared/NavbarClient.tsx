@@ -79,40 +79,23 @@ const NavbarClient = ({ user }: { user: IUser }) => {
             />
           </Link>
 
-          {/* Navigation Links for Non-Home Pages OR Search for Home Page */}
-          {isHomePage ? (
-            <div className="w-full max-w-xl hidden md:block">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className={`w-full px-4 py-2 rounded-full transition-all duration-300 ${
-                    scrolled
-                      ? "bg-white/20 dark:bg-black/20 border-border text-white placeholder:text-white"
-                      : "bg-white/20 dark:bg-black/20 text-white border-white/30 placeholder:text-white"
-                  } border outline-none`}
-                />
-              </div>
-            </div>
-          ) : (
-            <div className="hidden md:flex items-center gap-2 bg-transparent backdrop-blur-sm rounded-full px-2 py-1 border border-border">
-              {navLinks.map((link) => {
-                const IconComponent = link.icon;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full hover:bg-background/80 dark:hover:bg-primary/10 hover:shadow-sm transition-all cursor-pointer group ${
-                      pathname === link.href ? "bg-primary/10 text-primary" : ""
-                    }`}
-                  >
-                    <IconComponent className="w-4 h-4 text-muted-foreground group-hover:scale-110 transition-transform" />
-                    <span className="font-medium text-sm">{link.label}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          )}
+          <div className="hidden md:flex items-center gap-2 bg-transparent backdrop-blur-sm rounded-full px-2 py-1 border border-border">
+            {navLinks.map((link) => {
+              const IconComponent = link.icon;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full hover:bg-background/80 dark:hover:bg-primary/10 hover:shadow-sm transition-all cursor-pointer group ${
+                    pathname === link.href ? "bg-primary/10 text-primary" : ""
+                  }`}
+                >
+                  <IconComponent className="w-4 h-4 text-muted-foreground group-hover:scale-110 transition-transform" />
+                  <span className="font-medium text-sm">{link.label}</span>
+                </Link>
+              );
+            })}
+          </div>
 
           {/* Right Side */}
           <div className="flex items-center justify-end gap-3 md:gap-4">

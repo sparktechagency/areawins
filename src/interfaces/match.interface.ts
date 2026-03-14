@@ -28,15 +28,14 @@ export interface ILiveStatus {
 }
 
 export interface IResultByBetType {
-  betType: string; // ObjectId as string in frontend
+  betType: IBetType;
   winningOutcome: string;
-  odds?: number;
 }
 
 export interface IFinalResult {
   homeScore: number;
   awayScore: number;
-  winner?: string; // ObjectId as string in frontend
+  winner?: ITeam;
   isDraw: boolean;
   resultByBetType: IResultByBetType[];
   matchDuration?: number;
@@ -47,64 +46,11 @@ export interface IFinalResult {
   penalties?: {
     homeScore: number;
     awayScore: number;
-    winner?: string; // ObjectId as string in frontend
+    winner?: ITeam;
   };
 }
 
 export interface IMatch {
-  _id: string;
-  matchId: string;
-  apiMatchId?: string;
-  apiProvider?: string;
-  sport: ISportCategories;
-  tournament?: ITournament;
-  season?: string;
-  homeTeam: ITeam;
-  awayTeam: ITeam;
-  scheduledStartTime: string | Date;
-  status: MatchStatus;
-  strTimestamp?: string;
-  dateEventLocal?: string;
-  strTimeLocal?: string;
-  strPostponed?: string;
-  source: MatchSource;
-  apiStatus?: string;
-  apiStatusLabel?: string;
-  venue?: string;
-  city?: string;
-  country?: string;
-  round?: string;
-  weather?: {
-    temperature?: number;
-    condition?: string;
-    humidity?: number;
-  };
-  liveStatus?: ILiveStatus;
-  finalResult?: IFinalResult;
-  homeScore?: number;
-  awayScore?: number;
-  isResultVerified: boolean;
-  resultSettledBy?: string; // ObjectId as string in frontend
-  resultSettledAt?: string | Date;
-  availableBetTypes: (IBetType | string)[]; // Can be populated or ObjectId
-  totalBetsCount: number;
-  totalBetsAmount?: number;
-  isFeatured: boolean;
-  isLive: boolean;
-  priority?: number;
-  externalUpdatedAt?: string | Date | null;
-  isBettingOpen: boolean;
-  bettingClosedAt?: string | Date | null;
-  syncError?: string | null;
-  syncAttempts: number;
-  isDeleted: boolean;
-  createdBy?: string; // ObjectId as string in frontend
-  createdAt?: string | Date;
-  updatedAt?: string | Date;
-}
-
-// Simplified interface for frontend display when data is populated
-export interface IMatchPopulated {
   _id: string;
   matchId: string;
   sport: ISportCategories;
