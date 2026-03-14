@@ -1,11 +1,6 @@
-/**
- * Zod validation schemas for betting forms
- */
-
 import { z } from "zod";
 import { BETTING_LIMITS } from "@/lib/constants";
 
-// Place bet schema
 export const placeBetSchema = z.object({
   matchId: z.string().optional(),
   betType: z.enum(["single", "accumulator", "system"]),

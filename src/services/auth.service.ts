@@ -21,12 +21,21 @@ export async function loginUser(
 ): Promise<AuthActionState> {
   const values = Object.fromEntries(formData.entries());
 
+  console.log("values", values);
+  return {
+    success: false,
+    message: "Invalid fields",
+    errors: {},
+    inputs: values,
+    timestamp: Date.now(),
+  };
+
   const parsed = loginValidationSchema.safeParse(values);
   if (!parsed.success) {
     return {
       success: false,
       message: "Invalid fields",
-      errors: parsed.error.flatten().fieldErrors,
+      errors: parsed.error?.flatten().fieldErrors || {},
       inputs: values,
       timestamp: Date.now(),
     };
@@ -121,21 +130,15 @@ export async function register(
     role: values.role,
   };
 
-  // include company details if present (the form may add these when role=COMPANY)
-  if (values.companyName) registrationData.companyName = values.companyName;
-  if (values.companyLocation)
-    registrationData.companyLocation = values.companyLocation;
-  if (values.companyIndustry)
-    registrationData.companyIndustry = values.companyIndustry;
-
   const parsed = registerFormValidationSchema.safeParse(registrationData);
 
   if (!parsed.success) {
     return {
       success: false,
       message: "Please fix the errors in the form",
-      errors: parsed.error.flatten().fieldErrors,
+      errors: parsed.error?.flatten().fieldErrors || {},
       inputs: values,
+      timestamp: Date.now(),
     };
   }
 
@@ -188,8 +191,9 @@ export async function forgotPassword(
     return {
       success: false,
       message: "Invalid email",
-      errors: parsed.error.flatten().fieldErrors,
+      errors: parsed.error?.flatten().fieldErrors || {},
       inputs: values,
+      timestamp: Date.now(),
     };
   }
 
@@ -239,14 +243,15 @@ export async function verifyOtp(
     sessionId: sessionId,
     code: values.otp || values.code,
   };
-  const parsed = verifyOtpValidationSchema.safeParse(values);
+  const parsed = verifyOtpValidationSchema.safeParse(data);
 
   if (!parsed.success) {
     return {
       success: false,
       message: "Invalid OTP",
-      errors: parsed.error.flatten().fieldErrors,
+      errors: parsed.error?.flatten().fieldErrors || {},
       inputs: values,
+      timestamp: Date.now(),
     };
   }
 
@@ -319,7 +324,7 @@ export async function resetPassword(
     return {
       success: false,
       message: "Invalid password",
-      errors: parsed.error.flatten().fieldErrors,
+      errors: parsed.error?.flatten().fieldErrors || {},
       inputs: values,
       timestamp: Date.now(),
     };
@@ -415,14 +420,6 @@ export async function resendOtp(
   formData: FormData,
 ): Promise<AuthActionState> {
   const values = Object.fromEntries(formData.entries());
-
-  if (!values.email) {
-    return {
-      success: false,
-      message: "Email is required",
-      timestamp: Date.now(),
-    };
-  }
 
   try {
     const res = await api.post("/auth/resend-otp", { email: values.email });

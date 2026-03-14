@@ -1,6 +1,3 @@
-/**
- * Zod validation schemas for user profile forms
- */
 
 import { z } from "zod";
 

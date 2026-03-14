@@ -1,7 +1,4 @@
-/**
- * Auth state slice
- * Manages authentication state
- */
+
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { AuthState, User } from "@/types";

@@ -22,7 +22,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
         {label && (
           <Label
             htmlFor={props.id || props.name}
-            className="text-sm font-semibold text-gray-700"
+            className="text-sm font-semibold text-muted-foreground"
           >
             {label} {required && <span className="text-red-500">*</span>}
           </Label>
@@ -38,7 +38,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
               "w-full h-12  rounded-md outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary transition-all text-sm",
               Icon && "pl-10",
               isPassword && "pr-10",
-              error ? "border-red-500" : "bg-gray-50 border-gray-100",
+              error ? "border-red-500" : "bg-border border-border",
               className,
             )}
             {...props}

@@ -1,18 +1,12 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-
-/**
- * Utility function to merge Tailwind CSS classes with clsx
- * Handles conditional classes and deduplicates conflicting classes
- */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-
-/**
- * Format currency with proper decimal places
- */
-export function formatCurrency(amount: number, currency: string = "USD"): string {
+export function formatCurrency(
+  amount: number,
+  currency: string = "USD",
+): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency,
@@ -20,24 +14,14 @@ export function formatCurrency(amount: number, currency: string = "USD"): string
     maximumFractionDigits: 2,
   }).format(amount);
 }
-
-/**
- * Format odds to 2 decimal places
- */
 export function formatOdds(odds: number): string {
   return odds.toFixed(2);
 }
 
-/**
- * Calculate potential winnings
- */
 export function calculatePotentialWin(stake: number, odds: number): number {
   return stake * odds;
 }
 
-/**
- * Format date for display
- */
 export function formatDate(date: Date | string): string {
   const d = typeof date === "string" ? new Date(date) : date;
   return d.toLocaleDateString("en-US", {

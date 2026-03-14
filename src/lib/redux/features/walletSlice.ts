@@ -1,8 +1,3 @@
-/**
- * Wallet state slice
- * Manages wallet balance and transactions
- */
-
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { WalletState, Wallet, Transaction, SavedPaymentMethod } from "@/types";
 import { walletApi } from "../api/walletApi";
