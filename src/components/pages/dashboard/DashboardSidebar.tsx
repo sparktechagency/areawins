@@ -8,7 +8,6 @@ import { ROUTES } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 import {
-  BarChart2,
   History,
   LayoutDashboard,
   LogOut,
@@ -52,11 +51,6 @@ export default function DashboardSidebar() {
       icon: MessageCircle,
       label: t("dashboard.menu.message"),
       href: ROUTES.MESSAGES,
-    },
-    {
-      icon: BarChart2,
-      label: t("dashboard.menu.statistics"),
-      href: ROUTES.STATISTICS || "/statistics",
     },
     {
       icon: User,

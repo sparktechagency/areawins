@@ -49,7 +49,6 @@ export const ROUTES = {
   MESSAGES: "/dashboard/message",
   NOTIFICATIONS: "/dashboard/notifications",
   PROMOTIONS: "/dashboard/promotions",
-  STATISTICS: "/dashboard/statistics",
   SUPPORT: "/dashboard/support",
   REFERRAL_FRIENDS: "/dashboard/referral-friends",
 } as const;
