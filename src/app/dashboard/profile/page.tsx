@@ -29,10 +29,10 @@ export default function ProfilePage() {
                <Card className="w-full border-border shadow-none md:col-span-1 ">
                   <CardContent className="p-6 flex flex-col items-center">
                      <Avatar className="w-32 h-32 mb-4 border-2 border-primary">
-                        <AvatarImage src={user?.avatar} />
-                        <AvatarFallback className="text-4xl">{user?.firstName?.[0] || "U"}</AvatarFallback>
+                        <AvatarImage src={user?.profileImage} />
+                        <AvatarFallback className="text-4xl">{user?.fullName?.[0] || "U"}</AvatarFallback>
                      </Avatar>
-                     <h2 className="text-xl font-bold text-center">{user?.firstName} {user?.lastName}</h2>
+                     <h2 className="text-xl font-bold text-center">{user?.fullName}</h2>
                      <p className="text-muted-foreground">{user?.email}</p>
                      <p className="text-sm text-primary font-medium mt-1">Verified User</p>
 
@@ -48,20 +48,16 @@ export default function ProfilePage() {
                      <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                            <Label>First Name</Label>
-                           <Input value={user?.firstName || ""} readOnly />
+                           <Input value={user?.fullName?.split(' ')[0] || ""} readOnly />
                         </div>
                         <div className="space-y-2">
                            <Label>Last Name</Label>
-                           <Input value={user?.lastName || ""} readOnly />
+                           <Input value={user?.fullName?.split(' ').slice(1).join(' ') || ""} readOnly />
                         </div>
                      </div>
                      <div className="space-y-2">
                         <Label>Email Address</Label>
                         <Input value={user?.email || ""} readOnly />
-                     </div>
-                     <div className="space-y-2">
-                        <Label>Phone Number</Label>
-                        <Input value={user?.phone || "+880 1XXX XXXXXX"} readOnly />
                      </div>
 
                      <div className="pt-4 flex justify-end">

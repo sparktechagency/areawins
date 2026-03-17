@@ -183,8 +183,8 @@ export default function EditProfilePage() {
                       @
                     </span>
                     <Input
-                      name="username"
-                      value={formData.username}
+                      name="nickname"
+                      value={formData.nickname}
                       className="pl-7 bg-muted/10"
                       readOnly
                     />

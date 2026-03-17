@@ -79,14 +79,14 @@ export default function DashboardHeader() {
           <div className="flex items-center gap-3 pl-4 border-l">
             <div className="text-right hidden sm:block">
               <p className="text-sm font-medium leading-none">
-                {user?.firstName || "User"}
+                {user?.fullName?.split(' ')[0] || "User"}
               </p>
               <p className="text-xs text-muted-foreground mt-1">Pro Bettor</p>
             </div>
             <Avatar className="w-9 h-9 border-2 border-primary/20">
-              <AvatarImage src={user?.avatar} />
+              <AvatarImage src={user?.profileImage} />
               <AvatarFallback className="bg-primary/10 text-primary font-bold">
-                {user?.firstName?.[0] || "U"}
+                {user?.fullName?.[0] || "U"}
               </AvatarFallback>
             </Avatar>
           </div>

@@ -25,6 +25,11 @@
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Container & Max-width customization */
+  --breakpoint-2xl: 1280px;
+  --max-width-2xl: 1280px;
+  --container-2xl: 1280px;
 }
 
 :root {

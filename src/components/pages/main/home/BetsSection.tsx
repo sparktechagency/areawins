@@ -4,8 +4,8 @@ import Link from "next/link";
 
 const BetsSection = () => {
   return (
-    <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-12 xl:px-16 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
+    <section className="w-full py-16 md:py-20 bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary text-center mb-8 md:mb-12">
           Bets
@@ -57,7 +57,9 @@ const BetsSection = () => {
             </p>
 
             <Link href="/matches">
-              <Button variant="default" className="cursor-pointer">Create</Button>
+              <Button variant="default" className="cursor-pointer">
+                Create
+              </Button>
             </Link>
           </div>
         </div>

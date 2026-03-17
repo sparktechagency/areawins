@@ -5,9 +5,9 @@ import { Lock, Shield, Trophy, Users, Wallet, Zap } from "lucide-react";
 
 const AboutPage = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="w-full min-h-screen bg-background text-foreground">
       {/* Hero Section */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
+      <section className="relative py-24 md:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-10" />
         <div className="absolute inset-0 bg-linear-to-b from-background via-transparent to-background" />
 
@@ -28,8 +28,8 @@ const AboutPage = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 px-4 sm:px-6 lg:px-12 xl:px-16 border-y border-border bg-card/50">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+      <section className="py-12  border-y border-border bg-card/50">
+        <div className="container mx-auto grid grid-cols-2 md:grid-cols-4 px-4 sm:px-6 lg:px-8 gap-4 md:gap-8">
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-foreground mb-2">
               50k+
@@ -66,64 +66,64 @@ const AboutPage = () => {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20 px-4 sm:px-6 lg:px-12 xl:px-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-16 md:mb-24">
-          <div className="order-2 md:order-1 relative rounded-2xl overflow-hidden aspect-video bg-card border border-border">
-            {/* Placeholder for "Built for Fans" image */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent flex items-end p-8">
-              <div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
-                  Built for Fans
-                </h3>
-                <p className="text-sm text-gray-200">
-                  Experience the thrill from anywhere, anytime.
-                </p>
+      <section className="w-full py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-16 md:mb-24">
+            <div className="order-2 md:order-1 relative rounded-2xl overflow-hidden aspect-video bg-card border border-border">
+              {/* Placeholder for "Built for Fans" image */}
+              <div className="absolute inset-0 bg-linear-to-tr from-primary/20 to-transparent flex items-end p-8">
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+                    Built for Fans
+                  </h3>
+                  <p className="text-sm text-gray-200">
+                    Experience the thrill from anywhere, anytime.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="order-1 md:order-2">
-            <div className="text-primary text-xs font-bold uppercase tracking-wider mb-2">
-              Our Mission
+            <div className="order-1 md:order-2">
+              <div className="text-primary text-xs font-bold uppercase tracking-wider mb-2">
+                Our Mission
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 md:mb-4">
+                Empowering the Modern Bettor
+              </h2>
+              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-4 md:mb-6">
+                Our mission is to provide a transparent, secure, and
+                exhilarating platform where sports enthusiasts can engage with
+                their favorite games. We believe in fair play, instant rewards,
+                and creating a community where every match matters.
+              </p>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 md:mb-4">
-              Empowering the Modern Bettor
-            </h2>
-            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-4 md:mb-6">
-              Our mission is to provide a transparent, secure, and exhilarating
-              platform where sports enthusiasts can engage with their favorite
-              games. We believe in fair play, instant rewards, and creating a
-              community where every match matters.
-            </p>
           </div>
-        </div>
 
-        <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-center">
-          <div>
-            <div className="text-primary text-xs font-bold uppercase tracking-wider mb-2">
-              Our Vision
+          <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-center">
+            <div>
+              <div className="text-primary text-xs font-bold uppercase tracking-wider mb-2">
+                Our Vision
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 md:mb-4">
+                The Future of Interactive Sports
+              </h2>
+              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-4 md:mb-6">
+                We envision a world where sports betting is seamless and
+                integrated into the viewing experience. By leveraging
+                cutting-edge technology and local insights, we aim to be the #1
+                choice for sports entertainment in Venezuela.
+              </p>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 md:mb-4">
-              The Future of Interactive Sports
-            </h2>
-            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-4 md:mb-6">
-              We envision a world where sports betting is seamless and
-              integrated into the viewing experience. By leveraging cutting-edge
-              technology and local insights, we aim to be the #1 choice for
-              sports entertainment in Venezuela.
-            </p>
+            <div className="relative rounded-2xl overflow-hidden aspect-video bg-card border border-border">
+              {/* Placeholder for Vision image */}
+              <div className="absolute inset-0 bg-gradient-to-bl from-primary/20 to-transparent" />
+            </div>
           </div>
-          <div className="relative rounded-2xl overflow-hidden aspect-video bg-card border border-border">
-            {/* Placeholder for Vision image */}
-            <div className="absolute inset-0 bg-gradient-to-bl from-primary/20 to-transparent" />
-          </div>
-        </div>
         </div>
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-20 px-4 sm:px-6 lg:px-12 xl:px-16 bg-card">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
+      <section className="w-fullpy-20 bg-card">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-foreground mb-4">
             Why Choose EasyBet
           </h2>
@@ -184,8 +184,8 @@ const AboutPage = () => {
                 Instant Withdrawals
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Get your winnings fast. We support credit cards, bank transfers, and digital wallets for
-                seamless transactions.
+                Get your winnings fast. We support credit cards, bank transfers,
+                and digital wallets for seamless transactions.
               </p>
             </div>
 
@@ -221,7 +221,7 @@ const AboutPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
+      <section className="py-24 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-card rounded-3xl p-12 text-center border border-border relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
           <div className="relative z-10">

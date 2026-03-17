@@ -3,8 +3,8 @@ import { Input } from "@/components/ui/input";
 
 const ContactUs = () => {
   return (
-    <section className="py-20 md:py-24 px-4 sm:px-6 lg:px-12 xl:px-16 bg-background">
-      <div className="max-w-4xl mx-auto text-center">
+    <section className="w-full py-20 md:py-24 bg-background">
+      <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
         {/* Title */}
         <h2 className="text-4xl font-bold text-primary mb-12">Contact Us</h2>
 
@@ -66,7 +66,9 @@ const ContactUs = () => {
 
             {/* Submit Button */}
             <div className="text-left pt-6 flex justify-end">
-              <Button type="submit" className="cursor-pointer">Submit</Button>
+              <Button type="submit" className="cursor-pointer">
+                Submit
+              </Button>
             </div>
           </form>
         </div>

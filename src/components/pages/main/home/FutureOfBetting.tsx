@@ -1,16 +1,16 @@
 import { Button } from "@/components/ui/button";
 import {
-    MessageSquare,
-    RectangleHorizontal,
-    Users,
-    Verified
+  MessageSquare,
+  RectangleHorizontal,
+  Users,
+  Verified,
 } from "lucide-react";
 import Link from "next/link";
 
 const FutureOfBetting = () => {
   return (
-    <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-12 xl:px-16 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
+    <section className="w-full py-16 md:py-20 bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading & Subtitle */}
         <div className="text-center mb-8 md:mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-3 md:mb-6">
