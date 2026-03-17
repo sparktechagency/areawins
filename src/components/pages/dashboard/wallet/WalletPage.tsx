@@ -284,7 +284,7 @@ const WalletPage = () => {
                 </div>
                 <div className="text-right">
                   <p className="font-black text-green-600 text-sm">
-                    +VES 5,000
+                    +5,000
                   </p>
                   <p className="text-xs text-green-600/70 font-medium">
                     Completed
@@ -308,7 +308,7 @@ const WalletPage = () => {
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-black text-blue-600 text-sm">-VES 3,500</p>
+                  <p className="font-black text-blue-600 text-sm">-3,500</p>
                   <p className="text-xs text-blue-600/70 font-medium">
                     Completed
                   </p>
@@ -332,7 +332,7 @@ const WalletPage = () => {
                 </div>
                 <div className="text-right">
                   <p className="font-black text-yellow-600 text-sm">
-                    +VES 1,250
+                    +1,250
                   </p>
                   <p className="text-xs text-yellow-600/70 font-medium">
                     Completed

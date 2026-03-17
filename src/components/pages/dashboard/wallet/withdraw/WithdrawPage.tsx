@@ -106,7 +106,7 @@ const WithdrawPage = () => {
                 <p className="text-xs text-primary font-black uppercase tracking-widest flex items-center gap-2 mb-2">
                   <ArrowUpRight className="w-4 h-4" /> WINNING BALANCE
                 </p>
-                <h2 className="text-3xl font-black">VES 12,450.00</h2>
+                <h2 className="text-3xl font-black">12,450.00</h2>
                 <p className="text-[10px] text-muted-foreground mt-2 font-medium">
                   Funds available for immediate payout
                 </p>
@@ -120,7 +120,7 @@ const WithdrawPage = () => {
                 <p className="text-xs text-muted-foreground font-black uppercase tracking-widest flex items-center gap-2 mb-2">
                   <Lock className="w-4 h-4" /> DEPOSIT BALANCE
                 </p>
-                <h2 className="text-3xl font-black">VES 500.00</h2>
+                <h2 className="text-3xl font-black">500.00</h2>
                 <p className="text-[10px] text-muted-foreground mt-2 font-medium italic">
                   Locked for betting activity only
                 </p>
@@ -236,8 +236,8 @@ const WithdrawPage = () => {
                       </div>
                     </div>
                     <div className="flex justify-between text-xs text-muted-foreground px-1">
-                      <span>Min: VES 1,000</span>
-                      <span>Max: VES 5,000,000</span>
+                      <span>Min: 1,000</span>
+                      <span>Max: 5,000,000</span>
                     </div>
                   </div>
 
@@ -326,7 +326,7 @@ const WithdrawPage = () => {
                           </td>
                           <td className="py-3 px-2 font-medium">{tx.method}</td>
                           <td className="py-3 px-2 text-right font-mono">
-                            VES {tx.amount}
+                            {tx.amount}
                           </td>
                           <td className="py-3 px-2 text-right">
                             <span
@@ -359,7 +359,7 @@ const WithdrawPage = () => {
                 <ul className="text-sm text-gray-400 space-y-2 list-disc pl-4 marker:text-primary">
                   <li>
                     Daily Withdrawal Limit:{" "}
-                    <span className="text-white font-bold">VES 10,000,000</span>
+                    <span className="text-white font-bold">10,000,000</span>
                   </li>
                   <li>
                     Processing takes{" "}

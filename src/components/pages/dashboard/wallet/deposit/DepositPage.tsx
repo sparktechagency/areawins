@@ -90,9 +90,9 @@ const DepositPage = () => {
             <CardContent className="p-6 flex items-center justify-between">
               <div>
                 <p className="text-sm text-green-400 font-medium flex items-center gap-2">
-                  <span className="text-lg">VES</span> AVAILABLE BALANCE
+                  AVAILABLE BALANCE
                 </p>
-                <h2 className="text-3xl font-bold mt-2">VES 12,450.00</h2>
+                <h2 className="text-3xl font-bold mt-2">12,450.00</h2>
               </div>
               <Button className="bg-white text-primary hover:bg-gray-100 font-bold rounded-full">
                 Refresh
@@ -340,7 +340,7 @@ const DepositPage = () => {
                           </td>
                           <td className="py-3 px-2 font-medium">{tx.method}</td>
                           <td className="py-3 px-2 text-right font-mono">
-                            VES {tx.amount}
+                            {tx.amount}
                           </td>
                           <td className="py-3 px-2 text-right">
                             <span
@@ -371,7 +371,7 @@ const DepositPage = () => {
                 <ul className="text-sm text-gray-400 space-y-2 list-disc pl-4 marker:text-primary">
                   <li>
                     Min Deposit:{" "}
-                    <span className="text-white font-bold">VES 2,500</span>
+                    <span className="text-white font-bold">2,500</span>
                   </li>
                   <li>
                     For crypto deposits, include the memo/ID to ensure proper
