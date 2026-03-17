@@ -8,17 +8,16 @@ import { ROUTES } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 import {
-    BarChart2,
-    History,
-    LayoutDashboard,
-    LogOut,
-    Menu,
-    MessageCircle,
-    Settings,
-    Trophy,
-    User,
-    Users,
-    Wallet,
+  BarChart2,
+  History,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  MessageCircle,
+  Trophy,
+  User,
+  Users,
+  Wallet,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,16 +39,15 @@ export default function DashboardSidebar() {
     { icon: Trophy, label: t("dashboard.menu.myBets"), href: ROUTES.MY_BETS },
     { icon: Wallet, label: t("dashboard.menu.wallet"), href: ROUTES.WALLET },
     {
-      icon: User,
-      label: "Profile",
-      href: ROUTES.PROFILE,
-    },
-    {
       icon: History,
       label: t("dashboard.menu.transactions"),
       href: ROUTES.TRANSACTIONS,
     },
-    { icon: Users, label: t("dashboard.menu.referral_friends"), href: ROUTES.REFERRAL_FRIENDS },
+    {
+      icon: Users,
+      label: t("dashboard.menu.referral_friends"),
+      href: ROUTES.REFERRAL_FRIENDS,
+    },
     {
       icon: MessageCircle,
       label: t("dashboard.menu.message"),
@@ -61,9 +59,9 @@ export default function DashboardSidebar() {
       href: ROUTES.STATISTICS || "/statistics",
     },
     {
-      icon: Settings,
-      label: t("dashboard.menu.settings"),
-      href: ROUTES.SETTINGS,
+      icon: User,
+      label: "Profile",
+      href: ROUTES.PROFILE,
     },
   ];
 
@@ -100,7 +98,7 @@ export default function DashboardSidebar() {
                     "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group relative overflow-hidden",
                     isActive
                       ? "bg-primary/10 text-primary font-medium"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground",
                   )}
                 >
                   {isActive && (
@@ -109,7 +107,7 @@ export default function DashboardSidebar() {
                   <Icon
                     className={cn(
                       "w-5 h-5 transition-colors",
-                      isActive ? "text-primary" : "group-hover:text-foreground"
+                      isActive ? "text-primary" : "group-hover:text-foreground",
                     )}
                   />
                   <span>{item.label}</span>
@@ -187,7 +185,7 @@ export default function DashboardSidebar() {
                         "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group relative overflow-hidden",
                         isActive
                           ? "bg-primary/10 text-primary font-medium"
-                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                          : "text-muted-foreground hover:bg-muted hover:text-foreground",
                       )}
                     >
                       {isActive && (
@@ -198,7 +196,7 @@ export default function DashboardSidebar() {
                           "w-5 h-5 transition-colors",
                           isActive
                             ? "text-primary"
-                            : "group-hover:text-foreground"
+                            : "group-hover:text-foreground",
                         )}
                       />
                       <span>{item.label}</span>
