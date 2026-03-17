@@ -1,21 +1,24 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { ROUTES } from "@/lib/constants";
 import { formatCurrency } from "@/lib/utils";
 import {
-    ArrowDownLeft,
-    ArrowUpRight,
-    Badge,
-    CreditCard,
-    Info,
-    Wallet2,
+  ArrowDownLeft,
+  ArrowUpRight,
+  Badge,
+  Bitcoin,
+  Coins,
+  DollarSign,
+  Shield,
+  TrendingUp,
+  Wallet2,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -23,109 +26,224 @@ const WalletPage = () => {
   return (
     <DashboardLayout>
       <div className="w-full mx-auto max-w-6xl">
+        {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground flex items-center gap-2">
             Wallet <Wallet2 className="w-8 h-8 text-primary" />
           </h1>
           <p className="text-muted-foreground mt-2">
-            Manage your funds and transactions
+            Manage your funds and transactions securely
           </p>
         </div>
 
+        {/* Balance Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {/* Deposit Balance Card */}
-          <Card className="bg-card border-border shadow-none">
-            <CardContent className="p-8">
-              <div className="flex items-center gap-2 text-muted-foreground mb-2">
-                <ArrowDownLeft className="size-4 text-emerald-500" />
-                <p className="text-sm font-medium">Deposit Balance</p>
+          <Card className="bg-blue-500/5 border-blue-500/20 relative overflow-hidden group shadow-none">
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-500">
+              <ArrowDownLeft className="w-32 h-32" />
+            </div>
+            <CardContent className="p-8 relative z-10">
+              <div className="flex items-center gap-2 text-blue-500 mb-2">
+                <ArrowDownLeft className="size-4" />
+                <p className="text-xs font-black uppercase tracking-[0.2em]">
+                  Deposit Balance
+                </p>
               </div>
-              <div className="text-3xl font-black text-foreground mb-6">
+              <div className="text-3xl font-black text-foreground mb-4">
                 {formatCurrency(5450)}
               </div>
+              <p className="text-xs text-muted-foreground mb-4">
+                Available for betting
+              </p>
               <Link
                 href={ROUTES.WALLET_DEPOSIT || "/dashboard/wallet/deposit"}
                 className="block"
               >
-                <Button className="w-full h-11 text-base font-black uppercase tracking-widest rounded-lg">
-                  Deposit Funds
+                <Button className="w-full h-10 text-sm font-black uppercase tracking-widest rounded-lg bg-blue-500 hover:bg-blue-600">
+                  Add Funds
                 </Button>
               </Link>
             </CardContent>
           </Card>
 
           {/* Winning Balance Card */}
-          <Card className="bg-primary/5 border-primary/20 shadow-none relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-3">
-              <Badge className="bg-emerald-500 hover:bg-emerald-600 text-[9px] font-black uppercase tracking-widest rounded-full">
+          <Card className="bg-green-500/5 border-green-500/20 relative overflow-hidden group shadow-none">
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-500">
+              <ArrowUpRight className="w-32 h-32" />
+            </div>
+            <div className="absolute top-0 right-0 p-3 z-20">
+              <Badge className="bg-green-500 hover:bg-green-600 text-[9px] font-black uppercase tracking-widest rounded-full">
                 Withdrawable
               </Badge>
             </div>
-            <CardContent className="p-8">
-              <div className="flex items-center gap-2 text-primary mb-2">
-                <ArrowUpRight className="size-4" />
-                <p className="text-sm font-medium">Winning Balance</p>
+            <CardContent className="p-8 relative z-10">
+              <div className="flex items-center gap-2 text-green-500 mb-2">
+                <TrendingUp className="size-4" />
+                <p className="text-xs font-black uppercase tracking-[0.2em]">
+                  Winning Balance
+                </p>
               </div>
-              <div className="text-3xl font-black text-primary mb-6">
+              <div className="text-3xl font-black text-foreground mb-4">
                 {formatCurrency(10000)}
               </div>
+              <p className="text-xs text-muted-foreground mb-4">
+                Ready to withdraw
+              </p>
               <Link
                 href={ROUTES.WALLET_WITHDRAW || "/dashboard/wallet/withdraw"}
                 className="block"
               >
-                <Button
-                  variant="outline"
-                  className="w-full h-11 text-base font-black uppercase tracking-widest rounded-lg border-primary/20 text-primary hover:bg-primary/5"
-                >
+                <Button className="w-full h-10 text-sm font-black uppercase tracking-widest rounded-lg bg-green-500 hover:bg-green-600 text-white">
                   Withdraw Now
                 </Button>
               </Link>
             </CardContent>
           </Card>
 
-          {/* Wallet Info Card */}
-          <Card className="bg-muted/10 border-dashed border-border shadow-none flex items-center p-8">
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-foreground font-black uppercase tracking-widest text-xs">
-                <Info className="size-4 text-primary" />
-                Withdrawal Rules
-              </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                Only your{" "}
-                <span className="text-primary font-bold">Winning Balance</span>{" "}
-                is eligible for withdrawal. Deposits must be used for betting
-                activity to ensure security and prevent platform misuse.
-              </p>
+          {/* Total Balance Card */}
+          <Card className="bg-purple-500/5 border-purple-500/20 relative overflow-hidden group shadow-none">
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-500">
+              <Wallet2 className="w-32 h-32" />
             </div>
+            <CardContent className="p-8 relative z-10">
+              <div className="flex items-center gap-2 text-purple-500 mb-2">
+                <Coins className="size-4" />
+                <p className="text-xs font-black uppercase tracking-[0.2em]">
+                  Total Balance
+                </p>
+              </div>
+              <div className="text-3xl font-black text-foreground mb-4">
+                {formatCurrency(15450)}
+              </div>
+              <p className="text-xs text-muted-foreground mb-4">
+                All accounts combined
+              </p>
+              <div className="h-10 rounded-lg bg-muted/50 flex items-center justify-center text-xs font-bold text-foreground">
+                Overview
+              </div>
+            </CardContent>
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           {/* Payment Methods */}
-          <Card className="border border-border shadow-none">
+          <Card className="border border-border shadow-none lg:col-span-2">
             <CardHeader>
-              <CardTitle>Payment Methods</CardTitle>
-              <CardDescription>Secure payment options</CardDescription>
+              <CardTitle>Supported Payment Methods</CardTitle>
+              <CardDescription>
+                Fast, secure, and trusted payment options for Venezuela
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+              <div className="space-y-3">
+                {/* Venezuela Pay */}
+                <div className="flex items-center justify-between p-4 border border-indigo-600/30 rounded-lg bg-linear-to-br from-indigo-600/10 to-purple-600/10  transition-all">
                   <div className="flex items-center gap-3">
-                    <CreditCard className="w-6 h-6 text-muted-foreground" />
-                    <div className="font-medium">Bkash</div>
+                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
+                      <DollarSign className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <p className="font-black text-sm">Venezuela Pay</p>
+                      <p className="text-xs text-muted-foreground">
+                        Local Venezuelan transfers
+                      </p>
+                    </div>
                   </div>
-                  <Button variant="ghost" size="sm">
-                    Manage
-                  </Button>
                 </div>
-                <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+
+                {/* Bitcoin */}
+                <div className="flex items-center justify-between p-4 border border-amber-500/30 rounded-lg bg-linear-to-br from-amber-500/10 to-orange-600/10  transition-all">
                   <div className="flex items-center gap-3">
-                    <CreditCard className="w-6 h-6 text-muted-foreground" />
-                    <div className="font-medium">Nagad</div>
+                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg">
+                      <Bitcoin className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <p className="font-black text-sm">Bitcoin (BTC)</p>
+                      <p className="text-xs text-muted-foreground">
+                        Cryptocurrency - Fast settlements
+                      </p>
+                    </div>
                   </div>
-                  <Button variant="ghost" size="sm">
-                    Manage
-                  </Button>
+                </div>
+
+                {/* USDT Tether */}
+                <div className="flex items-center justify-between p-4 border border-cyan-500/30 rounded-lg bg-linear-to-br from-cyan-500/10 to-blue-600/10  transition-all">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg">
+                      <Coins className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <p className="font-black text-sm">Tether (USDT)</p>
+                      <p className="text-xs text-muted-foreground">
+                        Stablecoin - Low fees
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Ethereum */}
+                <div className="flex items-center justify-between p-4 border border-violet-600/30 rounded-lg bg-linear-to-br from-violet-600/10 to-pink-600/10  transition-all">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-violet-600 to-pink-600 flex items-center justify-center shadow-lg">
+                      <Coins className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <p className="font-black text-sm">Ethereum (ETH)</p>
+                      <p className="text-xs text-muted-foreground">
+                        Smart contracts enabled
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Security Info */}
+          <Card className="border border-border shadow-none">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="w-5 h-5 text-green-500" />
+                Security & Rules
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-3">
+                <div className="flex gap-3">
+                  <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 shrink-0"></div>
+                  <div className="text-sm">
+                    <p className="font-medium text-foreground">
+                      Deposit Balance
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Used for betting only
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5 shrink-0"></div>
+                  <div className="text-sm">
+                    <p className="font-medium text-foreground">
+                      Winning Balance
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Can be withdrawn anytime
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <div className="w-2 h-2 rounded-full bg-purple-500 mt-1.5 shrink-0"></div>
+                  <div className="text-sm">
+                    <p className="font-medium text-foreground">
+                      All transactions verified
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      100% secure & encrypted
+                    </p>
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -135,54 +253,92 @@ const WalletPage = () => {
         {/* Recent Transactions */}
         <Card className="border border-border shadow-none">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Recent Transactions</CardTitle>
-            <Button variant="ghost" size="sm" className="text-primary">
+            <div>
+              <CardTitle>Recent Transactions</CardTitle>
+              <CardDescription>Your latest wallet activity</CardDescription>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-primary font-bold"
+            >
               View All
             </Button>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-between p-4 hover:bg-muted/50 rounded-lg transition-colors"
-                >
-                  <div className="flex items-center gap-4">
-                    <div
-                      className={`p-2 rounded-full ${
-                        i === 1
-                          ? "bg-green-100 text-green-600"
-                          : "bg-red-100 text-red-600"
-                      }`}
-                    >
-                      {i === 1 ? (
-                        <ArrowDownLeft className="h-5 w-5" />
-                      ) : (
-                        <ArrowUpRight className="h-5 w-5" />
-                      )}
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground">
-                        {i === 1 ? "Deposit via Bkash" : "Withdrawal"}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Today, 2:30 PM
-                      </p>
-                    </div>
+              {/* Deposit Transaction */}
+              <div className="flex items-center justify-between p-4 hover:bg-muted/50 rounded-lg transition-colors border border-border/50">
+                <div className="flex items-center gap-4">
+                  <div className="p-2.5 rounded-full bg-green-100 text-green-600">
+                    <ArrowDownLeft className="h-5 w-5" />
                   </div>
-                  <div className="text-right">
-                    <p
-                      className={`font-bold ${
-                        i === 1 ? "text-green-600" : "text-foreground"
-                      }`}
-                    >
-                      {i === 1 ? "+" : "-"}
-                      {formatCurrency(5000)}
+                  <div>
+                    <p className="font-black text-sm text-foreground">
+                      Deposit - Venezuela Pay
                     </p>
-                    <p className="text-xs text-muted-foreground">Completed</p>
+                    <p className="text-xs text-muted-foreground">
+                      Today, 2:30 PM
+                    </p>
                   </div>
                 </div>
-              ))}
+                <div className="text-right">
+                  <p className="font-black text-green-600 text-sm">
+                    +VES 5,000
+                  </p>
+                  <p className="text-xs text-green-600/70 font-medium">
+                    Completed
+                  </p>
+                </div>
+              </div>
+
+              {/* Withdrawal Transaction */}
+              <div className="flex items-center justify-between p-4 hover:bg-muted/50 rounded-lg transition-colors border border-border/50">
+                <div className="flex items-center gap-4">
+                  <div className="p-2.5 rounded-full bg-blue-100 text-blue-600">
+                    <ArrowUpRight className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="font-black text-sm text-foreground">
+                      Withdrawal - Bitcoin
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Yesterday, 5:15 PM
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="font-black text-blue-600 text-sm">-VES 3,500</p>
+                  <p className="text-xs text-blue-600/70 font-medium">
+                    Completed
+                  </p>
+                </div>
+              </div>
+
+              {/* Winning Transaction */}
+              <div className="flex items-center justify-between p-4 hover:bg-muted/50 rounded-lg transition-colors border border-border/50">
+                <div className="flex items-center gap-4">
+                  <div className="p-2.5 rounded-full bg-yellow-100 text-yellow-600">
+                    <TrendingUp className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="font-black text-sm text-foreground">
+                      Bet Winnings - Added
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Dec 14, 11:45 AM
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="font-black text-yellow-600 text-sm">
+                    +VES 1,250
+                  </p>
+                  <p className="text-xs text-yellow-600/70 font-medium">
+                    Completed
+                  </p>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>

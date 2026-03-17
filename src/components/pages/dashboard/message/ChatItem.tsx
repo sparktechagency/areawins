@@ -30,8 +30,8 @@ export default function ChatItem({
         <div
             onClick={() => onClick(id)}
             className={cn(
-                "flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors hover:bg-muted/50",
-                isActive && "bg-muted"
+                "flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors hover:bg-primary/10",
+                isActive && "bg-primary/10"
             )}
         >
             <div className="relative">
