@@ -1,16 +1,16 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { SPORTS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function SportsNav() {
   const pathname = usePathname();
 
   return (
     <div className="bg-white border-b border-gray-200 sticky top-16 z-40">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
         <div className="flex items-center overflow-x-auto scrollbar-hide">
           {SPORTS.map((sport) => {
             const isActive = pathname === sport.path;

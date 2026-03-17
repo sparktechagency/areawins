@@ -27,7 +27,7 @@ const LiveEventsSection = async () => {
 
   if (error || liveEvents.length === 0) {
     return (
-      <section className="w-full container mx-auto mt-8 relative">
+      <section className="w-full mt-8 relative">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-black text-foreground flex items-center gap-3 decoration-primary decoration-2">
             <span className="relative flex h-3 w-3">
@@ -54,7 +54,7 @@ const LiveEventsSection = async () => {
   }
 
   return (
-    <section className="w-full container mx-auto mt-8 relative">
+    <section className="w-full container  relative">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl font-black text-foreground flex items-center gap-3 decoration-primary decoration-2">
           <span className="relative flex h-3 w-3">

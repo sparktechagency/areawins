@@ -1,30 +1,29 @@
 import { Button } from "@/components/ui/button";
 import {
-  Check,
-  MessageSquare,
-  RectangleHorizontal,
-  Users,
-  Verified,
+    MessageSquare,
+    RectangleHorizontal,
+    Users,
+    Verified
 } from "lucide-react";
 import Link from "next/link";
 
 const FutureOfBetting = () => {
   return (
-    <section className="py-16 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-12 xl:px-16 bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
         {/* Heading & Subtitle */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-primary mb-6">
+        <div className="text-center mb-8 md:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-3 md:mb-6">
             The Future of Betting
           </h2>
-          <p className="text-lg sm:text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed">
             Experience a platform built for players, not the house. Total
             transparency and peer-to-peer fairness.
           </p>
         </div>
 
         {/* 4 Feature Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 lg:gap-8">
           {/* Card 1: P2P Betting */}
           <div className="bg-card border border-border rounded-lg p-6 md:p-8 text-center ">
             <div className="size-14 mx-auto mb-4 rounded-full bg-primary/90 border border-primary/30 flex items-center justify-center  p-2 ">

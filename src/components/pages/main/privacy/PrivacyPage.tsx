@@ -37,16 +37,16 @@ const PrivacyPage = () => {
   return (
     <div className="min-h-screen bg-background text-foreground pb-20">
       {/* Page Header */}
-      <div className="bg-card border-b border-border py-12">
-        <div className="container mx-auto px-4">
+      <div className="bg-card border-b border-border py-12 px-4 sm:px-6 lg:px-12 xl:px-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
           <div className="flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-wider mb-2">
             <ShieldCheck className="w-4 h-4" />
             Legal Documentation
           </div>
-          <h1 className="text-4xl font-bold text-foreground mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 md:mb-4">
             Privacy Policy
           </h1>
-          <div className="flex items-center gap-4 text-sm mt-2">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-xs sm:text-sm mt-2">
             <span className="text-muted-foreground">
               Last Updated: October 24, 2023
             </span>
@@ -54,7 +54,8 @@ const PrivacyPage = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8">
+      <div className="py-8 px-4 sm:px-6 lg:px-12 xl:px-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8">
         {/* Sidebar */}
         <aside className="hidden lg:block space-y-8 sticky top-24 h-fit">
           <div className="space-y-4">
@@ -106,7 +107,7 @@ const PrivacyPage = () => {
               and protect your personal data when you use our sports betting
               platform. We are committed to transparency and ensuring your
               information is handled securely and in accordance with applicable
-              laws in Bangladesh and international standards.
+              laws in Venezuela and international standards.
             </p>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -307,6 +308,7 @@ const PrivacyPage = () => {
               </h3>
               <p className="text-muted-foreground">
                 Our Data Protection Officer is here to help you.
+                Our Data Protection Officer is here to help you.
               </p>
             </div>
             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8">
@@ -315,6 +317,7 @@ const PrivacyPage = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

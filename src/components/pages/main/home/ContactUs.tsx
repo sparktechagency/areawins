@@ -3,8 +3,8 @@ import { Input } from "@/components/ui/input";
 
 const ContactUs = () => {
   return (
-    <section className="py-20 bg-background">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section className="py-20 md:py-24 px-4 sm:px-6 lg:px-12 xl:px-16 bg-background">
+      <div className="max-w-4xl mx-auto text-center">
         {/* Title */}
         <h2 className="text-4xl font-bold text-primary mb-12">Contact Us</h2>
 

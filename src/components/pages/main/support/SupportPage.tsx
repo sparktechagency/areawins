@@ -2,29 +2,29 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { Mail, MessageCircle, Phone } from "lucide-react";
 import Link from "next/link";
 
 const SupportPage = () => {
   return (
-    <div className="min-h-screen bg-background pt-24 pb-12">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
+    <div className="min-h-screen bg-background pt-24 pb-12 px-4 sm:px-6 lg:px-12 xl:px-16">
+      <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-12 xl:px-16">
+        <div className="text-center mb-8 md:mb-12">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 md:mb-4">
             How can we help?
           </h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground">
             Our dedicated support team is available 24/7 to assist you.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
           <Card className="text-center border-border  transition-colors">
             <CardHeader>
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">

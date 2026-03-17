@@ -2,12 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
 } from "@/components/ui/table";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -47,7 +47,7 @@ const basketballMatches: BasketballMatch[] = [
 
 const BasketballSection: React.FC = () => {
   return (
-    <section className="w-full container mx-auto mt-12 mb-20">
+    <section className="w-full container mx-auto  mb-20">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
           <span className="size-8 rounded-lg bg-orange-500/10 flex items-center justify-center text-lg">

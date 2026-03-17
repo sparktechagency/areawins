@@ -9,14 +9,14 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useAuth } from "@/hooks/useAuth";
 import {
-  Bell,
-  Camera,
-  Copy,
-  CreditCard,
-  Gift,
-  Lock,
-  ShieldCheck,
-  User
+    Bell,
+    Camera,
+    Copy,
+    CreditCard,
+    Gift,
+    Lock,
+    ShieldCheck,
+    User
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner"; // Assuming sonner
@@ -27,13 +27,9 @@ export default function EditProfilePage() {
 
   // Form States
   const [formData, setFormData] = useState({
-    username: user?.username || "rahim_betpro",
-    fullName:
-      user?.firstName && user?.lastName
-        ? `${user.firstName} ${user.lastName}`
-        : "Rahim Ahmed",
+    nickname: user?.nickname || "betpro",
+    fullName: user?.fullName || "Rahim Ahmed",
     email: user?.email || "rahim.ahmed@example.com",
-    phone: user?.phone || "1711223344",
     dob: "1995-08-15",
     address: "Flat 4B, House 12, Road 5, Dhanmondi, Dhaka-1209",
   });
@@ -68,7 +64,7 @@ export default function EditProfilePage() {
           <Card className="bg-card border-border overflow-hidden">
             <div className="p-6 text-center border-b border-border bg-muted/20">
               <Avatar className="w-20 h-20 mx-auto mb-3 border-2 border-primary">
-                <AvatarImage src={user?.avatar} />
+                <AvatarImage src={user?.profileImage} />
                 <AvatarFallback className="text-2xl font-bold bg-primary text-primary-foreground">
                   {formData.fullName.charAt(0)}
                 </AvatarFallback>
@@ -193,21 +189,6 @@ export default function EditProfilePage() {
                       readOnly
                     />
                     <Lock className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label>Phone Number</Label>
-                  <div className="flex">
-                    <div className="flex items-center px-3 bg-muted/50 border border-r-0 border-input rounded-l-md text-muted-foreground">
-                      +880
-                    </div>
-                    <Input
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="rounded-l-none bg-muted/30"
-                    />
                   </div>
                 </div>
 

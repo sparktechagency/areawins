@@ -27,20 +27,20 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <section className="py-16 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-12 xl:px-16 bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
         {/* Heading */}
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
+        <div className="text-center mb-8 md:mb-12 lg:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-3 md:mb-4">
             How It Works
           </h2>
-          <p className="text-lg md:text-xl text-foreground/70 max-w-3xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/70 max-w-3xl mx-auto">
             Get started in minutes. Simple, fast, and completely peer-to-peer.
           </p>
         </div>
 
         {/* Main content - flex for large screens, stack on mobile */}
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-10 xl:gap-16">
           {/* Left side - numbered steps */}
           <div className="w-full  space-y-8 md:space-y-10">
             {steps.map((step, index) => (

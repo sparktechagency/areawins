@@ -26,11 +26,10 @@ const MatchesLayoutWrapper = ({
 
   const showLeft =
     !hideLeftSidebar && !isMainMatchesPage && !isMatchDetailsPage;
-  const showRight = false; // Always false since we don't use right sidebar
 
   return (
-    <div className="w-full  min-h-screen pt-20 transition-all duration-300">
-      <div className="container mx-auto px-4 py-6">
+    <div className="w-full min-h-screen pt-20 transition-all duration-300">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 py-6">
         <div
           className={cn(
             "grid gap-8",

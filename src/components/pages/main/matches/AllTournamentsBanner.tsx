@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
 import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
 } from "react";
 
 const AllTournamentsBanner: React.FC = () => {
@@ -73,7 +73,7 @@ const AllTournamentsBanner: React.FC = () => {
   };
 
   return (
-    <section className="w-full container mx-auto pb-5">
+    <section className="w-full pb-5">
       <h2 className="text-2xl font-bold text-foreground mb-6">Tournaments</h2>
       {/* Carousel - Takes 2 columns on medium+ screens */}
       <div

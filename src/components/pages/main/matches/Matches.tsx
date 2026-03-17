@@ -7,14 +7,14 @@ import SportCategoriesServer from "./SportCategoriesServer";
 
 const Matches = () => {
   return (
-    <div className="w-full space-y-8">
+    <section className="w-full space-y-5 md:space-y-8">
       <SportCategoriesServer />
       <AllTournamentsBanner />
       <LiveEventsSection />
       <FootballSection />
       <CricketSection />
       <BasketballSection />
-    </div>
+    </section>
   );
 };
 

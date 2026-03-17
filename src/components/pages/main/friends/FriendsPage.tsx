@@ -5,15 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import {
-  Filter,
-  MessageSquare,
-  Search,
-  ShieldCheck,
-  TrendingUp,
-  Trophy,
-  UserCheck,
-  UserPlus,
-  Users,
+    Filter,
+    MessageSquare,
+    Search,
+    ShieldCheck,
+    TrendingUp,
+    Trophy,
+    UserCheck,
+    UserPlus,
+    Users,
 } from "lucide-react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
@@ -117,7 +117,7 @@ const FriendsPage = () => {
   };
 
   return (
-    <div className="w-full container mx-auto pt-32 pb-20 px-4">
+    <div className="w-full container mx-auto pt-32 pb-20 px-4 sm:px-6 lg:px-12 xl:px-16">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
         <div className="space-y-2">

@@ -5,11 +5,11 @@
  * Main layout with navbar, sports navigation, content area, and betting slip sidebar
  */
 
-import { ReactNode } from "react";
+import BettingSlip from "@/components/betting/BettingSlip";
+import Footer from "@/components/shared/Footer";
 import Navbar from "@/components/shared/Navbar";
 import SportsNav from "@/components/shared/SportsNav";
-import Footer from "@/components/shared/Footer";
-import BettingSlip from "@/components/betting/BettingSlip";
+import { ReactNode } from "react";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -28,7 +28,7 @@ export default function MainLayout({ children, showBettingSlip = true }: MainLay
       {/* Main Content */}
       <div className="flex-1 flex">
         {/* Content Area */}
-        <main className="flex-1 container mx-auto px-4 py-8">
+        <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 py-8">
           {children}
         </main>
 

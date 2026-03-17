@@ -4,14 +4,14 @@ import Link from "next/link";
 
 const BetsSection = () => {
   return (
-    <section className="py-16 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-12 xl:px-16 bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
         {/* Section Title */}
-        <h2 className="text-4xl font-bold text-primary text-center mb-12">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary text-center mb-8 md:mb-12">
           Bets
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left Side - 3 Sport Images (2 on top, 1 on bottom) */}
           <div className="grid grid-cols-2 gap-4">
             {/* Top Row - Basketball + Tennis */}
@@ -42,14 +42,14 @@ const BetsSection = () => {
                 alt="Football"
                 width={800}
                 height={500}
-                className="rounded-lg object-cover w-full h-56"
+                className="rounded-lg object-cover w-full h-40 sm:h-48 md:h-56"
               />
             </div>
           </div>
 
           {/* Right Side - Text + Button */}
           <div className="space-y-8">
-            <p className="text-lg text-foreground leading-relaxed">
+            <p className="text-base sm:text-lg text-foreground leading-relaxed">
               We may collect different types of information to provide a safe
               and reliable betting experience. This includes personal details
               such as your full name, date of birth, contact information, and

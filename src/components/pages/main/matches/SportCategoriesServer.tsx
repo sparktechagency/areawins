@@ -46,8 +46,8 @@ const SportCategoriesServer = async ({
   };
 
   return (
-    <section className="bg-background border-b border-border w-full overflow-hidden">
-      <nav className="container mx-auto flex items-center gap-6 py-3 md:py-4 overflow-x-auto no-scrollbar">
+    <section className="w-full bg-background border-b border-border overflow-hidden">
+      <nav className="container mx-auto flex  gap-6 py-3 md:py-4 overflow-x-auto no-scrollbar">
         {/* Previous Page Button */}
         {hasPrevPage && (
           <Link

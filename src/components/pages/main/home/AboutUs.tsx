@@ -4,14 +4,14 @@ import Image from "next/image";
 
 const AboutUs = () => {
   return (
-    <section className="bg-background px-5 py-10 md:py-16">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+    <section className="bg-background py-16 md:py-20 px-4 sm:px-6 lg:px-12 xl:px-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left side - Text */}
           <div className="space-y-6">
-            <h2 className="text-4xl font-bold text-primary">About Us</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">About Us</h2>
 
-            <p className="text-lg text-foreground leading-relaxed">
+            <p className="text-base sm:text-lg text-foreground leading-relaxed">
               We may collect different types of information to provide a safe
               and reliable betting experience. This includes personal details
               such as your full name, date of birth, contact information, and

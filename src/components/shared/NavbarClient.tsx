@@ -67,7 +67,7 @@ const NavbarClient = ({ user }: { user: IUser }) => {
             : "bg-white/80 dark:bg-background/80 backdrop-blur-lg shadow-sm"
         }`}
       >
-        <div className="container mx-auto flex items-center justify-between gap-5">
+        <div className="container mx-auto flex items-center justify-between gap-5 px-6 lg:px-12 xl:px-16">
           {/* Logo */}
           <Link href="/" className="block">
             <Image
