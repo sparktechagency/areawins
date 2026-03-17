@@ -8,16 +8,17 @@ import { ROUTES } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 import {
-  BarChart2,
-  History,
-  LayoutDashboard,
-  LogOut,
-  Menu,
-  MessageCircle,
-  Settings,
-  Trophy,
-  Users,
-  Wallet,
+    BarChart2,
+    History,
+    LayoutDashboard,
+    LogOut,
+    Menu,
+    MessageCircle,
+    Settings,
+    Trophy,
+    User,
+    Users,
+    Wallet,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -38,6 +39,11 @@ export default function DashboardSidebar() {
     },
     { icon: Trophy, label: t("dashboard.menu.myBets"), href: ROUTES.MY_BETS },
     { icon: Wallet, label: t("dashboard.menu.wallet"), href: ROUTES.WALLET },
+    {
+      icon: User,
+      label: "Profile",
+      href: ROUTES.PROFILE,
+    },
     {
       icon: History,
       label: t("dashboard.menu.transactions"),
