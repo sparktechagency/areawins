@@ -2,6 +2,7 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import DarkModeToggle from "@/components/ui/dark-mode-toggle";
 import { ROUTES } from "@/lib/constants";
 import { Bell, ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -30,7 +31,7 @@ export default function DashboardHeader() {
 
   return (
     <header className="w-full py-[22px] border-b border-border sticky top-0 z-40 bg-background">
-      <div className="w-full h-full flex items-center justify-between px-4">
+      <div className="w-full h-full flex items-center justify-between px-4 lg:px-8">
         {/* Left Side: Breadcrumbs */}
         <div className="hidden md:flex items-center text-sm text-muted-foreground">
           <Link
@@ -56,13 +57,13 @@ export default function DashboardHeader() {
           ))}
         </div>
 
-        {/* Mobile menu handled by sidebar, so we just keep empty space or logic here if needed for independent header */}
-        <div className="md:hidden">
-          {/* Spacer or mobile logo if sidebar is separate */}
-        </div>
-
         {/* Right Side: Actions */}
         <div className="flex items-center gap-4 ml-auto">
+          {/* Theme Toggle */}
+          <div className="text-foreground">
+            <DarkModeToggle />
+          </div>
+
           <Link href={ROUTES.WALLET_DEPOSIT || "/wallet/deposit"}>
             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20">
               Deposit
