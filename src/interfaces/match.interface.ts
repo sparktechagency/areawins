@@ -73,3 +73,13 @@ export interface IMatch {
   isLive: boolean;
   isBettingOpen: boolean;
 }
+
+// Type aliases for backward compatibility
+export type MatchInfo = IMatch;
+export type TeamInfo = ITeam;
+export type TournamentInfo = ITournament;
+
+export interface MatchDetailsContentProps {
+  sport: string;
+  id: string;
+}
