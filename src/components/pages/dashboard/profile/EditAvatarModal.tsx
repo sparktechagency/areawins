@@ -9,6 +9,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
 import { RotateCw, Upload, X, ZoomIn, ZoomOut } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -22,7 +23,6 @@ interface EditAvatarModalProps {
 
 export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps) {
   const [preview, setPreview] = useState<string | null>(null);
-  const [fileName, setFileName] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isCropping, setIsCropping] = useState(false);
@@ -34,7 +34,6 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setFileName(file.name);
       const reader = new FileReader();
       reader.onload = (event) => {
         setPreview(event.target?.result as string);
@@ -103,14 +102,12 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
       setIsLoading(false);
       onClose();
       setPreview(null);
-      setFileName("");
       setIsCropping(false);
     }, 1500);
   };
 
   const handleClear = () => {
     setPreview(null);
-    setFileName("");
     setIsCropping(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -135,7 +132,7 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
           {/* Crop View */}
           {isCropping && preview ? (
             <>
-              <div className="relative w-full bg-muted rounded-lg overflow-hidden" style={{ height: "320px" }}>
+              <div className="relative w-full rounded-lg overflow-hidden bg-primary/10" style={{ height: "320px" }}>
                 <Cropper
                   image={preview}
                   crop={crop}
@@ -156,13 +153,12 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
                 {/* Zoom Control */}
                 <div className="flex items-center gap-3">
                   <ZoomOut className="w-4 h-4 text-muted-foreground" />
-                  <input
-                    type="range"
-                    min="1"
-                    max="3"
-                    step="0.1"
-                    value={zoom}
-                    onChange={(e) => setZoom(parseFloat(e.target.value))}
+                  <Slider
+                    value={[zoom]}
+                    onValueChange={(value: number[]) => setZoom(value[0])}
+                    min={1}
+                    max={3}
+                    step={0.1}
                     className="flex-1"
                   />
                   <ZoomIn className="w-4 h-4 text-muted-foreground" />
@@ -171,13 +167,12 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
                 {/* Rotation Control */}
                 <div className="flex items-center gap-3">
                   <RotateCw className="w-4 h-4 text-muted-foreground" />
-                  <input
-                    type="range"
-                    min="0"
-                    max="360"
-                    step="15"
-                    value={rotation}
-                    onChange={(e) => setRotation(Number(e.target.value))}
+                  <Slider
+                    value={[rotation]}
+                    onValueChange={(value: number[]) => setRotation(value[0])}
+                    min={0}
+                    max={360}
+                    step={15}
                     className="flex-1"
                   />
                   <span className="text-xs text-muted-foreground w-8">{rotation}°</span>
@@ -206,7 +201,7 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
             <>
               {/* Preview (after crop) */}
               {preview ? (
-                <div className="relative w-full h-48 sm:h-56 rounded-lg border-2 border-primary/30 overflow-hidden bg-muted mx-auto flex items-center justify-center">
+                <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full border-2 border-primary/30 overflow-hidden bg-muted mx-auto flex items-center justify-center">
                   <Image
                     src={preview}
                     alt="Preview"
@@ -250,12 +245,7 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
                 </Button>
               </div>
 
-              {/* File Name */}
-              {fileName && !isCropping && (
-                <p className="text-xs sm:text-sm text-muted-foreground break-all">
-                  Selected: <span className="font-bold text-foreground">{fileName}</span>
-                </p>
-              )}
+
 
               {/* Actions */}
               <div className="flex gap-2 sm:gap-3 pt-2 sm:pt-4">
