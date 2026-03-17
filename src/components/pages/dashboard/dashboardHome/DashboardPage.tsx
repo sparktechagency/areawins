@@ -1,9 +1,17 @@
 "use client";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatCurrency } from "@/lib/utils";
-import { TrendingDown, TrendingUp, Wallet } from "lucide-react";
-import { Area, AreaChart, Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import DashboardGreeting from "./DashboardGreeting";
 import RecentBetsTable from "./RecentBetsTable";
 import StatsOverview from "./StatsOverview";
@@ -33,7 +41,7 @@ export default function DashboardPage() {
         {/* Greeting Section */}
         <DashboardGreeting />
 
-        {/* Stats Overview Grid */}
+        {/* Stats Overview Cards */}
         <StatsOverview />
 
         {/* Main Charts Section */}
@@ -41,36 +49,82 @@ export default function DashboardPage() {
           {/* Area Chart - Profit/Loss Trend */}
           <Card className="border border-border">
             <CardHeader>
-              <CardTitle className="text-lg font-bold">Profit & Loss Trend</CardTitle>
-              <p className="text-xs text-muted-foreground mt-2">Your betting performance over the last 7 months</p>
+              <CardTitle className="text-lg font-bold">
+                Profit & Loss Trend
+              </CardTitle>
+              <p className="text-xs text-muted-foreground mt-2">
+                Your betting performance over the last 7 months
+              </p>
             </CardHeader>
             <CardContent>
               <div className="h-80 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={areaChartData}>
                     <defs>
-                      <linearGradient id="colorProfit" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                      <linearGradient
+                        id="colorProfit"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor="#10b981"
+                          stopOpacity={0.3}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="#10b981"
+                          stopOpacity={0}
+                        />
                       </linearGradient>
-                      <linearGradient id="colorLoss" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#ef4444" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#ef4444" stopOpacity={0}/>
+                      <linearGradient
+                        id="colorLoss"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor="#ef4444"
+                          stopOpacity={0.3}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="#ef4444"
+                          stopOpacity={0}
+                        />
                       </linearGradient>
                     </defs>
                     <XAxis stroke="#64748b" fontSize={12} />
                     <YAxis stroke="#64748b" fontSize={12} />
-                    <Tooltip 
+                    <Tooltip
                       contentStyle={{
-                        backgroundColor: '#1a242d',
-                        border: '1px solid #244732',
-                        borderRadius: '8px',
-                        color: '#fff'
+                        backgroundColor: "#1a242d",
+                        border: "1px solid #244732",
+                        borderRadius: "8px",
+                        color: "#fff",
                       }}
                     />
                     <Legend />
-                    <Area type="monotone" dataKey="profit" stroke="#10b981" fillOpacity={1} fill="url(#colorProfit)" name="Profit" />
-                    <Area type="monotone" dataKey="loss" stroke="#ef4444" fillOpacity={1} fill="url(#colorLoss)" name="Loss" />
+                    <Area
+                      type="monotone"
+                      dataKey="profit"
+                      stroke="#10b981"
+                      fillOpacity={1}
+                      fill="url(#colorProfit)"
+                      name="Profit"
+                    />
+                    <Area
+                      type="monotone"
+                      dataKey="loss"
+                      stroke="#ef4444"
+                      fillOpacity={1}
+                      fill="url(#colorLoss)"
+                      name="Loss"
+                    />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
@@ -81,7 +135,9 @@ export default function DashboardPage() {
           <Card className="border border-border">
             <CardHeader>
               <CardTitle className="text-lg font-bold">Bets by Sport</CardTitle>
-              <p className="text-xs text-muted-foreground mt-2">Total bets placed and wins by sport category</p>
+              <p className="text-xs text-muted-foreground mt-2">
+                Total bets placed and wins by sport category
+              </p>
             </CardHeader>
             <CardContent>
               <div className="h-80 w-full">
@@ -89,12 +145,12 @@ export default function DashboardPage() {
                   <BarChart data={barChartData}>
                     <XAxis stroke="#64748b" fontSize={12} />
                     <YAxis stroke="#64748b" fontSize={12} />
-                    <Tooltip 
+                    <Tooltip
                       contentStyle={{
-                        backgroundColor: '#1a242d',
-                        border: '1px solid #244732',
-                        borderRadius: '8px',
-                        color: '#fff'
+                        backgroundColor: "#1a242d",
+                        border: "1px solid #244732",
+                        borderRadius: "8px",
+                        color: "#fff",
                       }}
                     />
                     <Legend />
@@ -103,53 +159,6 @@ export default function DashboardPage() {
                   </BarChart>
                 </ResponsiveContainer>
               </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Balance and Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-          <Card className="border border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Winning Balance</CardTitle>
-              <TrendingUp className="w-4 h-4 text-green-500" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-500">{formatCurrency(45800)}</div>
-              <p className="text-xs text-muted-foreground mt-1">Available winnings</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Deposit</CardTitle>
-              <Wallet className="w-4 h-4 text-blue-500" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-blue-500">{formatCurrency(92500)}</div>
-              <p className="text-xs text-muted-foreground mt-1">Deposited funds</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Current Balance</CardTitle>
-              <Wallet className="w-4 h-4 text-purple-500" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-purple-500">{formatCurrency(67300)}</div>
-              <p className="text-xs text-muted-foreground mt-1">Ready to bet</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Loss</CardTitle>
-              <TrendingDown className="w-4 h-4 text-red-500" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-red-500">{formatCurrency(25200)}</div>
-              <p className="text-xs text-muted-foreground mt-1">Losses this month</p>
             </CardContent>
           </Card>
         </div>
