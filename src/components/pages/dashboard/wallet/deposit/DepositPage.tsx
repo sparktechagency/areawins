@@ -74,7 +74,8 @@ const DepositPage = () => {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="w-full mx-auto max-w-6xl">
+        <div className="space-y-6">
         {/* Header */}
         <div>
           <h1 className="text-3xl font-bold text-foreground">Deposit Funds</h1>
@@ -385,6 +386,7 @@ const DepositPage = () => {
             </Card>
           </div>
         </div>
+      </div>
       </div>
     </DashboardLayout>
   );
