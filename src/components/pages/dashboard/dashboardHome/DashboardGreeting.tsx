@@ -2,7 +2,7 @@
 
 export default function DashboardGreeting() {
   // const { user } = useAuth();
-  const user = { firstName: "Rakib" }; // Mock user
+  const user = { firstName: "Rakib", fullName: "Rakib Hassan" }; // Mock user
 
   // Get time of day
   const hour = new Date().getHours();

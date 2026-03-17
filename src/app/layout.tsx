@@ -4,14 +4,14 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import { ReduxProvider } from "@/lib/redux/provider";
 import type { Metadata } from "next";
-import { Oswald } from "next/font/google";
+import { Lora} from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
-const oswald = Oswald({
+const lora = Lora({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-oswald",
+  weight: ["400", "500", "600"],
+  variable: "--font-lora",
 });
 
 export const metadata: Metadata = {
@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${oswald.className} antialiased`}
+        className={`${lora.className} antialiased`}
         suppressHydrationWarning
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

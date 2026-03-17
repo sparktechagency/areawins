@@ -1,5 +1,4 @@
 "use client";
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -117,7 +116,7 @@ const FriendsPage = () => {
   };
 
   return (
-    <div className="w-full container mx-auto pt-32 pb-20 px-4 sm:px-6 lg:px-12 xl:px-16">
+    <div className="w-full container mx-auto pt-32 pb-20 px-4 sm:px-6 lg:px-8 ">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
         <div className="space-y-2">
