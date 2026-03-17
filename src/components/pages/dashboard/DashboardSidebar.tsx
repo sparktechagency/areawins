@@ -98,7 +98,7 @@ export default function DashboardSidebar() {
                     "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group relative overflow-hidden",
                     isActive
                       ? "bg-primary/10 text-primary font-medium"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                      : "text-muted-foreground hover:bg-primary/10 hover:text-foreground",
                   )}
                 >
                   {isActive && (

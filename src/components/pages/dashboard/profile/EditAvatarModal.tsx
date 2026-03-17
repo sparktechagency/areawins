@@ -9,9 +9,11 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Upload, X } from "lucide-react";
+import { RotateCw, Upload, X, ZoomIn, ZoomOut } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
+import type { Area, Point } from "react-easy-crop";
+import Cropper from "react-easy-crop";
 
 interface EditAvatarModalProps {
   open: boolean;
@@ -23,6 +25,11 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
   const [fileName, setFileName] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isCropping, setIsCropping] = useState(false);
+  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [rotation, setRotation] = useState(0);
+  const [croppedArea, setCroppedArea] = useState<Area | null>(null);
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -31,8 +38,58 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
       const reader = new FileReader();
       reader.onload = (event) => {
         setPreview(event.target?.result as string);
+        setIsCropping(true);
+        setCrop({ x: 0, y: 0 });
+        setZoom(1);
+        setRotation(0);
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleCropComplete = (_croppedArea: Area, croppedAreaPixels: Area) => {
+    setCroppedArea(croppedAreaPixels);
+  };
+
+  const getCroppedImage = async (): Promise<string | null> => {
+    if (!preview || !croppedArea) return null;
+
+    return new Promise((resolve) => {
+      const image = new window.Image();
+      image.src = preview;
+      image.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          resolve(null);
+          return;
+        }
+
+        canvas.width = croppedArea.width;
+        canvas.height = croppedArea.height;
+
+        ctx.drawImage(
+          image,
+          croppedArea.x,
+          croppedArea.y,
+          croppedArea.width,
+          croppedArea.height,
+          0,
+          0,
+          croppedArea.width,
+          croppedArea.height
+        );
+
+        resolve(canvas.toDataURL("image/jpeg"));
+      };
+    });
+  };
+
+  const handleFinishCrop = async () => {
+    const croppedImage = await getCroppedImage();
+    if (croppedImage) {
+      setPreview(croppedImage);
+      setIsCropping(false);
     }
   };
 
@@ -47,12 +104,14 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
       onClose();
       setPreview(null);
       setFileName("");
+      setIsCropping(false);
     }, 1500);
   };
 
   const handleClear = () => {
     setPreview(null);
     setFileName("");
+    setIsCropping(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -60,88 +119,165 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md border-0">
         <DialogHeader>
           <DialogTitle className="text-lg sm:text-xl font-bold">
-            Update Profile Photo
+            {isCropping ? "Crop Profile Photo" : "Update Profile Photo"}
           </DialogTitle>
           <DialogDescription className="text-xs sm:text-sm">
-            Choose an image from your device to set as your profile picture
+            {isCropping
+              ? "Adjust the crop area to frame your photo perfectly"
+              : "Choose an image from your device to set as your profile picture"}
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 sm:space-y-5">
-          {/* Preview */}
-          {preview ? (
-            <div className="relative w-full h-48 sm:h-56 rounded-lg border-2 border-primary/30 overflow-hidden bg-muted">
-              <Image
-                src={preview}
-                alt="Preview"
-                fill
-                className="object-cover"
-              />
-            </div>
+          {/* Crop View */}
+          {isCropping && preview ? (
+            <>
+              <div className="relative w-full bg-muted rounded-lg overflow-hidden" style={{ height: "320px" }}>
+                <Cropper
+                  image={preview}
+                  crop={crop}
+                  zoom={zoom}
+                  rotation={rotation}
+                  aspect={1}
+                  cropShape="round"
+                  showGrid={true}
+                  onCropChange={setCrop}
+                  onCropComplete={handleCropComplete}
+                  onZoomChange={setZoom}
+                  onRotationChange={setRotation}
+                />
+              </div>
+
+              {/* Crop Controls */}
+              <div className="space-y-3">
+                {/* Zoom Control */}
+                <div className="flex items-center gap-3">
+                  <ZoomOut className="w-4 h-4 text-muted-foreground" />
+                  <input
+                    type="range"
+                    min="1"
+                    max="3"
+                    step="0.1"
+                    value={zoom}
+                    onChange={(e) => setZoom(parseFloat(e.target.value))}
+                    className="flex-1"
+                  />
+                  <ZoomIn className="w-4 h-4 text-muted-foreground" />
+                </div>
+
+                {/* Rotation Control */}
+                <div className="flex items-center gap-3">
+                  <RotateCw className="w-4 h-4 text-muted-foreground" />
+                  <input
+                    type="range"
+                    min="0"
+                    max="360"
+                    step="15"
+                    value={rotation}
+                    onChange={(e) => setRotation(Number(e.target.value))}
+                    className="flex-1"
+                  />
+                  <span className="text-xs text-muted-foreground w-8">{rotation}°</span>
+                </div>
+              </div>
+
+              {/* Crop Actions */}
+              <div className="flex gap-2 sm:gap-3 pt-2 sm:pt-4">
+                <Button
+                  onClick={handleClear}
+                  variant="outline"
+                  className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                >
+                  <X className="w-4 h-4 mr-2" />
+                  Cancel
+                </Button>
+                <Button
+                  onClick={handleFinishCrop}
+                  className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                >
+                  Crop & Continue
+                </Button>
+              </div>
+            </>
           ) : (
-            <div className="w-full h-48 sm:h-56 rounded-lg border-2 border-dashed border-border flex flex-col items-center justify-center bg-muted/50">
-              <Upload className="w-8 h-8 sm:w-10 sm:h-10 text-muted-foreground mb-2" />
-              <p className="text-xs sm:text-sm text-muted-foreground font-medium">
-                No image selected
-              </p>
-            </div>
+            <>
+              {/* Preview (after crop) */}
+              {preview ? (
+                <div className="relative w-full h-48 sm:h-56 rounded-lg border-2 border-primary/30 overflow-hidden bg-muted mx-auto flex items-center justify-center">
+                  <Image
+                    src={preview}
+                    alt="Preview"
+                    width={200}
+                    height={200}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : (
+                <div className="w-full h-48 sm:h-56 rounded-lg border-2 border-dashed border-border flex flex-col items-center justify-center bg-muted/50">
+                  <Upload className="w-8 h-8 sm:w-10 sm:h-10 text-muted-foreground mb-2" />
+                  <p className="text-xs sm:text-sm text-muted-foreground font-medium">
+                    No image selected
+                  </p>
+                </div>
+              )}
+
+              {/* File Input */}
+              <div>
+                <Label
+                  htmlFor="avatar-upload"
+                  className="text-xs sm:text-sm font-black uppercase tracking-widest text-muted-foreground"
+                >
+                  Select Image
+                </Label>
+                <input
+                  ref={fileInputRef}
+                  id="avatar-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileSelect}
+                  className="hidden"
+                />
+                <Button
+                  onClick={() => fileInputRef.current?.click()}
+                  variant="outline"
+                  className="w-full mt-2 text-xs sm:text-sm font-black uppercase tracking-widest"
+                >
+                  <Upload className="w-4 h-4 mr-2" />
+                  Browse Files
+                </Button>
+              </div>
+
+              {/* File Name */}
+              {fileName && !isCropping && (
+                <p className="text-xs sm:text-sm text-muted-foreground break-all">
+                  Selected: <span className="font-bold text-foreground">{fileName}</span>
+                </p>
+              )}
+
+              {/* Actions */}
+              <div className="flex gap-2 sm:gap-3 pt-2 sm:pt-4">
+                <Button
+                  onClick={handleClear}
+                  variant="outline"
+                  className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                  disabled={!preview}
+                >
+                  <X className="w-4 h-4 mr-2" />
+                  Clear
+                </Button>
+                <Button
+                  onClick={handleUpload}
+                  disabled={!preview || isLoading}
+                  className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                >
+                  {isLoading ? "Uploading..." : "Upload"}
+                </Button>
+              </div>
+            </>
           )}
-
-          {/* File Input */}
-          <div>
-            <Label
-              htmlFor="avatar-upload"
-              className="text-xs sm:text-sm font-black uppercase tracking-widest text-muted-foreground"
-            >
-              Select Image
-            </Label>
-            <input
-              ref={fileInputRef}
-              id="avatar-upload"
-              type="file"
-              accept="image/*"
-              onChange={handleFileSelect}
-              className="hidden"
-            />
-            <Button
-              onClick={() => fileInputRef.current?.click()}
-              variant="outline"
-              className="w-full mt-2 text-xs sm:text-sm font-black uppercase tracking-widest"
-            >
-              <Upload className="w-4 h-4 mr-2" />
-              Browse Files
-            </Button>
-          </div>
-
-          {/* File Name */}
-          {fileName && (
-            <p className="text-xs sm:text-sm text-muted-foreground break-all">
-              Selected: <span className="font-bold text-foreground">{fileName}</span>
-            </p>
-          )}
-
-          {/* Actions */}
-          <div className="flex gap-2 sm:gap-3 pt-2 sm:pt-4">
-            <Button
-              onClick={handleClear}
-              variant="outline"
-              className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
-              disabled={!preview}
-            >
-              <X className="w-4 h-4 mr-2" />
-              Clear
-            </Button>
-            <Button
-              onClick={handleUpload}
-              disabled={!preview || isLoading}
-              className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
-            >
-              {isLoading ? "Uploading..." : "Upload"}
-            </Button>
-          </div>
         </div>
       </DialogContent>
     </Dialog>

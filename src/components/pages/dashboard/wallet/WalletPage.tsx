@@ -1,29 +1,28 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { ROUTES } from "@/lib/constants";
 import { formatCurrency } from "@/lib/utils";
 import {
-  ArrowDownLeft,
-  ArrowUpRight,
-  Badge,
-  CreditCard,
-  Info,
-  Wallet2,
+    ArrowDownLeft,
+    ArrowUpRight,
+    Badge,
+    CreditCard,
+    Info,
+    Wallet2,
 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 
 const WalletPage = () => {
   return (
     <DashboardLayout>
-      <div className="w-full mx-auto">
+      <div className="w-full mx-auto max-w-6xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground flex items-center gap-2">
             Wallet <Wallet2 className="w-8 h-8 text-primary" />

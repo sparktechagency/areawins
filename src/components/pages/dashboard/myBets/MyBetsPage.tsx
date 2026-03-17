@@ -16,7 +16,7 @@ const formatOdds = (odds: number) => odds.toFixed(2);
 
 const MyBetsPage = () => {
   const [filter, setFilter] = useState<"all" | "won" | "lost" | "pending">(
-    "all"
+    "all",
   );
 
   const betHistory = {
@@ -96,7 +96,7 @@ const MyBetsPage = () => {
   const allBets = betHistory.bets;
 
   const filteredBets = allBets.filter(
-    (bet) => filter === "all" || bet.status === filter
+    (bet) => filter === "all" || bet.status === filter,
   );
 
   const getStatusBadge = (status: string) => {
@@ -169,10 +169,16 @@ const MyBetsPage = () => {
 
         <Tabs defaultValue="all" className="w-full">
           <div className="flex items-center justify-between mb-4">
-            <TabsList>
-              <TabsTrigger value="all">All Bets</TabsTrigger>
-              <TabsTrigger value="active">Active</TabsTrigger>
-              <TabsTrigger value="history">History</TabsTrigger>
+            <TabsList className="bg-transparent w-auto">
+              <TabsTrigger value="all" className="cursor-pointer">
+                All Bets
+              </TabsTrigger>
+              <TabsTrigger value="active" className="cursor-pointer">
+                Active
+              </TabsTrigger>
+              <TabsTrigger value="history" className="cursor-pointer">
+                History
+              </TabsTrigger>
             </TabsList>
 
             <div className="flex items-center gap-2">
@@ -422,7 +428,7 @@ const MyBetsPage = () => {
                                 <span className="text-green-600 dark:text-green-400">
                                   +{" "}
                                   {formatCurrency(
-                                    bet.payout || bet.potentialWin
+                                    bet.payout || bet.potentialWin,
                                   )}
                                 </span>
                               ) : (
