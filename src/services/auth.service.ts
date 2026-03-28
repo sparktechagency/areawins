@@ -254,7 +254,6 @@ export async function verifyOtp(
 
   try {
     const res = await api.post("/auth/verify-otp", data);
-    console.log("Res", res);
     if (!res.success) {
       return {
         success: false,
@@ -264,10 +263,12 @@ export async function verifyOtp(
     }
 
     const verifyData = res?.data;
-    // 1. Handle Forgot Password Flow (resetToken)
-    if (verifyData?.resetToken) {
+
+    console.log("VerifyData", verifyData);
+    // 1. Handle Forgot Password Flow (resetPasswordToken)
+    if (verifyData?.resetPasswordToken) {
       const isProduction = process.env.NODE_ENV === "production";
-      await setCookie("resetPasswordToken", verifyData.resetToken, {
+      await setCookie("resetPasswordToken", verifyData.resetPasswordToken, {
         secure: isProduction,
         httpOnly: true,
         maxAge: 3600, // 1 hour
@@ -370,7 +371,7 @@ export async function resetPassword(
 
     const res = await api.post("/auth/reset-password", {
       ...parsed.data,
-      token: resetToken,
+      resetPasswordToken: resetToken,
     });
 
     if (!res.success) {

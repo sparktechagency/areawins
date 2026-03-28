@@ -32,7 +32,11 @@ export default function VerifyOtpForm() {
   useEffect(() => {
     if (state?.success) {
       toast.success(state?.message || "Email verified successfully!");
-      dispatch(closeAuthModal());
+      if (state?.data?.redirect) {
+        dispatch(setAuthView("RESET_PASSWORD"));
+      } else {
+        dispatch(closeAuthModal());
+      }
     } else if (state.message && !state.errors) {
       toast.error(state.message);
     }
