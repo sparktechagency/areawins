@@ -36,6 +36,7 @@ export default function ForgotPasswordForm() {
     }
   }, [state, dispatch]);
 
+  
   return (
     <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
       <div className="text-center space-y-2">
@@ -60,15 +61,19 @@ export default function ForgotPasswordForm() {
           required
         />
 
-        <Button type="submit" className="w-full font-bold" disabled={isPending}>
+        <Button
+          type="submit"
+          className="w-full font-bold cursor-pointer"
+          disabled={isPending}
+        >
           {isPending ? t("auth.sending") : t("auth.sendResetLink")}
         </Button>
       </form>
 
-      <div className="text-center">
+      <div className="text-center flex items-center justify-center">
         <button
           onClick={() => dispatch(setAuthView("LOGIN"))}
-          className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm"
+          className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm cursor-pointer"
         >
           <ArrowLeft className="size-4" />
           {t("auth.backToLogin")}

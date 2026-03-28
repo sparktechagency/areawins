@@ -1,6 +1,7 @@
 "use client";
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { closeAuthModal, setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
@@ -30,12 +31,11 @@ export default function LoginForm() {
   useEffect(() => {
     if (state?.success) {
       toast.success(state?.message || "Login successful!");
-
       dispatch(closeAuthModal());
     } else if (state.message && !state.errors) {
       toast.error(state.message);
     }
-  }, [state]);
+  }, [dispatch, state]);
 
   return (
     <div className="w-full p-6 space-y-6">
@@ -73,10 +73,21 @@ export default function LoginForm() {
         />
 
         <div className="flex items-center justify-between">
+          {/* Remember Me */}
+          <div className="flex items-center gap-1">
+            <Checkbox
+              id="remember"
+              name="remember"
+              className="mr-2 cursor-pointer"
+            />
+            <label htmlFor="remember" className="text-sm text-muted-foreground">
+              {t("auth.rememberMe")}
+            </label>
+          </div>
           <button
             type="button"
             onClick={() => dispatch(setAuthView("FORGOT_PASSWORD"))}
-            className="text-xs text-primary font-bold hover:underline"
+            className="text-xs text-primary font-bold hover:underline cursor-pointer"
           >
             {t("auth.forgotPassword")}
           </button>

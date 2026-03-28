@@ -3,10 +3,7 @@
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
-import {
-  closeAuthModal,
-  setAuthView,
-} from "@/lib/redux/features/authUiSlice";
+import { closeAuthModal, setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { verifyOtp } from "@/services/auth.service";
 import { useActionState, useEffect } from "react";
@@ -27,7 +24,10 @@ export default function VerifyOtpForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { email, otpReason } = useAppSelector((state) => state.authUi);
-  const [state, formAction, isPending] = useActionState(verifyOtp, initialState);
+  const [state, formAction, isPending] = useActionState(
+    verifyOtp,
+    initialState,
+  );
 
   useEffect(() => {
     if (state?.success) {
@@ -45,10 +45,9 @@ export default function VerifyOtpForm() {
           {t("auth.verifyEmail")}
         </h2>
         <p className="text-sm text-muted-foreground">
-          {otpReason === "REGISTER" 
+          {otpReason === "REGISTER"
             ? `We've sent a verification code to ${email}`
-            : "Enter the verification code sent to your email"
-          }
+            : "Enter the verification code sent to your email"}
         </p>
       </div>
 

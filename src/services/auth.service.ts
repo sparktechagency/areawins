@@ -193,6 +193,14 @@ export async function forgotPassword(
   try {
     const res = await api.post("/auth/forgot-password", parsed.data);
 
+    if (!res.success) {
+      return {
+        success: false,
+        message: res.message || "Failed to login",
+        inputs: values,
+        timestamp: Date.now(),
+      };
+    }
     // Set sessionId in cookies for reset password flow
     const sessionId = res?.data?.sessionId;
     if (sessionId) {
@@ -229,7 +237,6 @@ export async function verifyOtp(
   if (!sessionId) {
     return { success: false, message: "Session expired", inputs: values };
   }
-
   const data = {
     sessionId: sessionId,
     code: values.otp || values.code,
@@ -241,18 +248,17 @@ export async function verifyOtp(
       success: false,
       message: "Invalid OTP",
       errors: parsed.error?.flatten().fieldErrors || {},
-      inputs: values,
       timestamp: Date.now(),
     };
   }
 
   try {
     const res = await api.post("/auth/verify-otp", data);
+    console.log("Res", res);
     if (!res.success) {
       return {
         success: false,
         message: res.message || "Invalid OTP",
-        inputs: values,
         timestamp: Date.now(),
       };
     }

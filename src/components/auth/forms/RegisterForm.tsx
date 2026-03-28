@@ -110,7 +110,7 @@ export default function RegisterForm() {
         />
 
         <div className="flex items-start space-x-2">
-          <Checkbox id="terms" className="mt-0.5" />
+          <Checkbox id="terms" className="mt-0.5 cursor-pointer" />
           <div className="space-y-1 leading-none">
             <label
               htmlFor="terms"
@@ -141,7 +141,11 @@ export default function RegisterForm() {
           </div>
         </div>
 
-        <Button type="submit" className="w-full font-bold" disabled={isPending}>
+        <Button
+          type="submit"
+          className="w-full font-bold cursor-pointer mt-2"
+          disabled={isPending}
+        >
           {isPending ? t("auth.sending") : t("auth.signUp")}
         </Button>
       </form>
@@ -150,7 +154,7 @@ export default function RegisterForm() {
         {t("auth.haveAccount")}{" "}
         <button
           onClick={() => dispatch(setAuthView("LOGIN"))}
-          className="text-primary font-bold hover:underline"
+          className="text-primary font-bold hover:underline cursor-pointer"
         >
           {t("auth.logIn")}
         </button>

@@ -27,7 +27,6 @@ export default function ResetPasswordForm() {
     resetPassword,
     initialState,
   );
-  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (state?.success) {
