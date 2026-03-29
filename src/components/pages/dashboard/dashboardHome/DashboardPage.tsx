@@ -1,26 +1,34 @@
-"use client";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import DashboardGreeting from "./DashboardGreeting";
 import RecentBetsTable from "./RecentBetsTable";
 import StatsOverview from "./StatsOverview";
 import ProfitLossChart from "./ProfitLossChart";
+import { IWalletData } from "@/interfaces/wallet.interface";
+import { IProfitLossChartData } from "@/interfaces/dashboard.interface";
 
-export default function DashboardPage() {
+interface DashboardPageProps {
+  statsOverviewData: IWalletData;
+  profitLossData: IProfitLossChartData;
+}
+export default function DashboardPage({
+  statsOverviewData,
+  profitLossData,
+}: DashboardPageProps) {
   return (
     <DashboardLayout>
-      <div className="w-full mx-auto">
+      <section className="w-full mx-auto">
         {/* Greeting Section */}
         <DashboardGreeting />
 
         {/* Stats Overview Cards */}
-        <StatsOverview />
+        <StatsOverview stats={statsOverviewData} />
 
         {/* Main Charts Section */}
-        <ProfitLossChart />
+        <ProfitLossChart data={profitLossData} />
 
         {/* Recent Bets Table */}
         <RecentBetsTable />
-      </div>
+      </section>
     </DashboardLayout>
   );
 }

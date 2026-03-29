@@ -35,7 +35,6 @@ const SportCategoriesServer = async ({
     })),
   ];
 
-  const totalPages = sportCategoriesResponse?.pagination?.totalPages || 1;
   const hasNextPage = sportCategoriesResponse?.pagination?.hasNextPage || false;
   const hasPrevPage = sportCategoriesResponse?.pagination?.hasPrevPage || false;
 

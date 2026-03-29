@@ -1,11 +1,15 @@
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
+import { IWalletData } from "@/interfaces/wallet.interface";
 import { ROUTES } from "@/lib/constants";
 import { formatCurrency } from "@/lib/utils";
 import { ArrowRight, TrendingDown, TrendingUp, Wallet } from "lucide-react";
 import Link from "next/link";
+interface StatsOverviewProps {
+  stats: IWalletData;
+}
 
-export default function StatsOverview() {
+export default function StatsOverview({ stats }: StatsOverviewProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
       {/* Total Winning Balance */}
@@ -20,7 +24,7 @@ export default function StatsOverview() {
                 Total Winning Balance
               </p>
               <div className="text-3xl font-black text-foreground mb-4">
-                {formatCurrency(45800)}
+                {formatCurrency(stats?.totalWinningBalance || 0)}
               </div>
               <Link
                 href={ROUTES.WALLET_WITHDRAW}
@@ -45,7 +49,7 @@ export default function StatsOverview() {
                 Total Deposit
               </p>
               <div className="text-3xl font-black text-foreground mb-4">
-                {formatCurrency(92500)}
+                {formatCurrency(stats?.totalDeposit || 0)}
               </div>
               <Link
                 href={ROUTES.WALLET_DEPOSIT}
@@ -67,10 +71,10 @@ export default function StatsOverview() {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-purple-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
-                Current Balance
+               Total Balance
               </p>
               <div className="text-3xl font-black text-foreground mb-4">
-                {formatCurrency(67300)}
+                {formatCurrency(stats?.totalBalance || 0)}
               </div>
               <Link
                 href={ROUTES.WALLET}
@@ -95,7 +99,7 @@ export default function StatsOverview() {
                 Total Loss
               </p>
               <div className="text-3xl font-black text-foreground mb-4">
-                {formatCurrency(25200)}
+                {formatCurrency(stats?.totalLoss || 0)}
               </div>
             </div>
           </div>

@@ -1,17 +1,17 @@
 "use client";
-
 import { FormSelect } from "@/components/form/FormSelect";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { IProfitLossChartData } from "@/interfaces/dashboard.interface";
 import { useMemo, useState } from "react";
 import {
-    Bar,
-    BarChart,
-    CartesianGrid,
-    Legend,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from "recharts";
 
 type PeriodFilter = "week" | "month" | "year";
@@ -77,7 +77,11 @@ const monthlyByYearData: Record<string, ChartPoint[]> = {
   ],
 };
 
-export default function ProfitLossChart() {
+export default function ProfitLossChart({
+  data,
+}: {
+  data: IProfitLossChartData;
+}) {
   const currentYear = String(new Date().getFullYear());
   const availableYears = Object.keys(monthlyByYearData).sort();
   const defaultYear = availableYears.includes(currentYear)
