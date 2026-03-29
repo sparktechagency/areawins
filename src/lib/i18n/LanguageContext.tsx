@@ -1,9 +1,10 @@
 "use client";
-
-import React, { createContext, useContext, useState } from "react";
+import { useLocale } from "next-intl";
+import React, { createContext, useContext } from "react";
+import { routing, usePathname, useRouter } from "./routing";
 import { translations } from "./translations";
 
-type Language = "en" | "es";
+type Language = (typeof routing.locales)[number];
 
 interface LanguageContextType {
   language: Language;
@@ -16,30 +17,38 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 );
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>(() => {
-    const storedLang = localStorage.getItem("language") as Language;
-    return (storedLang === "en" || storedLang === "es") ? storedLang : "en";
-  });
+  const router = useRouter();
+  const pathname = usePathname();
+  const locale = useLocale();
+
+  const language: Language = routing.locales.includes(locale as Language)
+    ? (locale as Language)
+    : routing.defaultLocale;
 
   const handleSetLanguage = (lang: Language) => {
-    setLanguage(lang);
-    localStorage.setItem("language", lang);
+    if (lang === language) return;
+    router.replace(pathname, { locale: lang });
   };
 
   const t = (path: string) => {
     const keys = path.split(".");
-    let current: any = translations[language];
+    let current: unknown = translations[language];
 
     for (const key of keys) {
-      if (current[key] === undefined) {
+      if (
+        typeof current !== "object" ||
+        current === null ||
+        !(key in current)
+      ) {
         console.warn(
           `Translation missing for key: ${path} in language: ${language}`
         );
         return path;
       }
-      current = current[key];
+      current = (current as Record<string, unknown>)[key];
     }
-    return current;
+
+    return typeof current === "string" ? current : path;
   };
 
   return (

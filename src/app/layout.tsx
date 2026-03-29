@@ -1,10 +1,5 @@
-import AuthModal from "@/components/auth/AuthModal";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { LanguageProvider } from "@/lib/i18n/LanguageContext";
-import { ReduxProvider } from "@/lib/redux/provider";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const roboto = Roboto({
@@ -34,15 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${roboto.className}  ${roboto.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <LanguageProvider>
-            <ReduxProvider>
-              {children}
-              <AuthModal />
-              <Toaster position="top-center" />
-            </ReduxProvider>
-          </LanguageProvider>
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );

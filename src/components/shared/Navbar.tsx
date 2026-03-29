@@ -3,7 +3,7 @@ import { getMyProfile } from "@/services/user.service";
 import NavbarClient from "./NavbarClient";
 
 const Navbar = async () => {
-  const user = (await getMyProfile()) as IUser;
+  const user = (await getMyProfile()) as IUser | null;
   return <NavbarClient user={user} />;
 };
 

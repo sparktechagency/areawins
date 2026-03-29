@@ -15,15 +15,9 @@ import { useRouter } from "next/navigation";
 
 interface UserMenuProps {
   user: IUser | null;
-  isHomePage?: boolean;
-  scrolled?: boolean;
 }
 
-export const UserMenu = ({
-  user,
-  isHomePage = false,
-  scrolled = false,
-}: UserMenuProps) => {
+export const UserMenu = ({ user }: UserMenuProps) => {
   const { t } = useTranslation();
   const router = useRouter();
 
@@ -66,18 +60,8 @@ export const UserMenu = ({
     return (
       <Button
         onClick={handleLogout}
-        variant={
-          isHomePage && scrolled
-            ? "default"
-            : isHomePage
-              ? "secondary"
-              : "default"
-        }
-        className={`transition-all duration-300 cursor-pointer ${
-          isHomePage && !scrolled
-            ? "bg-white text-primary hover:bg-white/90"
-            : ""
-        }`}
+        variant="default"
+        className="transition-all duration-300 cursor-pointer"
       >
         {t("navbar.login")}
       </Button>

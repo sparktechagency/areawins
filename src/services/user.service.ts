@@ -10,6 +10,7 @@ export type UserActionState = ActionState;
 export async function getMyProfile() {
   const accessToken = await getCookie("accessToken");
   const refreshToken = await getCookie("refreshToken");
+
   if (!accessToken && !refreshToken) {
     return null;
   }
@@ -22,13 +23,13 @@ export async function getMyProfile() {
     });
 
     if (!res.success) {
-      throw new Error(res.message || "Failed to fetch profile");
+      return null;
     }
 
     return res.data;
   } catch (error: any) {
-    console.error("Failed to fetch profile:", error);
-    throw error;
+    console.warn("Failed to fetch profile:", error?.message || error);
+    return null;
   }
 }
 

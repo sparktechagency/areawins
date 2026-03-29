@@ -1,8 +1,9 @@
 "use client";
 import logo from "@/assets/logo/logo.png";
 import { AnimatedDropdown } from "@/components/shared/AnimatedDropdown";
-import { useAuth } from "@/hooks/useAuth";
+import { IUser } from "@/interfaces/user.interface";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { Link, usePathname } from "@/lib/i18n/routing";
 import { openAuthModal } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import {
@@ -15,33 +16,17 @@ import {
   Users,
 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "../ui/button";
 import DarkModeToggle from "../ui/dark-mode-toggle";
-import { IUser } from "@/interfaces/user.interface";
-import { UserMenu } from "./UserMenu";
 import MobileUserMenu from "./MobileUserMenu";
+import { UserMenu } from "./UserMenu";
 
-const NavbarClient = ({ user }: { user: IUser }) => {
+const NavbarClient = ({ user }: { user: IUser | null }) => {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
   const { t, language, setLanguage } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  // Check if current page is home page
-  const isHomePage = pathname === "/" || pathname === "/home";
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const navLinks = [
     { label: t("navbar.home"), href: "/", icon: Home },
@@ -59,13 +44,7 @@ const NavbarClient = ({ user }: { user: IUser }) => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50  py-5 transition-all duration-300 ${
-          isHomePage
-            ? scrolled
-              ? "bg-white/80 dark:bg-black/20 backdrop-blur-lg shadow-sm h-20 flex justify-center items-center"
-              : "bg-transparent h-20 flex justify-center items-center"
-            : "bg-white/80 dark:bg-background/80 backdrop-blur-lg shadow-sm"
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 h-20 bg-white/80 dark:bg-background/80 backdrop-blur-lg shadow-sm flex justify-center items-center"
       >
         <div className="container mx-auto flex items-center justify-between gap-5 px-4 sm:px-6 lg:px-8">
           {/* Logo */}
@@ -99,7 +78,7 @@ const NavbarClient = ({ user }: { user: IUser }) => {
 
           {/* Right Side */}
           <div className="flex items-center justify-end gap-3 md:gap-4">
-            <div className={`${isHomePage ? "text-white" : "text-foreground"}`}>
+            <div className="text-foreground">
               <DarkModeToggle />
             </div>
 
@@ -107,9 +86,7 @@ const NavbarClient = ({ user }: { user: IUser }) => {
               <AnimatedDropdown
                 trigger={
                   <button
-                    className={`flex items-center gap-1 cursor-pointer text-sm font-medium transition-colors ${
-                      isHomePage ? "text-white" : "text-foreground"
-                    }`}
+                    className={`flex items-center gap-1 cursor-pointer text-sm font-medium transition-colors text-foreground`}
                   >
                     <Globe className="w-4 h-4" />
                     {language === "en" ? "English" : "Español"}
@@ -122,26 +99,12 @@ const NavbarClient = ({ user }: { user: IUser }) => {
 
             <div className="hidden md:block">
               {user ? (
-                <UserMenu
-                  user={user}
-                  isHomePage={isHomePage}
-                  scrolled={scrolled}
-                />
+                <UserMenu user={user} />
               ) : (
                 <Button
                   onClick={() => dispatch(openAuthModal({ view: "LOGIN" }))}
-                  variant={
-                    isHomePage && scrolled
-                      ? "default"
-                      : isHomePage
-                        ? "secondary"
-                        : "default"
-                  }
-                  className={`transition-all duration-300 cursor-pointer ${
-                    isHomePage && !scrolled
-                      ? "bg-white text-primary hover:bg-white/90"
-                      : ""
-                  }`}
+                  variant="default"
+                  className="transition-all duration-300 cursor-pointer"
                 >
                   {t("navbar.login")}
                 </Button>
@@ -150,9 +113,7 @@ const NavbarClient = ({ user }: { user: IUser }) => {
 
             {/* Mobile Menu Button */}
             <button
-              className={`md:hidden ml-4 ${
-                isHomePage && !scrolled ? "text-white" : "text-foreground"
-              }`}
+              className="md:hidden ml-4 text-foreground"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
             >

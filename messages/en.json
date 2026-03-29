@@ -1,0 +1,98 @@
+{
+  "navbar": {
+    "home": "Home",
+    "matches": "All Matches",
+    "market": "Bet Market",
+    "friends": "Friends",
+    "support": "Support",
+    "login": "Login",
+    "signIn": "Sign In",
+    "myBets": "My Bets",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "dashboard": {
+    "menu": {
+      "dashboard": "Dashboard",
+      "myBets": "My Bets",
+      "wallet": "Wallet",
+      "transactions": "Transactions",
+      "referral_friends": "Referral Friends",
+      "message": "Message",
+      "statistics": "Statistics",
+      "settings": "Settings",
+      "logout": "Logout"
+    }
+  },
+  "hero": {
+    "titlePart1": "Bet Smart!",
+    "titlePart2": "Win Big",
+    "titlePart3": ", Play Fair!",
+    "subtitle": "Fast bets, generous outs, and live market odds — All in one place.",
+    "getStarted": "Get Started Now",
+    "viewMarkets": "View Markets"
+  },
+  "sidebar": {
+    "sports": "Sports",
+    "selectDate": "Select Date",
+    "today": "TODAY",
+    "tomorrow": "TOMORROW",
+    "popularCountries": "Popular Countries"
+  },
+  "matchCard": {
+    "live": "Live",
+    "active": "Active",
+    "pot": "Pot",
+    "open": "Open",
+    "bets": "Bets",
+    "create": "Create",
+    "browse": "Browse"
+  },
+  "banner": {
+    "activeMarket": "Active Market",
+    "joinMarket": "Join Market",
+    "viewCharts": "View Charts"
+  },
+  "auth": {
+    "welcomeBack": "Welcome Back",
+    "loginSubtitle": "Log in to view your bets",
+    "createAccount": "Create Account",
+    "registerSubtitle": "Join us to start betting",
+    "email": "Email",
+    "password": "Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "username": "Username",
+    "confirmPassword": "Confirm Password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "signUp": "Sign Up",
+    "logIn": "Log In",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "terms": "I accept terms and conditions",
+    "termsDesc": "You agree to our Terms of Service and Privacy Policy.",
+    "verifyEmail": "Verify Email",
+    "enterCode": "Enter the code sent to",
+    "verifyCode": "Verify Code",
+    "otpCode": "OTP Code",
+    "resendCode": "Resend Code",
+    "didntReceive": "Didn't receive it?",
+    "verifying": "Verifying...",
+    "sending": "Sending...",
+    "resetPassword": "Reset Password",
+    "setNewPassword": "Set New Password",
+    "createStrongPwd": "Create a strong password for your account",
+    "resetSuccess": "Password reset successfully! Please log in.",
+    "sendResetCode": "Send Reset Code",
+    "backToLogin": "Back to Login",
+    "backToOtp": "Back to OTP",
+    "successLogin": "Logged in successfully!",
+    "successRegister": "Account created successfully!",
+    "successVerify": "Email verified! You can now log in."
+  },
+  "common": {
+    "language": "Language"
+  }
+}
