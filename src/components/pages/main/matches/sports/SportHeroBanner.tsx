@@ -56,7 +56,7 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
 
   return (
     <div
-      className="relative rounded-lg overflow-hidden mb-12 min-h-[360px] flex flex-col justify-end border border-border group"
+      className="relative rounded-lg overflow-hidden mb-8 sm:mb-12 min-h-[300px] sm:min-h-[360px] flex flex-col justify-end border border-border group"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -76,8 +76,8 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
         ))}
       </div>
 
-      <div className="relative z-10 p-10 max-w-3xl">
-        <div className="flex items-center gap-3 mb-6">
+      <div className="relative z-10 p-5 sm:p-8 lg:p-10 max-w-3xl">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
           <Badge className="bg-primary text-white font-black border-none px-4 py-1.5 uppercase tracking-widest text-[10px] rounded-full flex items-center gap-2">
             <Flame className="size-3.5" />
             {t("banner.activeMarket")}
@@ -87,33 +87,33 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
           </span>
         </div>
 
-        <h2 className="text-4xl md:text-6xl font-black text-white mb-4 leading-none tracking-tight">
+        <h2 className="text-2xl sm:text-4xl md:text-6xl font-black text-white mb-3 sm:mb-4 leading-tight sm:leading-none tracking-tight">
           {currentBanner.title}
         </h2>
 
         {currentBanner.matchStatus ? (
-          <div className="bg-white/10 backdrop-blur-xl inline-flex items-center gap-3 px-6 py-3 rounded-lg border border-white/20 mb-8">
+          <div className="bg-white/10 backdrop-blur-xl inline-flex items-center gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg border border-white/20 mb-6 sm:mb-8">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
             </span>
-            <p className="text-white text-lg font-black tracking-tight font-mono">
+            <p className="text-white text-sm sm:text-lg font-black tracking-tight font-mono">
               {currentBanner.matchStatus}
             </p>
           </div>
         ) : (
-          <p className="text-white/80 text-lg mb-8 max-w-lg leading-relaxed font-bold uppercase tracking-wide">
+          <p className="text-white/80 text-sm sm:text-lg mb-6 sm:mb-8 max-w-lg leading-relaxed font-bold uppercase tracking-wide">
             {currentBanner.promo}
           </p>
         )}
 
-        <div className="flex items-center gap-4">
-          <Button className="h-14 px-10 rounded-lg bg-white text-black hover:bg-white/90 font-black uppercase tracking-widest transition-all active:scale-95">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+          <Button className="h-11 sm:h-14 px-5 sm:px-10 rounded-lg bg-white text-black hover:bg-white/90 font-black uppercase tracking-wider sm:tracking-widest transition-all active:scale-95 text-xs sm:text-sm">
             {t("banner.joinMarket")}
           </Button>
           <Button
             variant="ghost"
-            className="h-14 px-8 rounded-lg text-white font-black uppercase tracking-widest hover:bg-white/10"
+            className="h-11 sm:h-14 px-5 sm:px-8 rounded-lg text-white font-black uppercase tracking-wider sm:tracking-widest hover:bg-white/10 text-xs sm:text-sm"
           >
             {t("banner.viewCharts")}
             <ArrowRight className="size-4 ml-2" />

@@ -15,7 +15,7 @@ const MarketInsightsTab: React.FC<MarketInsightsTabProps> = ({
   onBetClick,
 }) => {
   return (
-    <div className="space-y-12">
+    <div className="space-y-8 sm:space-y-12">
       {marketCategories.map((category, catIdx) => (
         <div key={catIdx} className="space-y-6">
           <div className="flex items-center gap-4">
@@ -78,7 +78,7 @@ const MarketInsightsTab: React.FC<MarketInsightsTabProps> = ({
         </div>
       ))}
 
-      <div className="p-10 sm:p-16 text-center bg-muted/20 rounded-xl border border-dashed border-border text-muted-foreground flex flex-col items-center justify-center">
+      <div className="p-6 sm:p-10 md:p-16 text-center bg-muted/20 rounded-xl border border-dashed border-border text-muted-foreground flex flex-col items-center justify-center">
         <BarChart3 className="size-12 mb-4 opacity-10" />
         <p className="font-black uppercase tracking-widest text-[10px] sm:text-xs">
           Detailed market trends and volume analysis will appear here.

@@ -46,7 +46,7 @@ const SportCategoriesServer = async ({
 
   return (
     <section className="w-full bg-background border-b border-border overflow-hidden">
-      <nav className="container mx-auto flex  gap-6 py-3 md:py-4 overflow-x-auto no-scrollbar">
+      <nav className="container mx-auto flex gap-3 sm:gap-5 px-3 sm:px-4 lg:px-0 py-3 md:py-4 overflow-x-auto no-scrollbar">
         {/* Previous Page Button */}
         {hasPrevPage && (
           <Link
@@ -69,7 +69,7 @@ const SportCategoriesServer = async ({
             <Link
               key={sport.slug}
               href={sport.href}
-              className={`flex items-center gap-1.5 shrink-0 whitespace-nowrap transition-colors text-muted-foreground hover:text-foreground ${
+              className={`flex items-center gap-1.5 shrink-0 whitespace-nowrap transition-colors text-muted-foreground hover:text-foreground px-1 py-0.5 ${
                 isActive ? "text-foreground font-semibold" : ""
               }`}
             >
@@ -81,7 +81,7 @@ const SportCategoriesServer = async ({
                   height={18}
                 />
               )}
-              <span className="text-sm">{sport.name}</span>
+              <span className="text-xs sm:text-sm">{sport.name}</span>
             </Link>
           );
         })}

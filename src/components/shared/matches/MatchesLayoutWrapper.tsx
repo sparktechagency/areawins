@@ -1,5 +1,4 @@
 "use client";
-
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -17,19 +16,22 @@ const MatchesLayoutWrapper = ({
   hideLeftSidebar = false,
 }: MatchesLayoutWrapperProps) => {
   const pathname = usePathname();
+  const normalizedPathname =
+    pathname.replace(/^\/(en|es)(?=\/|$)/, "") || "/";
 
   // Logic from previous version to show/hide dynamic bars
-  const isMainMatchesPage = pathname === "/matches" || pathname === "/matches/";
+  const isMainMatchesPage =
+    normalizedPathname === "/matches" || normalizedPathname === "/matches/";
   const isMatchDetailsPage =
-    pathname.split("/").filter(Boolean).length === 3 &&
-    pathname.startsWith("/matches");
+    normalizedPathname.split("/").filter(Boolean).length === 3 &&
+    normalizedPathname.startsWith("/matches");
 
   const showLeft =
     !hideLeftSidebar && !isMainMatchesPage && !isMatchDetailsPage;
 
   return (
     <div className="w-full min-h-screen pt-20 transition-all duration-300">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="container mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div
           className={cn(
             "grid gap-8",

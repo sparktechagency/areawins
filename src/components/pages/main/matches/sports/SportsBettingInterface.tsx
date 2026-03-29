@@ -284,9 +284,9 @@ export default function SportsBettingInterface({
   return (
     <div className="w-full min-w-0">
       {/* Top Search & Filter Bar */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
-        <h1 className="text-3xl font-black text-foreground flex items-center gap-3">
-          <span className="text-4xl">{activeConfig.logo}</span>
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-black text-foreground flex items-center gap-2 sm:gap-3">
+          <span className="text-3xl sm:text-4xl">{activeConfig.logo}</span>
           {sportName}
         </h1>
 
@@ -322,28 +322,28 @@ export default function SportsBettingInterface({
 
       {/* Tabs / Filter Navigation */}
       <Tabs defaultValue="all" className="w-full">
-        <TabsList className="bg-transparent border border-border w-full justify-start h-auto p-1.5 rounded-lg gap-8 overflow-x-auto no-scrollbar">
+        <TabsList className="bg-transparent border border-border w-full justify-start h-auto p-1 rounded-lg gap-2 sm:gap-4 overflow-x-auto no-scrollbar">
           <TabsTrigger
             value="all"
-            className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
+            className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-4 sm:px-8 py-2.5 sm:py-3 text-[10px] sm:text-xs font-black text-muted-foreground uppercase tracking-wider sm:tracking-widest transition-all cursor-pointer shrink-0"
           >
             {t("sportsPage.allMatches")}
           </TabsTrigger>
           <TabsTrigger
             value="live"
-            className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
+            className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-4 sm:px-8 py-2.5 sm:py-3 text-[10px] sm:text-xs font-black text-muted-foreground uppercase tracking-wider sm:tracking-widest transition-all cursor-pointer shrink-0"
           >
             {t("sportsPage.liveMatches")}
           </TabsTrigger>
           <TabsTrigger
             value="upcoming"
-            className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
+            className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-4 sm:px-8 py-2.5 sm:py-3 text-[10px] sm:text-xs font-black text-muted-foreground uppercase tracking-wider sm:tracking-widest transition-all cursor-pointer shrink-0"
           >
             {t("sportsPage.upcoming")}
           </TabsTrigger>
           <TabsTrigger
             value="trending"
-            className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
+            className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-4 sm:px-8 py-2.5 sm:py-3 text-[10px] sm:text-xs font-black text-muted-foreground uppercase tracking-wider sm:tracking-widest transition-all cursor-pointer shrink-0"
           >
             {t("sportsPage.trending")}
           </TabsTrigger>

@@ -560,6 +560,7 @@ export const translations = {
       email: "Email *",
       country: "Country",
       subject: "Subject *",
+      message: "Message",
       submit: "Submit",
     },
     footer: {
@@ -1390,6 +1391,7 @@ export const translations = {
       email: "Correo *",
       country: "Pais",
       subject: "Asunto *",
+      message: "Mensaje",
       submit: "Enviar",
     },
     footer: {

@@ -74,7 +74,7 @@ const AllTournamentsBanner: React.FC = () => {
 
   return (
     <section className="w-full pb-5">
-      <h2 className="text-2xl font-bold text-foreground mb-6">Tournaments</h2>
+      <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6">Tournaments</h2>
       {/* Carousel - Takes 2 columns on medium+ screens */}
       <div
         className="relative overflow-hidden rounded-lg col-span-1 md:col-span-2"
@@ -87,7 +87,7 @@ const AllTournamentsBanner: React.FC = () => {
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {banners.map((banner, index) => (
-            <div key={index} className="relative shrink-0 w-full h-72 md:h-80">
+            <div key={index} className="relative shrink-0 w-full h-60 sm:h-72 md:h-80">
               <Image
                 src={banner.src}
                 alt={banner.alt}
@@ -96,10 +96,10 @@ const AllTournamentsBanner: React.FC = () => {
                 priority={index === 0}
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
-              <div className="absolute bottom-6 left-6 text-white">
-                <h3 className="text-3xl font-bold mb-2">{banner.title}</h3>
+              <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 text-white max-w-[85%]">
+                <h3 className="text-xl sm:text-3xl font-bold mb-1 sm:mb-2 leading-tight">{banner.title}</h3>
                 {banner.linkText && (
-                  <p className="text-lg flex items-center gap-2">
+                  <p className="text-sm sm:text-lg flex items-center gap-2">
                     <span>›</span> {banner.linkText}
                   </p>
                 )}

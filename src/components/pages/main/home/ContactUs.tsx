@@ -1,7 +1,8 @@
 "use client";
 
+import { FormInput } from "@/components/form/FormInput";
+import { FormTextarea } from "@/components/form/FormTextarea";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 
 const ContactUs = () => {
@@ -28,12 +29,12 @@ const ContactUs = () => {
           {/* Form */}
           <form className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
-              <Input
+              <FormInput
                 type="text"
                 placeholder={t("homeContact.firstName")}
                 className="bg-input text-foreground"
               />
-              <Input
+              <FormInput
                 type="text"
                 placeholder={t("homeContact.lastName")}
                 className="bg-input text-foreground"
@@ -41,13 +42,13 @@ const ContactUs = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              <Input
+              <FormInput
                 type="tel"
                 placeholder={t("homeContact.phone")}
                 required
                 className="bg-input text-foreground"
               />
-              <Input
+              <FormInput
                 type="email"
                 placeholder={t("homeContact.email")}
                 required
@@ -56,18 +57,23 @@ const ContactUs = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              <Input
+              <FormInput
                 type="text"
                 placeholder={t("homeContact.country")}
                 className="bg-input text-foreground"
               />
-              <Input
-                type="email"
+              <FormInput
+                type="text"
                 placeholder={t("homeContact.subject")}
                 required
                 className="bg-input text-foreground"
               />
             </div>
+
+            <FormTextarea
+              placeholder={t("homeContact.message")}
+              className="bg-input text-foreground min-h-32"
+            />
 
             {/* Submit Button */}
             <div className="text-left pt-6 flex justify-end">

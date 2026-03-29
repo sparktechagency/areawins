@@ -39,7 +39,7 @@ const OpenBetsTab: React.FC<OpenBetsTabProps> = ({
       </div>
 
       {matchedBets.length === 0 && (
-        <div className="p-10 sm:p-16 text-center bg-muted/20 rounded-xl border border-dashed border-border text-muted-foreground flex flex-col items-center justify-center">
+        <div className="p-6 sm:p-10 md:p-16 text-center bg-muted/20 rounded-xl border border-dashed border-border text-muted-foreground flex flex-col items-center justify-center">
           <Search className="size-12 mb-4 opacity-10" />
           <p className="font-black uppercase tracking-widest text-[10px] sm:text-xs">
             No active bets available for this match yet. Be the first to create

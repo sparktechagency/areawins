@@ -19,6 +19,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import DarkModeToggle from "../ui/dark-mode-toggle";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
 import MobileUserMenu from "./MobileUserMenu";
 import { UserMenu } from "./UserMenu";
 
@@ -44,7 +45,7 @@ const NavbarClient = ({ user }: { user: IUser | null }) => {
   return (
     <>
       <nav
-        className="fixed top-0 left-0 right-0 z-50 h-20 bg-white/80 dark:bg-background/80 backdrop-blur-lg shadow-sm flex justify-center items-center"
+        className="fixed inset-x-0 top-0 z-50 h-20 border-b border-border bg-background/95 shadow-sm supports-backdrop-filter:backdrop-blur-sm md:bg-white/80 md:dark:bg-background/80 md:supports-backdrop-filter:backdrop-blur-lg transform-[translateZ(0)] backface-hidden will-change-transform flex items-center justify-center"
       >
         <div className="container mx-auto flex items-center justify-between gap-5 px-4 sm:px-6 lg:px-8">
           {/* Logo */}
@@ -112,91 +113,86 @@ const NavbarClient = ({ user }: { user: IUser | null }) => {
             </div>
 
             {/* Mobile Menu Button */}
-            <button
-              className="md:hidden ml-4 text-foreground"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
+            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+              <SheetTrigger asChild>
+                <button
+                  className="md:hidden ml-4 text-foreground"
+                  aria-label="Toggle menu"
+                >
+                  <Menu className="w-6 h-6" />
+                </button>
+              </SheetTrigger>
+              <SheetContent
+                side="right"
+                className="w-64 border-l border-border bg-card dark:bg-background p-0 data-[state=open]:duration-300 data-[state=closed]:duration-200"
+              >
+                <SheetHeader className="px-5 py-4 border-b border-border text-left">
+                  <SheetTitle className="text-base font-bold">Menu</SheetTitle>
+                </SheetHeader>
+
+                <div className="p-4 space-y-2">
+                  {navLinks.map((link) => {
+                    const IconComponent = link.icon;
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setIsMenuOpen(false)}
+                        className={`flex items-center gap-3 h-12 px-4 rounded-lg transition-all text-base font-medium ${
+                          pathname === link.href
+                            ? "bg-primary/10 text-primary"
+                            : "text-foreground hover:bg-muted"
+                        }`}
+                      >
+                        <IconComponent className="w-5 h-5 shrink-0" />
+                        <span>{link.label}</span>
+                      </Link>
+                    );
+                  })}
+
+                  <div className="flex gap-2 pt-3 border-t border-border mt-3">
+                    <Button
+                      variant={language === "en" ? "default" : "outline"}
+                      size="sm"
+                      className="flex-1"
+                      onClick={() => setLanguage("en")}
+                    >
+                      English
+                    </Button>
+                    <Button
+                      variant={language === "es" ? "default" : "outline"}
+                      size="sm"
+                      className="flex-1"
+                      onClick={() => setLanguage("es")}
+                    >
+                      Español
+                    </Button>
+                  </div>
+
+                  {!user ? (
+                    <div className="pt-3 border-t border-border mt-3">
+                      <Button
+                        variant="destructive"
+                        className="w-full h-11 cursor-pointer text-sm"
+                        onClick={() => {
+                          setIsMenuOpen(false);
+                          dispatch(openAuthModal({ view: "LOGIN" }));
+                        }}
+                      >
+                        {t("navbar.signIn")}
+                      </Button>
+                    </div>
+                  ) : (
+                    <MobileUserMenu
+                      user={user}
+                      onClose={() => setIsMenuOpen(false)}
+                    />
+                  )}
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 bg-background/95 backdrop-blur-md rounded-lg border border-border p-4 space-y-2 shadow-xl absolute top-full left-0 right-0 mx-4">
-            <div className="flex justify-between items-center mb-2 px-2">
-              <span className="text-sm font-bold text-muted-foreground">
-                Menu
-              </span>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Close
-              </Button>
-            </div>
-            {navLinks.map((link) => {
-              const IconComponent = link.icon;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 hover:bg-muted rounded-lg transition-all font-medium ${
-                    pathname === link.href
-                      ? "bg-primary/10 text-primary"
-                      : "text-foreground"
-                  }`}
-                >
-                  <IconComponent className="w-5 h-5" />
-                  <span>{link.label}</span>
-                </Link>
-              );
-            })}
-
-            {/* Mobile Language Switcher */}
-            <div className="flex gap-2 px-4 py-2 border-t border-border mt-2">
-              <Button
-                variant={language === "en" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setLanguage("en")}
-              >
-                English
-              </Button>
-              <Button
-                variant={language === "es" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setLanguage("es")}
-              >
-                Español
-              </Button>
-            </div>
-
-            {!user ? (
-              <div className="pt-2 border-t border-border mt-2 space-y-2">
-                <div className="block w-full">
-                  <Button
-                    variant="destructive"
-                    className="w-full cursor-pointer"
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      dispatch(openAuthModal({ view: "LOGIN" }));
-                    }}
-                  >
-                    {t("navbar.signIn")}
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <MobileUserMenu
-                user={user}
-                onClose={() => setIsMenuOpen(false)}
-              />
-            )}
-          </div>
-        )}
       </nav>
     </>
   );

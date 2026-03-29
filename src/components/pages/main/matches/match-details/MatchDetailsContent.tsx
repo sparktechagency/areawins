@@ -12,10 +12,10 @@ import { MOCK_MATCHES } from "@/data/match.data";
 
 import { MarketCategory } from "@/interfaces/betting.interface";
 import {
-  MatchDetailsContentProps,
-  MatchInfo,
-  TeamInfo,
-  TournamentInfo,
+    MatchDetailsContentProps,
+    MatchInfo,
+    TeamInfo,
+    TournamentInfo,
 } from "@/interfaces/match.interface";
 
 import MarketInsightsTab from "./MarketInsightsTab";
@@ -86,7 +86,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
   return (
     <div className="w-full space-y-6 sm:space-y-8 pb-10">
       {/* Navigation Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
           href={`/matches/${sport}`}
           className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
@@ -94,7 +94,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
           <div className="size-8 rounded-full border border-border flex items-center justify-center group-hover:bg-muted transition-colors">
             <ChevronLeft className="size-4" />
           </div>
-          <span className="font-black text-[10px] sm:text-xs uppercase tracking-widest">
+          <span className="font-black text-[10px] sm:text-xs uppercase tracking-wide sm:tracking-widest">
             Back to {sport}
           </span>
         </Link>
@@ -119,17 +119,17 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
 
       {/* Detailed Content Tabs */}
       <Tabs defaultValue="market" className="w-full">
-        <TabsList className="bg-transparent border border-border w-full justify-start h-auto p-1.5 rounded-xl gap-2 overflow-x-auto no-scrollbar shadow-inner">
+        <TabsList className="bg-transparent border border-border w-full justify-start h-auto p-1 rounded-xl gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar shadow-inner">
           <TabsTrigger
             value="market"
-            className="rounded-lg border-transparent data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-white px-5 sm:px-8 py-3 text-[10px] sm:text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer flex gap-2 items-center shrink-0 whitespace-nowrap"
+            className="rounded-lg border-transparent data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-white px-4 sm:px-8 py-2.5 sm:py-3 text-[10px] sm:text-xs font-black text-muted-foreground uppercase tracking-wide sm:tracking-widest transition-all cursor-pointer flex gap-1.5 sm:gap-2 items-center shrink-0 whitespace-nowrap"
           >
             <BarChart3 className="size-4" />
             Market Insights
           </TabsTrigger>
           <TabsTrigger
             value="open"
-            className="rounded-lg border-transparent data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-white px-5 sm:px-8 py-3 text-[10px] sm:text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer flex gap-2 items-center shrink-0 whitespace-nowrap"
+            className="rounded-lg border-transparent data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-white px-4 sm:px-8 py-2.5 sm:py-3 text-[10px] sm:text-xs font-black text-muted-foreground uppercase tracking-wide sm:tracking-widest transition-all cursor-pointer flex gap-1.5 sm:gap-2 items-center shrink-0 whitespace-nowrap"
           >
             <Search className="size-4" />
             Open p2p
