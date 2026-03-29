@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 import { History, Info, Lock, Wallet } from "lucide-react";
 import { useState } from "react";
@@ -45,6 +46,7 @@ const RECENT_DEPOSITS = [
 ];
 
 const DepositPage = () => {
+  const { t } = useTranslation();
   const [amount, setAmount] = useState("");
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
   const [senderNumber, setSenderNumber] = useState("");
@@ -54,13 +56,13 @@ const DepositPage = () => {
   const handleDeposit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedMethod || !amount || !senderNumber || !transactionId) {
-      toast.error("Please fill in all details including Transaction ID");
+      toast.error(t("walletDeposit.toastFillAll"));
       return;
     }
 
     setLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 1500));
-    toast.success("Deposit request submitted! Verification pending.");
+    toast.success(t("walletDeposit.toastSubmitted"));
     setLoading(false);
     setAmount("");
     setSenderNumber("");
@@ -78,9 +80,9 @@ const DepositPage = () => {
         <div className="space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Deposit Funds</h1>
+          <h1 className="text-3xl font-bold text-foreground">{t("walletDeposit.title")}</h1>
           <p className="text-muted-foreground">
-            Add money to your wallet instantly and secure.
+            {t("walletDeposit.subtitle")}
           </p>
         </div>
 
@@ -90,12 +92,12 @@ const DepositPage = () => {
             <CardContent className="p-6 flex items-center justify-between">
               <div>
                 <p className="text-sm text-green-400 font-medium flex items-center gap-2">
-                  AVAILABLE BALANCE
+                  {t("walletDeposit.availableBalance")}
                 </p>
                 <h2 className="text-3xl font-bold mt-2">12,450.00</h2>
               </div>
               <Button className="bg-white text-primary hover:bg-gray-100 font-bold rounded-full">
-                Refresh
+                {t("walletDeposit.refresh")}
               </Button>
             </CardContent>
           </Card>
@@ -104,7 +106,7 @@ const DepositPage = () => {
             <CardContent className="p-6 flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-400 font-medium flex items-center gap-2">
-                  <Lock className="w-4 h-4" /> LOCKED BONUS
+                  <Lock className="w-4 h-4" /> {t("walletDeposit.lockedBonus")}
                 </p>
                 <h2 className="text-3xl font-bold mt-2 opacity-80">
                   USD 500.00
@@ -124,7 +126,7 @@ const DepositPage = () => {
                   <span className="bg-primary text-primary-foreground w-6 h-6 rounded-full flex items-center justify-center text-sm">
                     1
                   </span>{" "}
-                  Select Payment Method
+                  {t("walletDeposit.step1")}
                 </h3>
               </div>
 
@@ -158,7 +160,7 @@ const DepositPage = () => {
                         </p>
                         {isSelected && (
                           <p className="text-xs text-green-500 font-bold">
-                            Selected
+                            {t("walletDeposit.selected")}
                           </p>
                         )}
                       </div>
@@ -177,7 +179,7 @@ const DepositPage = () => {
                 <span className="bg-primary text-primary-foreground w-6 h-6 rounded-full flex items-center justify-center text-sm">
                   2
                 </span>
-                <h3 className="text-xl font-bold">Deposit Details</h3>
+                <h3 className="text-xl font-bold">{t("walletDeposit.step2")}</h3>
               </div>
 
               <Card className="bg-[#1a2c24]/50 border-white/5">
@@ -188,31 +190,31 @@ const DepositPage = () => {
                       {selectedMethod === "venezuela" ? (
                         <div>
                           <p className="text-sm text-muted-foreground mb-1">
-                            Send to this Official Venezuela Pay Account:
+                            {t("walletDeposit.sendToOfficial")}
                           </p>
                           <h2 className="text-2xl font-mono font-bold text-primary tracking-wider">
                             VZ-8765-4321
                           </h2>
                           <p className="text-xs text-muted-foreground mt-2">
-                            Use the official Venezuela Pay app to send.
+                            {t("walletDeposit.useOfficialApp")}
                           </p>
                         </div>
                       ) : (
                         <div>
                           <p className="text-sm text-muted-foreground mb-1">
-                            Send to this{" "}
+                            {t("walletDeposit.sendToAddressPrefix")} {" "}
                             {
                               PAYMENT_METHODS.find(
                                 (m) => m.id === selectedMethod
                               )?.name
                             }{" "}
-                            Address:
+                            {t("walletDeposit.sendToAddressSuffix")}
                           </p>
                           <h2 className="text-2xl font-mono font-bold text-primary tracking-wider">
                             1A2b3C4d5E6f7G...
                           </h2>
                           <p className="text-xs text-muted-foreground mt-2">
-                            Ensure you include the memo/ID for proper crediting.
+                            {t("walletDeposit.includeMemo")}
                           </p>
                         </div>
                       )}
@@ -220,7 +222,7 @@ const DepositPage = () => {
                   )}
 
                   <div className="space-y-2">
-                    <Label>Amount to Deposit</Label>
+                    <Label>{t("walletDeposit.amountToDeposit")}</Label>
                     <div className="relative">
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">
                         VES
@@ -263,21 +265,21 @@ const DepositPage = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label>Sender Account/Address</Label>
+                      <Label>{t("walletDeposit.senderAccount")}</Label>
                       <Input
                         value={senderNumber}
                         onChange={(e) => setSenderNumber(e.target.value)}
                         className="h-12 bg-background border-input"
-                        placeholder="Your account/address"
+                        placeholder={t("walletDeposit.accountPlaceholder")}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label>Transaction ID (TrxID)</Label>
+                      <Label>{t("walletDeposit.transactionId")}</Label>
                       <Input
                         value={transactionId}
                         onChange={(e) => setTransactionId(e.target.value)}
                         className="h-12 bg-background border-input"
-                        placeholder="e.g. 8X3N2M..."
+                        placeholder={t("walletDeposit.trxPlaceholder")}
                       />
                     </div>
                   </div>
@@ -287,11 +289,11 @@ const DepositPage = () => {
                     className="w-full h-12 text-lg font-bold shadow-lg shadow-primary/20"
                     disabled={loading}
                   >
-                    {loading ? "Verifying..." : "Verify & Deposit"}
+                    {loading ? t("walletDeposit.verifying") : t("walletDeposit.verifyDeposit")}
                   </Button>
 
                   <p className="text-xs text-center text-muted-foreground flex items-center justify-center gap-1">
-                    <Lock className="w-3 h-3" /> Encrypted & Secure Transaction
+                    <Lock className="w-3 h-3" /> {t("walletDeposit.encrypted")}
                   </p>
                 </CardContent>
               </Card>
@@ -305,10 +307,10 @@ const DepositPage = () => {
               <CardContent className="p-0">
                 <div className="p-4 border-b border-white/10 flex justify-between items-center">
                   <h3 className="font-bold flex items-center gap-2">
-                    <History className="w-4 h-4" /> Recent Deposits
+                    <History className="w-4 h-4" /> {t("walletDeposit.recentDeposits")}
                   </h3>
                   <span className="text-xs text-primary cursor-pointer hover:underline">
-                    VIEW ALL
+                    {t("wallet.viewAll")}
                   </span>
                 </div>
                 <div className="p-2">
@@ -316,16 +318,16 @@ const DepositPage = () => {
                     <thead>
                       <tr className="text-gray-400 text-xs border-b border-white/5">
                         <th className="text-left py-2 px-2 font-medium">
-                          DATE
+                          {t("walletDeposit.date")}
                         </th>
                         <th className="text-left py-2 px-2 font-medium">
-                          METHOD
+                          {t("walletDeposit.method")}
                         </th>
                         <th className="text-right py-2 px-2 font-medium">
-                          AMOUNT
+                          {t("walletDeposit.amount")}
                         </th>
                         <th className="text-right py-2 px-2 font-medium">
-                          STATUS
+                          {t("walletDeposit.status")}
                         </th>
                       </tr>
                     </thead>
@@ -351,7 +353,7 @@ const DepositPage = () => {
                                   : "bg-yellow-500/20 text-yellow-400"
                               )}
                             >
-                              {tx.status}
+                              {tx.status === "Completed" ? t("wallet.completed") : tx.status}
                             </span>
                           </td>
                         </tr>
@@ -366,21 +368,15 @@ const DepositPage = () => {
             <Card className="bg-[#1a2c24]/50 border-dashed border-primary/30">
               <CardContent className="p-5 space-y-4">
                 <div className="flex items-center gap-2 text-primary font-bold">
-                  <Info className="w-5 h-5" /> Important Info
+                  <Info className="w-5 h-5" /> {t("walletDeposit.importantInfo")}
                 </div>
                 <ul className="text-sm text-gray-400 space-y-2 list-disc pl-4 marker:text-primary">
                   <li>
-                    Min Deposit:{" "}
+                    {t("walletDeposit.minDeposit")} {" "}
                     <span className="text-white font-bold">2,500</span>
                   </li>
-                  <li>
-                    For crypto deposits, include the memo/ID to ensure proper
-                    crediting.
-                  </li>
-                  <li>
-                    Deposits are usually instant but may take up to 10 mins for
-                    crypto.
-                  </li>
+                  <li>{t("walletDeposit.infoMemo")}</li>
+                  <li>{t("walletDeposit.infoTiming")}</li>
                 </ul>
               </CardContent>
             </Card>

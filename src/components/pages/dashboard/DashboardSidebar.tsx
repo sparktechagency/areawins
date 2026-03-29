@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { Link, usePathname } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
 import {
   History,
@@ -20,8 +21,6 @@ import {
   Wallet,
 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 export default function DashboardSidebar() {
@@ -55,7 +54,7 @@ export default function DashboardSidebar() {
     },
     {
       icon: User,
-      label: "Profile",
+      label: t("dashboard.menu.profile"),
       href: ROUTES.PROFILE,
     },
   ];

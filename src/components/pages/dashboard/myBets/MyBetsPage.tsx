@@ -5,17 +5,18 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ROUTES } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import {
-  Clock,
-  Filter,
-  Search,
-  Target,
-  Ticket,
-  TrendingDown,
-  TrendingUp,
-  X,
-  Zap,
+    Clock,
+    Filter,
+    Search,
+    Target,
+    Ticket,
+    TrendingDown,
+    TrendingUp,
+    X,
+    Zap,
 } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -24,10 +25,17 @@ const FALLBACK_ROUTES = { LIVE_EVENTS: "/live-events" };
 const formatOdds = (odds: number) => odds.toFixed(2);
 
 const MyBetsPage = () => {
+  const { t } = useTranslation();
   const [filter, setFilter] = useState<"all" | "won" | "lost" | "pending">(
     "all",
   );
   const [searchQuery, setSearchQuery] = useState("");
+
+  const filterLabelMap: Record<"won" | "lost" | "pending", string> = {
+    won: t("myBets.won"),
+    lost: t("myBets.lost"),
+    pending: t("myBets.active"),
+  };
 
   const betHistory = {
     bets: [
@@ -58,7 +66,7 @@ const MyBetsPage = () => {
         placedAt: "2025-10-25T20:45:00Z",
         selections: [
           {
-            selection: "Both Teams to Score",
+            selection: t("myBets.bothTeamsToScore"),
             odds: 1.6,
             matchDetails: { homeTeam: "Real Madrid", awayTeam: "Barcelona" },
           },
@@ -127,9 +135,12 @@ const MyBetsPage = () => {
 
   const getStatusBadge = (status: string) => {
     const config: Record<string, { className: string; label: string }> = {
-      won: { className: "bg-green-500 text-white", label: "Won" },
-      lost: { className: "bg-red-500 text-white", label: "Lost" },
-      pending: { className: "bg-yellow-500 text-white", label: "Pending" },
+      won: { className: "bg-green-500 text-white", label: t("myBets.won") },
+      lost: { className: "bg-red-500 text-white", label: t("myBets.lost") },
+      pending: {
+        className: "bg-yellow-500 text-white",
+        label: t("myBets.active"),
+      },
     };
     const cfg = config[status] || config.pending;
     return <Badge className={cfg.className}>{cfg.label}</Badge>;
@@ -148,16 +159,16 @@ const MyBetsPage = () => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
-              My Bets <Ticket className="w-8 h-8 text-primary" />
+              {t("myBets.title")} <Ticket className="w-8 h-8 text-primary" />
             </h1>
             <p className="text-muted-foreground mt-1">
-              Track all your bets and betting history
+              {t("myBets.subtitle")}
             </p>
           </div>
           <Link href={ROUTES?.LIVE_EVENTS || FALLBACK_ROUTES.LIVE_EVENTS}>
             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
               <Ticket className="w-4 h-4 mr-2" />
-              Place New Bet
+              {t("myBets.placeNewBet")}
             </Button>
           </Link>
         </div>
@@ -173,13 +184,13 @@ const MyBetsPage = () => {
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-blue-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
-                    Total Bets
+                    {t("myBets.totalBets")}
                   </p>
                   <div className="text-3xl font-black text-foreground mb-4">
                     {totalBets}
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    All time placed
+                    {t("myBets.totalBetsHint")}
                   </p>
                 </div>
               </div>
@@ -195,13 +206,13 @@ const MyBetsPage = () => {
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-yellow-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
-                    Active Bets
+                    {t("myBets.activeBets")}
                   </p>
                   <div className="text-3xl font-black text-foreground mb-4">
                     {activeCount}
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    In progress now
+                    {t("myBets.activeBetsHint")}
                   </p>
                 </div>
               </div>
@@ -217,13 +228,13 @@ const MyBetsPage = () => {
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-green-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
-                    Won Bets
+                    {t("myBets.wonBets")}
                   </p>
                   <div className="text-3xl font-black text-foreground mb-4">
                     {wonCount}
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    Successful picks
+                    {t("myBets.wonBetsHint")}
                   </p>
                 </div>
               </div>
@@ -239,13 +250,13 @@ const MyBetsPage = () => {
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-purple-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
-                    Win Rate
+                    {t("myBets.winRate")}
                   </p>
                   <div className="text-3xl font-black text-foreground mb-4">
                     {winRate}%
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    Success ratio
+                    {t("myBets.winRateHint")}
                   </p>
                 </div>
               </div>
@@ -260,7 +271,7 @@ const MyBetsPage = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Search by bet ID, team name, or selection..."
+              placeholder={t("myBets.searchPlaceholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-10 py-2 rounded-lg border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
@@ -280,7 +291,7 @@ const MyBetsPage = () => {
             <div className="flex items-center gap-2">
               <Filter className="w-4 h-4 text-muted-foreground" />
               <span className="text-sm font-medium text-muted-foreground">
-                Filter:
+                {t("myBets.filter")}
               </span>
             </div>
             <Button
@@ -289,7 +300,7 @@ const MyBetsPage = () => {
               onClick={() => setFilter("all")}
               className="cursor-pointer"
             >
-              All Bets
+              {t("myBets.allBets")}
             </Button>
             <Button
               variant={filter === "pending" ? "default" : "outline"}
@@ -297,7 +308,7 @@ const MyBetsPage = () => {
               onClick={() => setFilter("pending")}
               className="cursor-pointer"
             >
-              Active
+              {t("myBets.active")}
             </Button>
             <Button
               variant={filter === "won" ? "default" : "outline"}
@@ -305,7 +316,7 @@ const MyBetsPage = () => {
               onClick={() => setFilter("won")}
               className="cursor-pointer"
             >
-              Won
+              {t("myBets.won")}
             </Button>
             <Button
               variant={filter === "lost" ? "default" : "outline"}
@@ -313,7 +324,7 @@ const MyBetsPage = () => {
               onClick={() => setFilter("lost")}
               className="cursor-pointer"
             >
-              Lost
+              {t("myBets.lost")}
             </Button>
           </div>
         </div>
@@ -372,7 +383,7 @@ const MyBetsPage = () => {
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
                         <p className="text-muted-foreground text-xs mb-1">
-                          Stake
+                          {t("myBets.stake")}
                         </p>
                         <p className="font-bold text-foreground">
                           {formatCurrency(bet.stake)}
@@ -380,7 +391,7 @@ const MyBetsPage = () => {
                       </div>
                       <div>
                         <p className="text-muted-foreground text-xs mb-1">
-                          Total Odds
+                          {t("myBets.totalOdds")}
                         </p>
                         <p className="font-bold text-foreground">
                           {formatOdds(bet.totalOdds)}
@@ -389,7 +400,7 @@ const MyBetsPage = () => {
                     </div>
                     <div className="pt-1 border-t border-border">
                       <p className="text-muted-foreground text-xs mb-1">
-                        Potential Return
+                        {t("myBets.potentialReturn")}
                       </p>
                       <p className="font-black text-lg text-primary">
                         {formatCurrency(bet.potentialWin)}
@@ -402,7 +413,7 @@ const MyBetsPage = () => {
                       <TrendingUp className="w-5 h-5 text-green-600 dark:text-green-400 shrink-0" />
                       <div className="flex-1">
                         <p className="text-xs text-green-600 dark:text-green-400">
-                          Won & Paid
+                          {t("myBets.wonPaid")}
                         </p>
                         <p className="font-black text-green-700 dark:text-green-300">
                           +{formatCurrency(bet.payout || bet.potentialWin)}
@@ -416,7 +427,7 @@ const MyBetsPage = () => {
                       <TrendingDown className="w-5 h-5 text-red-600 dark:text-red-400 shrink-0" />
                       <div className="flex-1">
                         <p className="text-xs text-red-600 dark:text-red-400">
-                          Lost
+                          {t("myBets.lost")}
                         </p>
                         <p className="font-black text-red-700 dark:text-red-300">
                           -{formatCurrency(bet.stake)}
@@ -430,17 +441,17 @@ const MyBetsPage = () => {
                       <Clock className="w-5 h-5 text-yellow-600 dark:text-yellow-400 shrink-0" />
                       <div className="flex-1">
                         <p className="text-xs text-yellow-600 dark:text-yellow-400">
-                          In Progress
+                          {t("myBets.inProgress")}
                         </p>
                         <p className="font-semibold text-yellow-700 dark:text-yellow-300">
-                          Awaiting Results
+                          {t("myBets.awaitingResults")}
                         </p>
                       </div>
                     </div>
                   )}
 
                   <div className="text-xs text-muted-foreground text-center pt-2 border-t border-border">
-                    Placed {formatDate(bet.placedAt)}
+                    {t("myBets.placedOn")} {formatDate(bet.placedAt)}
                   </div>
                 </CardContent>
               </Card>
@@ -452,18 +463,18 @@ const MyBetsPage = () => {
               <Ticket className="w-10 h-10 text-muted-foreground" />
             </div>
             <h3 className="text-xl font-bold text-foreground mb-2">
-              No Bets Found
+              {t("myBets.noBetsFound")}
             </h3>
             <p className="text-muted-foreground mb-6">
               {searchQuery
-                ? "No bets match your search criteria."
+                ? t("myBets.noSearchResults")
                 : filter !== "all"
-                  ? `You don't have any ${filter} bets.`
-                  : "You haven't placed any bets yet."}
+                  ? `${t("myBets.noFilterResultsPrefix")} ${filterLabelMap[filter]} ${t("myBets.noFilterResultsSuffix")}`
+                  : t("myBets.noBetsYet")}
             </p>
             <Link href={ROUTES?.LIVE_EVENTS || FALLBACK_ROUTES.LIVE_EVENTS}>
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                Place Your First Bet
+                {t("myBets.placeFirstBet")}
               </Button>
             </Link>
           </div>

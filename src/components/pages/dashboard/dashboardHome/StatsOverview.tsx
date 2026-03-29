@@ -2,6 +2,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { IWalletData } from "@/interfaces/wallet.interface";
 import { ROUTES } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { formatCurrency } from "@/lib/utils";
 import { ArrowRight, TrendingDown, TrendingUp, Wallet } from "lucide-react";
 import Link from "next/link";
@@ -10,6 +11,7 @@ interface StatsOverviewProps {
 }
 
 export default function StatsOverview({ stats }: StatsOverviewProps) {
+  const { t } = useTranslation();
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
       {/* Total Winning Balance */}
@@ -21,7 +23,7 @@ export default function StatsOverview({ stats }: StatsOverviewProps) {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-green-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
-                Total Winning Balance
+                {t("dashboardStats.totalWinningBalance")}
               </p>
               <div className="text-3xl font-black text-foreground mb-4">
                 {formatCurrency(stats?.totalWinningBalance || 0)}
@@ -30,7 +32,7 @@ export default function StatsOverview({ stats }: StatsOverviewProps) {
                 href={ROUTES.WALLET_WITHDRAW}
                 className="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-green-500 hover:gap-2 transition-all"
               >
-                Withdraw Now <ArrowRight className="w-3 h-3 ml-1" />
+                {t("dashboardStats.withdrawNow")} <ArrowRight className="w-3 h-3 ml-1" />
               </Link>
             </div>
           </div>
@@ -46,7 +48,7 @@ export default function StatsOverview({ stats }: StatsOverviewProps) {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-blue-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
-                Total Deposit
+                {t("dashboardStats.totalDeposit")}
               </p>
               <div className="text-3xl font-black text-foreground mb-4">
                 {formatCurrency(stats?.totalDeposit || 0)}
@@ -55,7 +57,7 @@ export default function StatsOverview({ stats }: StatsOverviewProps) {
                 href={ROUTES.WALLET_DEPOSIT}
                 className="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-blue-500 hover:gap-2 transition-all"
               >
-                Add Funds <ArrowRight className="w-3 h-3 ml-1" />
+                {t("dashboardStats.addFunds")} <ArrowRight className="w-3 h-3 ml-1" />
               </Link>
             </div>
           </div>
@@ -71,7 +73,7 @@ export default function StatsOverview({ stats }: StatsOverviewProps) {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-purple-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
-               Total Balance
+               {t("dashboardStats.totalBalance")}
               </p>
               <div className="text-3xl font-black text-foreground mb-4">
                 {formatCurrency(stats?.totalBalance || 0)}
@@ -80,7 +82,7 @@ export default function StatsOverview({ stats }: StatsOverviewProps) {
                 href={ROUTES.WALLET}
                 className="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-purple-500 hover:gap-2 transition-all"
               >
-                View Wallet <ArrowRight className="w-3 h-3 ml-1" />
+                {t("dashboardStats.viewWallet")} <ArrowRight className="w-3 h-3 ml-1" />
               </Link>
             </div>
           </div>
@@ -96,7 +98,7 @@ export default function StatsOverview({ stats }: StatsOverviewProps) {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-red-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
-                Total Loss
+                {t("dashboardStats.totalLoss")}
               </p>
               <div className="text-3xl font-black text-foreground mb-4">
                 {formatCurrency(stats?.totalLoss || 0)}

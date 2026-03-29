@@ -1,27 +1,35 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 import {
-  Check,
-  ChevronRight,
-  Download,
-  Lock,
-  Printer,
-  Shield,
+    Check,
+    ChevronRight,
+    Download,
+    Lock,
+    Printer,
+    Shield,
 } from "lucide-react";
 import React from "react";
 
 const TermsCondition = () => {
+  const { t } = useTranslation();
   const [activeSection, setActiveSection] = React.useState("introduction");
 
   const sections = [
-    { id: "introduction", label: "1. Introduction" },
-    { id: "account-rules", label: "2. Account Rules" },
-    { id: "deposits-withdrawals", label: "3. Deposits & Withdrawals" },
-    { id: "betting-rules", label: "4. Betting Rules" },
-    { id: "responsible-gaming", label: "5. Responsible Gaming" },
-    { id: "liability", label: "6. Liability & Indemnity" },
+    { id: "introduction", label: `1. ${t("terms.introduction")}` },
+    { id: "account-rules", label: `2. ${t("terms.accountRules")}` },
+    {
+      id: "deposits-withdrawals",
+      label: `3. ${t("terms.depositsWithdrawals")}`,
+    },
+    { id: "betting-rules", label: `4. ${t("terms.bettingRules")}` },
+    {
+      id: "responsible-gaming",
+      label: `5. ${t("terms.responsibleGaming")}`,
+    },
+    { id: "liability", label: `6. ${t("terms.liability")}` },
   ];
 
   const scrollToSection = (id: string) => {
@@ -38,20 +46,18 @@ const TermsCondition = () => {
       <div className="bg-card border-b border-border py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 md:mb-4">
-            Terms and Conditions
+            {t("terms.title")}
           </h1>
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm">
             <span className="bg-primary/20 text-primary px-2 py-1 rounded text-xs font-semibold">
-              Version 2.4
+              {t("terms.version")}
             </span>
             <span className="text-muted-foreground">
-              Last updated: October 25, 2023
+              {t("terms.lastUpdated")}
             </span>
           </div>
           <p className="mt-4 max-w-2xl text-muted-foreground">
-            Welcome to EasyBet. Please read these terms carefully before using
-            our platform. By registering an account, you acknowledge that you
-            are at least 18 years old and accept these rules.
+            {t("terms.introText")}
           </p>
         </div>
       </div>
@@ -62,7 +68,7 @@ const TermsCondition = () => {
           <aside className="hidden lg:block space-y-8 sticky top-24 h-fit">
             <div className="space-y-4">
               <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                Table of Contents
+                {t("terms.tableOfContents")}
               </h3>
               <nav className="flex flex-col space-y-2">
                 {sections.map((section) => (
@@ -87,21 +93,21 @@ const TermsCondition = () => {
 
             <div className="p-4 rounded-xl border border-border bg-card space-y-4">
               <div className="text-sm font-medium text-foreground">
-                Need a copy for your records?
+                {t("terms.needCopy")}
               </div>
               <Button
                 variant="outline"
                 className="w-full justify-start gap-2 border-border bg-transparent hover:bg-muted text-muted-foreground"
               >
                 <Download className="w-4 h-4" />
-                Download PDF
+                {t("terms.downloadPdf")}
               </Button>
               <Button
                 variant="outline"
                 className="w-full justify-start gap-2 border-border bg-transparent hover:bg-muted text-muted-foreground"
               >
                 <Printer className="w-4 h-4" />
-                Print Version
+                {t("terms.printVersion")}
               </Button>
             </div>
           </aside>
@@ -118,21 +124,15 @@ const TermsCondition = () => {
                   01
                 </div>
                 <h2 className="text-xl font-bold text-foreground">
-                  Introduction
+                  {t("terms.introduction")}
                 </h2>
               </div>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  By registering and accepting the EasyBet Terms and Conditions,
-                  you are entering into a legally binding agreement which
-                  incorporates our Privacy Policy, Betting Rules, and any other
-                  specific terms related to promotions or special offers.
+                  {t("terms.introP1")}
                 </p>
                 <p>
-                  EasyBet is operated under the laws and regulations applicable
-                  for online gaming. We reserve the right to amend these terms
-                  at any time. Significant changes will be communicated via
-                  email or a prominent notice on our website.
+                  {t("terms.introP2")}
                 </p>
               </div>
             </section>
@@ -147,14 +147,11 @@ const TermsCondition = () => {
                   02
                 </div>
                 <h2 className="text-xl font-bold text-foreground">
-                  Account Rules & Verification
+                  {t("terms.accountRulesVerification")}
                 </h2>
               </div>
               <p className="text-muted-foreground mb-6">
-                You must be at least 18 years of age (or the legal age of
-                majority in your jurisdiction) to use our services. We reserve
-                the right to ask for proof of age from any customer and suspend
-                their account until satisfactory documentation is provided.
+                {t("terms.accountRulesDesc")}
               </p>
               <div className="grid gap-4">
                 <div className="flex gap-4 p-4 rounded-xl bg-background border border-border">
@@ -163,12 +160,10 @@ const TermsCondition = () => {
                   </div>
                   <div>
                     <h4 className="text-foreground font-bold mb-1">
-                      One Account Policy
+                      {t("terms.oneAccountPolicy")}
                     </h4>
                     <p className="text-sm text-muted-foreground">
-                      Customers are allowed only one account per person, family,
-                      household address, email address, telephone number, same
-                      payment account number, and shared computer.
+                      {t("terms.oneAccountPolicyDesc")}
                     </p>
                   </div>
                 </div>
@@ -178,12 +173,10 @@ const TermsCondition = () => {
                   </div>
                   <div>
                     <h4 className="text-foreground font-bold mb-1">
-                      KYC Requirement
+                      {t("terms.kycRequirement")}
                     </h4>
                     <p className="text-sm text-muted-foreground">
-                      To withdraw funds, you must complete our Know Your
-                      Customer (KYC) procedure by submitting a valid National
-                      ID, Passport, or Driving License.
+                      {t("terms.kycRequirementDesc")}
                     </p>
                   </div>
                 </div>
@@ -192,11 +185,9 @@ const TermsCondition = () => {
                     <Lock className="w-4 h-4 text-primary-foreground fill-current" />
                   </div>
                   <div>
-                    <h4 className="text-foreground font-bold mb-1">Security</h4>
+                    <h4 className="text-foreground font-bold mb-1">{t("terms.security")}</h4>
                     <p className="text-sm text-muted-foreground">
-                      You are responsible for maintaining the confidentiality of
-                      your username and password. Any bets placed via your
-                      account will be considered valid.
+                      {t("terms.securityDesc")}
                     </p>
                   </div>
                 </div>
@@ -213,29 +204,25 @@ const TermsCondition = () => {
                   03
                 </div>
                 <h2 className="text-xl font-bold text-foreground">
-                  Deposits & Withdrawals (USD)
+                  {t("terms.depositsWithdrawalsUsd")}
                 </h2>
               </div>
               <p className="text-muted-foreground mb-6">
-                We support transactions in US Dollars (USD) via credit cards,
-                bank transfers, and digital wallet services.
+                {t("terms.depositsWithdrawalsDesc")}
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="p-5 rounded-xl bg-background border-l-4 border-primary">
-                  <h3 className="font-bold text-foreground mb-2">Deposits</h3>
+                  <h3 className="font-bold text-foreground mb-2">{t("terms.deposits")}</h3>
                   <p className="text-sm text-muted-foreground">
-                    Minimum deposit is $5 USD. Deposits are usually instant but
-                    may take up to 15 minutes during peak times.
+                    {t("terms.depositsDesc")}
                   </p>
                 </div>
                 <div className="p-5 rounded-xl bg-background border-l-4 border-primary/50">
                   <h3 className="font-bold text-foreground mb-2">
-                    Withdrawals
+                    {t("terms.withdrawals")}
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Minimum withdrawal is $10 USD. Withdrawals are processed
-                    within 24 hours. You must wager 100% of your deposit before
-                    withdrawing.
+                    {t("terms.withdrawalsDesc")}
                   </p>
                 </div>
               </div>
@@ -251,22 +238,15 @@ const TermsCondition = () => {
                   04
                 </div>
                 <h2 className="text-xl font-bold text-foreground">
-                  Betting Rules
+                  {t("terms.bettingRules")}
                 </h2>
               </div>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  A bet is not valid until it has been confirmed by our servers
-                  and a confirmation message appears on your screen. EasyBet
-                  Board reserves the right to void any bet that may have been
-                  accepted when the account did not have sufficient funds to
-                  cover the bet.
+                  {t("terms.bettingRulesP1")}
                 </p>
                 <p>
-                  <strong className="text-foreground">Late Bets:</strong> If a
-                  bet is placed on an event after the deadline or after the
-                  result is known, we reserve the right to void the bet, win or
-                  lose.
+                  <strong className="text-foreground">{t("terms.lateBetsLabel")}</strong> {t("terms.lateBetsDesc")}
                 </p>
               </div>
             </section>
@@ -281,7 +261,7 @@ const TermsCondition = () => {
                   05
                 </div>
                 <h2 className="text-xl font-bold text-foreground">
-                  Responsible Gaming
+                  {t("terms.responsibleGaming")}
                 </h2>
               </div>
               <div className="bg-background rounded-xl p-6 border border-border">
@@ -291,22 +271,20 @@ const TermsCondition = () => {
                   </div>
                   <div>
                     <h3 className="font-bold text-foreground text-lg mb-2">
-                      Play Responsibly
+                      {t("terms.playResponsibly")}
                     </h3>
                     <p className="text-muted-foreground text-sm mb-6">
-                      Gambling should be entertaining and not seen as a way of
-                      making money. EasyBet offers tools to help you stay in
-                      control.
+                      {t("terms.playResponsiblyDesc")}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       <span className="px-3 py-1 bg-secondary text-xs font-medium text-muted-foreground rounded-full border border-border">
-                        Self-Exclusion
+                        {t("terms.selfExclusion")}
                       </span>
                       <span className="px-3 py-1 bg-secondary text-xs font-medium text-muted-foreground rounded-full border border-border">
-                        Deposit Limits
+                        {t("terms.depositLimits")}
                       </span>
                       <span className="px-3 py-1 bg-secondary text-xs font-medium text-muted-foreground rounded-full border border-border">
-                        Reality Checks
+                        {t("terms.realityChecks")}
                       </span>
                     </div>
                   </div>

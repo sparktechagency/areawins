@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 import {
   ArrowRight,
@@ -15,15 +16,16 @@ import {
 import React from "react";
 
 const PrivacyPage = () => {
+  const { t } = useTranslation();
   const [activeSection, setActiveSection] = React.useState("introduction");
 
   const sections = [
-    { id: "introduction", label: "Introduction" },
-    { id: "data-collection", label: "Data Collection" },
-    { id: "how-we-use", label: "How We Use It" },
-    { id: "data-sharing", label: "Data Sharing" },
-    { id: "security", label: "Security" },
-    { id: "your-rights", label: "Your Rights" },
+    { id: "introduction", label: t("privacy.sections.introduction") },
+    { id: "data-collection", label: t("privacy.sections.dataCollection") },
+    { id: "how-we-use", label: t("privacy.sections.howWeUse") },
+    { id: "data-sharing", label: t("privacy.sections.dataSharing") },
+    { id: "security", label: t("privacy.sections.security") },
+    { id: "your-rights", label: t("privacy.sections.yourRights") },
   ];
 
   const scrollToSection = (id: string) => {
@@ -41,14 +43,14 @@ const PrivacyPage = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
           <div className="flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-wider mb-2">
             <ShieldCheck className="w-4 h-4" />
-            Legal Documentation
+            {t("privacy.legalDocumentation")}
           </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 md:mb-4">
-            Privacy Policy
+            {t("privacy.title")}
           </h1>
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-xs sm:text-sm mt-2">
             <span className="text-muted-foreground">
-              Last Updated: October 24, 2023
+              {t("privacy.lastUpdated")}
             </span>
           </div>
         </div>
@@ -60,10 +62,10 @@ const PrivacyPage = () => {
         <aside className="hidden lg:block space-y-8 sticky top-24 h-fit">
           <div className="space-y-4">
             <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
-              Contents
+              {t("privacy.contents")}
             </h3>
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2">
-              Jump to section
+              {t("privacy.jumpToSection")}
             </p>
             <nav className="flex flex-col space-y-1">
               {sections.map((section) => (
@@ -92,7 +94,7 @@ const PrivacyPage = () => {
               className="w-full justify-center gap-2 border-border bg-transparent hover:bg-muted text-primary hover:text-primary"
             >
               <Download className="w-4 h-4" />
-              DOWNLOAD PDF
+              {t("privacy.downloadPdf")}
             </Button>
           </div>
         </aside>
@@ -102,26 +104,20 @@ const PrivacyPage = () => {
           {/* Introduction */}
           <div id="introduction" className="space-y-6">
             <p className="text-muted-foreground text-lg leading-relaxed">
-              At <span className="text-primary font-bold">EasyBet</span>, your
-              privacy is our priority. This policy outlines how we collect, use,
-              and protect your personal data when you use our sports betting
-              platform. We are committed to transparency and ensuring your
-              information is handled securely and in accordance with applicable
-              laws in Venezuela and international standards.
+              {t("privacy.introParagraph")}
             </p>
 
             <div className="grid md:grid-cols-2 gap-6">
               {/* Data Protection Card */}
               <div className="bg-card p-6 rounded-2xl border border-border">
                 <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center mb-4">
-                  <Check className="w-4 h-4 text-primary-foreground stroke-[3]" />
+                  <Check className="w-4 h-4 text-primary-foreground stroke-3" />
                 </div>
                 <h3 className="text-foreground font-bold mb-2">
-                  Data Protection
+                  {t("privacy.dataProtectionTitle")}
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  We use advanced encryption to safeguard your personal and
-                  financial data.
+                  {t("privacy.dataProtectionDesc")}
                 </p>
               </div>
               {/* Transparency Card */}
@@ -129,10 +125,9 @@ const PrivacyPage = () => {
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                   <Eye className="w-4 h-4 text-primary" />
                 </div>
-                <h3 className="text-foreground font-bold mb-2">Transparency</h3>
+                <h3 className="text-foreground font-bold mb-2">{t("privacy.transparencyTitle")}</h3>
                 <p className="text-sm text-muted-foreground">
-                  You have full visibility and control over how your data is
-                  processed.
+                  {t("privacy.transparencyDesc")}
                 </p>
               </div>
             </div>
@@ -141,35 +136,32 @@ const PrivacyPage = () => {
             <div className="bg-card rounded-2xl border border-border overflow-hidden">
               <div className="p-6 border-b border-border">
                 <h3 className="text-xl font-bold text-foreground">
-                  Policy at a Glance
+                  {t("privacy.policyAtGlance")}
                 </h3>
               </div>
               <div className="divide-y divide-border">
                 <div className="p-6 grid md:grid-cols-[120px_1fr] gap-4">
                   <div className="text-sm text-muted-foreground font-medium">
-                    Scope
+                    {t("privacy.scope")}
                   </div>
                   <div className="text-sm text-foreground">
-                    This policy applies to all registered users, visitors, and
-                    affiliates using the EasyBet web and mobile applications.
+                    {t("privacy.scopeDesc")}
                   </div>
                 </div>
                 <div className="p-6 grid md:grid-cols-[120px_1fr] gap-4">
                   <div className="text-sm text-muted-foreground font-medium">
-                    Consent
+                    {t("privacy.consent")}
                   </div>
                   <div className="text-sm text-foreground">
-                    By creating an account, you consent to the data practices
-                    described in this document.
+                    {t("privacy.consentDesc")}
                   </div>
                 </div>
                 <div className="p-6 grid md:grid-cols-[120px_1fr] gap-4">
                   <div className="text-sm text-muted-foreground font-medium">
-                    Updates
+                    {t("privacy.updates")}
                   </div>
                   <div className="text-sm text-foreground">
-                    We may update this policy periodically. Significant changes
-                    will be notified via email.
+                    {t("privacy.updatesDesc")}
                   </div>
                 </div>
               </div>
@@ -179,7 +171,7 @@ const PrivacyPage = () => {
           <div className="border-t border-border my-8" />
 
           <h2 className="text-2xl font-bold text-foreground mb-6">
-            Detailed Provisions
+            {t("privacy.detailedProvisions")}
           </h2>
 
           {/* Information We Collect */}
@@ -193,48 +185,44 @@ const PrivacyPage = () => {
                   01
                 </div>
                 <h3 className="text-lg font-bold text-foreground">
-                  Information We Collect
+                  {t("privacy.informationWeCollect")}
                 </h3>
               </div>
               <ChevronUp className="w-5 h-5 text-muted-foreground" />
             </div>
             <div className="px-6 pb-6 pt-0">
               <p className="text-muted-foreground text-sm mb-4">
-                To provide our betting services, we collect several types of
-                information:
+                {t("privacy.collectInfoIntro")}
               </p>
               <ul className="space-y-3">
                 <li className="flex gap-3 text-sm text-muted-foreground">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
                   <span>
                     <strong className="text-foreground">
-                      Personal Identification:
+                      {t("privacy.personalIdentification")}:
                     </strong>{" "}
-                    Full name, date of birth, residential address, and email.
+                    {t("privacy.personalIdentificationDesc")}
                   </span>
                 </li>
                 <li className="flex gap-3 text-sm text-muted-foreground">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
                   <span>
-                    <strong className="text-foreground">Financial Data:</strong>{" "}
-                    Bank account details, transaction history, and payment
-                    method verification.
+                    <strong className="text-foreground">{t("privacy.financialData")}:</strong>{" "}
+                    {t("privacy.financialDataDesc")}
                   </span>
                 </li>
                 <li className="flex gap-3 text-sm text-muted-foreground">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
                   <span>
-                    <strong className="text-foreground">Technical Data:</strong>{" "}
-                    IP address, login data, browser type and version, time zone
-                    setting, and location data (where permitted).
+                    <strong className="text-foreground">{t("privacy.technicalData")}:</strong>{" "}
+                    {t("privacy.technicalDataDesc")}
                   </span>
                 </li>
                 <li className="flex gap-3 text-sm text-muted-foreground">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
                   <span>
-                    <strong className="text-foreground">Usage Data:</strong>{" "}
-                    Information about how you use our website, products, and
-                    services.
+                    <strong className="text-foreground">{t("privacy.usageData")}:</strong>{" "}
+                    {t("privacy.usageDataDesc")}
                   </span>
                 </li>
               </ul>
@@ -243,9 +231,9 @@ const PrivacyPage = () => {
 
           {/* Placeholder Sections for Accordion Style */}
           {[
-            "How We Use Information",
-            "Data Sharing & Disclosure",
-            "Security Measures",
+            t("privacy.howWeUseInformation"),
+            t("privacy.dataSharingDisclosure"),
+            t("privacy.securityMeasures"),
           ].map((title, idx) => (
             <section
               key={idx}
@@ -276,24 +264,22 @@ const PrivacyPage = () => {
             className="p-6 rounded-2xl bg-card border border-border"
           >
             <h3 className="text-xl font-bold text-foreground mb-4">
-              Your Rights
+              {t("privacy.yourRights")}
             </h3>
             <p className="text-muted-foreground mb-6">
-              You have the right to request access to your personal data,
-              correction of inaccurate data, and deletion of your data under
-              certain circumstances.
+              {t("privacy.yourRightsDesc")}
             </p>
 
             <div className="grid md:grid-cols-2 gap-4">
               <button className="flex items-center justify-between p-4 rounded-xl bg-background border border-border hover:border-primary group transition-colors">
                 <span className="font-medium text-foreground">
-                  Request Data Access
+                  {t("privacy.requestDataAccess")}
                 </span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
               </button>
               <button className="flex items-center justify-between p-4 rounded-xl bg-background border border-border hover:border-primary group transition-colors">
                 <span className="font-medium text-foreground">
-                  Delete My Account
+                  {t("privacy.deleteMyAccount")}
                 </span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
               </button>
@@ -304,15 +290,14 @@ const PrivacyPage = () => {
           <div className="bg-background border border-border rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 className="text-xl font-bold text-foreground mb-2">
-                Have questions about your privacy?
+                {t("privacy.haveQuestions")}
               </h3>
               <p className="text-muted-foreground">
-                Our Data Protection Officer is here to help you.
-                Our Data Protection Officer is here to help you.
+                {t("privacy.dpoHelp")}
               </p>
             </div>
             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8">
-              Contact DPO
+              {t("privacy.contactDpo")}
             </Button>
           </div>
         </div>

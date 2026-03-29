@@ -2,6 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { Search } from "lucide-react";
 import ChatItem from "./ChatItem";
 
@@ -26,14 +27,15 @@ export default function ChatList({
   activeChatId,
   onChatSelect,
 }: ChatListProps) {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-col h-full bg-card border-r border-border">
       <div className="p-4 border-b border-border">
-        <h2 className="text-xl font-bold mb-4">Messages</h2>
+        <h2 className="text-xl font-bold mb-4">{t("message.title")}</h2>
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
-            placeholder="Search messages..."
+            placeholder={t("message.searchPlaceholder")}
             className="pl-9 bg-muted/50 border-input focus-visible:ring-primary"
           />
         </div>

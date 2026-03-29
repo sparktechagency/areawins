@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight, History, Info, Lock, Wallet } from "lucide-react";
 import { useState } from "react";
@@ -54,6 +55,7 @@ const RECENT_WITHDRAWALS = [
 ];
 
 const WithdrawPage = () => {
+  const { t } = useTranslation();
   const [amount, setAmount] = useState("");
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
   const [accountNumber, setAccountNumber] = useState("");
@@ -62,13 +64,13 @@ const WithdrawPage = () => {
   const handleWithdraw = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedMethod || !amount || !accountNumber) {
-      toast.error("Please fill in all details");
+      toast.error(t("walletWithdraw.toastFillAll"));
       return;
     }
 
     setLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 1500));
-    toast.success("Withdrawal request submitted successfully!");
+    toast.success(t("walletWithdraw.toastSubmitted"));
     setLoading(false);
     setAmount("");
     setAccountNumber("");
@@ -87,9 +89,9 @@ const WithdrawPage = () => {
         <div className="space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Withdraw Funds</h1>
+          <h1 className="text-3xl font-bold text-foreground">{t("walletWithdraw.title")}</h1>
           <p className="text-muted-foreground">
-            Secure & Fast Payouts to your preferred account.
+            {t("walletWithdraw.subtitle")}
           </p>
         </div>
 
@@ -98,17 +100,17 @@ const WithdrawPage = () => {
           <Card className="bg-primary/5 border-primary/20 text-foreground relative overflow-hidden">
             <div className="absolute top-0 right-0 p-3">
               <Badge className="bg-emerald-500 hover:bg-emerald-600 text-[9px] font-black uppercase tracking-widest rounded-full">
-                Withdrawable
+                {t("walletWithdraw.withdrawable")}
               </Badge>
             </div>
             <CardContent className="p-6">
               <div>
                 <p className="text-xs text-primary font-black uppercase tracking-widest flex items-center gap-2 mb-2">
-                  <ArrowUpRight className="w-4 h-4" /> WINNING BALANCE
+                  <ArrowUpRight className="w-4 h-4" /> {t("walletWithdraw.winningBalance")}
                 </p>
                 <h2 className="text-3xl font-black">12,450.00</h2>
                 <p className="text-[10px] text-muted-foreground mt-2 font-medium">
-                  Funds available for immediate payout
+                  {t("walletWithdraw.availableForPayout")}
                 </p>
               </div>
             </CardContent>
@@ -118,11 +120,11 @@ const WithdrawPage = () => {
             <CardContent className="p-6">
               <div>
                 <p className="text-xs text-muted-foreground font-black uppercase tracking-widest flex items-center gap-2 mb-2">
-                  <Lock className="w-4 h-4" /> DEPOSIT BALANCE
+                  <Lock className="w-4 h-4" /> {t("walletWithdraw.depositBalance")}
                 </p>
                 <h2 className="text-3xl font-black">500.00</h2>
                 <p className="text-[10px] text-muted-foreground mt-2 font-medium italic">
-                  Locked for betting activity only
+                  {t("walletWithdraw.lockedForBetting")}
                 </p>
               </div>
             </CardContent>
@@ -139,10 +141,10 @@ const WithdrawPage = () => {
                   <span className="bg-primary text-primary-foreground w-6 h-6 rounded-full flex items-center justify-center text-sm">
                     1
                   </span>{" "}
-                  Select Method
+                  {t("walletWithdraw.step1")}
                 </h3>
                 <button className="text-primary text-sm hover:underline">
-                  Manage Accounts
+                  {t("walletWithdraw.manageAccounts")}
                 </button>
               </div>
 
@@ -174,7 +176,7 @@ const WithdrawPage = () => {
                         <p className="font-bold text-foreground">
                           {method.name}
                         </p>
-                        <p className="text-xs text-muted-foreground">Instant</p>
+                        <p className="text-xs text-muted-foreground">{t("walletWithdraw.instant")}</p>
                       </div>
                       {isSelected && (
                         <div className="absolute top-2 right-2 w-3 h-3 bg-primary rounded-full" />
@@ -191,13 +193,13 @@ const WithdrawPage = () => {
                 <span className="bg-primary text-primary-foreground w-6 h-6 rounded-full flex items-center justify-center text-sm">
                   2
                 </span>
-                <h3 className="text-xl font-bold">Withdrawal Details</h3>
+                <h3 className="text-xl font-bold">{t("walletWithdraw.step2")}</h3>
               </div>
 
               <Card className="bg-[#1a2c24]/50 border-white/5">
                 <CardContent className="p-6 space-y-6">
                   <div className="space-y-2">
-                    <Label>Amount to Withdraw</Label>
+                    <Label>{t("walletWithdraw.amountToWithdraw")}</Label>
                     <div className="relative">
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">
                         VES
@@ -236,8 +238,8 @@ const WithdrawPage = () => {
                       </div>
                     </div>
                     <div className="flex justify-between text-xs text-muted-foreground px-1">
-                      <span>Min: 1,000</span>
-                      <span>Max: 5,000,000</span>
+                      <span>{t("walletWithdraw.min")} 1,000</span>
+                      <span>{t("walletWithdraw.max")} 5,000,000</span>
                     </div>
                   </div>
 
@@ -249,10 +251,10 @@ const WithdrawPage = () => {
                               ?.name
                           } ${
                             selectedMethod === "venezuela"
-                              ? "Account"
-                              : "Address"
+                                ? t("walletWithdraw.account")
+                                : t("walletWithdraw.address")
                           }`
-                        : "Account/Address"}
+                          : t("walletWithdraw.accountAddress")}
                     </Label>
                     <div className="relative">
                       <Input
@@ -273,11 +275,11 @@ const WithdrawPage = () => {
                     className="w-full h-12 text-lg font-bold shadow-lg shadow-primary/20"
                     disabled={loading}
                   >
-                    {loading ? "Processing..." : "Confirm Withdrawal"}
+                    {loading ? t("walletWithdraw.processing") : t("walletWithdraw.confirmWithdrawal")}
                   </Button>
 
                   <p className="text-xs text-center text-muted-foreground flex items-center justify-center gap-1">
-                    <Lock className="w-3 h-3" /> Encrypted & Secure Transaction
+                    <Lock className="w-3 h-3" /> {t("walletWithdraw.encrypted")}
                   </p>
                 </CardContent>
               </Card>
@@ -291,10 +293,10 @@ const WithdrawPage = () => {
               <CardContent className="p-0">
                 <div className="p-4 border-b border-white/10 flex justify-between items-center">
                   <h3 className="font-bold flex items-center gap-2">
-                    <History className="w-4 h-4" /> Recent Withdrawals
+                    <History className="w-4 h-4" /> {t("walletWithdraw.recentWithdrawals")}
                   </h3>
                   <span className="text-xs text-primary cursor-pointer hover:underline">
-                    VIEW ALL
+                    {t("wallet.viewAll")}
                   </span>
                 </div>
                 <div className="p-2">
@@ -302,16 +304,16 @@ const WithdrawPage = () => {
                     <thead>
                       <tr className="text-gray-400 text-xs border-b border-white/5">
                         <th className="text-left py-2 px-2 font-medium">
-                          DATE
+                          {t("walletWithdraw.date")}
                         </th>
                         <th className="text-left py-2 px-2 font-medium">
-                          METHOD
+                          {t("walletWithdraw.method")}
                         </th>
                         <th className="text-right py-2 px-2 font-medium">
-                          AMOUNT
+                          {t("walletWithdraw.amount")}
                         </th>
                         <th className="text-right py-2 px-2 font-medium">
-                          STATUS
+                          {t("walletWithdraw.status")}
                         </th>
                       </tr>
                     </thead>
@@ -339,7 +341,11 @@ const WithdrawPage = () => {
                                   : "bg-red-500/20 text-red-400"
                               )}
                             >
-                              {tx.status}
+                              {tx.status === "Completed"
+                                ? t("wallet.completed")
+                                : tx.status === "Pending"
+                                  ? t("walletWithdraw.pending")
+                                  : t("walletWithdraw.rejected")}
                             </span>
                           </td>
                         </tr>
@@ -354,22 +360,19 @@ const WithdrawPage = () => {
             <Card className="bg-[#1a2c24]/50 border-dashed border-primary/30">
               <CardContent className="p-5 space-y-4">
                 <div className="flex items-center gap-2 text-primary font-bold">
-                  <Info className="w-5 h-5" /> Important Info
+                  <Info className="w-5 h-5" /> {t("walletWithdraw.importantInfo")}
                 </div>
                 <ul className="text-sm text-gray-400 space-y-2 list-disc pl-4 marker:text-primary">
                   <li>
-                    Daily Withdrawal Limit:{" "}
+                    {t("walletWithdraw.dailyLimit")} {" "}
                     <span className="text-white font-bold">10,000,000</span>
                   </li>
                   <li>
-                    Processing takes{" "}
+                    {t("walletWithdraw.processingTime")} {" "}
                     <span className="text-white font-bold">24-48 hours</span>{" "}
-                    for all payment methods.
+                    {t("walletWithdraw.processingTimeTail")}
                   </li>
-                  <li>
-                    Ensure your account details match your registered
-                    information.
-                  </li>
+                  <li>{t("walletWithdraw.ensureDetails")}</li>
                 </ul>
               </CardContent>
             </Card>

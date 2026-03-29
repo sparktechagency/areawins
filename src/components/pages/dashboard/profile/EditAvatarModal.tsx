@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { RotateCw, Upload, X, ZoomIn, ZoomOut } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -22,6 +23,7 @@ interface EditAvatarModalProps {
 }
 
 export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps) {
+  const { t } = useTranslation();
   const [preview, setPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -119,12 +121,12 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
       <DialogContent className="sm:max-w-md border-0">
         <DialogHeader>
           <DialogTitle className="text-lg sm:text-xl font-bold">
-            {isCropping ? "Crop Profile Photo" : "Update Profile Photo"}
+            {isCropping ? t("avatar.cropTitle") : t("avatar.uploadTitle")}
           </DialogTitle>
           <DialogDescription className="text-xs sm:text-sm">
             {isCropping
-              ? "Adjust the crop area to frame your photo perfectly"
-              : "Choose an image from your device to set as your profile picture"}
+              ? t("avatar.cropDescription")
+              : t("avatar.uploadDescription")}
           </DialogDescription>
         </DialogHeader>
 
@@ -187,13 +189,13 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
                   className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
                 >
                   <X className="w-4 h-4 mr-2" />
-                  Cancel
+                  {t("avatar.cancel")}
                 </Button>
                 <Button
                   onClick={handleFinishCrop}
                   className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
                 >
-                  Crop & Continue
+                  {t("avatar.cropContinue")}
                 </Button>
               </div>
             </>
@@ -214,7 +216,7 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
                 <div className="w-full h-48 sm:h-56 rounded-lg border-2 border-dashed border-border flex flex-col items-center justify-center bg-muted/50">
                   <Upload className="w-8 h-8 sm:w-10 sm:h-10 text-muted-foreground mb-2" />
                   <p className="text-xs sm:text-sm text-muted-foreground font-medium">
-                    No image selected
+                    {t("avatar.noImage")}
                   </p>
                 </div>
               )}
@@ -225,7 +227,7 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
                   htmlFor="avatar-upload"
                   className="text-xs sm:text-sm font-black uppercase tracking-widest text-muted-foreground"
                 >
-                  Select Image
+                  {t("avatar.selectImage")}
                 </Label>
                 <input
                   ref={fileInputRef}
@@ -241,7 +243,7 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
                   className="w-full mt-2 text-xs sm:text-sm font-black uppercase tracking-widest"
                 >
                   <Upload className="w-4 h-4 mr-2" />
-                  Browse Files
+                  {t("avatar.browseFiles")}
                 </Button>
               </div>
 
@@ -256,14 +258,14 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
                   disabled={!preview}
                 >
                   <X className="w-4 h-4 mr-2" />
-                  Clear
+                  {t("avatar.clear")}
                 </Button>
                 <Button
                   onClick={handleUpload}
                   disabled={!preview || isLoading}
                   className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
                 >
-                  {isLoading ? "Uploading..." : "Upload"}
+                  {isLoading ? t("avatar.uploading") : t("avatar.upload")}
                 </Button>
               </div>
             </>

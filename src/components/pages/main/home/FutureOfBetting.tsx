@@ -1,24 +1,28 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { Link } from "@/lib/i18n/routing";
 import {
-  MessageSquare,
-  RectangleHorizontal,
-  Users,
-  Verified,
+    MessageSquare,
+    RectangleHorizontal,
+    Users,
+    Verified,
 } from "lucide-react";
-import Link from "next/link";
 
 const FutureOfBetting = () => {
+  const { t } = useTranslation();
+
   return (
     <section className="w-full py-16 md:py-20 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading & Subtitle */}
         <div className="text-center mb-8 md:mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-3 md:mb-6">
-            The Future of Betting
+            {t("homeFuture.title")}
           </h2>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed">
-            Experience a platform built for players, not the house. Total
-            transparency and peer-to-peer fairness.
+            {t("homeFuture.subtitle")}
           </p>
         </div>
 
@@ -30,11 +34,10 @@ const FutureOfBetting = () => {
               <Users className="size-6 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-primary mb-3">
-              P2P Betting
+              {t("homeFuture.card1Title")}
             </h3>
             <p className="text-foreground/80 text-base leading-relaxed">
-              No house edge. Bet directly against other users for better odds
-              and bigger returns.
+              {t("homeFuture.card1Desc")}
             </p>
           </div>
 
@@ -44,11 +47,10 @@ const FutureOfBetting = () => {
               <Verified className="size-6 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-primary mb-3">
-              Fair & Transparent
+              {t("homeFuture.card2Title")}
             </h3>
             <p className="text-foreground/80 text-base leading-relaxed">
-              Blockchain-verified results ensure every bet is settled fairly
-              with immutable records.
+              {t("homeFuture.card2Desc")}
             </p>
           </div>
 
@@ -58,11 +60,10 @@ const FutureOfBetting = () => {
               <RectangleHorizontal className="size-6 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-primary mb-3">
-              Instant Payouts
+              {t("homeFuture.card3Title")}
             </h3>
             <p className="text-foreground/80 text-base leading-relaxed">
-              Get your winnings instantly. Our automated system processes
-              payouts within seconds.
+              {t("homeFuture.card3Desc")}
             </p>
           </div>
 
@@ -72,11 +73,10 @@ const FutureOfBetting = () => {
               <MessageSquare className="size-6 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-primary mb-3">
-              Social Betting
+              {t("homeFuture.card4Title")}
             </h3>
             <p className="text-foreground/80 text-base leading-relaxed">
-              Follow top tipsters, copy winning bets, and grow your bankroll
-              together with our community.
+              {t("homeFuture.card4Desc")}
             </p>
           </div>
         </div>
@@ -85,7 +85,7 @@ const FutureOfBetting = () => {
         <div className="text-center mt-12 ">
           <Link href="/matches">
             <Button variant="default" className="cursor-pointer">
-              Get Started Now
+              {t("homeFuture.cta")}
             </Button>
           </Link>
         </div>

@@ -1,38 +1,42 @@
+"use client";
+
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { ROUTES } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { formatCurrency } from "@/lib/utils";
 import {
-  ArrowDownLeft,
-  ArrowUpRight,
-  Badge,
-  Bitcoin,
-  Coins,
-  DollarSign,
-  Shield,
-  TrendingUp,
-  Wallet2,
+    ArrowDownLeft,
+    ArrowUpRight,
+    Badge,
+    Bitcoin,
+    Coins,
+    DollarSign,
+    Shield,
+    TrendingUp,
+    Wallet2,
 } from "lucide-react";
 import Link from "next/link";
 
 const WalletPage = () => {
+  const { t } = useTranslation();
   return (
     <DashboardLayout>
       <div className="w-full mx-auto max-w-6xl">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground flex items-center gap-2">
-            Wallet <Wallet2 className="w-8 h-8 text-primary" />
+            {t("wallet.title")} <Wallet2 className="w-8 h-8 text-primary" />
           </h1>
           <p className="text-muted-foreground mt-2">
-            Manage your funds and transactions securely
+            {t("wallet.subtitle")}
           </p>
         </div>
 
@@ -47,21 +51,21 @@ const WalletPage = () => {
               <div className="flex items-center gap-2 text-blue-500 mb-2">
                 <ArrowDownLeft className="size-4" />
                 <p className="text-xs font-black uppercase tracking-[0.2em]">
-                  Deposit Balance
+                  {t("wallet.depositBalance")}
                 </p>
               </div>
               <div className="text-3xl font-black text-foreground mb-4">
                 {formatCurrency(5450)}
               </div>
               <p className="text-xs text-muted-foreground mb-4">
-                Available for betting
+                {t("wallet.availableForBetting")}
               </p>
               <Link
                 href={ROUTES.WALLET_DEPOSIT || "/dashboard/wallet/deposit"}
                 className="block"
               >
                 <Button className="w-full h-10 text-sm font-black uppercase tracking-widest rounded-lg bg-blue-500 hover:bg-blue-600">
-                  Add Funds
+                  {t("wallet.addFunds")}
                 </Button>
               </Link>
             </CardContent>
@@ -74,28 +78,28 @@ const WalletPage = () => {
             </div>
             <div className="absolute top-0 right-0 p-3 z-20">
               <Badge className="bg-green-500 hover:bg-green-600 text-[9px] font-black uppercase tracking-widest rounded-full">
-                Withdrawable
+                {t("wallet.withdrawable")}
               </Badge>
             </div>
             <CardContent className="p-8 relative z-10">
               <div className="flex items-center gap-2 text-green-500 mb-2">
                 <TrendingUp className="size-4" />
                 <p className="text-xs font-black uppercase tracking-[0.2em]">
-                  Winning Balance
+                  {t("wallet.winningBalance")}
                 </p>
               </div>
               <div className="text-3xl font-black text-foreground mb-4">
                 {formatCurrency(10000)}
               </div>
               <p className="text-xs text-muted-foreground mb-4">
-                Ready to withdraw
+                {t("wallet.readyToWithdraw")}
               </p>
               <Link
                 href={ROUTES.WALLET_WITHDRAW || "/dashboard/wallet/withdraw"}
                 className="block"
               >
                 <Button className="w-full h-10 text-sm font-black uppercase tracking-widest rounded-lg bg-green-500 hover:bg-green-600 text-white">
-                  Withdraw Now
+                  {t("wallet.withdrawNow")}
                 </Button>
               </Link>
             </CardContent>
@@ -110,17 +114,17 @@ const WalletPage = () => {
               <div className="flex items-center gap-2 text-purple-500 mb-2">
                 <Coins className="size-4" />
                 <p className="text-xs font-black uppercase tracking-[0.2em]">
-                  Total Balance
+                  {t("wallet.totalBalance")}
                 </p>
               </div>
               <div className="text-3xl font-black text-foreground mb-4">
                 {formatCurrency(15450)}
               </div>
               <p className="text-xs text-muted-foreground mb-4">
-                All accounts combined
+                {t("wallet.allAccountsCombined")}
               </p>
               <div className="h-10 rounded-lg bg-muted/50 flex items-center justify-center text-xs font-bold text-foreground">
-                Overview
+                {t("wallet.overview")}
               </div>
             </CardContent>
           </Card>
@@ -130,9 +134,9 @@ const WalletPage = () => {
           {/* Payment Methods */}
           <Card className="border border-border shadow-none lg:col-span-2">
             <CardHeader>
-              <CardTitle>Supported Payment Methods</CardTitle>
+              <CardTitle>{t("wallet.paymentMethods")}</CardTitle>
               <CardDescription>
-                Fast, secure, and trusted payment options for Venezuela
+                {t("wallet.paymentMethodsSubtitle")}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -146,7 +150,7 @@ const WalletPage = () => {
                     <div>
                       <p className="font-black text-sm">Venezuela Pay</p>
                       <p className="text-xs text-muted-foreground">
-                        Local Venezuelan transfers
+                        {t("wallet.localTransfers")}
                       </p>
                     </div>
                   </div>
@@ -161,7 +165,7 @@ const WalletPage = () => {
                     <div>
                       <p className="font-black text-sm">Bitcoin (BTC)</p>
                       <p className="text-xs text-muted-foreground">
-                        Cryptocurrency - Fast settlements
+                        {t("wallet.cryptoFastSettlements")}
                       </p>
                     </div>
                   </div>
@@ -176,7 +180,7 @@ const WalletPage = () => {
                     <div>
                       <p className="font-black text-sm">Tether (USDT)</p>
                       <p className="text-xs text-muted-foreground">
-                        Stablecoin - Low fees
+                        {t("wallet.stablecoinLowFees")}
                       </p>
                     </div>
                   </div>
@@ -191,7 +195,7 @@ const WalletPage = () => {
                     <div>
                       <p className="font-black text-sm">Ethereum (ETH)</p>
                       <p className="text-xs text-muted-foreground">
-                        Smart contracts enabled
+                        {t("wallet.smartContracts")}
                       </p>
                     </div>
                   </div>
@@ -205,7 +209,7 @@ const WalletPage = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Shield className="w-5 h-5 text-green-500" />
-                Security & Rules
+                {t("wallet.securityRules")}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -214,10 +218,10 @@ const WalletPage = () => {
                   <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 shrink-0"></div>
                   <div className="text-sm">
                     <p className="font-medium text-foreground">
-                      Deposit Balance
+                      {t("wallet.ruleDeposit")}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      Used for betting only
+                      {t("wallet.ruleDepositDesc")}
                     </p>
                   </div>
                 </div>
@@ -226,10 +230,10 @@ const WalletPage = () => {
                   <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5 shrink-0"></div>
                   <div className="text-sm">
                     <p className="font-medium text-foreground">
-                      Winning Balance
+                      {t("wallet.ruleWinning")}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      Can be withdrawn anytime
+                      {t("wallet.ruleWinningDesc")}
                     </p>
                   </div>
                 </div>
@@ -238,10 +242,10 @@ const WalletPage = () => {
                   <div className="w-2 h-2 rounded-full bg-purple-500 mt-1.5 shrink-0"></div>
                   <div className="text-sm">
                     <p className="font-medium text-foreground">
-                      All transactions verified
+                      {t("wallet.ruleVerified")}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      100% secure & encrypted
+                      {t("wallet.ruleVerifiedDesc")}
                     </p>
                   </div>
                 </div>
@@ -255,14 +259,14 @@ const WalletPage = () => {
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
               <CardTitle>Recent Transactions</CardTitle>
-              <CardDescription>Your latest wallet activity</CardDescription>
+              <CardDescription>{t("wallet.recentTransactionsDesc")}</CardDescription>
             </div>
             <Button
               variant="ghost"
               size="sm"
               className="text-primary font-bold"
             >
-              View All
+              {t("wallet.viewAll")}
             </Button>
           </CardHeader>
           <CardContent>
@@ -275,10 +279,10 @@ const WalletPage = () => {
                   </div>
                   <div>
                     <p className="font-black text-sm text-foreground">
-                      Deposit - Venezuela Pay
+                      {t("wallet.depositVenezuela")}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      Today, 2:30 PM
+                      {t("wallet.todayAt")}
                     </p>
                   </div>
                 </div>
@@ -287,7 +291,7 @@ const WalletPage = () => {
                     +5,000
                   </p>
                   <p className="text-xs text-green-600/70 font-medium">
-                    Completed
+                    {t("wallet.completed")}
                   </p>
                 </div>
               </div>
@@ -300,17 +304,17 @@ const WalletPage = () => {
                   </div>
                   <div>
                     <p className="font-black text-sm text-foreground">
-                      Withdrawal - Bitcoin
+                      {t("wallet.withdrawalBitcoin")}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      Yesterday, 5:15 PM
+                      {t("wallet.yesterdayAt")}
                     </p>
                   </div>
                 </div>
                 <div className="text-right">
                   <p className="font-black text-blue-600 text-sm">-3,500</p>
                   <p className="text-xs text-blue-600/70 font-medium">
-                    Completed
+                    {t("wallet.completed")}
                   </p>
                 </div>
               </div>
@@ -323,10 +327,10 @@ const WalletPage = () => {
                   </div>
                   <div>
                     <p className="font-black text-sm text-foreground">
-                      Bet Winnings - Added
+                      {t("wallet.winningsAdded")}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      Dec 14, 11:45 AM
+                      {t("wallet.dec14At")}
                     </p>
                   </div>
                 </div>
@@ -335,7 +339,7 @@ const WalletPage = () => {
                     +1,250
                   </p>
                   <p className="text-xs text-yellow-600/70 font-medium">
-                    Completed
+                    {t("wallet.completed")}
                   </p>
                 </div>
               </div>

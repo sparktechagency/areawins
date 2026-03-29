@@ -1,14 +1,19 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { Link } from "@/lib/i18n/routing";
 import Image from "next/image";
-import Link from "next/link";
 
 const BetsSection = () => {
+  const { t } = useTranslation();
+
   return (
     <section className="w-full py-16 md:py-20 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary text-center mb-8 md:mb-12">
-          Bets
+          {t("homeBets.title")}
         </h2>
 
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -18,7 +23,7 @@ const BetsSection = () => {
             <div className="space-y-4">
               <Image
                 src="https://images.unsplash.com/photo-1546519638-68e109498ffc"
-                alt="Basketball"
+                alt={t("homeBets.basketballAlt")}
                 width={600}
                 height={800}
                 className="rounded-lg object-cover w-full h-64"
@@ -28,7 +33,7 @@ const BetsSection = () => {
             <div className="space-y-4">
               <Image
                 src="https://images.unsplash.com/flagged/photo-1576972405668-2d020a01cbfa"
-                alt="Tennis"
+                alt={t("homeBets.tennisAlt")}
                 width={600}
                 height={400}
                 className="rounded-lg object-cover w-full h-64"
@@ -39,7 +44,7 @@ const BetsSection = () => {
             <div className="col-span-2">
               <Image
                 src="https://images.unsplash.com/photo-1570498839593-e565b39455fc"
-                alt="Football"
+                alt={t("homeBets.footballAlt")}
                 width={800}
                 height={500}
                 className="rounded-lg object-cover w-full h-40 sm:h-48 md:h-56"
@@ -50,15 +55,12 @@ const BetsSection = () => {
           {/* Right Side - Text + Button */}
           <div className="space-y-8">
             <p className="text-base sm:text-lg text-foreground leading-relaxed">
-              We may collect different types of information to provide a safe
-              and reliable betting experience. This includes personal details
-              such as your full name, date of birth, contact information, and
-              identity verification documents.
+              {t("homeBets.description")}
             </p>
 
             <Link href="/matches">
               <Button variant="default" className="cursor-pointer">
-                Create
+                {t("homeBets.cta")}
               </Button>
             </Link>
           </div>

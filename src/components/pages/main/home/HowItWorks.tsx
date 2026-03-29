@@ -1,41 +1,43 @@
-const steps = [
-  {
-    number: 1,
-    title: "Create Account",
-    description:
-      "Sign up in seconds using email or wallet connect. Verify in under 2 mins.",
-  },
-  {
-    number: 2,
-    title: "Fund Your Wallet",
-    description:
-      "Deposit crypto (USDT, SOL, ETH etc.) or use fiat on-ramp methods fast and easy.",
-  },
-  {
-    number: 3,
-    title: "Find/Create a Bet",
-    description:
-      "Browse markets or create your own custom bet against other users.",
-  },
-  {
-    number: 4,
-    title: "Place Bet & Win",
-    description:
-      "Match with opponents → bet settles automatically → winners get paid instantly.",
-  },
-];
+"use client";
+
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 
 const HowItWorks = () => {
+  const { t } = useTranslation();
+
+  const steps = [
+    {
+      number: 1,
+      title: t("homeHow.step1Title"),
+      description: t("homeHow.step1Desc"),
+    },
+    {
+      number: 2,
+      title: t("homeHow.step2Title"),
+      description: t("homeHow.step2Desc"),
+    },
+    {
+      number: 3,
+      title: t("homeHow.step3Title"),
+      description: t("homeHow.step3Desc"),
+    },
+    {
+      number: 4,
+      title: t("homeHow.step4Title"),
+      description: t("homeHow.step4Desc"),
+    },
+  ];
+
   return (
     <section className="w-full py-16 md:py-20 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <div className="text-center mb-8 md:mb-12 lg:mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-3 md:mb-4">
-            How It Works
+            {t("homeHow.title")}
           </h2>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/70 max-w-3xl mx-auto">
-            Get started in minutes. Simple, fast, and completely peer-to-peer.
+            {t("homeHow.subtitle")}
           </p>
         </div>
 

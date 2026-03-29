@@ -6,21 +6,22 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
 } from "@/components/ui/dialog";
 import { useAuth } from "@/hooks/useAuth";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import {
-  AlertTriangle,
-  Camera,
-  Edit2,
-  Lock,
-  Save,
-  Trash2,
-  User,
-  X,
+    AlertTriangle,
+    Camera,
+    Edit2,
+    Lock,
+    Save,
+    Trash2,
+    User,
+    X,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -28,6 +29,7 @@ import DeleteAccountForm from "./DeleteAccountForm";
 import EditAvatarModal from "./EditAvatarModal";
 
 export default function ProfilePage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [showEditAvatarModal, setShowEditAvatarModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -60,23 +62,23 @@ export default function ProfilePage() {
 
   const validatePassword = (): boolean => {
     if (!passwordForm.oldPassword.trim()) {
-      toast.error("Please enter your current password");
+      toast.error(t("profile.toastEnterCurrentPassword"));
       return false;
     }
     if (!passwordForm.newPassword.trim()) {
-      toast.error("Please enter a new password");
+      toast.error(t("profile.toastEnterNewPassword"));
       return false;
     }
     if (passwordForm.newPassword.length < 6) {
-      toast.error("New password must be at least 6 characters");
+      toast.error(t("profile.toastPasswordMin"));
       return false;
     }
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-      toast.error("Passwords do not match");
+      toast.error(t("profile.toastPasswordMismatch"));
       return false;
     }
     if (passwordForm.oldPassword === passwordForm.newPassword) {
-      toast.error("New password must be different from current password");
+      toast.error(t("profile.toastPasswordDifferent"));
       return false;
     }
     return true;
@@ -89,7 +91,7 @@ export default function ProfilePage() {
     try {
       // TODO: Implement API call to change password
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      toast.success("Password changed successfully");
+      toast.success(t("profile.toastPasswordChanged"));
       setPasswordForm({
         oldPassword: "",
         newPassword: "",
@@ -97,7 +99,7 @@ export default function ProfilePage() {
       });
       setIsEditingPassword(false);
     } catch {
-      toast.error("Failed to change password");
+      toast.error(t("profile.toastPasswordFailed"));
     } finally {
       setPasswordLoading(false);
     }
@@ -117,10 +119,10 @@ export default function ProfilePage() {
     try {
       // TODO: Implement API call to save personal info
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      toast.success("Personal information updated successfully");
+      toast.success(t("profile.toastProfileUpdated"));
       setIsEditingPersonalInfo(false);
     } catch {
-      toast.error("Failed to update personal information");
+      toast.error(t("profile.toastProfileFailed"));
     } finally {
       setPersonalInfoLoading(false);
     }
@@ -145,11 +147,11 @@ export default function ProfilePage() {
               <User className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-foreground uppercase tracking-tight">
-              My Profile
+              {t("profile.title")}
             </h1>
           </div>
           <p className="text-xs sm:text-sm text-muted-foreground font-medium">
-            Manage your account information
+            {t("profile.subtitle")}
           </p>
         </div>
 
@@ -177,7 +179,7 @@ export default function ProfilePage() {
 
                 {/* User Name & Email */}
                 <h2 className="text-lg sm:text-xl font-bold text-center text-foreground">
-                  {user?.fullName || "User"}
+                  {user?.fullName || t("common.user")}
                 </h2>
                 <p className="text-xs sm:text-sm text-muted-foreground font-medium mt-2 text-center break-all">
                   {user?.email}
@@ -190,7 +192,7 @@ export default function ProfilePage() {
                   variant="outline"
                 >
                   <Camera className="w-4 h-4 mr-2" />
-                  Change Photo
+                  {t("profile.changePhoto")}
                 </Button>
               </CardContent>
             </Card>
@@ -203,7 +205,7 @@ export default function ProfilePage() {
               <CardHeader className="p-4 sm:p-6 border-b border-border">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg sm:text-xl font-bold">
-                    Personal Information
+                    {t("profile.personalInformation")}
                   </CardTitle>
                   {!isEditingPersonalInfo && (
                     <Button
@@ -212,7 +214,7 @@ export default function ProfilePage() {
                       className="text-xs sm:text-sm font-black uppercase tracking-widest"
                     >
                       <Edit2 className="w-4 h-4 mr-2" />
-                      Edit
+                      {t("profile.edit")}
                     </Button>
                   )}
                 </div>
@@ -220,7 +222,7 @@ export default function ProfilePage() {
               <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <FormInput
-                    label="Full Name"
+                    label={t("profile.fullName")}
                     value={personalInfo.fullName}
                     onChange={(e) =>
                       handlePersonalInfoChange("fullName", e.target.value)
@@ -228,7 +230,7 @@ export default function ProfilePage() {
                     disabled={!isEditingPersonalInfo}
                   />
                   <FormInput
-                    label="Username"
+                    label={t("profile.username")}
                     value={personalInfo.nickname}
                     onChange={(e) =>
                       handlePersonalInfoChange("nickname", e.target.value)
@@ -238,12 +240,12 @@ export default function ProfilePage() {
                 </div>
 
                 <FormInput
-                  label="Email Address"
+                  label={t("profile.emailAddress")}
                   value={personalInfo.email}
                   disabled
                 />
                 <p className="text-[10px] sm:text-xs text-muted-foreground">
-                  Email cannot be changed. Contact support for assistance.
+                  {t("profile.emailImmutable")}
                 </p>
 
                 {/* Action Buttons for Edit Mode */}
@@ -256,7 +258,7 @@ export default function ProfilePage() {
                       className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
                     >
                       <X className="w-4 h-4 mr-2" />
-                      Cancel
+                      {t("profile.cancel")}
                     </Button>
                     <Button
                       onClick={handleSavePersonalInfo}
@@ -264,11 +266,11 @@ export default function ProfilePage() {
                       className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
                     >
                       {personalInfoLoading ? (
-                        "Saving..."
+                        t("profile.saving")
                       ) : (
                         <>
                           <Save className="w-4 h-4 mr-2" />
-                          Save
+                          {t("profile.save")}
                         </>
                       )}
                     </Button>
@@ -283,7 +285,7 @@ export default function ProfilePage() {
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg sm:text-xl font-bold flex items-center gap-2">
                     <Lock className="w-5 h-5 text-primary" />
-                    Change Password
+                    {t("profile.changePassword")}
                   </CardTitle>
                   {!isEditingPassword && (
                     <Button
@@ -292,7 +294,7 @@ export default function ProfilePage() {
                       className="text-xs sm:text-sm font-black uppercase tracking-widest"
                     >
                       <Edit2 className="w-4 h-4 mr-2" />
-                      Change
+                      {t("profile.change")}
                     </Button>
                   )}
                 </div>
@@ -301,15 +303,14 @@ export default function ProfilePage() {
                 {!isEditingPassword ? (
                   <>
                     <p className="text-xs sm:text-sm text-muted-foreground">
-                      Change your password to keep your account secure. Use a
-                      strong password with letters, numbers, and symbols.
+                      {t("profile.changePasswordDescription")}
                     </p>
                     <Button
                       onClick={() => setIsEditingPassword(true)}
                       className="w-full text-xs sm:text-sm font-black uppercase tracking-widest"
                     >
                       <Lock className="w-4 h-4 mr-2" />
-                      Change Password
+                      {t("profile.changePassword")}
                     </Button>
                   </>
                 ) : (
@@ -317,39 +318,39 @@ export default function ProfilePage() {
                     {/* Old Password */}
                     <FormInput
                       type="password"
-                      label="Current Password"
+                      label={t("profile.currentPassword")}
                       value={passwordForm.oldPassword}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         handlePasswordChange("oldPassword", e.target.value)
                       }
-                      placeholder="Enter current password"
+                      placeholder={t("profile.enterCurrentPassword")}
                     />
 
                     {/* New Password */}
                     <div className="space-y-1.5 sm:space-y-2">
                       <FormInput
                         type="password"
-                        label="New Password"
+                        label={t("profile.newPassword")}
                         value={passwordForm.newPassword}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                           handlePasswordChange("newPassword", e.target.value)
                         }
-                        placeholder="Enter new password"
+                        placeholder={t("profile.enterNewPassword")}
                       />
                       <p className="text-[10px] sm:text-xs text-muted-foreground">
-                        Minimum 6 characters
+                        {t("profile.min6Chars")}
                       </p>
                     </div>
 
                     {/* Confirm Password */}
                     <FormInput
                       type="password"
-                      label="Confirm Password"
+                      label={t("profile.confirmPassword")}
                       value={passwordForm.confirmPassword}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         handlePasswordChange("confirmPassword", e.target.value)
                       }
-                      placeholder="Confirm new password"
+                      placeholder={t("profile.confirmNewPassword")}
                     />
 
                     {/* Action Buttons */}
@@ -361,7 +362,7 @@ export default function ProfilePage() {
                         className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
                       >
                         <X className="w-4 h-4 mr-2" />
-                        Cancel
+                        {t("profile.cancel")}
                       </Button>
                       <Button
                         onClick={handleSavePassword}
@@ -369,11 +370,11 @@ export default function ProfilePage() {
                         className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
                       >
                         {passwordLoading ? (
-                          "Saving..."
+                          t("profile.saving")
                         ) : (
                           <>
                             <Save className="w-4 h-4 mr-2" />
-                            Save
+                            {t("profile.save")}
                           </>
                         )}
                       </Button>
@@ -389,15 +390,13 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-2 sm:gap-3">
                   <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" />
                   <CardTitle className="text-lg sm:text-xl font-bold text-red-500">
-                    Danger Zone
+                    {t("profile.dangerZone")}
                   </CardTitle>
                 </div>
               </CardHeader>
               <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-5">
                 <p className="text-xs sm:text-sm text-muted-foreground font-medium">
-                  Deleting your account is permanent and cannot be undone. All
-                  your betting history, wallet balance, and personal information
-                  will be permanently deleted.
+                  {t("profile.dangerDescription")}
                 </p>
                 <Button
                   onClick={() => setShowDeleteModal(true)}
@@ -405,7 +404,7 @@ export default function ProfilePage() {
                   className="w-full text-xs sm:text-sm font-black uppercase tracking-widest"
                 >
                   <Trash2 className="w-4 h-4 mr-2" />
-                  Delete Account
+                  {t("profile.deleteAccount")}
                 </Button>
               </CardContent>
             </Card>
@@ -424,7 +423,7 @@ export default function ProfilePage() {
         <DialogContent className="max-w-lg border-red-500/30 bg-card">
           <DialogHeader>
             <DialogTitle className="text-lg sm:text-xl font-black uppercase tracking-tight">
-              Delete Account
+              {t("profile.deleteAccount")}
             </DialogTitle>
           </DialogHeader>
           <DeleteAccountForm onClose={() => setShowDeleteModal(false)} />

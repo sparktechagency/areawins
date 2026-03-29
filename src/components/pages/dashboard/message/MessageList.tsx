@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { MoreVertical, Paperclip, Phone, Send, Video } from "lucide-react";
 import MessageItem from "./MessageItem";
 
@@ -39,6 +40,7 @@ export default function MessageList({
     setMessageInput,
     onSendMessage
 }: MessageListProps) {
+    const { t } = useTranslation();
 
     if (!activeChat) {
         return (
@@ -46,7 +48,7 @@ export default function MessageList({
                 <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
                     <Send className="w-8 h-8 text-muted-foreground" />
                 </div>
-                <p className="text-lg font-medium">Select a conversation to start messaging</p>
+                <p className="text-lg font-medium">{t("message.selectConversation")}</p>
             </div>
         );
     }
@@ -64,7 +66,7 @@ export default function MessageList({
                         <h3 className="font-bold text-foreground">{activeChat.name}</h3>
                         <span className="text-xs text-green-500 font-medium flex items-center gap-1">
                             {activeChat.isOnline && <span className="w-2 h-2 rounded-full bg-green-500" />}
-                            {activeChat.isOnline ? "Online" : "Offline"}
+                            {activeChat.isOnline ? t("message.online") : t("message.offline")}
                         </span>
                     </div>
                 </div>
@@ -102,7 +104,7 @@ export default function MessageList({
                     </Button>
                     <div className="relative flex-1">
                         <Input
-                            placeholder="Type a message..."
+                            placeholder={t("message.typeMessage")}
                             value={messageInput}
                             onChange={(e) => setMessageInput(e.target.value)}
                             onKeyDown={(e) => e.key === "Enter" && onSendMessage()}
