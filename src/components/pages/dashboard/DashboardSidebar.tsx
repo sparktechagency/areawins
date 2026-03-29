@@ -60,6 +60,14 @@ export default function DashboardSidebar() {
     },
   ];
 
+  const isRouteActive = (href: string) => {
+    if (href === ROUTES.DASHBOARD) {
+      return pathname === href;
+    }
+
+    return pathname === href || pathname.startsWith(href + "/");
+  };
+
   return (
     <>
       {/* Desktop Sidebar */}
@@ -82,8 +90,7 @@ export default function DashboardSidebar() {
           <nav className="flex-1 overflow-y-auto py-6 px-3 space-y-1">
             {navigationItems.map((item) => {
               const Icon = item.icon;
-              const isActive =
-                pathname === item.href || pathname.startsWith(item.href + "/");
+              const isActive = isRouteActive(item.href);
 
               return (
                 <Link
@@ -172,9 +179,7 @@ export default function DashboardSidebar() {
                 <nav className="flex-1 overflow-y-auto py-6 px-3 space-y-1">
                   {navigationItems.map((item) => {
                     const Icon = item.icon;
-                    const isActive =
-                      pathname === item.href ||
-                      pathname.startsWith(item.href + "/");
+                    const isActive = isRouteActive(item.href);
 
                     return (
                       <Link

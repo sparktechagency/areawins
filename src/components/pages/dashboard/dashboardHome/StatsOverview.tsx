@@ -7,11 +7,11 @@ import Link from "next/link";
 
 export default function StatsOverview() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
       {/* Total Winning Balance */}
       <Card className="bg-green-500/5 border-green-500/20 relative overflow-hidden group shadow-none">
         <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-500">
-          <TrendingUp className="w-32 h-32" />
+          <TrendingUp className="w-28 h-28 md:w-32 md:h-32" />
         </div>
         <CardContent className="p-8 relative z-10">
           <div className="flex justify-between items-start">
@@ -36,7 +36,7 @@ export default function StatsOverview() {
       {/* Total Deposit */}
       <Card className="bg-blue-500/5 border-blue-500/20 relative overflow-hidden group shadow-none">
         <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-500">
-          <Wallet className="w-32 h-32" />
+          <Wallet className="w-28 h-28 md:w-32 md:h-32" />
         </div>
         <CardContent className="p-8 relative z-10">
           <div className="flex justify-between items-start">
@@ -61,7 +61,7 @@ export default function StatsOverview() {
       {/* Current Balance */}
       <Card className="bg-purple-500/5 border-purple-500/20 relative overflow-hidden group shadow-none">
         <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-500">
-          <Wallet className="w-32 h-32" />
+          <Wallet className="w-28 h-28 md:w-32 md:h-32" />
         </div>
         <CardContent className="p-8 relative z-10">
           <div className="flex justify-between items-start">
@@ -86,7 +86,7 @@ export default function StatsOverview() {
       {/* Total Loss */}
       <Card className="bg-red-500/5 border-red-500/20 relative overflow-hidden group shadow-none">
         <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-500">
-          <TrendingDown className="w-32 h-32" />
+          <TrendingDown className="w-28 h-28 md:w-32 md:h-32" />
         </div>
         <CardContent className="p-8 relative z-10">
           <div className="flex justify-between items-start">
@@ -97,9 +97,6 @@ export default function StatsOverview() {
               <div className="text-3xl font-black text-foreground mb-4">
                 {formatCurrency(25200)}
               </div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-red-500">
-                This Month
-              </p>
             </div>
           </div>
         </CardContent>
