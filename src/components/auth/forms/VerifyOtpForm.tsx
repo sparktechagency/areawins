@@ -31,7 +31,7 @@ export default function VerifyOtpForm() {
 
   useEffect(() => {
     if (state?.success) {
-      toast.success(state?.message || "Email verified successfully!");
+      toast.success(state?.message || t("auth.emailVerifiedSuccess"));
       if (state?.data?.redirect) {
         dispatch(setAuthView("RESET_PASSWORD"));
       } else {
@@ -40,7 +40,7 @@ export default function VerifyOtpForm() {
     } else if (state.message && !state.errors) {
       toast.error(state.message);
     }
-  }, [state, dispatch]);
+  }, [state, dispatch, t]);
 
   return (
     <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
@@ -50,8 +50,8 @@ export default function VerifyOtpForm() {
         </h2>
         <p className="text-sm text-muted-foreground">
           {otpReason === "REGISTER"
-            ? `We've sent a verification code to ${email}`
-            : "Enter the verification code sent to your email"}
+            ? `${t("auth.codeSentTo")} ${email}`
+            : t("auth.enterVerificationCodeEmail")}
         </p>
       </div>
 
@@ -60,9 +60,9 @@ export default function VerifyOtpForm() {
           id="code"
           name="code"
           type="text"
-          label="Verification Code"
+          label={t("auth.verificationCode")}
           defaultValue={state?.inputs?.code || ""}
-          placeholder="Enter 6-digit code"
+          placeholder={t("auth.enter6DigitCode")}
           error={state?.errors?.code}
           required
         />

@@ -4,6 +4,7 @@ import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { Link } from "@/lib/i18n/routing";
 import { setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { AuthActionState, register } from "@/services/auth.service";
@@ -33,12 +34,12 @@ export default function RegisterForm() {
 
   useEffect(() => {
     if (state?.success) {
-      toast.success(state?.message || "Registration successful!");
+      toast.success(state?.message || t("auth.registrationSuccess"));
       dispatch(setAuthView("VERIFY_OTP"));
     } else if (state.message && !state.errors) {
       toast.error(state.message);
     }
-  }, [state, dispatch]);
+  }, [state, dispatch, t]);
 
   return (
     <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
@@ -56,10 +57,10 @@ export default function RegisterForm() {
           id="fullName"
           name="fullName"
           type="text"
-          label="Full Name"
+          label={t("auth.fullName")}
           icon={User}
           defaultValue={state?.inputs?.fullName || ""}
-          placeholder="John Doe"
+          placeholder={t("auth.fullNamePlaceholder")}
           error={state?.errors?.fullName}
           required
         />
@@ -68,10 +69,10 @@ export default function RegisterForm() {
           id="email"
           name="email"
           type="email"
-          label="Email Address"
+          label={t("auth.emailAddress")}
           icon={Mail}
           defaultValue={state?.inputs?.email || ""}
-          placeholder="john@example.com"
+          placeholder={t("auth.emailPlaceholder")}
           error={state?.errors?.email}
           required
         />
@@ -79,10 +80,10 @@ export default function RegisterForm() {
           id="phoneNumber"
           name="phoneNumber"
           type="tel"
-          label="Phone Number"
+          label={t("auth.phoneNumber")}
           icon={Phone}
           defaultValue={state?.inputs?.phoneNumber || ""}
-          placeholder="+1234567890"
+          placeholder={t("auth.phonePlaceholder")}
           error={state?.errors?.phoneNumber}
           required
         />
@@ -90,10 +91,10 @@ export default function RegisterForm() {
           id="referralCode"
           name="referralCode"
           type="text"
-          label="Referral Code (Optional)"
+          label={t("auth.referralCodeOptional")}
           icon={User}
           defaultValue={state?.inputs?.referralCode || ""}
-          placeholder="YRSVUQYN"
+          placeholder={t("auth.referralCodePlaceholder")}
           error={state?.errors?.referralCode}
         />
 
@@ -101,10 +102,10 @@ export default function RegisterForm() {
           id="password"
           name="password"
           type="password"
-          label="Password"
+          label={t("auth.password")}
           icon={Lock}
           defaultValue={state?.inputs?.password || ""}
-          placeholder="Min. 6 characters"
+          placeholder={t("auth.passwordMinPlaceholder")}
           error={state?.errors?.password}
           required
         />
@@ -116,27 +117,27 @@ export default function RegisterForm() {
               htmlFor="terms"
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
-              I agree to the{" "}
-              <a
+              {t("auth.agreeToThe")} {" "}
+              <Link
                 href="/terms"
                 className="text-primary hover:underline underline-offset-4"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Terms of Service
-              </a>{" "}
-              and{" "}
-              <a
+                {t("auth.termsOfService")}
+              </Link>{" "}
+              {t("auth.and")} {" "}
+              <Link
                 href="/privacy"
                 className="text-primary hover:underline underline-offset-4"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Privacy Policy
-              </a>
+                {t("auth.privacyPolicy")}
+              </Link>
             </label>
             <p className="text-[0.8rem] text-muted-foreground">
-              By creating an account, you agree to our terms and privacy policy
+              {t("auth.byCreatingAccountAgree")}
             </p>
           </div>
         </div>

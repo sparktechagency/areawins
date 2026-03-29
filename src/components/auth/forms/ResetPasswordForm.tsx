@@ -6,7 +6,7 @@ import { setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { AuthActionState, resetPassword } from "@/services/auth.service";
 import { ArrowLeft, Lock } from "lucide-react";
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 const initialState: AuthActionState = {
@@ -30,12 +30,12 @@ export default function ResetPasswordForm() {
 
   useEffect(() => {
     if (state?.success) {
-      toast.success(state?.message || "Password reset successful!");
+      toast.success(state?.message || t("auth.passwordResetSuccess"));
       dispatch(setAuthView("LOGIN"));
     } else if (state.message && !state.errors) {
       toast.error(state.message);
     }
-  }, [state, dispatch]);
+  }, [state, dispatch, t]);
   return (
     <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
       <div className="text-center space-y-2">
@@ -52,10 +52,10 @@ export default function ResetPasswordForm() {
           id="password"
           name="password"
           type="password"
-          label="New Password"
+          label={t("auth.newPassword")}
           icon={Lock}
           defaultValue={state?.inputs?.password ?? undefined}
-          placeholder="Enter new password"
+          placeholder={t("auth.enterNewPassword")}
           error={state?.errors?.password}
           required
         />
@@ -63,10 +63,10 @@ export default function ResetPasswordForm() {
           id="confirmPassword"
           name="confirmPassword"
           type="password"
-          label="Confirm Password"
+          label={t("auth.confirmPassword")}
           icon={Lock}
           defaultValue={state?.inputs?.confirmPassword ?? undefined}
-          placeholder="Confirm new password"
+          placeholder={t("auth.confirmNewPassword")}
           error={state?.errors?.confirmPassword}
           required
         />

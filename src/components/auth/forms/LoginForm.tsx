@@ -30,12 +30,12 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (state?.success) {
-      toast.success(state?.message || "Login successful!");
+      toast.success(state?.message || t("auth.loginSuccess"));
       dispatch(closeAuthModal());
     } else if (state.message && !state.errors) {
       toast.error(state.message);
     }
-  }, [dispatch, state]);
+  }, [dispatch, state, t]);
 
   return (
     <div className="w-full p-6 space-y-6">
@@ -53,10 +53,10 @@ export default function LoginForm() {
           id="email"
           name="email"
           type="email"
-          label="Email Address"
+          label={t("auth.emailAddress")}
           icon={Mail}
           defaultValue={state?.inputs?.email ?? undefined}
-          placeholder="Enter your email"
+          placeholder={t("auth.enterYourEmail")}
           error={state?.errors?.email}
           required
         />
@@ -64,10 +64,10 @@ export default function LoginForm() {
           id="password"
           name="password"
           type="password"
-          label="Password"
+          label={t("auth.password")}
           icon={Lock}
           defaultValue={state?.inputs?.password ?? undefined}
-          placeholder="Enter your password"
+          placeholder={t("auth.enterYourPassword")}
           error={state?.errors?.password}
           required
         />

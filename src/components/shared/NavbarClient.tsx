@@ -45,7 +45,7 @@ const NavbarClient = ({ user }: { user: IUser | null }) => {
   return (
     <>
       <nav
-        className="fixed inset-x-0 top-0 z-50 h-20 border-b border-border bg-background/95 shadow-sm supports-backdrop-filter:backdrop-blur-sm md:bg-white/80 md:dark:bg-background/80 md:supports-backdrop-filter:backdrop-blur-lg transform-[translateZ(0)] backface-hidden will-change-transform flex items-center justify-center"
+        className="fixed inset-x-0 top-0 z-50 h-20  bg-background/95 supports-backdrop-filter:backdrop-blur-sm md:bg-white/80 md:dark:bg-background/80 md:supports-backdrop-filter:backdrop-blur-lg transform-[translateZ(0)] backface-hidden will-change-transform flex items-center justify-center"
       >
         <div className="container mx-auto flex items-center justify-between gap-5 px-4 sm:px-6 lg:px-8">
           {/* Logo */}

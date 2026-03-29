@@ -29,12 +29,12 @@ export default function ForgotPasswordForm() {
 
   useEffect(() => {
     if (state?.success) {
-      toast.success(state?.message || "Reset link sent!");
+      toast.success(state?.message || t("auth.resetLinkSent"));
       dispatch(setAuthView("VERIFY_OTP"));
     } else if (state.message && !state.errors) {
       toast.error(state.message);
     }
-  }, [state, dispatch]);
+  }, [state, dispatch, t]);
 
   
   return (
@@ -53,10 +53,10 @@ export default function ForgotPasswordForm() {
           id="email"
           name="email"
           type="email"
-          label="Email Address"
+          label={t("auth.emailAddress")}
           icon={Mail}
           defaultValue={state?.inputs?.email ?? undefined}
-          placeholder="Enter your email"
+          placeholder={t("auth.enterYourEmail")}
           error={state?.errors?.email}
           required
         />
@@ -66,7 +66,7 @@ export default function ForgotPasswordForm() {
           className="w-full font-bold cursor-pointer"
           disabled={isPending}
         >
-          {isPending ? t("auth.sending") : t("auth.sendResetLink")}
+          {isPending ? t("auth.sending") : t("auth.sendResetCode")}
         </Button>
       </form>
 
