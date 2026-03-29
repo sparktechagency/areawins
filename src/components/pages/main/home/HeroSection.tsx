@@ -23,7 +23,7 @@ const HeroSection = () => {
       <div className="relative z-10">
         {/* Hero Content */}
         <div className="flex flex-col items-center justify-center lg:min-h-[calc(100vh-200px)] px-4 sm:px-6 lg:px-8 py-32 sm:py-24 lg:py-20 text-center">
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 drop-shadow-2xl">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl max-w-4xl font-bold text-white mb-4 drop-shadow-2xl">
             {t("hero.titlePart1")}{" "}
             <span className="text-primary">{t("hero.titlePart2")}</span>{" "}
             {t("hero.titlePart3")}

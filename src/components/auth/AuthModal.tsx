@@ -34,6 +34,7 @@ const AuthModal = () => {
     <ReusableModal
       isOpen={isOpen}
       onClose={() => dispatch(closeAuthModal())}
+      closeOnOutsideClick={false}
       maxWidth="md"
       padding="none"
     >

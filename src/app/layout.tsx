@@ -4,14 +4,14 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import { ReduxProvider } from "@/lib/redux/provider";
 import type { Metadata } from "next";
-import { Lora} from "next/font/google";
+import { Roboto } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
-const lora = Lora({
+const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-lora",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-roboto",
 });
 
 export const metadata: Metadata = {
@@ -34,10 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${lora.className} antialiased`}
-        suppressHydrationWarning
-      >
+      <body className={`${roboto.className}  ${roboto.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <LanguageProvider>
             <ReduxProvider>

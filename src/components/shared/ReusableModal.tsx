@@ -16,6 +16,7 @@ import React from "react";
 interface ReusableModalProps {
   isOpen: boolean;
   onClose: () => void;
+  closeOnOutsideClick?: boolean;
   title?: string;
   description?: string;
   children: React.ReactNode;
@@ -57,6 +58,7 @@ const paddingMap = {
 export const ReusableModal: React.FC<ReusableModalProps> = ({
   isOpen,
   onClose,
+  closeOnOutsideClick = true,
   title,
   description,
   children,
@@ -65,8 +67,20 @@ export const ReusableModal: React.FC<ReusableModalProps> = ({
   maxWidth = "md",
 }) => {
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) {
+          onClose();
+        }
+      }}
+    >
       <DialogContent
+        onInteractOutside={(event) => {
+          if (!closeOnOutsideClick) {
+            event.preventDefault();
+          }
+        }}
         showCloseButton={false}
         className={cn(
           "px-4 sm:px-0", // Side margin on mobile
