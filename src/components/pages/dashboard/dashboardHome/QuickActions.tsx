@@ -2,14 +2,16 @@
 
 import { Card } from "@/components/ui/card";
 import { ROUTES } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { Banknote, Gamepad2, History, Ticket } from "lucide-react";
 import Link from "next/link";
 
 export default function QuickActions() {
+  const { t } = useTranslation();
   return (
     <div className="mb-8">
       <h2 className="text-xl font-bold text-foreground flex items-center gap-2 mb-4">
-        <span className="text-primary">⚡</span> Quick Actions
+        <span className="text-primary">⚡</span> {t("dashboardHome.quickActions")}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Live Betting */}
@@ -22,10 +24,10 @@ export default function QuickActions() {
             <div className="absolute bottom-6 left-6 z-10">
               <Gamepad2 className="w-8 h-8 text-primary mb-3" />
               <h3 className="font-black text-white text-xl uppercase tracking-tight">
-                Live Markets
+                {t("dashboardHome.liveMarkets")}
               </h3>
               <p className="text-[10px] font-black text-primary uppercase tracking-widest mt-1">
-                12 active now
+                {t("dashboardHome.activeNow")}
               </p>
             </div>
           </Card>
@@ -40,10 +42,10 @@ export default function QuickActions() {
             <div className="absolute bottom-6 left-6 z-10">
               <Ticket className="w-8 h-8 text-emerald-400 mb-3" />
               <h3 className="font-black text-white text-xl uppercase tracking-tight">
-                VIP Rewards
+                {t("dashboardHome.vipRewards")}
               </h3>
               <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mt-1">
-                2 New Bonuses
+                {t("dashboardHome.newBonuses")}
               </p>
             </div>
           </Card>
@@ -56,10 +58,10 @@ export default function QuickActions() {
               <History className="w-7 h-7 text-primary" />
             </div>
             <h3 className="font-black text-foreground uppercase tracking-tight">
-              Transactions
+              {t("dashboardHome.transactions")}
             </h3>
             <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-2">
-              Audit History
+              {t("dashboardHome.auditHistory")}
             </p>
           </Card>
         </Link>
@@ -71,10 +73,10 @@ export default function QuickActions() {
               <Banknote className="w-7 h-7 text-emerald-500" />
             </div>
             <h3 className="font-black text-foreground uppercase tracking-tight">
-              Withdraw
+              {t("dashboardHome.withdraw")}
             </h3>
             <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-2">
-              Instant Payout
+              {t("dashboardHome.instantPayout")}
             </p>
           </Card>
         </Link>

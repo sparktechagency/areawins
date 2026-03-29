@@ -3,10 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { MOCK_SPORTS, MOCK_TOURNAMENTS } from "@/data/match.data";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { Link, usePathname } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
 import { Calendar, ChevronRight, Globe } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const SportsMatchesSidebar = () => {
@@ -54,7 +53,17 @@ const SportsMatchesSidebar = () => {
                   <div className="shrink-0 text-lg transition-transform group-hover:scale-110">
                     {sport.icon}
                   </div>
-                  <span className="flex-1 text-left">{sport.name}</span>
+                  <span className="flex-1 text-left">
+                    {t(
+                      `sports.${
+                        sport.slug === "table-tennis"
+                          ? "tableTennis"
+                          : sport.slug === "american-football"
+                            ? "americanFootball"
+                            : sport.slug
+                      }`
+                    )}
+                  </span>
                   <span className="text-[10px] font-bold bg-muted px-1.5 py-0.5 rounded text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                     {matchCount}
                   </span>
@@ -116,12 +125,30 @@ const SportsMatchesSidebar = () => {
         <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider px-3 mb-2">
           {t("sidebar.popularCountries")}
         </h3>
-        <SidebarLink icon={<Globe className="size-4" />} label="England" />
-        <SidebarLink icon={<Globe className="size-4" />} label="Spain" />
-        <SidebarLink icon={<Globe className="size-4" />} label="Germany" />
-        <SidebarLink icon={<Globe className="size-4" />} label="Italy" />
-        <SidebarLink icon={<Globe className="size-4" />} label="France" />
-        <SidebarLink icon={<Globe className="size-4" />} label="India" />
+        <SidebarLink
+          icon={<Globe className="size-4" />}
+          label={t("countries.england")}
+        />
+        <SidebarLink
+          icon={<Globe className="size-4" />}
+          label={t("countries.spain")}
+        />
+        <SidebarLink
+          icon={<Globe className="size-4" />}
+          label={t("countries.germany")}
+        />
+        <SidebarLink
+          icon={<Globe className="size-4" />}
+          label={t("countries.italy")}
+        />
+        <SidebarLink
+          icon={<Globe className="size-4" />}
+          label={t("countries.france")}
+        />
+        <SidebarLink
+          icon={<Globe className="size-4" />}
+          label={t("countries.india")}
+        />
       </div>
     </div>
   );

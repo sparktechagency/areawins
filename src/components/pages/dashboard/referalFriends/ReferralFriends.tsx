@@ -3,30 +3,32 @@ import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { formatCurrency } from "@/lib/utils";
 import {
-  CheckCircle2,
-  Copy,
-  Gift,
-  Share2,
-  TrendingUp,
-  Users,
-  Wallet,
+    CheckCircle2,
+    Copy,
+    Gift,
+    Share2,
+    TrendingUp,
+    Users,
+    Wallet,
 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 
 import { MOCK_REFERRED_FRIENDS } from "@/data/friends.data";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 
 const ReferralFriends = () => {
+  const { t } = useTranslation();
   const referFriends = MOCK_REFERRED_FRIENDS;
 
   const [referralCode] = useState("BETPRO-99-PRO");
@@ -34,7 +36,7 @@ const ReferralFriends = () => {
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
-    toast.success(`${label} copied to clipboard!`);
+    toast.success(`${label} ${t("referral.copiedToClipboard")}`);
   };
 
   return (
@@ -42,10 +44,10 @@ const ReferralFriends = () => {
       <div className="w-full mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-black text-foreground flex items-center gap-3 uppercase tracking-tight">
-            Refer & Earn <Gift className="w-8 h-8 text-primary" />
+            {t("referral.title")} <Gift className="w-8 h-8 text-primary" />
           </h1>
           <p className="text-muted-foreground mt-2 font-medium">
-            Invite your friends and earn commission from their betting activity.
+            {t("referral.subtitle")}
           </p>
         </div>
 
@@ -56,14 +58,14 @@ const ReferralFriends = () => {
               <div className="flex items-center gap-3 text-primary mb-2">
                 <Users className="size-5" />
                 <p className="text-xs font-black uppercase tracking-widest">
-                  Total Referred
+                  {t("referral.totalReferred")}
                 </p>
               </div>
               <div className="text-3xl font-black text-foreground">
-                12 Friends
+                {t("referral.totalReferredValue")}
               </div>
               <p className="text-[10px] text-muted-foreground mt-1 font-bold">
-                +2 this week
+                {t("referral.totalReferredDelta")}
               </p>
             </CardContent>
           </Card>
@@ -73,14 +75,14 @@ const ReferralFriends = () => {
               <div className="flex items-center gap-3 text-emerald-500 mb-2">
                 <Wallet className="size-5" />
                 <p className="text-xs font-black uppercase tracking-widest">
-                  Commission Earned
+                  {t("referral.commissionEarned")}
                 </p>
               </div>
               <div className="text-3xl font-black text-foreground">
                 {formatCurrency(655)}
               </div>
               <p className="text-[10px] text-muted-foreground mt-1 font-bold">
-                Lifetime earnings
+                {t("referral.lifetimeEarnings")}
               </p>
             </CardContent>
           </Card>
@@ -90,12 +92,12 @@ const ReferralFriends = () => {
               <div className="flex items-center gap-3 text-blue-500 mb-2">
                 <TrendingUp className="size-5" />
                 <p className="text-xs font-black uppercase tracking-widest">
-                  Active Rate
+                  {t("referral.activeRate")}
                 </p>
               </div>
               <div className="text-3xl font-black text-foreground">85%</div>
               <p className="text-[10px] text-muted-foreground mt-1 font-bold">
-                Based on last 30 days
+                {t("referral.basedLast30Days")}
               </p>
             </CardContent>
           </Card>
@@ -108,16 +110,16 @@ const ReferralFriends = () => {
               <div className="h-2 bg-primary w-full" />
               <CardHeader>
                 <CardTitle className="text-xl font-black uppercase tracking-tight">
-                  Your Referral Link
+                  {t("referral.yourReferralLink")}
                 </CardTitle>
                 <CardDescription>
-                  Share this link to start earning
+                  {t("referral.shareThisLink")}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest px-1">
-                    Registration Link
+                    {t("referral.registrationLink")}
                   </p>
                   <div className="flex gap-2">
                     <Input
@@ -129,7 +131,9 @@ const ReferralFriends = () => {
                       size="icon"
                       variant="outline"
                       className="shrink-0 size-11 rounded-lg border-border"
-                      onClick={() => copyToClipboard(referralLink, "Link")}
+                      onClick={() =>
+                        copyToClipboard(referralLink, t("referral.linkLabel"))
+                      }
                     >
                       <Copy className="size-4" />
                     </Button>
@@ -137,7 +141,7 @@ const ReferralFriends = () => {
                 </div>
                 <div className="space-y-2">
                   <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest px-1">
-                    Referral Code
+                    {t("referral.referralCode")}
                   </p>
                   <div className="flex gap-2">
                     <Input
@@ -149,14 +153,16 @@ const ReferralFriends = () => {
                       size="icon"
                       variant="outline"
                       className="shrink-0 size-11 rounded-lg border-border"
-                      onClick={() => copyToClipboard(referralCode, "Code")}
+                      onClick={() =>
+                        copyToClipboard(referralCode, t("referral.codeLabel"))
+                      }
                     >
                       <Copy className="size-4" />
                     </Button>
                   </div>
                 </div>
                 <Button className="w-full h-12 font-black uppercase tracking-widest gap-2 rounded-lg">
-                  <Share2 className="size-4" /> Share on WhatsApp
+                  <Share2 className="size-4" /> {t("referral.shareOnWhatsApp")}
                 </Button>
               </CardContent>
             </Card>
@@ -164,13 +170,13 @@ const ReferralFriends = () => {
             <Card className="border-dashed border-primary/30 shadow-none bg-primary/5">
               <CardContent className="p-6 space-y-4">
                 <h4 className="font-black text-primary flex items-center gap-2 text-sm uppercase tracking-widest">
-                  <TrendingUp className="size-4" /> How it works
+                  <TrendingUp className="size-4" /> {t("referral.howItWorks")}
                 </h4>
                 <ul className="space-y-3">
                   {[
-                    "Share your link with friends",
-                    "They register and start betting",
-                    "Earn 5% from their winning pots",
+                    t("referral.step1"),
+                    t("referral.step2"),
+                    t("referral.step3"),
                   ].map((step, i) => (
                     <li
                       key={i}
@@ -191,10 +197,10 @@ const ReferralFriends = () => {
               <CardHeader className="flex flex-row items-center justify-between border-b border-border py-6 px-8">
                 <div>
                   <CardTitle className="text-xl font-black uppercase tracking-tight">
-                    Referred Friends
+                    {t("referral.referredFriends")}
                   </CardTitle>
                   <CardDescription>
-                    Recently joined users via your link
+                    {t("referral.recentlyJoinedUsers")}
                   </CardDescription>
                 </div>
                 <Button
@@ -202,7 +208,7 @@ const ReferralFriends = () => {
                   size="sm"
                   className="text-primary font-black uppercase tracking-widest text-[10px]"
                 >
-                  View Performance
+                  {t("referral.viewPerformance")}
                 </Button>
               </CardHeader>
               <CardContent className="p-0">
@@ -211,16 +217,16 @@ const ReferralFriends = () => {
                     <thead>
                       <tr className="bg-muted/30 border-b border-border">
                         <th className="py-4 px-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                          User info
+                          {t("referral.userInfo")}
                         </th>
                         <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                          Status
+                          {t("referral.status")}
                         </th>
                         <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">
-                          Commission
+                          {t("referral.commission")}
                         </th>
                         <th className="py-4 px-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">
-                          Action
+                          {t("referral.action")}
                         </th>
                       </tr>
                     </thead>
@@ -263,7 +269,9 @@ const ReferralFriends = () => {
                                   : "rounded-full font-black text-[9px] uppercase tracking-widest"
                               }
                             >
-                              {friend.status}
+                              {friend.status === "Active"
+                                ? t("referral.active")
+                                : t("referral.pending")}
                             </Badge>
                           </td>
                           <td className="py-5 px-4 text-right">
@@ -277,7 +285,7 @@ const ReferralFriends = () => {
                               size="sm"
                               className="text-muted-foreground hover:text-primary transition-colors"
                             >
-                              Details
+                              {t("referral.details")}
                             </Button>
                           </td>
                         </tr>
@@ -288,7 +296,7 @@ const ReferralFriends = () => {
 
                 {referFriends.length === 0 && (
                   <div className="p-12 text-center text-muted-foreground font-black uppercase tracking-widest text-xs">
-                    No friends referred yet.
+                    {t("referral.noFriends")}
                   </div>
                 )}
               </CardContent>

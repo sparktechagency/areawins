@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ROUTES } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 
@@ -11,7 +12,24 @@ import Link from "next/link";
 import { MOCK_RECENT_BETS } from "@/data/betting.data";
 
 export default function RecentBetsTable() {
+  const { t } = useTranslation();
   const mockBets = MOCK_RECENT_BETS;
+
+  const statusLabelMap: Record<string, string> = {
+    Won: t("recentBets.won"),
+    Pending: t("recentBets.pending"),
+    Lost: t("recentBets.lost"),
+  };
+
+  const eventLabelMap: Record<string, string> = {
+    "Man City vs Arsenal": t("recentBets.eventManCityArsenal"),
+    "Real Madrid vs Barcelona": t("recentBets.eventRealMadridBarcelona"),
+  };
+
+  const marketLabelMap: Record<string, string> = {
+    "Match Winner - Man City": t("recentBets.marketMatchWinnerManCity"),
+    "Both Teams to Score - Yes": t("recentBets.marketBttsYes"),
+  };
 
   // In a real scenario we would map 'data' from the API to this format
   // const { data: bets } = useGetBetStatisticsQuery();
@@ -22,7 +40,7 @@ export default function RecentBetsTable() {
         <div className="flex items-center gap-3">
           <span className="text-primary text-xl">📋</span>
           <CardTitle className="text-foreground text-xl font-black uppercase tracking-tight">
-            Recent Activity
+            {t("recentBets.title")}
           </CardTitle>
         </div>
         <Link href={ROUTES.MY_BETS || "/my-bets"}>
@@ -30,7 +48,7 @@ export default function RecentBetsTable() {
             variant="ghost"
             className="text-primary hover:text-primary/80 hover:bg-primary/5 px-4 h-9 text-[10px] font-black uppercase tracking-widest rounded-lg"
           >
-            History Console
+            {t("recentBets.historyConsole")}
           </Button>
         </Link>
       </CardHeader>
@@ -40,22 +58,22 @@ export default function RecentBetsTable() {
             <thead>
               <tr className="bg-muted/30 border-b border-border">
                 <th className="text-left py-4 px-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
-                  Timestamp
+                  {t("recentBets.timestamp")}
                 </th>
                 <th className="text-left py-4 px-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
-                  Event Ecosystem
+                  {t("recentBets.eventEcosystem")}
                 </th>
                 <th className="text-right py-4 px-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
-                  Stake
+                  {t("recentBets.stake")}
                 </th>
                 <th className="text-center py-4 px-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
-                  Odds
+                  {t("recentBets.odds")}
                 </th>
                 <th className="text-right py-4 px-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
-                  Potential
+                  {t("recentBets.potential")}
                 </th>
                 <th className="text-right py-4 px-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
-                  Outcome
+                  {t("recentBets.outcome")}
                 </th>
               </tr>
             </thead>
@@ -71,10 +89,10 @@ export default function RecentBetsTable() {
                   <td className="py-5 px-6">
                     <div className="flex flex-col">
                       <span className="text-foreground font-black text-sm uppercase tracking-tight">
-                        {bet.event}
+                        {eventLabelMap[bet.event] || bet.event}
                       </span>
                       <span className="text-[10px] font-bold text-muted-foreground tracking-wide mt-0.5">
-                        {bet.market}
+                        {marketLabelMap[bet.market] || bet.market}
                       </span>
                     </div>
                   </td>
@@ -108,7 +126,7 @@ export default function RecentBetsTable() {
                                       border-0 px-3 py-1 rounded-full uppercase text-[9px] font-black tracking-widest text-white
                                   `}
                     >
-                      {bet.status}
+                      {statusLabelMap[bet.status] || bet.status}
                     </Badge>
                   </td>
                 </tr>

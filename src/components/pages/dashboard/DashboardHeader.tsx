@@ -4,12 +4,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import DarkModeToggle from "@/components/ui/dark-mode-toggle";
 import { ROUTES } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { Link, usePathname } from "@/lib/i18n/routing";
 import { Bell, ChevronRight } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 export default function DashboardHeader() {
   const pathname = usePathname();
+  const { t } = useTranslation();
   // const { user } = useAuth();
   const user = {
     firstName: "Rakib",
@@ -38,7 +39,7 @@ export default function DashboardHeader() {
             href={ROUTES.HOME}
             className="hover:text-foreground transition-colors"
           >
-            Home
+            {t("dashboardHeader.home")}
           </Link>
           {breadcrumbs.map((crumb, index) => (
             <div key={crumb.href} className="flex items-center">
@@ -66,7 +67,7 @@ export default function DashboardHeader() {
 
           <Link href={ROUTES.WALLET_DEPOSIT || "/wallet/deposit"}>
             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20">
-              Deposit
+              {t("dashboardHeader.deposit")}
             </Button>
           </Link>
 
@@ -82,14 +83,16 @@ export default function DashboardHeader() {
           <div className="flex items-center gap-3 pl-4 border-l">
             <div className="text-right hidden sm:block">
               <p className="text-sm font-medium leading-none">
-                {user?.fullName?.split(" ")[0] || "User"}
+                {user?.fullName?.split(" ")[0] || t("dashboardHeader.user")}
               </p>
-              <p className="text-xs text-muted-foreground mt-1">Pro Bettor</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                {t("dashboardHeader.proBettor")}
+              </p>
             </div>
             <Avatar className="w-9 h-9 border-2 border-primary/20">
               <AvatarImage src={user?.profileImage} />
               <AvatarFallback className="bg-primary/10 text-primary font-bold">
-                {user?.fullName?.[0] || "U"}
+                {user?.fullName?.[0] || t("dashboardHeader.user")[0]}
               </AvatarFallback>
             </Avatar>
           </div>

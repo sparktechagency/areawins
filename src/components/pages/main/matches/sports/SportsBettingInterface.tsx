@@ -9,6 +9,7 @@ import SportHeroBanner from "./SportHeroBanner";
 import SportMatchCard from "./SportMatchCard";
 
 import { MOCK_MATCHES } from "@/data/match.data";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 
 interface SportsBettingInterfaceProps {
   sport: string;
@@ -245,12 +246,21 @@ const config = {
 export default function SportsBettingInterface({
   sport,
 }: SportsBettingInterfaceProps) {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [matches, setMatches] = useState(MOCK_MATCHES);
 
   const sportKey = sport.toLowerCase() as keyof typeof config;
   const activeConfig = config[sportKey] || config.football;
-  const sportName = sport.charAt(0).toUpperCase() + sport.slice(1);
+  const sportName = t(
+    `sports.${
+      sportKey === "table-tennis"
+        ? "tableTennis"
+        : sportKey === "american-football"
+          ? "americanFootball"
+          : sportKey
+    }`
+  );
 
   const handleDelete = (id: string) => {
     setMatches((prev) => prev.filter((m) => m._id !== id));
@@ -284,7 +294,7 @@ export default function SportsBettingInterface({
           <div className="relative flex-1 md:w-80">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
             <Input
-              placeholder="Search team or league"
+              placeholder={t("sportsPage.searchPlaceholder")}
               className="pl-9 h-11 bg-card border-border focus-visible:ring-primary/20 rounded-lg"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -317,25 +327,25 @@ export default function SportsBettingInterface({
             value="all"
             className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
-            All Matches
+            {t("sportsPage.allMatches")}
           </TabsTrigger>
           <TabsTrigger
             value="live"
             className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
-            Live Matches
+            {t("sportsPage.liveMatches")}
           </TabsTrigger>
           <TabsTrigger
             value="upcoming"
             className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
-            Upcoming
+            {t("sportsPage.upcoming")}
           </TabsTrigger>
           <TabsTrigger
             value="trending"
             className="border-none rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white px-8 py-3 text-xs font-black text-muted-foreground uppercase tracking-widest transition-all cursor-pointer"
           >
-            Trending
+            {t("sportsPage.trending")}
           </TabsTrigger>
         </TabsList>
 
@@ -352,7 +362,7 @@ export default function SportsBettingInterface({
             </div>
             {filteredMatches.length === 0 && (
               <div className="text-center py-24 bg-muted/20 rounded-lg border border-dashed border-border text-muted-foreground font-black uppercase text-xs tracking-widest">
-                No active markets found for this category.
+                {t("sportsPage.noActiveMarkets")}
               </div>
             )}
           </TabsContent>

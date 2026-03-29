@@ -6,21 +6,43 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { formatCurrency } from "@/lib/utils";
 import {
-  ArrowDownLeft,
-  ArrowUpRight,
-  Download,
-  Filter,
-  Search,
-  Wallet,
+    ArrowDownLeft,
+    ArrowUpRight,
+    Download,
+    Filter,
+    Search,
+    Wallet,
 } from "lucide-react";
 import { useState } from "react";
 
 import { MOCK_TRANSACTIONS } from "@/data/transactions.data";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 
 const TransactionsPage = () => {
+  const { t } = useTranslation();
   const transactions = MOCK_TRANSACTIONS;
 
   const [searchTerm, setSearchTerm] = useState("");
+
+  const typeMap: Record<string, string> = {
+    Deposit: t("transactions.deposit"),
+    Withdrawal: t("transactions.withdrawal"),
+    "Bet Settlement": t("transactions.betSettlement"),
+    "Bet Placed": t("transactions.betPlaced"),
+    Commission: t("transactions.commission"),
+  };
+
+  const methodMap: Record<string, string> = {
+    Bkash: t("transactions.bkash"),
+    Nagad: t("transactions.nagad"),
+    Platform: t("transactions.platform"),
+    Referral: t("transactions.methodReferral"),
+  };
+
+  const statusMap: Record<string, string> = {
+    Completed: t("transactions.completed"),
+    Pending: t("transactions.pending"),
+  };
 
   return (
     <DashboardLayout>
@@ -28,18 +50,17 @@ const TransactionsPage = () => {
         <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-black text-foreground flex items-center gap-3 uppercase tracking-tight">
-              Transaction History <Wallet className="w-8 h-8 text-primary" />
+              {t("transactions.title")} <Wallet className="w-8 h-8 text-primary" />
             </h1>
             <p className="text-muted-foreground mt-2 font-medium">
-              View all your financial activity including deposits, withdrawals,
-              and settlements.
+              {t("transactions.subtitle")}
             </p>
           </div>
           <Button
             variant="outline"
             className="shrink-0 h-11 px-6 rounded-lg font-black uppercase tracking-widest text-xs gap-2"
           >
-            <Download className="size-4" /> Download Statement
+            <Download className="size-4" /> {t("transactions.downloadStatement")}
           </Button>
         </div>
 
@@ -48,7 +69,7 @@ const TransactionsPage = () => {
           <div className="relative flex-1">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
             <Input
-              placeholder="Search transaction ID or status..."
+              placeholder={t("transactions.searchPlaceholder")}
               className="pl-11 h-12 bg-card border-border rounded-lg"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -59,13 +80,13 @@ const TransactionsPage = () => {
               variant="outline"
               className="h-12 px-6 rounded-lg font-black uppercase tracking-widest text-xs gap-2 border-border bg-card"
             >
-              <Filter className="size-4" /> Date Range
+              <Filter className="size-4" /> {t("transactions.dateRange")}
             </Button>
             <Button
               variant="outline"
               className="h-12 px-6 rounded-lg font-black uppercase tracking-widest text-xs gap-2 border-border bg-card"
             >
-              <Filter className="size-4" /> Type
+              <Filter className="size-4" /> {t("transactions.type")}
             </Button>
           </div>
         </div>
@@ -78,19 +99,19 @@ const TransactionsPage = () => {
                 <thead>
                   <tr className="bg-muted/30 border-b border-border">
                     <th className="py-4 px-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
-                      Transaction ID
+                      {t("transactions.transactionId")}
                     </th>
                     <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
-                      Date & Time
+                      {t("transactions.dateTime")}
                     </th>
                     <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
-                      Type & Method
+                      {t("transactions.typeMethod")}
                     </th>
                     <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap text-right">
-                      Amount
+                      {t("transactions.amount")}
                     </th>
                     <th className="py-4 px-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap text-right">
-                      Status
+                      {t("transactions.status")}
                     </th>
                   </tr>
                 </thead>
@@ -131,10 +152,10 @@ const TransactionsPage = () => {
                           </div>
                           <div>
                             <p className="font-black text-xs text-foreground uppercase tracking-tight">
-                              {tx.type}
+                              {typeMap[tx.type] || tx.type}
                             </p>
                             <p className="text-[10px] font-bold text-muted-foreground">
-                              {tx.method}
+                              {methodMap[tx.method] || tx.method}
                             </p>
                           </div>
                         </div>
@@ -166,7 +187,7 @@ const TransactionsPage = () => {
                               : "bg-amber-500 hover:bg-amber-600"
                           } rounded-full font-black text-[9px] uppercase tracking-widest`}
                         >
-                          {tx.status}
+                          {statusMap[tx.status] || tx.status}
                         </Badge>
                       </td>
                     </tr>
@@ -178,14 +199,14 @@ const TransactionsPage = () => {
             {transactions.length === 0 && (
               <div className="p-24 text-center">
                 <p className="text-muted-foreground font-black uppercase tracking-widest text-xs">
-                  No transactions found matching your criteria.
+                  {t("transactions.noTransactions")}
                 </p>
               </div>
             )}
           </CardContent>
           <div className="p-6 border-t border-border flex justify-between items-center bg-muted/5">
             <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">
-              Showing 5 of 128 transactions
+              {t("transactions.showingCount")}
             </p>
             <div className="flex gap-2">
               <Button
@@ -193,14 +214,14 @@ const TransactionsPage = () => {
                 size="sm"
                 className="h-9 px-4 rounded-lg font-black uppercase text-[10px] tracking-widest border-border bg-card"
               >
-                Previous
+                {t("transactions.previous")}
               </Button>
               <Button
                 variant="outline"
                 size="sm"
                 className="h-9 px-4 rounded-lg font-black uppercase text-[10px] tracking-widest border-border bg-card hover:bg-primary/5 hover:text-primary hover:border-primary/20"
               >
-                Next
+                {t("transactions.next")}
               </Button>
             </div>
           </div>

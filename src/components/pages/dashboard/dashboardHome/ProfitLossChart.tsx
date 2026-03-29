@@ -2,17 +2,18 @@
 import { FormSelect } from "@/components/form/FormSelect";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProfitLossPeriod } from "@/interfaces/dashboard.interface";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { getProfitLossChartData } from "@/services/dashboard.service";
 import { useEffect, useState } from "react";
 import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Legend,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
+    Bar,
+    BarChart,
+    CartesianGrid,
+    Legend,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis,
 } from "recharts";
 
 type ChartPoint = {
@@ -22,6 +23,7 @@ type ChartPoint = {
 };
 
 export default function ProfitLossChart() {
+  const { t } = useTranslation();
   const [periodFilter, setPeriodFilter] = useState<ProfitLossPeriod>(
     ProfitLossPeriod.WEEKLY,
   );
@@ -54,7 +56,7 @@ export default function ProfitLossChart() {
         setErrorMessage(
           error instanceof Error
             ? error.message
-            : "An unexpected error occurred.",
+            : "Unexpected error",
         );
       } finally {
         setIsLoading(false);
@@ -66,26 +68,29 @@ export default function ProfitLossChart() {
 
   const headerLabel =
     periodFilter === ProfitLossPeriod.WEEKLY
-      ? "Weekly (Mon-Sun)"
+      ? t("dashboardHome.weeklyMonSun")
       : periodFilter === ProfitLossPeriod.MONTHLY
-        ? `Monthly Breakdown - ${selectedYear}`
-        : `Yearly Overview`;
+        ? `${t("dashboardHome.monthlyBreakdown")} - ${selectedYear}`
+        : t("dashboardHome.yearlyOverview");
 
   return (
     <Card className="bg-card border-border h-full shadow-none">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <div>
           <CardTitle className="text-foreground text-lg font-bold">
-            Profit & Loss
+            {t("dashboardHome.profitLoss")}
           </CardTitle>
           <p className="mt-1 text-xs text-muted-foreground">{headerLabel}</p>
         </div>
         <div className="flex items-center gap-2">
           <FormSelect
             options={[
-              { value: ProfitLossPeriod.WEEKLY, label: "Weekly" },
-              { value: ProfitLossPeriod.MONTHLY, label: "Monthly" },
-              { value: ProfitLossPeriod.YEARLY, label: "Yearly" },
+              { value: ProfitLossPeriod.WEEKLY, label: t("dashboardHome.weekly") },
+              {
+                value: ProfitLossPeriod.MONTHLY,
+                label: t("dashboardHome.monthly"),
+              },
+              { value: ProfitLossPeriod.YEARLY, label: t("dashboardHome.yearly") },
             ]}
             value={periodFilter}
             onChange={(value) => setPeriodFilter(value as ProfitLossPeriod)}
@@ -133,7 +138,7 @@ export default function ProfitLossChart() {
                     `${Math.round(Number(value) / 1000)}k`
                   }
                   label={{
-                    value: "Profit / Loss",
+                    value: t("dashboardHome.axisProfitLoss"),
                     angle: -90,
                     position: "insideLeft",
                     fill: "#64748b",
@@ -155,7 +160,7 @@ export default function ProfitLossChart() {
                   fill="#10b981"
                   fillOpacity={0.8}
                   radius={[6, 6, 0, 0]}
-                  name="Profit"
+                  name={t("dashboardHome.legendProfit")}
                   activeBar={false}
                 />
                 <Bar
@@ -163,14 +168,14 @@ export default function ProfitLossChart() {
                   fill="#ef4444"
                   fillOpacity={0.75}
                   radius={[6, 6, 0, 0]}
-                  name="Loss"
+                  name={t("dashboardHome.legendLoss")}
                   activeBar={false}
                 />
               </BarChart>
             </ResponsiveContainer>
           ) : (
             <div className="flex items-center justify-center h-full">
-              <p className="text-muted-foreground">No data available</p>
+              <p className="text-muted-foreground">{t("dashboardHome.noDataAvailable")}</p>
             </div>
           )}
         </div>
