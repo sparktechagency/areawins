@@ -1,5 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IProfitLossChartData } from "@/interfaces/dashboard.interface";
+"use server";
+import {
+  IProfitLossChartData,
+  ProfitLossPeriod,
+} from "@/interfaces/dashboard.interface";
 import { api } from "./api";
 
 export const getProfitLossChartData = async (
@@ -8,17 +12,18 @@ export const getProfitLossChartData = async (
   try {
     const queryString = new URLSearchParams({
       ...queryParams,
-      period: queryParams.period || "week",
+      period: queryParams.period || ProfitLossPeriod.WEEKLY,
     }).toString();
 
-    const res = await api.get(`/dashboard/profit-loss?${queryString}`);
+    const res = await api.get(`/dashboard/profit-loss-trend?${queryString}`);
+    console.log("Res", res);
 
     if (!res.success) {
       return null;
     }
-
     return res.data as IProfitLossChartData;
   } catch (error: any) {
-    return null;
+    console.error("Error fetching profit loss data:", error);
+    throw error;
   }
 };

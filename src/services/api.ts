@@ -7,6 +7,7 @@ type FetchOptions = Omit<RequestInit, "headers"> & {
   headers?: Record<string, string>;
 };
 export interface ApiResponse<T = any> {
+  statusCode?: number;
   success: boolean;
   message: string;
   meta?: {
@@ -15,7 +16,9 @@ export interface ApiResponse<T = any> {
     total: number;
     totalPages: number;
   };
-  data: T;
+  data?: T;
+  timeStamp?: string;
+  [key: string]: any;
 }
 
 const serverFetchHelper = async (
@@ -62,28 +65,43 @@ const serverFetchHelper = async (
     // For 204 No Content
     if (response.status === 204) {
       return {
+        statusCode: 204,
         success: true,
         message: "Success",
-        data: {} as any,
+        timeStamp: new Date().toISOString(),
       };
     }
 
-    const data = await response.json().catch(() => ({}));
+    const payload = await response.json().catch(() => null);
+
+    // Preserve backend response shape when it already contains success/message.
+    if (payload && typeof payload === "object" && "success" in payload) {
+      return payload as ApiResponse;
+    }
+
+    if (!response.ok) {
+      return {
+        statusCode: response.status,
+        success: false,
+        message: response.statusText || `HTTP error! status: ${response.status}`,
+        timeStamp: new Date().toISOString(),
+      };
+    }
 
     return {
-      success: data.success ?? response.ok,
-      message:
-        data?.message ||
-        (response.ok ? "Success" : `HTTP error! status: ${response.status}`),
-      data: data?.data ?? data,
-      meta: data?.meta,
+      statusCode: response.status,
+      success: true,
+      message: "Success",
+      data: payload as any,
+      timeStamp: new Date().toISOString(),
     };
   } catch (error: any) {
     console.error(`API Request Failed: ${endpoint}`, error);
     return {
+      statusCode: 500,
       success: false,
       message: error.message || "Something went wrong",
-      data: null as any,
+      timeStamp: new Date().toISOString(),
     };
   }
 };

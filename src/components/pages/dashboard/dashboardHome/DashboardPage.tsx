@@ -1,14 +1,14 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout";
+import { IProfitLossChartData } from "@/interfaces/dashboard.interface";
+import { IWalletData } from "@/interfaces/wallet.interface";
 import DashboardGreeting from "./DashboardGreeting";
+import ProfitLossChart from "./ProfitLossChart";
 import RecentBetsTable from "./RecentBetsTable";
 import StatsOverview from "./StatsOverview";
-import ProfitLossChart from "./ProfitLossChart";
-import { IWalletData } from "@/interfaces/wallet.interface";
-import { IProfitLossChartData } from "@/interfaces/dashboard.interface";
 
 interface DashboardPageProps {
   statsOverviewData: IWalletData;
-  profitLossData: IProfitLossChartData;
+  profitLossData: IProfitLossChartData | null;
 }
 export default function DashboardPage({
   statsOverviewData,
