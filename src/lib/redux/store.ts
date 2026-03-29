@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import authUiReducer from "./features/authUiSlice";
 import bettingReducer from "./features/bettingSlice";
+import { baseApi } from "./api/baseApi";
 export const store = configureStore({
   reducer: {
     authUi: authUiReducer,
     betting: bettingReducer,
+    [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

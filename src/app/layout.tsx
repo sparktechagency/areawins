@@ -1,6 +1,5 @@
 import AuthModal from "@/components/auth/AuthModal";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import { ReduxProvider } from "@/lib/redux/provider";
 import type { Metadata } from "next";
@@ -41,7 +40,6 @@ export default function RootLayout({
               {children}
               <AuthModal />
               <Toaster position="top-center" />
-              <Sonner />
             </ReduxProvider>
           </LanguageProvider>
         </ThemeProvider>

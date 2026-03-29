@@ -1,6 +1,7 @@
 "use client";
-export default function DashboardGreeting() {
-  const user = { firstName: "Rakib", fullName: "Rakib Hassan" };
+import { IUser } from "@/interfaces/user.interface";
+
+export default function DashboardGreeting({ user }: { user: IUser }) {
   // Get time of day
   const hour = new Date().getHours();
   let greeting = "Good evening";

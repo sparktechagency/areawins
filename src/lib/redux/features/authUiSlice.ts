@@ -46,8 +46,6 @@ const authUiSlice = createSlice({
     },
     closeAuthModal: (state) => {
       state.isOpen = false;
-      // We can optionally reset view on close, but keeping last view might be better UX sometimes.
-      // Resetting for safety:
       state.view = "LOGIN";
       state.email = undefined;
       state.otp = undefined;
