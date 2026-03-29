@@ -564,7 +564,7 @@ export const translations = {
     },
     footer: {
       tagline:
-        "EasyBet is your trusted peer-to-peer betting platform built for transparency, speed, and secure payouts.",
+        "AreaWins is your trusted peer-to-peer betting platform built for transparency, speed, and secure payouts.",
       quickLinks: "Quick Links",
       privacy: "Privacy Policy",
       about: "About Us",
@@ -577,7 +577,7 @@ export const translations = {
       supportLabel: "Support",
       payouts: "Payouts",
       instant: "Instant",
-      copyright: "© 2026 EasyBet. All rights reserved.",
+      copyright: "© 2026 AreaWins. All rights reserved.",
     },
     privacy: {
       title: "Privacy Policy",
@@ -587,7 +587,7 @@ export const translations = {
       jumpToSection: "Jump to section",
       downloadPdf: "Download PDF",
       introParagraph:
-        "At EasyBet, your privacy is our priority. This policy outlines how we collect, use, and protect your personal data while you use our betting platform.",
+        "At AreaWins, your privacy is our priority. This policy outlines how we collect, use, and protect your personal data while you use our betting platform.",
       dataProtectionTitle: "Data Protection",
       dataProtectionDesc:
         "We use advanced encryption to safeguard your personal and financial data.",
@@ -597,7 +597,7 @@ export const translations = {
       policyAtGlance: "Policy at a Glance",
       scope: "Scope",
       scopeDesc:
-        "This policy applies to all registered users, visitors, and affiliates using EasyBet web and mobile applications.",
+        "This policy applies to all registered users, visitors, and affiliates using AreaWins web and mobile applications.",
       consent: "Consent",
       consentDesc:
         "By creating an account, you consent to the data practices described in this document.",
@@ -657,9 +657,9 @@ export const translations = {
       responsibleGaming: "Responsible Gaming",
       liability: "Liability & Indemnity",
       introP1:
-        "By accepting the EasyBet Terms and Conditions, you enter a legally binding agreement that also includes our Privacy Policy and Betting Rules.",
+        "By accepting the AreaWins Terms and Conditions, you enter a legally binding agreement that also includes our Privacy Policy and Betting Rules.",
       introP2:
-        "EasyBet operates under applicable online gaming laws. We may update these terms at any time and notify users of significant changes.",
+        "AreaWins operates under applicable online gaming laws. We may update these terms at any time and notify users of significant changes.",
       accountRulesVerification: "Account Rules & Verification",
       accountRulesDesc:
         "You must be at least 18 years old, and we may request age verification documents before allowing full account access.",
@@ -692,6 +692,142 @@ export const translations = {
       selfExclusion: "Self-Exclusion",
       depositLimits: "Deposit Limits",
       realityChecks: "Reality Checks",
+    },
+    aboutPage: {
+      platformOverview: "Platform Overview",
+      heroTitleLine1: "Revolutionizing Sports",
+      heroTitleLine2: "Betting in",
+      heroLocation: "Venezuela",
+      heroDescription:
+        "AreaWins is built for modern fans. We combine fast technology with bank-grade security to deliver a professional betting experience.",
+      statsUsers: "Active Users",
+      statsMatches: "Daily Matches",
+      statsSupport: "24/7 Spanish Support",
+      statsUptime: "Uptime",
+      builtForFans: "Built for Fans",
+      builtForFansDesc: "Experience the thrill from anywhere, anytime.",
+      missionTag: "Our Mission",
+      missionTitle: "Empowering the Modern Bettor",
+      missionDesc:
+        "Our mission is to provide a transparent, secure, and exciting platform where sports enthusiasts can engage confidently with their favorite games.",
+      visionTag: "Our Vision",
+      visionTitle: "The Future of Interactive Sports",
+      visionDesc:
+        "We envision a seamless betting experience integrated with live sports, tailored for Venezuelan players and powered by reliable technology.",
+      whyTitle: "Why Choose AreaWins",
+      whySubtitle:
+        "We prioritize your experience with industry-leading features designed for serious bettors.",
+      feature1: "Integrity & Fair Play",
+      feature1Desc:
+        "Transparent odds and instant settlement standards you can trust.",
+      feature2: "Cutting-edge Innovation",
+      feature2Desc:
+        "Live betting technology that keeps up with every match moment.",
+      feature3: "Community Focused",
+      feature3Desc:
+        "Built for the Venezuelan market with local-friendly support and flows.",
+      feature4: "Instant Withdrawals",
+      feature4Desc:
+        "Fast payouts with secure banking and digital payment options.",
+      feature5: "Market Depth",
+      feature5Desc:
+        "Strong coverage across football, cricket, and global competitions.",
+      feature6: "Data Privacy",
+      feature6Desc:
+        "Your data is protected by industry-standard encryption and controls.",
+      ctaTitle: "Ready to Win?",
+      ctaDesc:
+        "Join thousands of players in Venezuela and claim your welcome benefits today.",
+      ctaPrimary: "Join Now",
+      ctaSecondary: "Contact Support",
+    },
+    supportPage: {
+      badge: "24/7 Premium Support",
+      title: "How can we help you today?",
+      subtitle:
+        "Get fast assistance for account, betting, and wallet issues from our professional support desk.",
+      metric1Label: "Avg Response",
+      metric1Value: "< 2 min",
+      metric2Label: "Resolution Rate",
+      metric2Value: "98.6%",
+      metric3Label: "Availability",
+      metric3Value: "24/7",
+      channelsTitle: "Support Channels",
+      liveChat: "Live Chat",
+      liveChatDesc: "Instant support for urgent issues",
+      liveChatTime: "Average response time: under 2 minutes",
+      startChat: "Start Chat",
+      emailUs: "Email Support",
+      emailUsDesc: "Best for detailed requests",
+      sendEmail: "Send Email",
+      whatsapp: "WhatsApp Support",
+      whatsappDesc: "Quick support from mobile",
+      chatWhatsapp: "Chat on WhatsApp",
+      quickHelp: "Quick Help",
+      faq1Q: "How long does withdrawal verification take?",
+      faq1A:
+        "Most withdrawals are reviewed within 24 hours after KYC and risk checks are completed.",
+      faq2Q: "Why is my account under review?",
+      faq2A:
+        "Account reviews happen for security checks, identity verification, or suspicious activity monitoring.",
+      faq3Q: "Can I change my payment method after deposit?",
+      faq3A:
+        "Yes, but some changes may require additional verification to protect account ownership.",
+      workingHours: "Priority Support Window",
+      workingHoursDesc:
+        "Priority agents are active all day with increased capacity during major live events.",
+      generalInfo: "Looking for policy details?",
+      terms: "Terms & Conditions",
+      privacy: "Privacy Policy",
+    },
+    contactPage: {
+      badge: "24/7 SUPPORT",
+      title: "Get in Touch",
+      subtitle:
+        "Have a question about bets, deposits, or verification? Our team is here to help.",
+      formTitle: "Send us a message",
+      formSubtitle: "Share your issue and we will respond as quickly as possible.",
+      fullName: "Full Name",
+      fullNamePlaceholder: "Enter your full name",
+      emailAddress: "Email Address",
+      emailPlaceholder: "you@domain.com",
+      userId: "User ID",
+      optional: "Optional",
+      userIdPlaceholder: "e.g. 883210",
+      selectTopic: "Select a Topic",
+      topicPlaceholder: "Choose a subject",
+      topicDeposit: "Deposit Issue",
+      topicWithdrawal: "Withdrawal Issue",
+      topicBet: "Bet Settlement",
+      topicAccount: "Account Verification",
+      topicOther: "Other",
+      message: "Message",
+      messagePlaceholder:
+        "Describe your issue in detail so we can assist faster...",
+      sendMessage: "Send Message",
+      whatsappSupport: "WhatsApp Support",
+      whatsappReply: "Typical reply: < 5 min",
+      emailSupport: "Email Support",
+      emailSupportHint: "Best for complex inquiries",
+      liveChat: "Live Chat",
+      liveChatAvailability: "Available 24/7",
+      liveChatHint: "Instant connection",
+      commonQuestions: "Common Questions",
+      faq1Q: "How to deposit?",
+      faq1A:
+        "Go to Dashboard > Wallet > Deposit, choose method, enter amount, and complete the steps shown.",
+      faq2Q: "What is the minimum withdrawal?",
+      faq2A:
+        "The minimum withdrawal amount is $10 USD and requests are usually processed within 24 hours.",
+      faq3Q: "Why is my account restricted?",
+      faq3A:
+        "Restrictions can happen due to pending verification or security checks. Contact support for resolution.",
+      viewHelpCenter: "View Help Center",
+      securityNote:
+        "Your data is protected by 256-bit SSL encryption. We never share your details.",
+      legalPrompt: "Need legal information?",
+      terms: "Terms",
+      privacy: "Privacy",
     },
   },
   es: {
@@ -1258,7 +1394,7 @@ export const translations = {
     },
     footer: {
       tagline:
-        "EasyBet es tu plataforma de apuestas peer-to-peer de confianza, construida para transparencia, velocidad y pagos seguros.",
+        "AreaWins es tu plataforma de apuestas peer-to-peer de confianza, construida para transparencia, velocidad y pagos seguros.",
       quickLinks: "Enlaces Rapidos",
       privacy: "Politica de Privacidad",
       about: "Sobre Nosotros",
@@ -1271,7 +1407,7 @@ export const translations = {
       supportLabel: "Soporte",
       payouts: "Pagos",
       instant: "Instantaneo",
-      copyright: "© 2026 EasyBet. Todos los derechos reservados.",
+      copyright: "© 2026 AreaWins. Todos los derechos reservados.",
     },
     privacy: {
       title: "Politica de Privacidad",
@@ -1281,7 +1417,7 @@ export const translations = {
       jumpToSection: "Ir a seccion",
       downloadPdf: "Descargar PDF",
       introParagraph:
-        "En EasyBet, tu privacidad es prioridad. Esta politica explica como recopilamos, usamos y protegemos tus datos personales.",
+        "En AreaWins, tu privacidad es prioridad. Esta politica explica como recopilamos, usamos y protegemos tus datos personales.",
       dataProtectionTitle: "Proteccion de Datos",
       dataProtectionDesc:
         "Usamos cifrado avanzado para proteger tus datos personales y financieros.",
@@ -1291,7 +1427,7 @@ export const translations = {
       policyAtGlance: "Politica en Resumen",
       scope: "Alcance",
       scopeDesc:
-        "Esta politica aplica a usuarios registrados, visitantes y afiliados que usan aplicaciones web y moviles de EasyBet.",
+        "Esta politica aplica a usuarios registrados, visitantes y afiliados que usan aplicaciones web y moviles de AreaWins.",
       consent: "Consentimiento",
       consentDesc:
         "Al crear una cuenta, aceptas las practicas de datos descritas en este documento.",
@@ -1351,9 +1487,9 @@ export const translations = {
       responsibleGaming: "Juego Responsable",
       liability: "Responsabilidad e Indemnizacion",
       introP1:
-        "Al aceptar los Terminos y Condiciones de EasyBet, entras en un acuerdo legalmente vinculante que incluye tambien nuestra Politica de Privacidad.",
+        "Al aceptar los Terminos y Condiciones de AreaWins, entras en un acuerdo legalmente vinculante que incluye tambien nuestra Politica de Privacidad.",
       introP2:
-        "EasyBet opera bajo leyes aplicables de juego en linea. Podemos actualizar estos terminos y notificar cambios importantes.",
+        "AreaWins opera bajo leyes aplicables de juego en linea. Podemos actualizar estos terminos y notificar cambios importantes.",
       accountRulesVerification: "Reglas de Cuenta y Verificacion",
       accountRulesDesc:
         "Debes tener al menos 18 anos y podemos solicitar documentos de verificacion de edad antes de habilitar acceso completo.",
@@ -1386,6 +1522,135 @@ export const translations = {
       selfExclusion: "Autoexclusion",
       depositLimits: "Limites de Deposito",
       realityChecks: "Controles de Realidad",
+    },
+    aboutPage: {
+      platformOverview: "Resumen de Plataforma",
+      heroTitleLine1: "Revolucionando las",
+      heroTitleLine2: "Apuestas Deportivas en",
+      heroLocation: "Venezuela",
+      heroDescription:
+        "AreaWins esta construido para fans modernos. Combinamos tecnologia rapida con seguridad bancaria para una experiencia profesional.",
+      statsUsers: "Usuarios Activos",
+      statsMatches: "Partidos Diarios",
+      statsSupport: "Soporte en Espanol 24/7",
+      statsUptime: "Disponibilidad",
+      builtForFans: "Hecho para Fans",
+      builtForFansDesc: "Vive la emocion desde cualquier lugar.",
+      missionTag: "Nuestra Mision",
+      missionTitle: "Impulsando al Apostador Moderno",
+      missionDesc:
+        "Nuestra mision es ofrecer una plataforma transparente, segura y emocionante para aficionados al deporte.",
+      visionTag: "Nuestra Vision",
+      visionTitle: "El Futuro del Deporte Interactivo",
+      visionDesc:
+        "Visualizamos una experiencia de apuestas integrada con deportes en vivo y adaptada al mercado venezolano.",
+      whyTitle: "Por que elegir AreaWins",
+      whySubtitle:
+        "Priorizamos tu experiencia con funciones de nivel profesional para apostadores serios.",
+      feature1: "Integridad y Juego Limpio",
+      feature1Desc: "Cuotas transparentes y liquidaciones inmediatas en las que puedes confiar.",
+      feature2: "Innovacion de Vanguardia",
+      feature2Desc: "Tecnologia en vivo que sigue cada momento del partido.",
+      feature3: "Enfoque en Comunidad",
+      feature3Desc: "Disenado para el mercado venezolano con soporte local.",
+      feature4: "Retiros Instantaneos",
+      feature4Desc: "Pagos rapidos con metodos bancarios y digitales seguros.",
+      feature5: "Cobertura de Mercados",
+      feature5Desc: "Cobertura solida en futbol, cricket y competencias globales.",
+      feature6: "Privacidad de Datos",
+      feature6Desc: "Tus datos estan protegidos con cifrado y controles avanzados.",
+      ctaTitle: "Listo para Ganar?",
+      ctaDesc: "Unete a miles de jugadores en Venezuela y activa tus beneficios hoy.",
+      ctaPrimary: "Unirme Ahora",
+      ctaSecondary: "Contactar Soporte",
+    },
+    supportPage: {
+      badge: "Soporte Premium 24/7",
+      title: "Como podemos ayudarte hoy?",
+      subtitle:
+        "Recibe asistencia rapida para cuenta, apuestas y billetera desde nuestro equipo profesional.",
+      metric1Label: "Respuesta Promedio",
+      metric1Value: "< 2 min",
+      metric2Label: "Tasa de Resolucion",
+      metric2Value: "98.6%",
+      metric3Label: "Disponibilidad",
+      metric3Value: "24/7",
+      channelsTitle: "Canales de Soporte",
+      liveChat: "Chat en Vivo",
+      liveChatDesc: "Soporte instantaneo para casos urgentes",
+      liveChatTime: "Tiempo promedio de respuesta: menos de 2 minutos",
+      startChat: "Iniciar Chat",
+      emailUs: "Soporte por Correo",
+      emailUsDesc: "Ideal para solicitudes detalladas",
+      sendEmail: "Enviar Correo",
+      whatsapp: "Soporte por WhatsApp",
+      whatsappDesc: "Atencion rapida desde movil",
+      chatWhatsapp: "Chatear por WhatsApp",
+      quickHelp: "Ayuda Rapida",
+      faq1Q: "Cuanto tarda la verificacion de retiro?",
+      faq1A:
+        "La mayoria de retiros se revisan dentro de 24 horas tras completar KYC y controles de riesgo.",
+      faq2Q: "Por que mi cuenta esta en revision?",
+      faq2A:
+        "Las revisiones ocurren por seguridad, verificacion de identidad o monitoreo de actividad sospechosa.",
+      faq3Q: "Puedo cambiar el metodo de pago despues de depositar?",
+      faq3A:
+        "Si, pero algunos cambios pueden requerir verificacion adicional para proteger la propiedad de la cuenta.",
+      workingHours: "Ventana de Soporte Prioritario",
+      workingHoursDesc:
+        "Agentes prioritarios activos todo el dia con mayor capacidad durante eventos en vivo.",
+      generalInfo: "Buscas detalles de politicas?",
+      terms: "Terminos y Condiciones",
+      privacy: "Politica de Privacidad",
+    },
+    contactPage: {
+      badge: "SOPORTE 24/7",
+      title: "Ponte en Contacto",
+      subtitle:
+        "Tienes dudas sobre apuestas, depositos o verificacion? Nuestro equipo te ayuda.",
+      formTitle: "Envianos un mensaje",
+      formSubtitle: "Comparte tu caso y responderemos lo antes posible.",
+      fullName: "Nombre Completo",
+      fullNamePlaceholder: "Ingresa tu nombre completo",
+      emailAddress: "Correo Electronico",
+      emailPlaceholder: "tu@correo.com",
+      userId: "ID de Usuario",
+      optional: "Opcional",
+      userIdPlaceholder: "ej. 883210",
+      selectTopic: "Selecciona un Tema",
+      topicPlaceholder: "Elige un asunto",
+      topicDeposit: "Problema de Deposito",
+      topicWithdrawal: "Problema de Retiro",
+      topicBet: "Liquidacion de Apuesta",
+      topicAccount: "Verificacion de Cuenta",
+      topicOther: "Otro",
+      message: "Mensaje",
+      messagePlaceholder:
+        "Describe tu problema en detalle para ayudarte mas rapido...",
+      sendMessage: "Enviar Mensaje",
+      whatsappSupport: "Soporte por WhatsApp",
+      whatsappReply: "Respuesta tipica: < 5 min",
+      emailSupport: "Soporte por Correo",
+      emailSupportHint: "Ideal para consultas complejas",
+      liveChat: "Chat en Vivo",
+      liveChatAvailability: "Disponible 24/7",
+      liveChatHint: "Conexion inmediata",
+      commonQuestions: "Preguntas Comunes",
+      faq1Q: "Como depositar?",
+      faq1A:
+        "Ve a Panel > Billetera > Depositar, elige metodo, monto y sigue los pasos en pantalla.",
+      faq2Q: "Cual es el retiro minimo?",
+      faq2A:
+        "El monto minimo de retiro es $10 USD y normalmente se procesa dentro de 24 horas.",
+      faq3Q: "Por que mi cuenta esta restringida?",
+      faq3A:
+        "Puede deberse a verificacion pendiente o controles de seguridad. Contacta soporte para solucionarlo.",
+      viewHelpCenter: "Ver Centro de Ayuda",
+      securityNote:
+        "Tus datos estan protegidos con cifrado SSL de 256 bits. Nunca compartimos tu informacion.",
+      legalPrompt: "Necesitas informacion legal?",
+      terms: "Terminos",
+      privacy: "Privacidad",
     },
   },
 };

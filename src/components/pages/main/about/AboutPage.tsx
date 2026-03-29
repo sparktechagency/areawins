@@ -1,9 +1,22 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { Link } from "@/lib/i18n/routing";
 import { Lock, Shield, Trophy, Users, Wallet, Zap } from "lucide-react";
 
 const AboutPage = () => {
+  const { t } = useTranslation();
+
+  const highlights = [
+    t("aboutPage.feature1"),
+    t("aboutPage.feature2"),
+    t("aboutPage.feature3"),
+    t("aboutPage.feature4"),
+    t("aboutPage.feature5"),
+    t("aboutPage.feature6"),
+  ];
+
   return (
     <div className="w-full min-h-screen bg-background text-foreground">
       {/* Hero Section */}
@@ -13,16 +26,14 @@ const AboutPage = () => {
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 relative z-10 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-4 sm:mb-6 border border-primary/20 uppercase tracking-wider">
-            Platform Overview
+            {t("aboutPage.platformOverview")}
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
-            Revolutionizing Sports <br />
-            Betting in <span className="text-primary">Venezuela</span>
+            {t("aboutPage.heroTitleLine1")} <br />
+            {t("aboutPage.heroTitleLine2")} <span className="text-primary">{t("aboutPage.heroLocation")}</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed\">
-            EasyBet is built for the modern fan. We combine lightning-fast
-            technology with rock-solid security to deliver the ultimate betting
-            experience tailored for you.
+          <p className="max-w-2xl mx-auto text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed">
+            {t("aboutPage.heroDescription")}
           </p>
         </div>
       </section>
@@ -35,7 +46,7 @@ const AboutPage = () => {
               50k+
             </div>
             <div className="text-xs uppercase tracking-wider text-primary font-bold">
-              Active Users
+              {t("aboutPage.statsUsers")}
             </div>
           </div>
           <div className="text-center">
@@ -43,7 +54,7 @@ const AboutPage = () => {
               1,000+
             </div>
             <div className="text-xs uppercase tracking-wider text-primary font-bold">
-              Daily Matches
+              {t("aboutPage.statsMatches")}
             </div>
           </div>
           <div className="text-center">
@@ -51,7 +62,7 @@ const AboutPage = () => {
               24/7
             </div>
             <div className="text-xs uppercase tracking-wider text-primary font-bold">
-              24/7 Spanish Support
+              {t("aboutPage.statsSupport")}
             </div>
           </div>
           <div className="text-center">
@@ -59,7 +70,7 @@ const AboutPage = () => {
               99.9%
             </div>
             <div className="text-xs uppercase tracking-wider text-primary font-bold">
-              Uptime
+              {t("aboutPage.statsUptime")}
             </div>
           </div>
         </div>
@@ -74,26 +85,23 @@ const AboutPage = () => {
               <div className="absolute inset-0 bg-linear-to-tr from-primary/20 to-transparent flex items-end p-8">
                 <div>
                   <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
-                    Built for Fans
+                    {t("aboutPage.builtForFans")}
                   </h3>
                   <p className="text-sm text-gray-200">
-                    Experience the thrill from anywhere, anytime.
+                    {t("aboutPage.builtForFansDesc")}
                   </p>
                 </div>
               </div>
             </div>
             <div className="order-1 md:order-2">
               <div className="text-primary text-xs font-bold uppercase tracking-wider mb-2">
-                Our Mission
+                {t("aboutPage.missionTag")}
               </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 md:mb-4">
-                Empowering the Modern Bettor
+                {t("aboutPage.missionTitle")}
               </h2>
               <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-4 md:mb-6">
-                Our mission is to provide a transparent, secure, and
-                exhilarating platform where sports enthusiasts can engage with
-                their favorite games. We believe in fair play, instant rewards,
-                and creating a community where every match matters.
+                {t("aboutPage.missionDesc")}
               </p>
             </div>
           </div>
@@ -101,35 +109,31 @@ const AboutPage = () => {
           <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-center">
             <div>
               <div className="text-primary text-xs font-bold uppercase tracking-wider mb-2">
-                Our Vision
+                {t("aboutPage.visionTag")}
               </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 md:mb-4">
-                The Future of Interactive Sports
+                {t("aboutPage.visionTitle")}
               </h2>
               <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-4 md:mb-6">
-                We envision a world where sports betting is seamless and
-                integrated into the viewing experience. By leveraging
-                cutting-edge technology and local insights, we aim to be the #1
-                choice for sports entertainment in Venezuela.
+                {t("aboutPage.visionDesc")}
               </p>
             </div>
             <div className="relative rounded-2xl overflow-hidden aspect-video bg-card border border-border">
               {/* Placeholder for Vision image */}
-              <div className="absolute inset-0 bg-gradient-to-bl from-primary/20 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-bl from-primary/20 to-transparent" />
             </div>
           </div>
         </div>
       </section>
 
       {/* Why Choose Us */}
-      <section className="w-fullpy-20 bg-card">
+      <section className="w-full py-20 bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-foreground mb-4">
-            Why Choose EasyBet
+            {t("aboutPage.whyTitle")}
           </h2>
           <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-16">
-            We prioritize your experience with industry-leading features
-            designed for the modern bettor.
+            {t("aboutPage.whySubtitle")}
           </p>
 
           <div className="grid md:grid-cols-3 gap-4 md:gap-6">
@@ -139,11 +143,10 @@ const AboutPage = () => {
                 <Shield className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">
-                Integrity & Fair Play
+                {highlights[0]}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Guaranteed transparent odds and instant payouts you can trust.
-                We operate with the highest standards of security.
+                {t("aboutPage.feature1Desc")}
               </p>
             </div>
 
@@ -153,11 +156,10 @@ const AboutPage = () => {
                 <Zap className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">
-                Cutting-edge Innovation
+                {highlights[1]}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Live betting technology that keeps up with every match moment.
-                Experience zero lag during crucial plays.
+                {t("aboutPage.feature2Desc")}
               </p>
             </div>
 
@@ -167,11 +169,10 @@ const AboutPage = () => {
                 <Users className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">
-                Community Focused
+                {highlights[2]}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Tailored specifically for the local Venezuelan market with 24/7
-                Spanish support and local payment methods.
+                {t("aboutPage.feature3Desc")}
               </p>
             </div>
 
@@ -181,11 +182,10 @@ const AboutPage = () => {
                 <Wallet className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">
-                Instant Withdrawals
+                {highlights[3]}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Get your winnings fast. We support credit cards, bank transfers,
-                and digital wallets for seamless transactions.
+                {t("aboutPage.feature4Desc")}
               </p>
             </div>
 
@@ -195,11 +195,10 @@ const AboutPage = () => {
                 <Trophy className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">
-                Cricket Specialists
+                {highlights[4]}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                The best odds on BPL, IPL, and International Cricket. We know
-                what the fans want.
+                {t("aboutPage.feature5Desc")}
               </p>
             </div>
 
@@ -209,11 +208,10 @@ const AboutPage = () => {
                 <Lock className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">
-                Data Privacy
+                {highlights[5]}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Your data is protected by industry-standard SSL encryption. We
-                never share your info.
+                {t("aboutPage.feature6Desc")}
               </p>
             </div>
           </div>
@@ -226,26 +224,29 @@ const AboutPage = () => {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
           <div className="relative z-10">
             <h2 className="text-4xl font-bold text-foreground mb-6">
-              Ready to Win?
+              {t("aboutPage.ctaTitle")}
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto mb-8 text-lg">
-              Join thousands of satisfied players in Venezuela. Sign up today
-              and get a 100% Welcome Bonus on your first deposit.
+              {t("aboutPage.ctaDesc")}
             </p>
             <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-              <Button
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold min-w-[200px] h-14 text-lg"
-              >
-                Join Now
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-border text-foreground hover:bg-muted bg-transparent min-w-[200px] h-14 text-lg"
-              >
-                Contact Support
-              </Button>
+              <Link href="/register">
+                <Button
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold min-w-[200px] h-14 text-lg"
+                >
+                  {t("aboutPage.ctaPrimary")}
+                </Button>
+              </Link>
+              <Link href="/support">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-border text-foreground hover:bg-muted bg-transparent min-w-[200px] h-14 text-lg"
+                >
+                  {t("aboutPage.ctaSecondary")}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

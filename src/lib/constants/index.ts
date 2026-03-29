@@ -1,7 +1,7 @@
 
+export * from "./betTypes";
 export * from "./routes";
 export * from "./sports";
-export * from "./betTypes";
 
 // API Configuration
 export const API_CONFIG = {
@@ -25,11 +25,11 @@ export const COOKIES = {
 
 // LocalStorage keys
 export const STORAGE_KEYS = {
-  BETTING_SLIP: "easybet_betting_slip",
-  USER_PREFERENCES: "easybet_preferences",
-  FAVORITE_TEAMS: "easybet_favorite_teams",
-  FAVORITE_MATCHES: "easybet_favorite_matches",
-  RECENT_SEARCHES: "easybet_recent_searches",
+  BETTING_SLIP: "areawins_betting_slip",
+  USER_PREFERENCES: "areawins_preferences",
+  FAVORITE_TEAMS: "areawins_favorite_teams",
+  FAVORITE_MATCHES: "areawins_favorite_matches",
+  RECENT_SEARCHES: "areawins_recent_searches",
 } as const;
 
 // Pagination
@@ -72,16 +72,16 @@ export const LANGUAGES = [
 
 // Social links
 export const SOCIAL_LINKS = {
-  FACEBOOK: "https://facebook.com/easybet",
-  TWITTER: "https://twitter.com/easybet",
-  INSTAGRAM: "https://instagram.com/easybet",
-  YOUTUBE: "https://youtube.com/easybet",
-  TELEGRAM: "https://t.me/easybet",
+  FACEBOOK: "https://facebook.com/areawins",
+  TWITTER: "https://twitter.com/areawins",
+  INSTAGRAM: "https://instagram.com/areawins",
+  YOUTUBE: "https://youtube.com/areawins",
+  TELEGRAM: "https://t.me/areawins",
 } as const;
 
 // Contact info
 export const CONTACT_INFO = {
-  EMAIL: "support@easybet.com",
+  EMAIL: "support@areawins.com",
   PHONE: "+1 (800) 123-4567",
   ADDRESS: "123 Sports Avenue, Gaming City, GC 12345",
   SUPPORT_HOURS: "24/7 Customer Support",

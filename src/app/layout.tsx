@@ -9,13 +9,13 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Area Wins - Your Premier Sports Betting Platform",
+  title: "AreaWins - Your Premier Sports Betting Platform",
   description:
     "Place bets on football, cricket, basketball, and more. Live betting, competitive odds, and instant payouts.",
   keywords:
     "sports betting, live betting, football betting, cricket betting, online gambling",
   openGraph: {
-    title: "Area Wins  - Your Premier Sports Betting Platform",
+    title: "AreaWins - Your Premier Sports Betting Platform",
     description: "Place bets on football, cricket, basketball, and more.",
     type: "website",
   },

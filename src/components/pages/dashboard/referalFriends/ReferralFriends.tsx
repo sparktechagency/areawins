@@ -3,22 +3,22 @@ import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { formatCurrency } from "@/lib/utils";
 import {
-    CheckCircle2,
-    Copy,
-    Gift,
-    Share2,
-    TrendingUp,
-    Users,
-    Wallet,
+  CheckCircle2,
+  Copy,
+  Gift,
+  Share2,
+  TrendingUp,
+  Users,
+  Wallet,
 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -32,7 +32,7 @@ const ReferralFriends = () => {
   const referFriends = MOCK_REFERRED_FRIENDS;
 
   const [referralCode] = useState("BETPRO-99-PRO");
-  const referralLink = `https://easybet.pro/register?ref=${referralCode}`;
+  const referralLink = `https://areawins.pro/register?ref=${referralCode}`;
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);

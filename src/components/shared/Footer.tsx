@@ -73,7 +73,7 @@ const Footer = () => {
             <h3 className="text-sm font-semibold mb-4 uppercase tracking-wider text-foreground">{t("footer.contactInfo")}</h3>
             <p className="text-sm text-muted-foreground flex items-center gap-2">
               <Mail className="w-4 h-4 text-primary" />
-              support@easybet.com
+              support@areawins.com
             </p>
             <p className="text-sm text-muted-foreground flex items-center gap-2">
               <Phone className="w-4 h-4 text-primary" />
