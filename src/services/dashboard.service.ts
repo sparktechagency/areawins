@@ -16,14 +16,12 @@ export const getProfitLossChartData = async (
     }).toString();
 
     const res = await api.get(`/dashboard/profit-loss-trend?${queryString}`);
-    console.log("Res", res);
-
     if (!res.success) {
-      return null;
+      throw new Error(res.message || "Failed to fetch profit/loss trend");
     }
-    return res.data as IProfitLossChartData;
+    return (res.data || null) as IProfitLossChartData | null;
   } catch (error: any) {
-    console.error("Error fetching profit loss data:", error);
+    console.error("Error fetching profit/loss chart data:", error);
     throw error;
   }
 };

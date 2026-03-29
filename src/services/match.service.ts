@@ -14,6 +14,9 @@ export const getAllMatchesBySport = async (
     const response = await api.get(
       `/matches/grouped-sport/${sportId}?${queryString}`,
     );
+    if (!response.success) {
+      throw new Error(response.message || "Failed to fetch matches by sport");
+    }
     return response.data;
   } catch (error) {
     console.error("Error fetching matches by sport:", error);
@@ -31,6 +34,9 @@ export const getAllLiveMatches = async (
   }).toString();
   try {
     const response = await api.get(`/matches/live?${queryString}`);
+    if (!response.success) {
+      throw new Error(response.message || "Failed to fetch live matches");
+    }
     return response.data;
   } catch (error) {
     console.error("Error fetching live matches:", error);
@@ -41,6 +47,9 @@ export const getAllLiveMatches = async (
 export const getMatchById = async (matchId: string) => {
   try {
     const response = await api.get(`/matches/${matchId}`);
+    if (!response.success) {
+      throw new Error(response.message || "Failed to fetch match by id");
+    }
     return response.data;
   } catch (error) {
     console.error("Error fetching match by id:", error);

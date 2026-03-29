@@ -8,11 +8,9 @@ import StatsOverview from "./StatsOverview";
 
 interface DashboardPageProps {
   statsOverviewData: IWalletData;
-  profitLossData: IProfitLossChartData | null;
 }
 export default function DashboardPage({
   statsOverviewData,
-  profitLossData,
 }: DashboardPageProps) {
   return (
     <DashboardLayout>
@@ -24,7 +22,7 @@ export default function DashboardPage({
         <StatsOverview stats={statsOverviewData} />
 
         {/* Main Charts Section */}
-        <ProfitLossChart data={profitLossData} />
+        <ProfitLossChart />
 
         {/* Recent Bets Table */}
         <RecentBetsTable />

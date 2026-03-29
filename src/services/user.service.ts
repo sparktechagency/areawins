@@ -22,12 +22,13 @@ export async function getMyProfile() {
     });
 
     if (!res.success) {
-      return null;
+      throw new Error(res.message || "Failed to fetch profile");
     }
 
     return res.data;
   } catch (error: any) {
-    return null;
+    console.error("Failed to fetch profile:", error);
+    throw error;
   }
 }
 

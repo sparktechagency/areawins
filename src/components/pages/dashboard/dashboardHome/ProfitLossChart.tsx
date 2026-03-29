@@ -1,18 +1,18 @@
 "use client";
 import { FormSelect } from "@/components/form/FormSelect";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { IProfitLossChartData, ProfitLossPeriod } from "@/interfaces/dashboard.interface";
+import { ProfitLossPeriod } from "@/interfaces/dashboard.interface";
 import { getProfitLossChartData } from "@/services/dashboard.service";
 import { useEffect, useState } from "react";
 import {
-    Bar,
-    BarChart,
-    CartesianGrid,
-    Legend,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from "recharts";
 
 type ChartPoint = {
@@ -21,24 +21,22 @@ type ChartPoint = {
   loss: number;
 };
 
-export default function ProfitLossChart({
-  data: initialData,
-}: {
-  data: IProfitLossChartData | null;
-}) {
+export default function ProfitLossChart() {
   const [periodFilter, setPeriodFilter] = useState<ProfitLossPeriod>(
-    (initialData?.period as ProfitLossPeriod) || ProfitLossPeriod.WEEKLY
+    ProfitLossPeriod.WEEKLY,
   );
   const [selectedYear, setSelectedYear] = useState<string>(
-    initialData?.year || String(new Date().getFullYear())
+    String(new Date().getFullYear()),
   );
-  const [chartData, setChartData] = useState<ChartPoint[]>(
-    initialData?.chartData || []
-  );
+  const [chartData, setChartData] = useState<ChartPoint[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [retryToken, setRetryToken] = useState(0);
-  const [availableYears] = useState<string[]>(["2024", "2025", "2026"]);
+
+  // Generate available years: current year ± 4 years
+  const currentYear = new Date().getFullYear();
+  const [availableYears] = useState<string[]>(
+    Array.from({ length: 9 }, (_, i) => String(currentYear - 4 + i)),
+  );
 
   // Refetch data when period or year changes
   useEffect(() => {
@@ -50,35 +48,31 @@ export default function ProfitLossChart({
           period: periodFilter,
           year: selectedYear,
         });
-
-        if (result && result.chartData) {
-          setChartData(result.chartData as ChartPoint[]);
-          return;
-        }
-
-        setChartData([]);
-        setErrorMessage("Failed to load profit/loss data. Please try again.");
+        setChartData(result?.chartData as ChartPoint[]);
       } catch (error) {
-        console.error("Error fetching profit loss data:", error);
         setChartData([]);
-        setErrorMessage("Something went wrong while loading chart data.");
+        setErrorMessage(
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred.",
+        );
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchData();
-  }, [periodFilter, selectedYear, retryToken]);
+  }, [periodFilter, selectedYear]);
 
   const headerLabel =
     periodFilter === ProfitLossPeriod.WEEKLY
-      ? "Current Week (Mon-Sun)"
+      ? "Weekly (Mon-Sun)"
       : periodFilter === ProfitLossPeriod.MONTHLY
         ? `Monthly Breakdown - ${selectedYear}`
         : `Yearly Overview`;
 
   return (
-    <Card className="bg-card border-border h-full">
+    <Card className="bg-card border-border h-full shadow-none">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <div>
           <CardTitle className="text-foreground text-lg font-bold">
@@ -89,14 +83,15 @@ export default function ProfitLossChart({
         <div className="flex items-center gap-2">
           <FormSelect
             options={[
-              { value: ProfitLossPeriod.WEEKLY, label: "Current Week" },
+              { value: ProfitLossPeriod.WEEKLY, label: "Weekly" },
               { value: ProfitLossPeriod.MONTHLY, label: "Monthly" },
               { value: ProfitLossPeriod.YEARLY, label: "Yearly" },
             ]}
             value={periodFilter}
             onChange={(value) => setPeriodFilter(value as ProfitLossPeriod)}
+            triggerClassName="w-[140px]"
           />
-          {periodFilter !== ProfitLossPeriod.WEEKLY && (
+          {periodFilter !== ProfitLossPeriod.YEARLY && (
             <FormSelect
               options={availableYears.map((year) => ({
                 value: year,
@@ -104,6 +99,7 @@ export default function ProfitLossChart({
               }))}
               value={selectedYear}
               onChange={setSelectedYear}
+              triggerClassName="w-[140px]"
             />
           )}
         </div>
@@ -117,13 +113,6 @@ export default function ProfitLossChart({
           ) : errorMessage ? (
             <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
               <p className="text-sm text-red-500">{errorMessage}</p>
-              <button
-                type="button"
-                className="rounded-md border border-border px-3 py-1 text-xs font-medium text-foreground transition-colors hover:bg-muted"
-                onClick={() => setRetryToken((prev) => prev + 1)}
-              >
-                Retry
-              </button>
             </div>
           ) : chartData && chartData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">

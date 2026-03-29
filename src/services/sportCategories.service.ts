@@ -20,11 +20,12 @@ export const getSportCategories = async (queryParams: Record<string, any> = {}) 
     );
 
     if (!res.success) {
-      return null;
+      throw new Error(res.message || "Failed to fetch sport categories");
     }
 
     return res.data;
   } catch (error: any) {
-    return null;
+    console.error("Error fetching sport categories:", error);
+    throw error;
   }
 };
