@@ -19,6 +19,7 @@ interface FormSelectProps extends React.ComponentProps<typeof Select> {
   placeholder?: string;
   triggerClassName?: string;
   id?: string;
+  onChange?: (value: string) => void;
 }
 
 const FormSelect: React.FC<FormSelectProps> = ({
@@ -30,6 +31,8 @@ const FormSelect: React.FC<FormSelectProps> = ({
   placeholder = "Select an option",
   triggerClassName,
   id,
+  onChange,
+  onValueChange,
   ...props
 }) => {
   return (
@@ -37,23 +40,31 @@ const FormSelect: React.FC<FormSelectProps> = ({
       {label && (
         <Label
           htmlFor={id || props.name}
-          className="text-sm font-semibold text-gray-700"
+          className="text-sm font-semibold text-muted-foreground"
         >
           {label} {required && <span className="text-red-500">*</span>}
         </Label>
       )}
       <div className="relative">
-        <Select {...props}>
+        <Select
+          {...props}
+          onValueChange={(value) => {
+            onValueChange?.(value);
+            onChange?.(value);
+          }}
+        >
           <SelectTrigger
+            id={id || props.name}
+            aria-invalid={!!error}
             className={cn(
-              "h-12 border-gray-200 font-medium transition-all",
+              "w-full h-12 rounded-md outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary transition-all text-sm",
               Icon && "pl-10",
-              error ? "border-red-500 bg-red-50/10" : "bg-gray-50/30",
+              error ? "border-red-500" : "bg-border border-border",
               triggerClassName,
             )}
           >
             {Icon && (
-              <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+              <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
             )}
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
@@ -76,3 +87,4 @@ const FormSelect: React.FC<FormSelectProps> = ({
 };
 
 export { FormSelect };
+
