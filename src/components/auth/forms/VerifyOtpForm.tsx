@@ -45,9 +45,7 @@ export default function VerifyOtpForm() {
   return (
     <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
       <div className="text-center space-y-2">
-        <h2 className="text-2xl font-black text-foreground">
-          {t("auth.verifyEmail")}
-        </h2>
+        <h2 className="text-2xl  text-foreground">{t("auth.verifyEmail")}</h2>
         <p className="text-sm text-muted-foreground">
           {otpReason === "REGISTER"
             ? `${t("auth.codeSentTo")} ${email}`

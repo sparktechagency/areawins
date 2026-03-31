@@ -2,11 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -101,7 +101,8 @@ export default function ChangePasswordModal({
   const passwordStrength = (() => {
     const password = formData.newPassword;
     if (!password) return { level: 0, label: "", color: "" };
-    if (password.length < 8) return { level: 1, label: "Weak", color: "text-red-500" };
+    if (password.length < 8)
+      return { level: 1, label: "Weak", color: "text-red-500" };
     if (!/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
       return { level: 2, label: "Fair", color: "text-yellow-500" };
     }
@@ -129,7 +130,10 @@ export default function ChangePasswordModal({
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
           {/* Current Password */}
           <div className="space-y-1.5 sm:space-y-2">
-            <Label htmlFor="currentPassword" className="text-xs sm:text-sm font-black uppercase tracking-widest">
+            <Label
+              htmlFor="currentPassword"
+              className="text-xs sm:text-sm  uppercase tracking-widest"
+            >
               Current Password
             </Label>
             <div className="relative">
@@ -170,7 +174,10 @@ export default function ChangePasswordModal({
 
           {/* New Password */}
           <div className="space-y-1.5 sm:space-y-2">
-            <Label htmlFor="newPassword" className="text-xs sm:text-sm font-black uppercase tracking-widest">
+            <Label
+              htmlFor="newPassword"
+              className="text-xs sm:text-sm  uppercase tracking-widest"
+            >
               New Password
             </Label>
             <div className="relative">
@@ -215,7 +222,9 @@ export default function ChangePasswordModal({
                   <span className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase">
                     Strength
                   </span>
-                  <span className={`text-xs font-bold ${passwordStrength.color}`}>
+                  <span
+                    className={`text-xs font-bold ${passwordStrength.color}`}
+                  >
                     {passwordStrength.label}
                   </span>
                 </div>
@@ -225,15 +234,16 @@ export default function ChangePasswordModal({
                       passwordStrength.level === 1
                         ? "w-1/4 bg-red-500"
                         : passwordStrength.level === 2
-                        ? "w-1/2 bg-yellow-500"
-                        : passwordStrength.level === 3
-                        ? "w-3/4 bg-blue-500"
-                        : "w-full bg-emerald-500"
+                          ? "w-1/2 bg-yellow-500"
+                          : passwordStrength.level === 3
+                            ? "w-3/4 bg-blue-500"
+                            : "w-full bg-emerald-500"
                     }`}
                   />
                 </div>
                 <p className="text-[10px] text-muted-foreground mt-1.5">
-                  Use uppercase, lowercase, numbers, and symbols for stronger passwords
+                  Use uppercase, lowercase, numbers, and symbols for stronger
+                  passwords
                 </p>
               </div>
             )}
@@ -241,7 +251,10 @@ export default function ChangePasswordModal({
 
           {/* Confirm Password */}
           <div className="space-y-1.5 sm:space-y-2">
-            <Label htmlFor="confirmPassword" className="text-xs sm:text-sm font-black uppercase tracking-widest">
+            <Label
+              htmlFor="confirmPassword"
+              className="text-xs sm:text-sm  uppercase tracking-widest"
+            >
               Confirm Password
             </Label>
             <div className="relative">
@@ -286,7 +299,7 @@ export default function ChangePasswordModal({
               type="button"
               onClick={handleClose}
               variant="outline"
-              className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+              className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
               disabled={loading}
             >
               Cancel
@@ -294,7 +307,7 @@ export default function ChangePasswordModal({
             <Button
               type="submit"
               disabled={loading}
-              className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+              className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
             >
               {loading ? "Changing..." : "Change Password"}
             </Button>

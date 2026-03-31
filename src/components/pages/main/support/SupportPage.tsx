@@ -18,7 +18,6 @@ import {
   Headset,
   Mail,
   MessageCircle,
-  Phone,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -42,10 +41,10 @@ const SupportPage = () => {
         <div className="absolute -top-16 -right-16 size-56 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute -bottom-20 -left-16 size-64 rounded-full bg-primary/10 blur-3xl" />
         <div className="container mx-auto max-w-6xl relative z-10">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-primary">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[10px]  uppercase tracking-wider text-primary">
             <Headset className="size-3.5" /> {t("supportPage.badge")}
           </div>
-          <h1 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">
+          <h1 className="mt-4 text-3xl sm:text-4xl md:text-5xl  tracking-tight">
             {t("supportPage.title")}
           </h1>
           <p className="mt-3 max-w-2xl text-muted-foreground text-sm sm:text-base md:text-lg leading-relaxed">

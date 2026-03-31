@@ -19,13 +19,13 @@ const OpenBetsTab: React.FC<OpenBetsTabProps> = ({
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
-        <h3 className="text-xl font-black text-foreground uppercase tracking-wider text-center sm:text-left">
+        <h3 className="text-xl  text-foreground uppercase tracking-wider text-center sm:text-left">
           Available Community Bets
         </h3>
         <Button
           onClick={onCreateBetClick}
           size="sm"
-          className="w-full sm:w-auto rounded-lg font-black text-[10px] uppercase tracking-widest h-10 px-6 shadow-md transition-all active:scale-95"
+          className="w-full sm:w-auto rounded-lg  text-[10px] uppercase tracking-widest h-10 px-6 shadow-md transition-all active:scale-95"
         >
           <PlusCircle className="size-4 mr-2" />
           Place New Bet
@@ -41,7 +41,7 @@ const OpenBetsTab: React.FC<OpenBetsTabProps> = ({
       {matchedBets.length === 0 && (
         <div className="p-6 sm:p-10 md:p-16 text-center bg-muted/20 rounded-xl border border-dashed border-border text-muted-foreground flex flex-col items-center justify-center">
           <Search className="size-12 mb-4 opacity-10" />
-          <p className="font-black uppercase tracking-widest text-[10px] sm:text-xs">
+          <p className=" uppercase tracking-widest text-[10px] sm:text-xs">
             No active bets available for this match yet. Be the first to create
             one!
           </p>

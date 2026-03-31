@@ -44,9 +44,7 @@ export default function RegisterForm() {
   return (
     <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
       <div className="text-center space-y-2">
-        <h2 className="text-2xl font-black text-foreground">
-          {t("auth.createAccount")}
-        </h2>
+        <h2 className="text-2xl  text-foreground">{t("auth.createAccount")}</h2>
         <p className="text-sm text-muted-foreground">
           {t("auth.registerSubtitle")}
         </p>
@@ -117,7 +115,7 @@ export default function RegisterForm() {
               htmlFor="terms"
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
-              {t("auth.agreeToThe")} {" "}
+              {t("auth.agreeToThe")}{" "}
               <Link
                 href="/terms"
                 className="text-primary hover:underline underline-offset-4"
@@ -126,7 +124,7 @@ export default function RegisterForm() {
               >
                 {t("auth.termsOfService")}
               </Link>{" "}
-              {t("auth.and")} {" "}
+              {t("auth.and")}{" "}
               <Link
                 href="/privacy"
                 className="text-primary hover:underline underline-offset-4"

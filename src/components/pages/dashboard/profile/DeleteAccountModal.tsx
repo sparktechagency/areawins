@@ -2,11 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -102,14 +102,14 @@ export default function DeleteAccountModal({
                 <Button
                   onClick={handleClose}
                   variant="outline"
-                  className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
                 >
                   Cancel
                 </Button>
                 <Button
                   onClick={handleProceed}
                   variant="destructive"
-                  className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
                 >
                   <AlertTriangle className="w-4 h-4 mr-2" />
                   Continue
@@ -130,7 +130,7 @@ export default function DeleteAccountModal({
 
             <div className="space-y-4 sm:space-y-5">
               <div>
-                <Label className="text-xs sm:text-sm font-black uppercase tracking-widest text-muted-foreground mb-2 block">
+                <Label className="text-xs sm:text-sm  uppercase tracking-widest text-muted-foreground mb-2 block">
                   Confirmation Message
                 </Label>
                 <div className="p-3 sm:p-4 bg-muted/50 rounded-lg border border-border font-mono text-xs sm:text-sm font-bold text-foreground">
@@ -139,7 +139,10 @@ export default function DeleteAccountModal({
               </div>
 
               <div>
-                <Label htmlFor="confirm-text" className="text-xs sm:text-sm font-black uppercase tracking-widest text-muted-foreground">
+                <Label
+                  htmlFor="confirm-text"
+                  className="text-xs sm:text-sm  uppercase tracking-widest text-muted-foreground"
+                >
                   Type the message above
                 </Label>
                 <Input
@@ -152,15 +155,15 @@ export default function DeleteAccountModal({
               </div>
 
               <p className="text-xs text-muted-foreground font-medium">
-                This is permanent. Your account and all associated data will be deleted
-                immediately.
+                This is permanent. Your account and all associated data will be
+                deleted immediately.
               </p>
 
               <div className="flex gap-2 sm:gap-3 pt-2 sm:pt-4">
                 <Button
                   onClick={() => setStep("warning")}
                   variant="outline"
-                  className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
                   disabled={isLoading}
                 >
                   Back
@@ -169,9 +172,10 @@ export default function DeleteAccountModal({
                   onClick={handleDelete}
                   variant="destructive"
                   disabled={
-                    confirmText.toUpperCase() !== "DELETE MY ACCOUNT" || isLoading
+                    confirmText.toUpperCase() !== "DELETE MY ACCOUNT" ||
+                    isLoading
                   }
-                  className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
                 >
                   {isLoading ? (
                     "Deleting..."

@@ -2,11 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
@@ -22,7 +22,10 @@ interface EditAvatarModalProps {
   onClose: () => void;
 }
 
-export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps) {
+export default function EditAvatarModal({
+  open,
+  onClose,
+}: EditAvatarModalProps) {
   const { t } = useTranslation();
   const [preview, setPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -78,7 +81,7 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
           0,
           0,
           croppedArea.width,
-          croppedArea.height
+          croppedArea.height,
         );
 
         resolve(canvas.toDataURL("image/jpeg"));
@@ -134,7 +137,10 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
           {/* Crop View */}
           {isCropping && preview ? (
             <>
-              <div className="relative w-full rounded-lg overflow-hidden bg-primary/10" style={{ height: "320px" }}>
+              <div
+                className="relative w-full rounded-lg overflow-hidden bg-primary/10"
+                style={{ height: "320px" }}
+              >
                 <Cropper
                   image={preview}
                   crop={crop}
@@ -177,7 +183,9 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
                     step={15}
                     className="flex-1"
                   />
-                  <span className="text-xs text-muted-foreground w-8">{rotation}°</span>
+                  <span className="text-xs text-muted-foreground w-8">
+                    {rotation}°
+                  </span>
                 </div>
               </div>
 
@@ -186,14 +194,14 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
                 <Button
                   onClick={handleClear}
                   variant="outline"
-                  className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
                 >
                   <X className="w-4 h-4 mr-2" />
                   {t("avatar.cancel")}
                 </Button>
                 <Button
                   onClick={handleFinishCrop}
-                  className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
                 >
                   {t("avatar.cropContinue")}
                 </Button>
@@ -225,7 +233,7 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
               <div>
                 <Label
                   htmlFor="avatar-upload"
-                  className="text-xs sm:text-sm font-black uppercase tracking-widest text-muted-foreground"
+                  className="text-xs sm:text-sm  uppercase tracking-widest text-muted-foreground"
                 >
                   {t("avatar.selectImage")}
                 </Label>
@@ -240,21 +248,19 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
                 <Button
                   onClick={() => fileInputRef.current?.click()}
                   variant="outline"
-                  className="w-full mt-2 text-xs sm:text-sm font-black uppercase tracking-widest"
+                  className="w-full mt-2 text-xs sm:text-sm  uppercase tracking-widest"
                 >
                   <Upload className="w-4 h-4 mr-2" />
                   {t("avatar.browseFiles")}
                 </Button>
               </div>
 
-
-
               {/* Actions */}
               <div className="flex gap-2 sm:gap-3 pt-2 sm:pt-4">
                 <Button
                   onClick={handleClear}
                   variant="outline"
-                  className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
                   disabled={!preview}
                 >
                   <X className="w-4 h-4 mr-2" />
@@ -263,7 +269,7 @@ export default function EditAvatarModal({ open, onClose }: EditAvatarModalProps)
                 <Button
                   onClick={handleUpload}
                   disabled={!preview || isLoading}
-                  className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
                 >
                   {isLoading ? t("avatar.uploading") : t("avatar.upload")}
                 </Button>

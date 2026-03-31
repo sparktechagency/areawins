@@ -43,7 +43,7 @@ const AcceptBetModalContent: React.FC<AcceptBetModalContentProps> = ({
         <div className="size-16 sm:size-20 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
           <CheckCircle2 className="size-10 sm:size-12 animate-in zoom-in duration-300" />
         </div>
-        <h3 className="text-xl sm:text-2xl font-black text-foreground uppercase tracking-tight">
+        <h3 className="text-xl sm:text-2xl  text-foreground uppercase tracking-tight">
           Bet Matched!
         </h3>
         <p className="text-muted-foreground font-medium uppercase text-xs tracking-[0.2em]">
@@ -58,7 +58,7 @@ const AcceptBetModalContent: React.FC<AcceptBetModalContentProps> = ({
   return (
     <div className="p-5 sm:p-6 space-y-6 sm:space-y-8">
       <div className="space-y-2 text-center">
-        <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight uppercase">
+        <h2 className="text-xl sm:text-2xl  text-foreground tracking-tight uppercase">
           Confirm Acceptance
         </h2>
         <p className="text-muted-foreground font-semibold uppercase text-xs tracking-widest italic opacity-70">
@@ -69,10 +69,10 @@ const AcceptBetModalContent: React.FC<AcceptBetModalContentProps> = ({
       <div className="space-y-6">
         <div className="bg-muted/30 rounded-lg overflow-hidden border border-border">
           <div className="p-4 bg-primary/5 border-b border-primary/10 flex justify-between items-center px-4 sm:px-6">
-            <span className="text-xs font-black text-primary uppercase truncate max-w-[200px]">
+            <span className="text-xs  text-primary uppercase truncate max-w-[200px]">
               {selectedBet.match}
             </span>
-            <Badge className="bg-primary text-white text-[8px] font-black uppercase shrink-0">
+            <Badge className="bg-primary text-white text-[8px]  uppercase shrink-0">
               P2P Secured
             </Badge>
           </div>
@@ -80,10 +80,10 @@ const AcceptBetModalContent: React.FC<AcceptBetModalContentProps> = ({
           <div className="p-4 sm:p-6 space-y-6">
             <div className="flex flex-col sm:flex-row justify-between items-start gap-4 pb-6 border-b border-border/50">
               <div className="space-y-2">
-                <span className="text-xs font-black text-muted-foreground uppercase opacity-50">
+                <span className="text-xs  text-muted-foreground uppercase opacity-50">
                   Creator: {selectedBet.creator.name}
                 </span>
-                <div className="text-xs font-black text-foreground">
+                <div className="text-xs  text-foreground">
                   Backing: {selectedBet.backing}
                 </div>
                 <div className="text-xs font-bold text-muted-foreground">
@@ -91,13 +91,13 @@ const AcceptBetModalContent: React.FC<AcceptBetModalContentProps> = ({
                 </div>
               </div>
               <div className="sm:text-right space-y-2">
-                <span className="text-xs font-black text-primary ">
+                <span className="text-xs  text-primary ">
                   Your Lay Position
                 </span>
-                <div className="text-sm font-black text-primary underline underline-offset-4 decoration-primary/30">
+                <div className="text-sm  text-primary underline underline-offset-4 decoration-primary/30">
                   Against {selectedBet.backing}
                 </div>
-                <div className="text-xl font-black text-foreground">
+                <div className="text-xl  text-foreground">
                   ${layStake.toFixed(2)} Stake
                 </div>
               </div>
@@ -112,16 +112,16 @@ const AcceptBetModalContent: React.FC<AcceptBetModalContentProps> = ({
               </div>
 
               <div className="p-5 sm:p-6 rounded-lg border border-border ">
-                <span className="text-xs font-black text-foreground  tracking-widest mb-2">
+                <span className="text-xs  text-foreground  tracking-widest mb-2">
                   Settlement Rules
                 </span>
-                <div className="flex justify-between items-center text-xs font-black space-y-2">
+                <div className="flex justify-between items-center text-xs  space-y-2">
                   <span className="text-foreground/80">
                     {selectedBet.backing} happens
                   </span>
                   <span className="text-rose-400">Lose Stake</span>
                 </div>
-                <div className="flex justify-between items-center text-xs font-black space-y-2">
+                <div className="flex justify-between items-center text-xs  space-y-2">
                   <span className="text-foreground/60">Anything else</span>
                   <span className="text-emerald-400">
                     Win ${(selectedBet.stake + layStake).toFixed(2)}

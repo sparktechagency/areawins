@@ -22,7 +22,7 @@ const SuccessConfirmation: React.FC<SuccessConfirmationProps> = ({
       </div>
 
       <div className="space-y-3">
-        <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight uppercase">
+        <h2 className="text-xl sm:text-2xl  text-foreground tracking-tight uppercase">
           Bet Posted Successfully!
         </h2>
         <p className="text-xs  text-muted-foreground font-medium">
@@ -37,13 +37,17 @@ const SuccessConfirmation: React.FC<SuccessConfirmationProps> = ({
         <Button onClick={onClose} className="w-full cursor-pointer">
           View in Open Market
         </Button>
-        <Button variant="outline" onClick={onClose} className="w-full cursor-pointer border">
+        <Button
+          variant="outline"
+          onClick={onClose}
+          className="w-full cursor-pointer border"
+        >
           Go to My Bets
         </Button>
       </div>
 
       <div className="flex flex-col items-center gap-2 pt-4 border-t border-border/50 w-full mt-4">
-        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] flex items-center gap-2">
+        <p className="text-[10px]  text-muted-foreground uppercase tracking-[0.2em] flex items-center gap-2">
           <AlertCircle className="size-3.5 text-amber-500" />
           MATCHING PENDING
         </p>

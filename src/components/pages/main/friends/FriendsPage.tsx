@@ -4,15 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import {
-    Filter,
-    MessageSquare,
-    Search,
-    ShieldCheck,
-    TrendingUp,
-    Trophy,
-    UserCheck,
-    UserPlus,
-    Users,
+  Filter,
+  MessageSquare,
+  Search,
+  ShieldCheck,
+  TrendingUp,
+  Trophy,
+  UserCheck,
+  UserPlus,
+  Users,
 } from "lucide-react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
@@ -107,7 +107,7 @@ const FriendsPage = () => {
 
   const filteredUsers = useMemo(() => {
     return mockUsers.filter((user) =>
-      user.name.toLowerCase().includes(searchQuery.toLowerCase())
+      user.name.toLowerCase().includes(searchQuery.toLowerCase()),
     );
   }, [searchQuery]);
 
@@ -122,11 +122,11 @@ const FriendsPage = () => {
         <div className="space-y-2">
           <Badge
             variant="outline"
-            className="text-primary border-primary/20 bg-primary/5 px-4 py-1 font-black uppercase tracking-widest text-[10px]"
+            className="text-primary border-primary/20 bg-primary/5 px-4 py-1  uppercase tracking-widest text-[10px]"
           >
             Community
           </Badge>
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-black text-foreground tracking-tight flex items-center gap-4">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl  text-foreground tracking-tight flex items-center gap-4">
             Find Players
             <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center">
               <Users className="size-6 text-primary" />
@@ -144,10 +144,8 @@ const FriendsPage = () => {
               <UserCheck className="size-5 text-emerald-500" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-black text-foreground">
-                {friends.length}
-              </span>
-              <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">
+              <span className="text-xl  text-foreground">{friends.length}</span>
+              <span className="text-[10px]  text-muted-foreground uppercase tracking-widest">
                 Your Friends
               </span>
             </div>
@@ -157,8 +155,8 @@ const FriendsPage = () => {
               <Users className="size-5 text-blue-500" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-black text-foreground">1.2K</span>
-              <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">
+              <span className="text-xl  text-foreground">1.2K</span>
+              <span className="text-[10px]  text-muted-foreground uppercase tracking-widest">
                 Active Players
               </span>
             </div>
@@ -183,7 +181,7 @@ const FriendsPage = () => {
           </div>
           <Button
             variant="outline"
-            className="px-8 rounded-lg border-border hover:bg-muted font-black uppercase tracking-widest text-xs flex gap-2"
+            className="px-8 rounded-lg border-border hover:bg-muted  uppercase tracking-widest text-xs flex gap-2"
           >
             <Filter className="size-4" />
             Filters
@@ -206,7 +204,7 @@ const FriendsPage = () => {
               {user.isOnline && (
                 <div className="absolute top-8 right-8 flex items-center gap-1.5 px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20">
                   <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-[9px] font-black text-emerald-500 uppercase tracking-widest">
+                  <span className="text-[9px]  text-emerald-500 uppercase tracking-widest">
                     Online Now
                   </span>
                 </div>
@@ -225,12 +223,12 @@ const FriendsPage = () => {
                     />
                   </div>
                 </div>
-                <h3 className="text-2xl font-black text-foreground mb-1 group-hover:text-primary transition-colors">
+                <h3 className="text-2xl  text-foreground mb-1 group-hover:text-primary transition-colors">
                   {user.name}
                 </h3>
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="size-3.5 text-primary" />
-                  <span className="text-[10px] font-black text-primary uppercase tracking-widest">
+                  <span className="text-[10px]  text-primary uppercase tracking-widest">
                     Trusted Member • {user.trustScore}% Trust
                   </span>
                 </div>
@@ -240,28 +238,28 @@ const FriendsPage = () => {
               <div className="grid grid-cols-3 gap-3 mb-6">
                 <div className="flex flex-col items-center gap-1 p-3 rounded-lg bg-muted/30 border border-border/50 group-hover:bg-primary/5 transition-colors">
                   <Trophy className="size-4 text-amber-500" />
-                  <span className="text-base font-black text-foreground">
+                  <span className="text-base  text-foreground">
                     {user.winRate}%
                   </span>
-                  <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest">
+                  <span className="text-[8px]  text-muted-foreground uppercase tracking-widest">
                     Win Rate
                   </span>
                 </div>
                 <div className="flex flex-col items-center gap-1 p-3 rounded-lg bg-muted/30 border border-border/50 group-hover:bg-primary/5 transition-colors">
                   <TrendingUp className="size-4 text-primary" />
-                  <span className="text-base font-black text-foreground">
+                  <span className="text-base  text-foreground">
                     {user.totalBets}
                   </span>
-                  <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest">
+                  <span className="text-[8px]  text-muted-foreground uppercase tracking-widest">
                     Total Bets
                   </span>
                 </div>
                 <div className="flex flex-col items-center gap-1 p-3 rounded-lg bg-muted/30 border border-border/50 group-hover:bg-primary/5 transition-colors">
                   <TrendingUp className="size-4 text-emerald-500" />
-                  <span className="text-base font-black text-foreground">
+                  <span className="text-base  text-foreground">
                     +{Math.floor(user.profit / 1000)}k
                   </span>
-                  <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest">
+                  <span className="text-[8px]  text-muted-foreground uppercase tracking-widest">
                     Profit
                   </span>
                 </div>
@@ -275,12 +273,12 @@ const FriendsPage = () => {
                   }
                   disabled={isFriend || isPending}
                   className={cn(
-                    "flex-1 rounded-lg font-black uppercase tracking-widest text-[10px] gap-2 transition-all cursor-pointer",
+                    "flex-1 rounded-lg  uppercase tracking-widest text-[10px] gap-2 transition-all cursor-pointer",
                     isFriend
                       ? "bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/10"
                       : isPending
-                      ? "bg-muted text-muted-foreground border border-border"
-                      : "bg-primary hover:bg-primary/90 text-white"
+                        ? "bg-muted text-muted-foreground border border-border"
+                        : "bg-primary hover:bg-primary/90 text-white",
                   )}
                 >
                   {isFriend ? (
@@ -316,9 +314,7 @@ const FriendsPage = () => {
       {filteredUsers.length === 0 && (
         <div className="p-20 text-center bg-muted/10 rounded-lg border border-dashed border-border mt-12">
           <Search className="size-16 mx-auto mb-6 opacity-20 text-primary" />
-          <h3 className="text-2xl font-black text-foreground mb-2">
-            No players found
-          </h3>
+          <h3 className="text-2xl  text-foreground mb-2">No players found</h3>
           <p className="text-muted-foreground font-medium">
             Try searching for a different username or remove filters.
           </p>

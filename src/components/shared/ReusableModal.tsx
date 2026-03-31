@@ -86,7 +86,7 @@ export const ReusableModal: React.FC<ReusableModalProps> = ({
           "px-4 sm:px-0", // Side margin on mobile
           "fixed left-[50%] top-[50%] z-50 w-full translate-x-[-50%] translate-y-[-50%] transition-none",
           "bg-transparent border-none shadow-none duration-0 flex justify-center items-center",
-          maxWidthMap[maxWidth]
+          maxWidthMap[maxWidth],
         )}
       >
         <AnimatePresence>
@@ -104,7 +104,7 @@ export const ReusableModal: React.FC<ReusableModalProps> = ({
               className={cn(
                 "bg-card border border-border w-full rounded-2xl overflow-hidden shadow-2xl relative flex flex-col",
                 "max-h-[85vh]", // Responsive max height
-                className
+                className,
               )}
             >
               {/* Custom Close Button - Optimized for touch */}
@@ -121,13 +121,13 @@ export const ReusableModal: React.FC<ReusableModalProps> = ({
                     "text-left shrink-0",
                     title || description
                       ? "px-5 py-5 sm:px-8 sm:py-6 sm:pb-2"
-                      : "sr-only"
+                      : "sr-only",
                   )}
                 >
                   <DialogTitle
                     className={cn(
-                      "text-xl sm:text-2xl font-black text-foreground tracking-tight pr-8",
-                      !title && "sr-only"
+                      "text-xl sm:text-2xl  text-foreground tracking-tight pr-8",
+                      !title && "sr-only",
                     )}
                   >
                     {title || "Modal Title"}
@@ -135,7 +135,7 @@ export const ReusableModal: React.FC<ReusableModalProps> = ({
                   <DialogDescription
                     className={cn(
                       "text-muted-foreground text-xs sm:text-sm font-medium mt-1",
-                      !description && "sr-only"
+                      !description && "sr-only",
                     )}
                   >
                     {description || "Modal Description"}
@@ -145,7 +145,7 @@ export const ReusableModal: React.FC<ReusableModalProps> = ({
                 <div
                   className={cn(
                     "flex-1 overflow-y-auto custom-scrollbar no-scrollbar",
-                    paddingMap[padding]
+                    paddingMap[padding],
                   )}
                 >
                   {children}

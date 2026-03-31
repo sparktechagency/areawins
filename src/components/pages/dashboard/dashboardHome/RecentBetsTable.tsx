@@ -39,14 +39,14 @@ export default function RecentBetsTable() {
       <CardHeader className="flex flex-row items-center justify-between border-b border-border py-6 px-8">
         <div className="flex items-center gap-3">
           <span className="text-primary text-xl">📋</span>
-          <CardTitle className="text-foreground text-xl font-black uppercase tracking-tight">
+          <CardTitle className="text-foreground text-xl  uppercase tracking-tight">
             {t("recentBets.title")}
           </CardTitle>
         </div>
         <Link href={ROUTES.MY_BETS || "/my-bets"}>
           <Button
             variant="ghost"
-            className="text-primary hover:text-primary/80 hover:bg-primary/5 px-4 h-9 text-[10px] font-black uppercase tracking-widest rounded-lg"
+            className="text-primary hover:text-primary/80 hover:bg-primary/5 px-4 h-9 text-[10px]  uppercase tracking-widest rounded-lg"
           >
             {t("recentBets.historyConsole")}
           </Button>
@@ -57,22 +57,22 @@ export default function RecentBetsTable() {
           <table className="w-full">
             <thead>
               <tr className="bg-muted/30 border-b border-border">
-                <th className="text-left py-4 px-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
+                <th className="text-left py-4 px-8 text-[10px]  uppercase tracking-widest text-muted-foreground whitespace-nowrap">
                   {t("recentBets.timestamp")}
                 </th>
-                <th className="text-left py-4 px-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
+                <th className="text-left py-4 px-6 text-[10px]  uppercase tracking-widest text-muted-foreground whitespace-nowrap">
                   {t("recentBets.eventEcosystem")}
                 </th>
-                <th className="text-right py-4 px-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
+                <th className="text-right py-4 px-6 text-[10px]  uppercase tracking-widest text-muted-foreground whitespace-nowrap">
                   {t("recentBets.stake")}
                 </th>
-                <th className="text-center py-4 px-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
+                <th className="text-center py-4 px-6 text-[10px]  uppercase tracking-widest text-muted-foreground whitespace-nowrap">
                   {t("recentBets.odds")}
                 </th>
-                <th className="text-right py-4 px-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
+                <th className="text-right py-4 px-6 text-[10px]  uppercase tracking-widest text-muted-foreground whitespace-nowrap">
                   {t("recentBets.potential")}
                 </th>
-                <th className="text-right py-4 px-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
+                <th className="text-right py-4 px-8 text-[10px]  uppercase tracking-widest text-muted-foreground whitespace-nowrap">
                   {t("recentBets.outcome")}
                 </th>
               </tr>
@@ -88,7 +88,7 @@ export default function RecentBetsTable() {
                   </td>
                   <td className="py-5 px-6">
                     <div className="flex flex-col">
-                      <span className="text-foreground font-black text-sm uppercase tracking-tight">
+                      <span className="text-foreground  text-sm uppercase tracking-tight">
                         {eventLabelMap[bet.event] || bet.event}
                       </span>
                       <span className="text-[10px] font-bold text-muted-foreground tracking-wide mt-0.5">
@@ -96,13 +96,13 @@ export default function RecentBetsTable() {
                       </span>
                     </div>
                   </td>
-                  <td className="py-5 px-6 text-sm text-foreground font-black text-right">
+                  <td className="py-5 px-6 text-sm text-foreground  text-right">
                     {formatCurrency(bet.stake)}
                   </td>
                   <td className="py-5 px-6 text-xs text-muted-foreground font-bold text-center">
                     x{bet.odds.toFixed(2)}
                   </td>
-                  <td className="py-5 px-6 text-sm text-primary font-black text-right">
+                  <td className="py-5 px-6 text-sm text-primary  text-right">
                     {bet.status !== "Lost" ? formatCurrency(bet.return) : "-"}
                   </td>
                   <td className="py-5 px-8 text-right">
@@ -123,7 +123,7 @@ export default function RecentBetsTable() {
                                           ? "bg-rose-500 hover:bg-rose-600"
                                           : ""
                                       }
-                                      border-0 px-3 py-1 rounded-full uppercase text-[9px] font-black tracking-widest text-white
+                                      border-0 px-3 py-1 rounded-full uppercase text-[9px]  tracking-widest text-white
                                   `}
                     >
                       {statusLabelMap[bet.status] || bet.status}

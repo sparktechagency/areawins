@@ -6,22 +6,22 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { useAuth } from "@/hooks/useAuth";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import {
-    AlertTriangle,
-    Camera,
-    Edit2,
-    Lock,
-    Save,
-    Trash2,
-    User,
-    X,
+  AlertTriangle,
+  Camera,
+  Edit2,
+  Lock,
+  Save,
+  Trash2,
+  User,
+  X,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -146,7 +146,7 @@ export default function ProfilePage() {
             <div className="p-2 sm:p-2.5 bg-primary/10 rounded-lg">
               <User className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-foreground uppercase tracking-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl  text-foreground uppercase tracking-tight">
               {t("profile.title")}
             </h1>
           </div>
@@ -165,7 +165,7 @@ export default function ProfilePage() {
                 <div className="relative mb-4 sm:mb-6">
                   <Avatar className="w-24 sm:w-28 md:w-32 h-24 sm:h-28 md:h-32 border-4 border-primary/20">
                     <AvatarImage src={user?.profileImage} />
-                    <AvatarFallback className="text-2xl sm:text-3xl font-black bg-primary/10 text-primary">
+                    <AvatarFallback className="text-2xl sm:text-3xl  bg-primary/10 text-primary">
                       {user?.fullName?.[0] || "U"}
                     </AvatarFallback>
                   </Avatar>
@@ -188,7 +188,7 @@ export default function ProfilePage() {
                 {/* Change Photo Button */}
                 <Button
                   onClick={() => setShowEditAvatarModal(true)}
-                  className="w-full mt-6 text-xs sm:text-sm font-black uppercase tracking-widest"
+                  className="w-full mt-6 text-xs sm:text-sm  uppercase tracking-widest"
                   variant="outline"
                 >
                   <Camera className="w-4 h-4 mr-2" />
@@ -211,7 +211,7 @@ export default function ProfilePage() {
                     <Button
                       onClick={() => setIsEditingPersonalInfo(true)}
                       size="sm"
-                      className="text-xs sm:text-sm font-black uppercase tracking-widest"
+                      className="text-xs sm:text-sm  uppercase tracking-widest"
                     >
                       <Edit2 className="w-4 h-4 mr-2" />
                       {t("profile.edit")}
@@ -255,7 +255,7 @@ export default function ProfilePage() {
                       onClick={handleCancelEdit}
                       variant="outline"
                       disabled={personalInfoLoading}
-                      className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                      className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
                     >
                       <X className="w-4 h-4 mr-2" />
                       {t("profile.cancel")}
@@ -263,7 +263,7 @@ export default function ProfilePage() {
                     <Button
                       onClick={handleSavePersonalInfo}
                       disabled={personalInfoLoading}
-                      className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                      className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
                     >
                       {personalInfoLoading ? (
                         t("profile.saving")
@@ -291,7 +291,7 @@ export default function ProfilePage() {
                     <Button
                       onClick={() => setIsEditingPassword(true)}
                       size="sm"
-                      className="text-xs sm:text-sm font-black uppercase tracking-widest"
+                      className="text-xs sm:text-sm  uppercase tracking-widest"
                     >
                       <Edit2 className="w-4 h-4 mr-2" />
                       {t("profile.change")}
@@ -307,7 +307,7 @@ export default function ProfilePage() {
                     </p>
                     <Button
                       onClick={() => setIsEditingPassword(true)}
-                      className="w-full text-xs sm:text-sm font-black uppercase tracking-widest"
+                      className="w-full text-xs sm:text-sm  uppercase tracking-widest"
                     >
                       <Lock className="w-4 h-4 mr-2" />
                       {t("profile.changePassword")}
@@ -359,7 +359,7 @@ export default function ProfilePage() {
                         onClick={handleCancelPasswordEdit}
                         variant="outline"
                         disabled={passwordLoading}
-                        className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                        className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
                       >
                         <X className="w-4 h-4 mr-2" />
                         {t("profile.cancel")}
@@ -367,7 +367,7 @@ export default function ProfilePage() {
                       <Button
                         onClick={handleSavePassword}
                         disabled={passwordLoading}
-                        className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+                        className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
                       >
                         {passwordLoading ? (
                           t("profile.saving")
@@ -401,7 +401,7 @@ export default function ProfilePage() {
                 <Button
                   onClick={() => setShowDeleteModal(true)}
                   variant="destructive"
-                  className="w-full text-xs sm:text-sm font-black uppercase tracking-widest"
+                  className="w-full text-xs sm:text-sm  uppercase tracking-widest"
                 >
                   <Trash2 className="w-4 h-4 mr-2" />
                   {t("profile.deleteAccount")}
@@ -422,7 +422,7 @@ export default function ProfilePage() {
       <Dialog open={showDeleteModal} onOpenChange={setShowDeleteModal}>
         <DialogContent className="max-w-lg border-red-500/30 bg-card">
           <DialogHeader>
-            <DialogTitle className="text-lg sm:text-xl font-black uppercase tracking-tight">
+            <DialogTitle className="text-lg sm:text-xl  uppercase tracking-tight">
               {t("profile.deleteAccount")}
             </DialogTitle>
           </DialogHeader>

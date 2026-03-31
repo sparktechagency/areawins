@@ -13,7 +13,7 @@ export default function DashboardGreeting({ user }: { user: IUser }) {
   return (
     <div className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
       <div>
-        <h1 className="text-4xl md:text-5xl font-black text-foreground flex items-center gap-3 tracking-tighter leading-none">
+        <h1 className="text-4xl md:text-5xl  text-foreground flex items-center gap-3 tracking-tighter leading-none">
           {greeting}, {user?.fullName || t("dashboardHome.bettor")}{" "}
           <span className="animate-wave">👋</span>
         </h1>

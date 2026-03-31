@@ -3,25 +3,25 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { ROUTES } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { formatCurrency } from "@/lib/utils";
 import {
-    ArrowDownLeft,
-    ArrowUpRight,
-    Badge,
-    Bitcoin,
-    Coins,
-    DollarSign,
-    Shield,
-    TrendingUp,
-    Wallet2,
+  ArrowDownLeft,
+  ArrowUpRight,
+  Badge,
+  Bitcoin,
+  Coins,
+  DollarSign,
+  Shield,
+  TrendingUp,
+  Wallet2,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -35,9 +35,7 @@ const WalletPage = () => {
           <h1 className="text-3xl font-bold text-foreground flex items-center gap-2">
             {t("wallet.title")} <Wallet2 className="w-8 h-8 text-primary" />
           </h1>
-          <p className="text-muted-foreground mt-2">
-            {t("wallet.subtitle")}
-          </p>
+          <p className="text-muted-foreground mt-2">{t("wallet.subtitle")}</p>
         </div>
 
         {/* Balance Cards Grid */}
@@ -50,11 +48,11 @@ const WalletPage = () => {
             <CardContent className="p-8 relative z-10">
               <div className="flex items-center gap-2 text-blue-500 mb-2">
                 <ArrowDownLeft className="size-4" />
-                <p className="text-xs font-black uppercase tracking-[0.2em]">
+                <p className="text-xs  uppercase tracking-[0.2em]">
                   {t("wallet.depositBalance")}
                 </p>
               </div>
-              <div className="text-3xl font-black text-foreground mb-4">
+              <div className="text-3xl  text-foreground mb-4">
                 {formatCurrency(5450)}
               </div>
               <p className="text-xs text-muted-foreground mb-4">
@@ -64,7 +62,7 @@ const WalletPage = () => {
                 href={ROUTES.WALLET_DEPOSIT || "/dashboard/wallet/deposit"}
                 className="block"
               >
-                <Button className="w-full h-10 text-sm font-black uppercase tracking-widest rounded-lg bg-blue-500 hover:bg-blue-600">
+                <Button className="w-full h-10 text-sm  uppercase tracking-widest rounded-lg bg-blue-500 hover:bg-blue-600">
                   {t("wallet.addFunds")}
                 </Button>
               </Link>
@@ -77,18 +75,18 @@ const WalletPage = () => {
               <ArrowUpRight className="w-32 h-32" />
             </div>
             <div className="absolute top-0 right-0 p-3 z-20">
-              <Badge className="bg-green-500 hover:bg-green-600 text-[9px] font-black uppercase tracking-widest rounded-full">
+              <Badge className="bg-green-500 hover:bg-green-600 text-[9px]  uppercase tracking-widest rounded-full">
                 {t("wallet.withdrawable")}
               </Badge>
             </div>
             <CardContent className="p-8 relative z-10">
               <div className="flex items-center gap-2 text-green-500 mb-2">
                 <TrendingUp className="size-4" />
-                <p className="text-xs font-black uppercase tracking-[0.2em]">
+                <p className="text-xs  uppercase tracking-[0.2em]">
                   {t("wallet.winningBalance")}
                 </p>
               </div>
-              <div className="text-3xl font-black text-foreground mb-4">
+              <div className="text-3xl  text-foreground mb-4">
                 {formatCurrency(10000)}
               </div>
               <p className="text-xs text-muted-foreground mb-4">
@@ -98,7 +96,7 @@ const WalletPage = () => {
                 href={ROUTES.WALLET_WITHDRAW || "/dashboard/wallet/withdraw"}
                 className="block"
               >
-                <Button className="w-full h-10 text-sm font-black uppercase tracking-widest rounded-lg bg-green-500 hover:bg-green-600 text-white">
+                <Button className="w-full h-10 text-sm  uppercase tracking-widest rounded-lg bg-green-500 hover:bg-green-600 text-white">
                   {t("wallet.withdrawNow")}
                 </Button>
               </Link>
@@ -113,11 +111,11 @@ const WalletPage = () => {
             <CardContent className="p-8 relative z-10">
               <div className="flex items-center gap-2 text-purple-500 mb-2">
                 <Coins className="size-4" />
-                <p className="text-xs font-black uppercase tracking-[0.2em]">
+                <p className="text-xs  uppercase tracking-[0.2em]">
                   {t("wallet.totalBalance")}
                 </p>
               </div>
-              <div className="text-3xl font-black text-foreground mb-4">
+              <div className="text-3xl  text-foreground mb-4">
                 {formatCurrency(15450)}
               </div>
               <p className="text-xs text-muted-foreground mb-4">
@@ -148,7 +146,7 @@ const WalletPage = () => {
                       <DollarSign className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <p className="font-black text-sm">Venezuela Pay</p>
+                      <p className=" text-sm">Venezuela Pay</p>
                       <p className="text-xs text-muted-foreground">
                         {t("wallet.localTransfers")}
                       </p>
@@ -163,7 +161,7 @@ const WalletPage = () => {
                       <Bitcoin className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <p className="font-black text-sm">Bitcoin (BTC)</p>
+                      <p className=" text-sm">Bitcoin (BTC)</p>
                       <p className="text-xs text-muted-foreground">
                         {t("wallet.cryptoFastSettlements")}
                       </p>
@@ -178,7 +176,7 @@ const WalletPage = () => {
                       <Coins className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <p className="font-black text-sm">Tether (USDT)</p>
+                      <p className=" text-sm">Tether (USDT)</p>
                       <p className="text-xs text-muted-foreground">
                         {t("wallet.stablecoinLowFees")}
                       </p>
@@ -193,7 +191,7 @@ const WalletPage = () => {
                       <Coins className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <p className="font-black text-sm">Ethereum (ETH)</p>
+                      <p className=" text-sm">Ethereum (ETH)</p>
                       <p className="text-xs text-muted-foreground">
                         {t("wallet.smartContracts")}
                       </p>
@@ -259,7 +257,9 @@ const WalletPage = () => {
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
               <CardTitle>Recent Transactions</CardTitle>
-              <CardDescription>{t("wallet.recentTransactionsDesc")}</CardDescription>
+              <CardDescription>
+                {t("wallet.recentTransactionsDesc")}
+              </CardDescription>
             </div>
             <Button
               variant="ghost"
@@ -278,7 +278,7 @@ const WalletPage = () => {
                     <ArrowDownLeft className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="font-black text-sm text-foreground">
+                    <p className=" text-sm text-foreground">
                       {t("wallet.depositVenezuela")}
                     </p>
                     <p className="text-xs text-muted-foreground">
@@ -287,9 +287,7 @@ const WalletPage = () => {
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-black text-green-600 text-sm">
-                    +5,000
-                  </p>
+                  <p className=" text-green-600 text-sm">+5,000</p>
                   <p className="text-xs text-green-600/70 font-medium">
                     {t("wallet.completed")}
                   </p>
@@ -303,7 +301,7 @@ const WalletPage = () => {
                     <ArrowUpRight className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="font-black text-sm text-foreground">
+                    <p className=" text-sm text-foreground">
                       {t("wallet.withdrawalBitcoin")}
                     </p>
                     <p className="text-xs text-muted-foreground">
@@ -312,7 +310,7 @@ const WalletPage = () => {
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-black text-blue-600 text-sm">-3,500</p>
+                  <p className=" text-blue-600 text-sm">-3,500</p>
                   <p className="text-xs text-blue-600/70 font-medium">
                     {t("wallet.completed")}
                   </p>
@@ -326,7 +324,7 @@ const WalletPage = () => {
                     <TrendingUp className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="font-black text-sm text-foreground">
+                    <p className=" text-sm text-foreground">
                       {t("wallet.winningsAdded")}
                     </p>
                     <p className="text-xs text-muted-foreground">
@@ -335,9 +333,7 @@ const WalletPage = () => {
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-black text-yellow-600 text-sm">
-                    +1,250
-                  </p>
+                  <p className=" text-yellow-600 text-sm">+1,250</p>
                   <p className="text-xs text-yellow-600/70 font-medium">
                     {t("wallet.completed")}
                   </p>

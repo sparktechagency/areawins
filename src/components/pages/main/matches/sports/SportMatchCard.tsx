@@ -35,7 +35,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
   const getSportIcon = (sport: string | SportInfo) =>
     typeof sport === "string" ? "⚽" : sport.icon;
   const getTournamentName = (t: string | TournamentInfo | undefined) =>
-    typeof t === "string" ? "League" : t?.name ?? "League";
+    typeof t === "string" ? "League" : (t?.name ?? "League");
 
   const homeTeamName = getTeamName(match.homeTeam);
   const awayTeamName = getTeamName(match.awayTeam);
@@ -55,12 +55,12 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
       <div className="bg-muted/20 px-3 py-2.5 border-b border-border flex items-center justify-between shrink-0">
         <div className="flex items-center gap-2 overflow-hidden">
           {isLive ? (
-            <span className="flex items-center gap-1 text-[9px] font-black text-rose-500 uppercase bg-rose-500/10 px-1.5 py-0.5 rounded-full shrink-0">
+            <span className="flex items-center gap-1 text-[9px]  text-rose-500 uppercase bg-rose-500/10 px-1.5 py-0.5 rounded-full shrink-0">
               <span className="size-1 rounded-full bg-rose-500 animate-pulse"></span>
               {t("matchCard.live")}
             </span>
           ) : (
-            <span className="text-[9px] font-black text-muted-foreground uppercase bg-muted/50 px-1.5 py-0.5 rounded-full shrink-0">
+            <span className="text-[9px]  text-muted-foreground uppercase bg-muted/50 px-1.5 py-0.5 rounded-full shrink-0">
               {new Date(match.scheduledStartTime).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -72,7 +72,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
           </span>
         </div>
         <div className="flex items-center gap-2 shrink-0">
-          <span className="hidden sm:flex text-[9px] font-black text-primary uppercase items-center gap-1">
+          <span className="hidden sm:flex text-[9px]  text-primary uppercase items-center gap-1">
             <Target className="size-2.5" />
             {stats.activeBets} {t("matchCard.active")}
           </span>
@@ -91,7 +91,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
               <div className="size-10 sm:size-12 rounded-full bg-muted border border-border flex items-center justify-center text-xl sm:text-2xl shrink-0">
                 {sportIcon}
               </div>
-              <span className="font-black text-foreground text-[11px] sm:text-xs text-center group-hover/teams:text-primary transition-colors line-clamp-2 w-full">
+              <span className=" text-foreground text-[11px] sm:text-xs text-center group-hover/teams:text-primary transition-colors line-clamp-2 w-full">
                 {homeTeamName}
               </span>
             </div>
@@ -105,7 +105,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
               <div className="size-10 sm:size-12 rounded-full bg-muted border border-border flex items-center justify-center text-xl sm:text-2xl shrink-0">
                 {sportIcon}
               </div>
-              <span className="font-black text-foreground text-[11px] sm:text-xs text-center group-hover/teams:text-primary transition-colors line-clamp-2 w-full">
+              <span className=" text-foreground text-[11px] sm:text-xs text-center group-hover/teams:text-primary transition-colors line-clamp-2 w-full">
                 {awayTeamName}
               </span>
             </div>
@@ -116,20 +116,20 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
         <div className="mt-auto space-y-3">
           <div className="grid grid-cols-2 gap-2">
             <div className="bg-muted/20 rounded-lg p-2 border border-border/50">
-              <span className="text-[8px] font-black text-muted-foreground uppercase flex items-center gap-1 mb-0.5">
+              <span className="text-[8px]  text-muted-foreground uppercase flex items-center gap-1 mb-0.5">
                 <Banknote className="size-2.5 text-emerald-500" />
                 {t("matchCard.pot")}
               </span>
-              <span className="text-xs sm:text-sm font-black text-foreground block">
+              <span className="text-xs sm:text-sm  text-foreground block">
                 ${stats.potAmount.toLocaleString()}
               </span>
             </div>
             <div className="bg-muted/20 rounded-lg p-2 border border-border/50">
-              <span className="text-[8px] font-black text-muted-foreground uppercase flex items-center gap-1 mb-0.5">
+              <span className="text-[8px]  text-muted-foreground uppercase flex items-center gap-1 mb-0.5">
                 <Search className="size-2.5 text-blue-500" />
                 {t("matchCard.open")}
               </span>
-              <span className="text-xs sm:text-sm font-black text-foreground block">
+              <span className="text-xs sm:text-sm  text-foreground block">
                 {stats.openBets} {t("matchCard.bets")}
               </span>
             </div>
@@ -139,7 +139,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
             <Button
               variant="outline"
               size="sm"
-              className="flex-1 h-9 rounded-lg font-black text-[9px] uppercase tracking-widest border-primary/20 hover:bg-primary/5 text-primary p-0"
+              className="flex-1 h-9 rounded-lg  text-[9px] uppercase tracking-widest border-primary/20 hover:bg-primary/5 text-primary p-0"
               asChild
             >
               <Link href={`/matches/${sportSlug}/${match._id}?action=create`}>
@@ -149,7 +149,7 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
             </Button>
             <Button
               size="sm"
-              className="flex-1 h-9 rounded-lg bg-primary hover:bg-primary/90 text-white font-black text-[9px] uppercase tracking-widest p-0"
+              className="flex-1 h-9 rounded-lg bg-primary hover:bg-primary/90 text-white  text-[9px] uppercase tracking-widest p-0"
               asChild
             >
               <Link href={`/matches/${sportSlug}/${match._id}`}>

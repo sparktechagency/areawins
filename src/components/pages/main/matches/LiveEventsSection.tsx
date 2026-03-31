@@ -1,4 +1,6 @@
+"use client";
 import LiveEventCard from "@/components/betting/LiveEventCard";
+import LiveEventsSectionSkeleton from "@/components/skeleton/LiveEventsSectionSkeleton";
 import { Badge } from "@/components/ui/badge";
 import {
   Carousel,
@@ -8,28 +10,29 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { IMatch } from "@/interfaces/match.interface";
-import { getAllLiveMatches } from "@/services/match.service";
+import { useGetLiveMatchesQuery } from "@/lib/redux/api/matchApi";
 
-const LiveEventsSection = async () => {
-  let liveEvents: IMatch[] = [];
-  let error: string | null = null;
+const LiveEventsSection = () => {
+  const {
+    data: liveMatchesResponse,
+    isLoading,
+    isError,
+  } = useGetLiveMatchesQuery({
+    page: 1,
+    limit: 10,
+  });
 
-  try {
-    const getAllLiveResponse = await getAllLiveMatches({
-      page: 1,
-      limit: 10,
-    });
-    liveEvents = getAllLiveResponse.results || [];
-  } catch (err) {
-    console.error("Error fetching live matches:", err);
-    error = "Failed to load live matches";
+  const liveEvents = liveMatchesResponse?.data?.results || [];
+
+  if (isLoading) {
+    return <LiveEventsSectionSkeleton />;
   }
 
-  if (error || liveEvents.length === 0) {
+  if (isError || liveEvents.length === 0) {
     return (
-      <section className="w-full mt-8 relative">
+      <section className="w-full mt-8 relative ">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-black text-foreground flex items-center gap-3 decoration-primary decoration-2">
+          <h2 className="text-2xl  text-foreground flex items-center gap-3 decoration-primary decoration-2">
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gray-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-gray-500"></span>
@@ -38,15 +41,17 @@ const LiveEventsSection = async () => {
           </h2>
           <Badge
             variant="outline"
-            className="text-muted-foreground border-border px-4 py-1 font-black uppercase tracking-widest text-[10px]"
+            className="text-muted-foreground border-border px-4 py-1   tracking-widest text-[10px]"
           >
-            {error ? "Error" : "No Live Matches"}
+            {isError ? "Error" : "No Live Matches"}
           </Badge>
         </div>
 
         <div className="text-center py-12 border border-border rounded-lg bg-card">
           <div className="text-muted-foreground text-sm">
-            {error || "No live matches available at the moment"}
+            {isError
+              ? "Failed to load live matches"
+              : "No live matches available at the moment"}
           </div>
         </div>
       </section>
@@ -54,9 +59,9 @@ const LiveEventsSection = async () => {
   }
 
   return (
-    <section className="w-full container  relative">
+    <section className="w-full container relative mt-8">
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl font-black text-foreground flex items-center gap-3 decoration-primary decoration-2">
+        <h2 className="text-2xl  text-foreground flex items-center gap-3 decoration-primary decoration-2">
           <span className="relative flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
@@ -65,7 +70,7 @@ const LiveEventsSection = async () => {
         </h2>
         <Badge
           variant="outline"
-          className="text-primary border-primary/20 bg-primary/5 px-4 py-1 font-black uppercase tracking-widest text-[10px]"
+          className="text-primary border-primary/20 bg-primary/5 px-4 py-1  uppercase tracking-widest text-[10px]"
         >
           {liveEvents.length} Matches in Play
         </Badge>

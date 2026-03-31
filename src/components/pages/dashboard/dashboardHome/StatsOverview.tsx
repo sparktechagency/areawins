@@ -22,17 +22,18 @@ export default function StatsOverview({ stats }: StatsOverviewProps) {
         <CardContent className="p-8 relative z-10">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-green-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
+              <p className="text-green-500 text-[10px]  uppercase tracking-[0.2em] mb-2">
                 {t("dashboardStats.totalWinningBalance")}
               </p>
-              <div className="text-3xl font-black text-foreground mb-4">
+              <div className="text-3xl  text-foreground mb-4">
                 {formatCurrency(stats?.totalWinningBalance || 0)}
               </div>
               <Link
                 href={ROUTES.WALLET_WITHDRAW}
-                className="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-green-500 hover:gap-2 transition-all"
+                className="inline-flex items-center text-[10px]  uppercase tracking-widest text-green-500 hover:gap-2 transition-all"
               >
-                {t("dashboardStats.withdrawNow")} <ArrowRight className="w-3 h-3 ml-1" />
+                {t("dashboardStats.withdrawNow")}{" "}
+                <ArrowRight className="w-3 h-3 ml-1" />
               </Link>
             </div>
           </div>
@@ -47,17 +48,18 @@ export default function StatsOverview({ stats }: StatsOverviewProps) {
         <CardContent className="p-8 relative z-10">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-blue-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
+              <p className="text-blue-500 text-[10px]  uppercase tracking-[0.2em] mb-2">
                 {t("dashboardStats.totalDeposit")}
               </p>
-              <div className="text-3xl font-black text-foreground mb-4">
+              <div className="text-3xl  text-foreground mb-4">
                 {formatCurrency(stats?.totalDeposit || 0)}
               </div>
               <Link
                 href={ROUTES.WALLET_DEPOSIT}
-                className="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-blue-500 hover:gap-2 transition-all"
+                className="inline-flex items-center text-[10px]  uppercase tracking-widest text-blue-500 hover:gap-2 transition-all"
               >
-                {t("dashboardStats.addFunds")} <ArrowRight className="w-3 h-3 ml-1" />
+                {t("dashboardStats.addFunds")}{" "}
+                <ArrowRight className="w-3 h-3 ml-1" />
               </Link>
             </div>
           </div>
@@ -72,17 +74,18 @@ export default function StatsOverview({ stats }: StatsOverviewProps) {
         <CardContent className="p-8 relative z-10">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-purple-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
-               {t("dashboardStats.totalBalance")}
+              <p className="text-purple-500 text-[10px]  uppercase tracking-[0.2em] mb-2">
+                {t("dashboardStats.totalBalance")}
               </p>
-              <div className="text-3xl font-black text-foreground mb-4">
+              <div className="text-3xl  text-foreground mb-4">
                 {formatCurrency(stats?.totalBalance || 0)}
               </div>
               <Link
                 href={ROUTES.WALLET}
-                className="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-purple-500 hover:gap-2 transition-all"
+                className="inline-flex items-center text-[10px]  uppercase tracking-widest text-purple-500 hover:gap-2 transition-all"
               >
-                {t("dashboardStats.viewWallet")} <ArrowRight className="w-3 h-3 ml-1" />
+                {t("dashboardStats.viewWallet")}{" "}
+                <ArrowRight className="w-3 h-3 ml-1" />
               </Link>
             </div>
           </div>
@@ -97,10 +100,10 @@ export default function StatsOverview({ stats }: StatsOverviewProps) {
         <CardContent className="p-8 relative z-10">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-red-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
+              <p className="text-red-500 text-[10px]  uppercase tracking-[0.2em] mb-2">
                 {t("dashboardStats.totalLoss")}
               </p>
-              <div className="text-3xl font-black text-foreground mb-4">
+              <div className="text-3xl  text-foreground mb-4">
                 {formatCurrency(stats?.totalLoss || 0)}
               </div>
             </div>

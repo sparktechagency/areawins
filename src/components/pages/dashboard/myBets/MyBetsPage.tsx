@@ -8,15 +8,15 @@ import { ROUTES } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import {
-    Clock,
-    Filter,
-    Search,
-    Target,
-    Ticket,
-    TrendingDown,
-    TrendingUp,
-    X,
-    Zap,
+  Clock,
+  Filter,
+  Search,
+  Target,
+  Ticket,
+  TrendingDown,
+  TrendingUp,
+  X,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -161,9 +161,7 @@ const MyBetsPage = () => {
             <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
               {t("myBets.title")} <Ticket className="w-8 h-8 text-primary" />
             </h1>
-            <p className="text-muted-foreground mt-1">
-              {t("myBets.subtitle")}
-            </p>
+            <p className="text-muted-foreground mt-1">{t("myBets.subtitle")}</p>
           </div>
           <Link href={ROUTES?.LIVE_EVENTS || FALLBACK_ROUTES.LIVE_EVENTS}>
             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
@@ -183,10 +181,10 @@ const MyBetsPage = () => {
             <CardContent className="p-8 relative z-10">
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-blue-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
+                  <p className="text-blue-500 text-[10px]  uppercase tracking-[0.2em] mb-2">
                     {t("myBets.totalBets")}
                   </p>
-                  <div className="text-3xl font-black text-foreground mb-4">
+                  <div className="text-3xl  text-foreground mb-4">
                     {totalBets}
                   </div>
                   <p className="text-xs text-muted-foreground">
@@ -205,10 +203,10 @@ const MyBetsPage = () => {
             <CardContent className="p-8 relative z-10">
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-yellow-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
+                  <p className="text-yellow-500 text-[10px]  uppercase tracking-[0.2em] mb-2">
                     {t("myBets.activeBets")}
                   </p>
-                  <div className="text-3xl font-black text-foreground mb-4">
+                  <div className="text-3xl  text-foreground mb-4">
                     {activeCount}
                   </div>
                   <p className="text-xs text-muted-foreground">
@@ -227,10 +225,10 @@ const MyBetsPage = () => {
             <CardContent className="p-8 relative z-10">
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-green-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
+                  <p className="text-green-500 text-[10px]  uppercase tracking-[0.2em] mb-2">
                     {t("myBets.wonBets")}
                   </p>
-                  <div className="text-3xl font-black text-foreground mb-4">
+                  <div className="text-3xl  text-foreground mb-4">
                     {wonCount}
                   </div>
                   <p className="text-xs text-muted-foreground">
@@ -249,10 +247,10 @@ const MyBetsPage = () => {
             <CardContent className="p-8 relative z-10">
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-purple-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
+                  <p className="text-purple-500 text-[10px]  uppercase tracking-[0.2em] mb-2">
                     {t("myBets.winRate")}
                   </p>
-                  <div className="text-3xl font-black text-foreground mb-4">
+                  <div className="text-3xl  text-foreground mb-4">
                     {winRate}%
                   </div>
                   <p className="text-xs text-muted-foreground">
@@ -402,7 +400,7 @@ const MyBetsPage = () => {
                       <p className="text-muted-foreground text-xs mb-1">
                         {t("myBets.potentialReturn")}
                       </p>
-                      <p className="font-black text-lg text-primary">
+                      <p className=" text-lg text-primary">
                         {formatCurrency(bet.potentialWin)}
                       </p>
                     </div>
@@ -415,7 +413,7 @@ const MyBetsPage = () => {
                         <p className="text-xs text-green-600 dark:text-green-400">
                           {t("myBets.wonPaid")}
                         </p>
-                        <p className="font-black text-green-700 dark:text-green-300">
+                        <p className=" text-green-700 dark:text-green-300">
                           +{formatCurrency(bet.payout || bet.potentialWin)}
                         </p>
                       </div>
@@ -429,7 +427,7 @@ const MyBetsPage = () => {
                         <p className="text-xs text-red-600 dark:text-red-400">
                           {t("myBets.lost")}
                         </p>
-                        <p className="font-black text-red-700 dark:text-red-300">
+                        <p className=" text-red-700 dark:text-red-300">
                           -{formatCurrency(bet.stake)}
                         </p>
                       </div>

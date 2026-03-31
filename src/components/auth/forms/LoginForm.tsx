@@ -40,9 +40,7 @@ export default function LoginForm() {
   return (
     <div className="w-full p-6 space-y-6">
       <div className="text-center space-y-2">
-        <h2 className="text-2xl font-black text-foreground">
-          {t("auth.welcomeBack")}
-        </h2>
+        <h2 className="text-2xl  text-foreground">{t("auth.welcomeBack")}</h2>
         <p className="text-sm text-muted-foreground">
           {t("auth.loginSubtitle")}
         </p>

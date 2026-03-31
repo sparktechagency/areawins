@@ -75,7 +75,7 @@ const HowItWorks = () => {
                 {/* Central P2P circle */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-linear-to-br from-primary/80 to-primary/40 flex items-center justify-center shadow-2xl shadow-primary/30">
-                    <span className="text-4xl md:text-6xl font-black text-white tracking-wider">
+                    <span className="text-4xl md:text-6xl  text-white tracking-wider">
                       P2P
                     </span>
                   </div>

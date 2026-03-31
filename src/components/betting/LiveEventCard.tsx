@@ -14,7 +14,7 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border/50">
         <div className="flex gap-1.5">
-          <div className="flex items-center gap-1.5 bg-rose-500/10 px-2 py-1 rounded-full text-[9px] font-black text-rose-500 uppercase tracking-widest border border-rose-500/20 w-fit">
+          <div className="flex items-center gap-1.5 bg-rose-500/10 px-2 py-1 rounded-full text-[9px]  text-rose-500 uppercase tracking-widest border border-rose-500/20 w-fit">
             <span className="size-1.5 rounded-full bg-rose-500 animate-pulse"></span>
             LIVE
             {event.liveStatus?.minute && (
@@ -31,7 +31,7 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
                 className="rounded-sm object-cover"
               />
             )}
-            <span className="text-[10px] font-black text-foreground uppercase tracking-tighter">
+            <span className="text-[10px]  text-foreground uppercase tracking-tighter">
               {event.tournament?.name || "Unknown Tournament"}
             </span>
           </div>
@@ -65,7 +65,7 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
               className="object-contain"
             />
           </div>
-          <span className="text-[11px] font-black text-center max-w-[80px] leading-tight uppercase truncate transition-all">
+          <span className="text-[11px]  text-center max-w-[80px] leading-tight uppercase truncate transition-all">
             {event.homeTeam?.name || "Home Team"}
           </span>
         </div>
@@ -73,13 +73,11 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
         <div className="flex flex-col items-center gap-2 px-4">
           <div className="relative">
             <div className="flex items-center gap-3">
-              <span className="text-3xl font-black text-foreground tabular-nums">
+              <span className="text-3xl  text-foreground tabular-nums">
                 {event.homeScore || 0}
               </span>
-              <span className="text-xl font-black text-muted-foreground/30">
-                :
-              </span>
-              <span className="text-3xl font-black text-foreground tabular-nums">
+              <span className="text-xl  text-muted-foreground/30">:</span>
+              <span className="text-3xl  text-foreground tabular-nums">
                 {event.awayScore || 0}
               </span>
             </div>
@@ -101,7 +99,7 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
               className="object-contain"
             />
           </div>
-          <span className="text-[11px] font-black text-center max-w-[80px] leading-tight uppercase truncate transition-all">
+          <span className="text-[11px]  text-center max-w-[80px] leading-tight uppercase truncate transition-all">
             {event.awayTeam?.name || "Away Team"}
           </span>
         </div>
@@ -124,20 +122,20 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
       {/* Stats Grid */}
       <div className="grid grid-cols-2 gap-3 p-4 bg-linear-to-br from-muted/20 to-muted/10 border-t border-border/50">
         <div className="flex flex-col gap-1">
-          <span className="text-[9px] font-black text-muted-foreground uppercase flex items-center gap-1">
+          <span className="text-[9px]  text-muted-foreground uppercase flex items-center gap-1">
             <Banknote className="size-3 text-emerald-500" />
             Total Pot
           </span>
-          <span className="text-lg font-black text-foreground tabular-nums">
+          <span className="text-lg  text-foreground tabular-nums">
             ${(event.totalBetsAmount || 0).toLocaleString()}
           </span>
         </div>
         <div className="flex flex-col gap-1">
-          <span className="text-[9px] font-black text-muted-foreground uppercase flex items-center gap-1">
+          <span className="text-[9px]  text-muted-foreground uppercase flex items-center gap-1">
             <Users className="size-3 text-blue-500" />
             Active Bets
           </span>
-          <span className="text-lg font-black text-foreground tabular-nums">
+          <span className="text-lg  text-foreground tabular-nums">
             {event.totalBetsCount || 0}
           </span>
         </div>
@@ -146,7 +144,7 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
       {/* CTAs */}
       <div className="flex items-center gap-2 p-4 pt-0">
         <Button
-          className="flex-1 bg-linear-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white font-black text-[10px] uppercase tracking-widest h-11 rounded-lg shadow-lg hover:shadow-primary/25 transition-all"
+          className="flex-1 bg-linear-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white  text-[10px] uppercase tracking-widest h-11 rounded-lg shadow-lg hover:shadow-primary/25 transition-all"
           asChild
         >
           <Link

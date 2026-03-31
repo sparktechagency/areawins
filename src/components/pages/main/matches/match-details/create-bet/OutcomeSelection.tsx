@@ -22,11 +22,11 @@ const OutcomeSelection: React.FC<OutcomeSelectionProps> = ({
       <div className="space-y-2">
         <Badge
           variant="outline"
-          className="text-primary border-primary/20 bg-primary/5 px-3 py-0.5 font-black uppercase tracking-widest text-[10px]"
+          className="text-primary border-primary/20 bg-primary/5 px-3 py-0.5  uppercase tracking-widest text-[10px]"
         >
           Step 1: Choose Outcome
         </Badge>
-        <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
+        <h2 className="text-xl sm:text-2xl  text-foreground tracking-tight">
           What&apos;s your prediction?
         </h2>
         <p className="text-xs text-muted-foreground font-medium">
@@ -37,7 +37,7 @@ const OutcomeSelection: React.FC<OutcomeSelectionProps> = ({
       <div className="space-y-6 sm:space-y-8">
         {marketOutcomes.map((market, mIdx) => (
           <div key={mIdx} className="space-y-4">
-            <h4 className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] relative">
+            <h4 className="text-[10px]  text-muted-foreground uppercase tracking-[0.2em] relative">
               <span className="bg-card pr-3 relative z-10">
                 {market.marketName}
               </span>
@@ -50,7 +50,7 @@ const OutcomeSelection: React.FC<OutcomeSelectionProps> = ({
                   onClick={() => onSelect(o.label, market.marketName)}
                   className={cn(
                     "group relative overflow-hidden bg-muted/20 hover:bg-primary/5 border border-border/50 hover:border-primary/50 px-4 py-2 rounded-lg transition-all flex items-center justify-between cursor-pointer active:scale-[0.98]",
-                    outcome === o.label && "border-primary bg-primary/10"
+                    outcome === o.label && "border-primary bg-primary/10",
                   )}
                 >
                   <div className="flex items-center gap-3">

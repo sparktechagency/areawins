@@ -41,7 +41,7 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
 
   useEffect(() => {
     resetTimeout();
-    timeoutRef.current = setTimeout(nextSlide, 6000); 
+    timeoutRef.current = setTimeout(nextSlide, 6000);
 
     return () => resetTimeout();
   }, [currentIndex, nextSlide]);
@@ -78,16 +78,16 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
 
       <div className="relative z-10 p-5 sm:p-8 lg:p-10 max-w-3xl">
         <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-          <Badge className="bg-primary text-white font-black border-none px-4 py-1.5 uppercase tracking-widest text-[10px] rounded-full flex items-center gap-2">
+          <Badge className="bg-primary text-white  border-none px-4 py-1.5 uppercase tracking-widest text-[10px] rounded-full flex items-center gap-2">
             <Flame className="size-3.5" />
             {t("banner.activeMarket")}
           </Badge>
-          <span className="text-white font-black text-[10px] bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-xl border border-white/20 uppercase tracking-[0.2em]">
+          <span className="text-white  text-[10px] bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-xl border border-white/20 uppercase tracking-[0.2em]">
             {currentBanner.subtitle}
           </span>
         </div>
 
-        <h2 className="text-2xl sm:text-4xl md:text-6xl font-black text-white mb-3 sm:mb-4 leading-tight sm:leading-none tracking-tight">
+        <h2 className="text-2xl sm:text-4xl md:text-6xl  text-white mb-3 sm:mb-4 leading-tight sm:leading-none tracking-tight">
           {currentBanner.title}
         </h2>
 
@@ -97,7 +97,7 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
             </span>
-            <p className="text-white text-sm sm:text-lg font-black tracking-tight font-mono">
+            <p className="text-white text-sm sm:text-lg  tracking-tight font-mono">
               {currentBanner.matchStatus}
             </p>
           </div>
@@ -108,12 +108,12 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
         )}
 
         <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-          <Button className="h-11 sm:h-14 px-5 sm:px-10 rounded-lg bg-white text-black hover:bg-white/90 font-black uppercase tracking-wider sm:tracking-widest transition-all active:scale-95 text-xs sm:text-sm">
+          <Button className="h-11 sm:h-14 px-5 sm:px-10 rounded-lg bg-white text-black hover:bg-white/90  uppercase tracking-wider sm:tracking-widest transition-all active:scale-95 text-xs sm:text-sm">
             {t("banner.joinMarket")}
           </Button>
           <Button
             variant="ghost"
-            className="h-11 sm:h-14 px-5 sm:px-8 rounded-lg text-white font-black uppercase tracking-wider sm:tracking-widest hover:bg-white/10 text-xs sm:text-sm"
+            className="h-11 sm:h-14 px-5 sm:px-8 rounded-lg text-white  uppercase tracking-wider sm:tracking-widest hover:bg-white/10 text-xs sm:text-sm"
           >
             {t("banner.viewCharts")}
             <ArrowRight className="size-4 ml-2" />

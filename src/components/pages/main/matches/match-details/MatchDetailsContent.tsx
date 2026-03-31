@@ -12,10 +12,10 @@ import { MOCK_MATCHES } from "@/data/match.data";
 
 import { MarketCategory } from "@/interfaces/betting.interface";
 import {
-    MatchDetailsContentProps,
-    MatchInfo,
-    TeamInfo,
-    TournamentInfo,
+  MatchDetailsContentProps,
+  MatchInfo,
+  TeamInfo,
+  TournamentInfo,
 } from "@/interfaces/match.interface";
 
 import MarketInsightsTab from "./MarketInsightsTab";
@@ -33,7 +33,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
   const getTeamName = (team: string | TeamInfo) =>
     typeof team === "string" ? "Team" : team.name;
   const getTournamentName = (t: string | TournamentInfo | undefined) =>
-    typeof t === "string" ? "League" : t?.name ?? "League";
+    typeof t === "string" ? "League" : (t?.name ?? "League");
   const getVenue = (m: MatchInfo) => m.venue || "Stadium";
 
   // Find Match Data dynamically from our main match data source
@@ -94,7 +94,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
           <div className="size-8 rounded-full border border-border flex items-center justify-center group-hover:bg-muted transition-colors">
             <ChevronLeft className="size-4" />
           </div>
-          <span className="font-black text-[10px] sm:text-xs uppercase tracking-wide sm:tracking-widest">
+          <span className=" text-[10px] sm:text-xs uppercase tracking-wide sm:tracking-widest">
             Back to {sport}
           </span>
         </Link>
@@ -122,18 +122,18 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
         <TabsList className="bg-transparent border border-border w-full justify-start h-auto p-1 rounded-xl gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar shadow-inner">
           <TabsTrigger
             value="market"
-            className="rounded-lg border-transparent data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-white px-4 sm:px-8 py-2.5 sm:py-3 text-[10px] sm:text-xs font-black text-muted-foreground uppercase tracking-wide sm:tracking-widest transition-all cursor-pointer flex gap-1.5 sm:gap-2 items-center shrink-0 whitespace-nowrap"
+            className="rounded-lg border-transparent data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-white px-4 sm:px-8 py-2.5 sm:py-3 text-[10px] sm:text-xs  text-muted-foreground uppercase tracking-wide sm:tracking-widest transition-all cursor-pointer flex gap-1.5 sm:gap-2 items-center shrink-0 whitespace-nowrap"
           >
             <BarChart3 className="size-4" />
             Market Insights
           </TabsTrigger>
           <TabsTrigger
             value="open"
-            className="rounded-lg border-transparent data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-white px-4 sm:px-8 py-2.5 sm:py-3 text-[10px] sm:text-xs font-black text-muted-foreground uppercase tracking-wide sm:tracking-widest transition-all cursor-pointer flex gap-1.5 sm:gap-2 items-center shrink-0 whitespace-nowrap"
+            className="rounded-lg border-transparent data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-white px-4 sm:px-8 py-2.5 sm:py-3 text-[10px] sm:text-xs  text-muted-foreground uppercase tracking-wide sm:tracking-widest transition-all cursor-pointer flex gap-1.5 sm:gap-2 items-center shrink-0 whitespace-nowrap"
           >
             <Search className="size-4" />
             Open p2p
-            <span className="size-5 rounded-full bg-primary/10 dark:bg-white/10 flex items-center justify-center text-[9px] font-black ml-1">
+            <span className="size-5 rounded-full bg-primary/10 dark:bg-white/10 flex items-center justify-center text-[9px]  ml-1">
               {matchedBets.length + 3}
             </span>
           </TabsTrigger>

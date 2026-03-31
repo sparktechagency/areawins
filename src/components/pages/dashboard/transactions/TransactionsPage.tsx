@@ -6,12 +6,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { formatCurrency } from "@/lib/utils";
 import {
-    ArrowDownLeft,
-    ArrowUpRight,
-    Download,
-    Filter,
-    Search,
-    Wallet,
+  ArrowDownLeft,
+  ArrowUpRight,
+  Download,
+  Filter,
+  Search,
+  Wallet,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -49,8 +49,9 @@ const TransactionsPage = () => {
       <div className="w-full mx-auto">
         <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-black text-foreground flex items-center gap-3 uppercase tracking-tight">
-              {t("transactions.title")} <Wallet className="w-8 h-8 text-primary" />
+            <h1 className="text-3xl  text-foreground flex items-center gap-3 uppercase tracking-tight">
+              {t("transactions.title")}{" "}
+              <Wallet className="w-8 h-8 text-primary" />
             </h1>
             <p className="text-muted-foreground mt-2 font-medium">
               {t("transactions.subtitle")}
@@ -58,9 +59,10 @@ const TransactionsPage = () => {
           </div>
           <Button
             variant="outline"
-            className="shrink-0 h-11 px-6 rounded-lg font-black uppercase tracking-widest text-xs gap-2"
+            className="shrink-0 h-11 px-6 rounded-lg  uppercase tracking-widest text-xs gap-2"
           >
-            <Download className="size-4" /> {t("transactions.downloadStatement")}
+            <Download className="size-4" />{" "}
+            {t("transactions.downloadStatement")}
           </Button>
         </div>
 
@@ -78,13 +80,13 @@ const TransactionsPage = () => {
           <div className="flex gap-4">
             <Button
               variant="outline"
-              className="h-12 px-6 rounded-lg font-black uppercase tracking-widest text-xs gap-2 border-border bg-card"
+              className="h-12 px-6 rounded-lg  uppercase tracking-widest text-xs gap-2 border-border bg-card"
             >
               <Filter className="size-4" /> {t("transactions.dateRange")}
             </Button>
             <Button
               variant="outline"
-              className="h-12 px-6 rounded-lg font-black uppercase tracking-widest text-xs gap-2 border-border bg-card"
+              className="h-12 px-6 rounded-lg  uppercase tracking-widest text-xs gap-2 border-border bg-card"
             >
               <Filter className="size-4" /> {t("transactions.type")}
             </Button>
@@ -98,19 +100,19 @@ const TransactionsPage = () => {
               <table className="w-full text-left">
                 <thead>
                   <tr className="bg-muted/30 border-b border-border">
-                    <th className="py-4 px-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
+                    <th className="py-4 px-8 text-[10px]  uppercase tracking-widest text-muted-foreground whitespace-nowrap">
                       {t("transactions.transactionId")}
                     </th>
-                    <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
+                    <th className="py-4 px-4 text-[10px]  uppercase tracking-widest text-muted-foreground whitespace-nowrap">
                       {t("transactions.dateTime")}
                     </th>
-                    <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
+                    <th className="py-4 px-4 text-[10px]  uppercase tracking-widest text-muted-foreground whitespace-nowrap">
                       {t("transactions.typeMethod")}
                     </th>
-                    <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap text-right">
+                    <th className="py-4 px-4 text-[10px]  uppercase tracking-widest text-muted-foreground whitespace-nowrap text-right">
                       {t("transactions.amount")}
                     </th>
-                    <th className="py-4 px-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap text-right">
+                    <th className="py-4 px-8 text-[10px]  uppercase tracking-widest text-muted-foreground whitespace-nowrap text-right">
                       {t("transactions.status")}
                     </th>
                   </tr>
@@ -138,10 +140,10 @@ const TransactionsPage = () => {
                               tx.category === "Deposit"
                                 ? "bg-emerald-500/10 text-emerald-500"
                                 : tx.category === "Withdrawal"
-                                ? "bg-rose-500/10 text-rose-500"
-                                : tx.category === "Winning"
-                                ? "bg-primary/10 text-primary"
-                                : "bg-slate-500/10 text-slate-500"
+                                  ? "bg-rose-500/10 text-rose-500"
+                                  : tx.category === "Winning"
+                                    ? "bg-primary/10 text-primary"
+                                    : "bg-slate-500/10 text-slate-500"
                             }`}
                           >
                             {tx.type === "Deposit" ? (
@@ -151,7 +153,7 @@ const TransactionsPage = () => {
                             )}
                           </div>
                           <div>
-                            <p className="font-black text-xs text-foreground uppercase tracking-tight">
+                            <p className=" text-xs text-foreground uppercase tracking-tight">
                               {typeMap[tx.type] || tx.type}
                             </p>
                             <p className="text-[10px] font-bold text-muted-foreground">
@@ -162,7 +164,7 @@ const TransactionsPage = () => {
                       </td>
                       <td className="py-5 px-4 text-right">
                         <p
-                          className={`font-black ${
+                          className={` ${
                             tx.category === "Deposit" ||
                             tx.category === "Winning"
                               ? "text-emerald-500"
@@ -185,7 +187,7 @@ const TransactionsPage = () => {
                             tx.status === "Completed"
                               ? "bg-emerald-500 hover:bg-emerald-600"
                               : "bg-amber-500 hover:bg-amber-600"
-                          } rounded-full font-black text-[9px] uppercase tracking-widest`}
+                          } rounded-full  text-[9px] uppercase tracking-widest`}
                         >
                           {statusMap[tx.status] || tx.status}
                         </Badge>
@@ -198,28 +200,28 @@ const TransactionsPage = () => {
 
             {transactions.length === 0 && (
               <div className="p-24 text-center">
-                <p className="text-muted-foreground font-black uppercase tracking-widest text-xs">
+                <p className="text-muted-foreground  uppercase tracking-widest text-xs">
                   {t("transactions.noTransactions")}
                 </p>
               </div>
             )}
           </CardContent>
           <div className="p-6 border-t border-border flex justify-between items-center bg-muted/5">
-            <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">
+            <p className="text-[10px]  text-muted-foreground uppercase tracking-widest">
               {t("transactions.showingCount")}
             </p>
             <div className="flex gap-2">
               <Button
                 variant="outline"
                 size="sm"
-                className="h-9 px-4 rounded-lg font-black uppercase text-[10px] tracking-widest border-border bg-card"
+                className="h-9 px-4 rounded-lg  uppercase text-[10px] tracking-widest border-border bg-card"
               >
                 {t("transactions.previous")}
               </Button>
               <Button
                 variant="outline"
                 size="sm"
-                className="h-9 px-4 rounded-lg font-black uppercase text-[10px] tracking-widest border-border bg-card hover:bg-primary/5 hover:text-primary hover:border-primary/20"
+                className="h-9 px-4 rounded-lg  uppercase text-[10px] tracking-widest border-border bg-card hover:bg-primary/5 hover:text-primary hover:border-primary/20"
               >
                 {t("transactions.next")}
               </Button>

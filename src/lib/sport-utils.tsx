@@ -11,7 +11,7 @@ export const getSportSlug = (sport: string | SportInfo | undefined): string => {
 
 export const renderSportScore = (
   match: MatchInfo,
-  _type: "compact" | "detailed" = "compact"
+  _type: "compact" | "detailed" = "compact",
 ) => {
   const sportSlug = getSportSlug(match.sport);
   const statusLine = match.liveStatus;
@@ -19,7 +19,7 @@ export const renderSportScore = (
   if (!statusLine && match.status !== "live") {
     return (
       <div className="flex items-center gap-1 px-2 py-1 bg-muted/30 rounded-lg">
-        <span className="text-sm font-black text-muted-foreground/50 uppercase tracking-widest">
+        <span className="text-sm  text-muted-foreground/50 uppercase tracking-widest">
           VS
         </span>
       </div>
@@ -40,7 +40,7 @@ export const renderSportScore = (
         <div className="flex flex-col items-center gap-0.5">
           <div className="flex items-center gap-1.5">
             <div className="flex flex-col items-center">
-              <span className="text-lg sm:text-xl font-black text-foreground tabular-nums leading-none">
+              <span className="text-lg sm:text-xl  text-foreground tabular-nums leading-none">
                 {s.homeScore}/{s.homeWickets ?? 0}
               </span>
               {s.homeOvers && (
@@ -49,12 +49,12 @@ export const renderSportScore = (
                 </span>
               )}
             </div>
-            <span className="text-xs font-black text-muted-foreground/30 mx-0.5">
+            <span className="text-xs  text-muted-foreground/30 mx-0.5">
               {" "}
               vs{" "}
             </span>
             <div className="flex flex-col items-center">
-              <span className="text-lg sm:text-xl font-black text-foreground tabular-nums leading-none">
+              <span className="text-lg sm:text-xl  text-foreground tabular-nums leading-none">
                 {s.awayScore}/{s.awayWickets ?? 0}
               </span>
               {s.awayOvers && (
@@ -74,18 +74,16 @@ export const renderSportScore = (
       return (
         <div className="flex flex-col items-center gap-1">
           <div className="flex items-center gap-1 px-1 sm:px-2 bg-muted/30 rounded-lg py-1">
-            <span className="text-xl font-black text-foreground tabular-nums">
+            <span className="text-xl  text-foreground tabular-nums">
               {s.homeScore}
             </span>
-            <span className="text-sm font-black text-muted-foreground/30 mx-0.5">
-              :
-            </span>
-            <span className="text-xl font-black text-foreground tabular-nums">
+            <span className="text-sm  text-muted-foreground/30 mx-0.5">:</span>
+            <span className="text-xl  text-foreground tabular-nums">
               {s.awayScore}
             </span>
           </div>
           {match.status === "live" && s.period && (
-            <span className="text-[9px] font-black text-rose-500/80 uppercase tracking-tighter animate-pulse">
+            <span className="text-[9px]  text-rose-500/80 uppercase tracking-tighter animate-pulse">
               {s.period} {/* e.g., "Set 2" */}
             </span>
           )}
@@ -97,18 +95,16 @@ export const renderSportScore = (
       return (
         <div className="flex flex-col items-center gap-1">
           <div className="flex items-center gap-1 px-1 sm:px-2 bg-muted/30 rounded-lg py-1">
-            <span className="text-xl font-black text-foreground tabular-nums">
+            <span className="text-xl  text-foreground tabular-nums">
               {s.homeScore}
             </span>
-            <span className="text-sm font-black text-muted-foreground/30 mx-0.5">
-              :
-            </span>
-            <span className="text-xl font-black text-foreground tabular-nums">
+            <span className="text-sm  text-muted-foreground/30 mx-0.5">:</span>
+            <span className="text-xl  text-foreground tabular-nums">
               {s.awayScore}
             </span>
           </div>
           {match.status === "live" && s.period && (
-            <span className="text-[9px] font-black text-rose-500/80 uppercase tracking-tighter animate-pulse">
+            <span className="text-[9px]  text-rose-500/80 uppercase tracking-tighter animate-pulse">
               {s.period} {s.minute ? `${s.minute}:00` : ""}{" "}
               {/* e.g., "Q3 8:45" */}
             </span>
@@ -121,18 +117,16 @@ export const renderSportScore = (
       return (
         <div className="flex flex-col items-center gap-1">
           <div className="flex items-center gap-1 px-1 sm:px-2 bg-muted/30 rounded-lg py-1">
-            <span className="text-xl font-black text-foreground tabular-nums">
+            <span className="text-xl  text-foreground tabular-nums">
               {s.homeScore}
             </span>
-            <span className="text-sm font-black text-muted-foreground/30 mx-0.5">
-              :
-            </span>
-            <span className="text-xl font-black text-foreground tabular-nums">
+            <span className="text-sm  text-muted-foreground/30 mx-0.5">:</span>
+            <span className="text-xl  text-foreground tabular-nums">
               {s.awayScore}
             </span>
           </div>
           {match.status === "live" && s.period && (
-            <span className="text-[9px] font-black text-rose-500/80 uppercase tracking-tighter animate-pulse">
+            <span className="text-[9px]  text-rose-500/80 uppercase tracking-tighter animate-pulse">
               {s.period} {/* e.g., "Top 7th" */}
             </span>
           )}
@@ -145,12 +139,12 @@ export const renderSportScore = (
       return (
         <div className="flex flex-col items-center gap-1">
           <div className="px-3 py-1.5 bg-primary/10 rounded-lg">
-            <span className="text-sm font-black text-primary uppercase tracking-wider">
+            <span className="text-sm  text-primary uppercase tracking-wider">
               {s.period || "VS"} {/* e.g., "Round 5" */}
             </span>
           </div>
           {match.status === "live" && s.minute && (
-            <span className="text-[9px] font-black text-rose-500/80 uppercase tracking-tighter animate-pulse">
+            <span className="text-[9px]  text-rose-500/80 uppercase tracking-tighter animate-pulse">
               {s.minute}:00
             </span>
           )}
@@ -163,18 +157,16 @@ export const renderSportScore = (
         <div className="flex flex-col items-center gap-1">
           <div className="flex items-center gap-2">
             <div className="flex flex-col items-center">
-              <span className="text-xl font-black text-foreground tabular-nums">
+              <span className="text-xl  text-foreground tabular-nums">
                 {s.homeScore > 0 ? `+${s.homeScore}` : s.homeScore}
               </span>
               <span className="text-[8px] font-bold text-muted-foreground uppercase">
                 Player 1
               </span>
             </div>
-            <span className="text-xs font-black text-muted-foreground/30">
-              vs
-            </span>
+            <span className="text-xs  text-muted-foreground/30">vs</span>
             <div className="flex flex-col items-center">
-              <span className="text-xl font-black text-foreground tabular-nums">
+              <span className="text-xl  text-foreground tabular-nums">
                 {s.awayScore > 0 ? `+${s.awayScore}` : s.awayScore}
               </span>
               <span className="text-[8px] font-bold text-muted-foreground uppercase">
@@ -183,7 +175,7 @@ export const renderSportScore = (
             </div>
           </div>
           {match.status === "live" && s.period && (
-            <span className="text-[9px] font-black text-rose-500/80 uppercase">
+            <span className="text-[9px]  text-rose-500/80 uppercase">
               {s.period} {/* e.g., "Hole 14" */}
             </span>
           )}
@@ -201,18 +193,16 @@ export const renderSportScore = (
       return (
         <div className="flex flex-col items-center gap-1">
           <div className="flex items-center gap-1 px-1 sm:px-2 bg-muted/30 rounded-lg py-1">
-            <span className="text-xl font-black text-foreground tabular-nums">
+            <span className="text-xl  text-foreground tabular-nums">
               {s.homeScore}
             </span>
-            <span className="text-sm font-black text-muted-foreground/30 mx-0.5">
-              :
-            </span>
-            <span className="text-xl font-black text-foreground tabular-nums">
+            <span className="text-sm  text-muted-foreground/30 mx-0.5">:</span>
+            <span className="text-xl  text-foreground tabular-nums">
               {s.awayScore}
             </span>
           </div>
           {match.status === "live" && s.period && (
-            <span className="text-[9px] font-black text-rose-500/80 uppercase tracking-tighter animate-pulse">
+            <span className="text-[9px]  text-rose-500/80 uppercase tracking-tighter animate-pulse">
               {s.minute ? `${s.minute}' ` : ""}
               {s.period}
             </span>

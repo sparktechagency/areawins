@@ -43,7 +43,7 @@ const ReferralFriends = () => {
     <DashboardLayout>
       <div className="w-full mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-black text-foreground flex items-center gap-3 uppercase tracking-tight">
+          <h1 className="text-3xl  text-foreground flex items-center gap-3 uppercase tracking-tight">
             {t("referral.title")} <Gift className="w-8 h-8 text-primary" />
           </h1>
           <p className="text-muted-foreground mt-2 font-medium">
@@ -57,11 +57,11 @@ const ReferralFriends = () => {
             <CardContent className="p-6">
               <div className="flex items-center gap-3 text-primary mb-2">
                 <Users className="size-5" />
-                <p className="text-xs font-black uppercase tracking-widest">
+                <p className="text-xs  uppercase tracking-widest">
                   {t("referral.totalReferred")}
                 </p>
               </div>
-              <div className="text-3xl font-black text-foreground">
+              <div className="text-3xl  text-foreground">
                 {t("referral.totalReferredValue")}
               </div>
               <p className="text-[10px] text-muted-foreground mt-1 font-bold">
@@ -74,11 +74,11 @@ const ReferralFriends = () => {
             <CardContent className="p-6">
               <div className="flex items-center gap-3 text-emerald-500 mb-2">
                 <Wallet className="size-5" />
-                <p className="text-xs font-black uppercase tracking-widest">
+                <p className="text-xs  uppercase tracking-widest">
                   {t("referral.commissionEarned")}
                 </p>
               </div>
-              <div className="text-3xl font-black text-foreground">
+              <div className="text-3xl  text-foreground">
                 {formatCurrency(655)}
               </div>
               <p className="text-[10px] text-muted-foreground mt-1 font-bold">
@@ -91,11 +91,11 @@ const ReferralFriends = () => {
             <CardContent className="p-6">
               <div className="flex items-center gap-3 text-blue-500 mb-2">
                 <TrendingUp className="size-5" />
-                <p className="text-xs font-black uppercase tracking-widest">
+                <p className="text-xs  uppercase tracking-widest">
                   {t("referral.activeRate")}
                 </p>
               </div>
-              <div className="text-3xl font-black text-foreground">85%</div>
+              <div className="text-3xl  text-foreground">85%</div>
               <p className="text-[10px] text-muted-foreground mt-1 font-bold">
                 {t("referral.basedLast30Days")}
               </p>
@@ -109,16 +109,14 @@ const ReferralFriends = () => {
             <Card className="border-border shadow-none bg-card overflow-hidden">
               <div className="h-2 bg-primary w-full" />
               <CardHeader>
-                <CardTitle className="text-xl font-black uppercase tracking-tight">
+                <CardTitle className="text-xl  uppercase tracking-tight">
                   {t("referral.yourReferralLink")}
                 </CardTitle>
-                <CardDescription>
-                  {t("referral.shareThisLink")}
-                </CardDescription>
+                <CardDescription>{t("referral.shareThisLink")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest px-1">
+                  <p className="text-[10px]  text-muted-foreground uppercase tracking-widest px-1">
                     {t("referral.registrationLink")}
                   </p>
                   <div className="flex gap-2">
@@ -140,14 +138,14 @@ const ReferralFriends = () => {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest px-1">
+                  <p className="text-[10px]  text-muted-foreground uppercase tracking-widest px-1">
                     {t("referral.referralCode")}
                   </p>
                   <div className="flex gap-2">
                     <Input
                       value={referralCode}
                       readOnly
-                      className="bg-muted/50 border-border font-black text-primary tracking-widest h-11 text-center"
+                      className="bg-muted/50 border-border  text-primary tracking-widest h-11 text-center"
                     />
                     <Button
                       size="icon"
@@ -161,7 +159,7 @@ const ReferralFriends = () => {
                     </Button>
                   </div>
                 </div>
-                <Button className="w-full h-12 font-black uppercase tracking-widest gap-2 rounded-lg">
+                <Button className="w-full h-12  uppercase tracking-widest gap-2 rounded-lg">
                   <Share2 className="size-4" /> {t("referral.shareOnWhatsApp")}
                 </Button>
               </CardContent>
@@ -169,7 +167,7 @@ const ReferralFriends = () => {
 
             <Card className="border-dashed border-primary/30 shadow-none bg-primary/5">
               <CardContent className="p-6 space-y-4">
-                <h4 className="font-black text-primary flex items-center gap-2 text-sm uppercase tracking-widest">
+                <h4 className=" text-primary flex items-center gap-2 text-sm uppercase tracking-widest">
                   <TrendingUp className="size-4" /> {t("referral.howItWorks")}
                 </h4>
                 <ul className="space-y-3">
@@ -196,7 +194,7 @@ const ReferralFriends = () => {
             <Card className="border-border shadow-none bg-card">
               <CardHeader className="flex flex-row items-center justify-between border-b border-border py-6 px-8">
                 <div>
-                  <CardTitle className="text-xl font-black uppercase tracking-tight">
+                  <CardTitle className="text-xl  uppercase tracking-tight">
                     {t("referral.referredFriends")}
                   </CardTitle>
                   <CardDescription>
@@ -206,7 +204,7 @@ const ReferralFriends = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-primary font-black uppercase tracking-widest text-[10px]"
+                  className="text-primary  uppercase tracking-widest text-[10px]"
                 >
                   {t("referral.viewPerformance")}
                 </Button>
@@ -216,16 +214,16 @@ const ReferralFriends = () => {
                   <table className="w-full text-left">
                     <thead>
                       <tr className="bg-muted/30 border-b border-border">
-                        <th className="py-4 px-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                        <th className="py-4 px-8 text-[10px]  uppercase tracking-widest text-muted-foreground">
                           {t("referral.userInfo")}
                         </th>
-                        <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                        <th className="py-4 px-4 text-[10px]  uppercase tracking-widest text-muted-foreground">
                           {t("referral.status")}
                         </th>
-                        <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">
+                        <th className="py-4 px-4 text-[10px]  uppercase tracking-widest text-muted-foreground text-right">
                           {t("referral.commission")}
                         </th>
-                        <th className="py-4 px-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">
+                        <th className="py-4 px-8 text-[10px]  uppercase tracking-widest text-muted-foreground text-right">
                           {t("referral.action")}
                         </th>
                       </tr>
@@ -247,7 +245,7 @@ const ReferralFriends = () => {
                                 />
                               </div>
                               <div>
-                                <p className="font-black text-sm text-foreground">
+                                <p className=" text-sm text-foreground">
                                   {friend.name}
                                 </p>
                                 <p className="text-[10px] font-bold text-muted-foreground">
@@ -265,8 +263,8 @@ const ReferralFriends = () => {
                               }
                               className={
                                 friend.status === "Active"
-                                  ? "bg-emerald-500 hover:bg-emerald-600 rounded-full font-black text-[9px] uppercase tracking-widest"
-                                  : "rounded-full font-black text-[9px] uppercase tracking-widest"
+                                  ? "bg-emerald-500 hover:bg-emerald-600 rounded-full  text-[9px] uppercase tracking-widest"
+                                  : "rounded-full  text-[9px] uppercase tracking-widest"
                               }
                             >
                               {friend.status === "Active"
@@ -275,7 +273,7 @@ const ReferralFriends = () => {
                             </Badge>
                           </td>
                           <td className="py-5 px-4 text-right">
-                            <p className="font-black text-emerald-500">
+                            <p className=" text-emerald-500">
                               {formatCurrency(friend.earned)}
                             </p>
                           </td>
@@ -295,7 +293,7 @@ const ReferralFriends = () => {
                 </div>
 
                 {referFriends.length === 0 && (
-                  <div className="p-12 text-center text-muted-foreground font-black uppercase tracking-widest text-xs">
+                  <div className="p-12 text-center text-muted-foreground  uppercase tracking-widest text-xs">
                     {t("referral.noFriends")}
                   </div>
                 )}

@@ -36,11 +36,10 @@ export default function ForgotPasswordForm() {
     }
   }, [state, dispatch, t]);
 
-  
   return (
     <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
       <div className="text-center space-y-2">
-        <h2 className="text-2xl font-black text-foreground">
+        <h2 className="text-2xl  text-foreground">
           {t("auth.forgotPassword")}
         </h2>
         <p className="text-sm text-muted-foreground">

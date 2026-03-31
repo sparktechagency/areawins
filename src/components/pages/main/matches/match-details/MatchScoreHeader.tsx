@@ -28,7 +28,7 @@ const MatchScoreHeader: React.FC<MatchScoreHeaderProps> = ({
         <div className="flex flex-col items-center gap-1.5">
           <div className="flex items-center gap-2 px-4 py-1.5 bg-primary/10 rounded-full border border-primary/20">
             <Trophy className="size-3.5 text-primary" />
-            <span className="text-[10px] sm:text-[11px] font-black text-primary uppercase tracking-[0.2em]">
+            <span className="text-[10px] sm:text-[11px]  text-primary uppercase tracking-[0.2em]">
               {tournamentName}
             </span>
           </div>
@@ -39,14 +39,14 @@ const MatchScoreHeader: React.FC<MatchScoreHeaderProps> = ({
             <div className="size-16 xs:size-20 sm:size-24 md:size-32 rounded-full p-2 bg-muted flex items-center justify-center text-3xl sm:text-4xl md:text-6xl border-2 sm:border-4 border-card shadow-inner">
               {typeof match.sport === "string" ? "🏅" : match.sport.icon}
             </div>
-            <span className="text-sm sm:text-xl md:text-3xl font-black text-foreground text-center line-clamp-2 uppercase tracking-tight">
+            <span className="text-sm sm:text-xl md:text-3xl  text-foreground text-center line-clamp-2 uppercase tracking-tight">
               {homeTeamName}
             </span>
           </div>
 
           <div className="flex flex-col items-center gap-1 sm:gap-2 pt-2 sm:pt-4">
             {renderSportScore(match, "detailed")}
-            <div className="text-[8px] sm:text-[10px] text-muted-foreground font-black uppercase tracking-widest flex items-center gap-1 sm:gap-2 mt-2 sm:mt-4 whitespace-nowrap opacity-70">
+            <div className="text-[8px] sm:text-[10px] text-muted-foreground  uppercase tracking-widest flex items-center gap-1 sm:gap-2 mt-2 sm:mt-4 whitespace-nowrap opacity-70">
               <span className="hidden xs:inline-block size-1 rounded-full bg-muted-foreground/30" />
               {venue}
               <span className="hidden xs:inline-block size-1 rounded-full bg-muted-foreground/30" />
@@ -57,7 +57,7 @@ const MatchScoreHeader: React.FC<MatchScoreHeaderProps> = ({
             <div className="size-16 xs:size-20 sm:size-24 md:size-32 rounded-full p-2 bg-muted flex items-center justify-center text-3xl sm:text-4xl md:text-6xl border-2 sm:border-4 border-card shadow-inner">
               {typeof match.sport === "string" ? "🏅" : match.sport.icon}
             </div>
-            <span className="text-sm sm:text-xl md:text-3xl font-black text-foreground text-center line-clamp-2 uppercase tracking-tight">
+            <span className="text-sm sm:text-xl md:text-3xl  text-foreground text-center line-clamp-2 uppercase tracking-tight">
               {awayTeamName}
             </span>
           </div>

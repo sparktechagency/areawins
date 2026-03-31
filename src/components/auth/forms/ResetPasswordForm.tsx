@@ -39,9 +39,7 @@ export default function ResetPasswordForm() {
   return (
     <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
       <div className="text-center space-y-2">
-        <h2 className="text-2xl font-black text-foreground">
-          {t("auth.resetPassword")}
-        </h2>
+        <h2 className="text-2xl  text-foreground">{t("auth.resetPassword")}</h2>
         <p className="text-sm text-muted-foreground">
           {t("auth.createStrongPwd")}
         </p>

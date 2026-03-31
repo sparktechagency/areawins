@@ -51,7 +51,7 @@ export default function DeleteAccountForm({ onClose }: DeleteAccountFormProps) {
               <AlertTriangle className="w-6 h-6 sm:w-8 sm:h-8 text-red-500" />
             </div>
             <div>
-              <h3 className="text-base sm:text-lg font-black text-foreground uppercase tracking-tight">
+              <h3 className="text-base sm:text-lg  text-foreground uppercase tracking-tight">
                 {t("deleteAccount.title")}
               </h3>
               <p className="text-xs sm:text-sm text-muted-foreground mt-2">
@@ -61,7 +61,7 @@ export default function DeleteAccountForm({ onClose }: DeleteAccountFormProps) {
           </div>
 
           <div className="bg-red-500/5 border border-red-500/20 rounded-lg p-3 sm:p-4 space-y-2">
-            <p className="text-[10px] sm:text-xs font-black text-red-600 uppercase tracking-widest">
+            <p className="text-[10px] sm:text-xs  text-red-600 uppercase tracking-widest">
               {t("deleteAccount.willBeDeleted")}
             </p>
             <ul className="text-[10px] sm:text-xs text-muted-foreground space-y-1">
@@ -79,14 +79,14 @@ export default function DeleteAccountForm({ onClose }: DeleteAccountFormProps) {
               onClick={onClose}
               variant="outline"
               disabled={loading}
-              className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+              className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
             >
               {t("profile.cancel")}
             </Button>
             <Button
               onClick={handleNextStep}
               disabled={loading}
-              className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest bg-red-600 hover:bg-red-700"
+              className="flex-1 text-xs sm:text-sm  uppercase tracking-widest bg-red-600 hover:bg-red-700"
             >
               {t("deleteAccount.continue")}
             </Button>
@@ -100,7 +100,7 @@ export default function DeleteAccountForm({ onClose }: DeleteAccountFormProps) {
               <AlertTriangle className="w-6 h-6 sm:w-8 sm:h-8 text-red-500" />
             </div>
             <div>
-              <h3 className="text-base sm:text-lg font-black text-foreground uppercase tracking-tight">
+              <h3 className="text-base sm:text-lg  text-foreground uppercase tracking-tight">
                 {t("deleteAccount.finalConfirmation")}
               </h3>
               <p className="text-xs sm:text-sm text-muted-foreground mt-2">
@@ -110,10 +110,10 @@ export default function DeleteAccountForm({ onClose }: DeleteAccountFormProps) {
           </div>
 
           <div className="bg-red-500/5 border border-red-500/20 rounded-lg p-3 sm:p-4">
-            <p className="text-[10px] sm:text-xs font-black text-red-600 uppercase tracking-widest mb-2">
+            <p className="text-[10px] sm:text-xs  text-red-600 uppercase tracking-widest mb-2">
               {t("deleteAccount.typeToConfirm")}
             </p>
-            <p className="text-sm sm:text-base font-black text-foreground font-mono">
+            <p className="text-sm sm:text-base  text-foreground font-mono">
               {confirmPhrase}
             </p>
           </div>
@@ -124,7 +124,9 @@ export default function DeleteAccountForm({ onClose }: DeleteAccountFormProps) {
               label={t("deleteAccount.confirmationText")}
               placeholder={t("deleteAccount.placeholder")}
               value={confirmText}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmText(e.target.value.toUpperCase())}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setConfirmText(e.target.value.toUpperCase())
+              }
               onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
                 e.key === "Enter" &&
                 confirmText === confirmPhrase &&
@@ -148,16 +150,14 @@ export default function DeleteAccountForm({ onClose }: DeleteAccountFormProps) {
               onClick={() => setStep(1)}
               variant="outline"
               disabled={loading}
-              className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest"
+              className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
             >
               {t("deleteAccount.back")}
             </Button>
             <Button
               onClick={handleDeleteAccount}
-              disabled={
-                loading || confirmText !== confirmPhrase
-              }
-              className="flex-1 text-xs sm:text-sm font-black uppercase tracking-widest bg-red-600 hover:bg-red-700"
+              disabled={loading || confirmText !== confirmPhrase}
+              className="flex-1 text-xs sm:text-sm  uppercase tracking-widest bg-red-600 hover:bg-red-700"
             >
               {loading ? (
                 t("deleteAccount.deleting")

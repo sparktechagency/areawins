@@ -47,21 +47,21 @@ const StakeConfiguration: React.FC<StakeConfigurationProps> = ({
         {showBackButton && (
           <button
             onClick={onBack}
-            className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-2 hover:text-primary transition-colors flex items-center gap-1 cursor-pointer"
+            className="text-[10px]  text-muted-foreground uppercase tracking-widest mb-2 hover:text-primary transition-colors flex items-center gap-1 cursor-pointer"
           >
             ← Back to Outcome
           </button>
         )}
         <Badge
           variant="outline"
-          className="text-primary border-primary/20 bg-primary/5 px-3 py-0.5 font-black uppercase tracking-widest text-[10px]"
+          className="text-primary border-primary/20 bg-primary/5 px-3 py-0.5  uppercase tracking-widest text-[10px]"
         >
           Step 2: Set Stake & Odds
         </Badge>
-        <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
+        <h2 className="text-xl sm:text-2xl  text-foreground tracking-tight">
           Configure your bet
         </h2>
-        <div className="flex items-center gap-2 text-primary font-black tracking-tight text-xs">
+        <div className="flex items-center gap-2 text-primary  tracking-tight text-xs">
           <CheckCircle2 className="size-4 shrink-0" />
           <span className="truncate">
             {selectedMarketName ? `${selectedMarketName}: ` : ""} {outcome}
@@ -73,7 +73,7 @@ const StakeConfiguration: React.FC<StakeConfigurationProps> = ({
         {/* Stake Input */}
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <label className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">
+            <label className="text-[10px]  text-muted-foreground uppercase tracking-[0.2em]">
               Stake Amount ($)
             </label>
             <span className="text-[10px] font-bold text-emerald-500 flex items-center gap-1">
@@ -91,7 +91,7 @@ const StakeConfiguration: React.FC<StakeConfigurationProps> = ({
         {/* Odds Input / Slider */}
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <label className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">
+            <label className="text-[10px]  text-muted-foreground uppercase tracking-[0.2em]">
               Odds Preference (x)
             </label>
             <span className="text-[10px] font-bold text-primary px-2 py-0.5 bg-primary/10 rounded">
@@ -127,25 +127,25 @@ const StakeConfiguration: React.FC<StakeConfigurationProps> = ({
 
       {/* Calculator Area */}
       <div className="bg-background rounded-xl p-5 border border-white/5 space-y-4 shadow-xl">
-        <div className="flex items-center justify-between text-xs font-black tracking-widest text-slate-500">
+        <div className="flex items-center justify-between text-xs  tracking-widest text-slate-500">
           <span>P2P Live Calculator</span>
           <Calculator className="size-4 opacity-50" />
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:gap-8">
           <div className="space-y-1">
-            <span className="text-xs font-black text-white/40  tracking-tighter">
+            <span className="text-xs  text-white/40  tracking-tighter">
               If You Win
             </span>
-            <div className="text-xl sm:text-2xl font-black text-emerald-400">
+            <div className="text-xl sm:text-2xl  text-emerald-400">
               ${potentialWin.toFixed(2)}
             </div>
           </div>
           <div className="text-right space-y-1">
-            <span className="text-xs font-black text-white/40  tracking-tighter">
+            <span className="text-xs  text-white/40  tracking-tighter">
               Opponent Stake Needed
             </span>
-            <div className="text-xl sm:text-2xl font-black text-blue-400">
+            <div className="text-xl sm:text-2xl  text-blue-400">
               ${opponentStake.toFixed(2)}
             </div>
           </div>
@@ -155,7 +155,7 @@ const StakeConfiguration: React.FC<StakeConfigurationProps> = ({
 
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-1">
-            <span className="text-xs font-black text-white/40 uppercase tracking-tighter">
+            <span className="text-xs  text-white/40 uppercase tracking-tighter">
               Your Balance
             </span>
             <span className="text-base font-bold text-white">$1,250.00</span>

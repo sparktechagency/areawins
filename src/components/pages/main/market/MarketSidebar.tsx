@@ -28,7 +28,7 @@ const MarketSidebar = () => {
             <DollarSign className="size-3" />
             Budget (Stake)
           </h3>
-          <span className="text-[10px] font-black text-primary bg-primary/10 px-2 py-0.5 rounded">
+          <span className="text-[10px]  text-primary bg-primary/10 px-2 py-0.5 rounded">
             UP TO ${budget[0]}
           </span>
         </div>
