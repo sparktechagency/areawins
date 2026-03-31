@@ -34,7 +34,7 @@ const serverFetchHelper = async (
   if (authHeader && authHeader.startsWith("Bearer ")) {
     accessToken = authHeader.split(" ")[1];
   } else {
-    accessToken = (await getCookie("accessToken")) || "";
+    accessToken = (await getCookie("accessToken", false)) || "";
   }
 
   const requestHeaders: Record<string, string> = {

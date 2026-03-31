@@ -65,10 +65,10 @@ export async function loginUser(
       const isProduction = process.env.NODE_ENV === "production";
       await setCookie("accessToken", loginData.tokens.accessToken, {
         secure: isProduction,
-        httpOnly: true,
+        httpOnly: false,
         maxAge: 3600,
         path: "/",
-      });
+      }, false);
 
       await setCookie("refreshToken", loginData.tokens.refreshToken, {
         secure: isProduction,
@@ -79,10 +79,10 @@ export async function loginUser(
       // set userRole in cookie
       await setCookie("userRole", loginData.user.role, {
         secure: isProduction,
-        httpOnly: true,
+        httpOnly: false,
         maxAge: 3600,
         path: "/",
-      });
+      }, false);
     }
     // 3. Final Success Case (Successful Login)
     await deleteCookie("sessionId");
@@ -291,10 +291,10 @@ export async function verifyOtp(
       const isProduction = process.env.NODE_ENV === "production";
       await setCookie("accessToken", verifyData.tokens.accessToken, {
         secure: isProduction,
-        httpOnly: true,
+        httpOnly: false,
         maxAge: 3600,
         path: "/",
-      });
+      }, false);
 
       await setCookie("refreshToken", verifyData.tokens.refreshToken, {
         secure: isProduction,
@@ -306,10 +306,10 @@ export async function verifyOtp(
       // set userRole in cookie
       await setCookie("userRole", verifyData.user.role, {
         secure: isProduction,
-        httpOnly: true,
+        httpOnly: false,
         maxAge: 3600,
         path: "/",
-      });
+      }, false);
 
       // Remove sessionId after successful verification
       await deleteCookie("sessionId");
@@ -403,7 +403,7 @@ export async function resetPassword(
 
 export async function getNewAccessToken() {
   try {
-    const accessToken = await getCookie("accessToken");
+    const accessToken = await getCookie("accessToken", false);
     const refreshToken = await getCookie("refreshToken");
 
     //Case 1: Both tokens are missing - user is logged out
@@ -421,10 +421,10 @@ export async function getNewAccessToken() {
       //set new tokens
       await setCookie("accessToken", res.data.accessToken, {
         secure: isProduction,
-        httpOnly: true,
+        httpOnly: false,
         maxAge: 3600,
         path: "/",
-      });
+      }, false);
       await setCookie("refreshToken", res.data.refreshToken, {
         secure: isProduction,
         httpOnly: true,

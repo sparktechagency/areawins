@@ -8,7 +8,7 @@ import { api } from "./api";
 export type UserActionState = ActionState;
 
 export async function getMyProfile() {
-  const accessToken = await getCookie("accessToken");
+  const accessToken = await getCookie("accessToken", false);
   const refreshToken = await getCookie("refreshToken");
 
   if (!accessToken && !refreshToken) {
@@ -34,7 +34,7 @@ export async function getMyProfile() {
 }
 
 export async function updateMyProfile(data: any) {
-  const accessToken = await getCookie("accessToken");
+  const accessToken = await getCookie("accessToken", false);
   const refreshToken = await getCookie("refreshToken");
 
   if (!accessToken || !refreshToken) {

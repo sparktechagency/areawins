@@ -74,10 +74,44 @@ export interface IMatch {
   isBettingOpen: boolean;
 }
 
-// Type aliases for backward compatibility
-export type MatchInfo = IMatch;
-export type TeamInfo = ITeam;
-export type TournamentInfo = ITournament;
+// Frontend-friendly view types used by mock data and UI components
+export type SportInfo = ISportCategories & {
+  sportId?: string;
+  displayOrder?: number;
+  isActive?: boolean;
+};
+
+export type TeamInfo = Partial<ITeam> & {
+  _id: string;
+  name: string;
+  slug: string;
+  shortName: string;
+  sport: string | SportInfo;
+  teamId?: string;
+  isActive?: boolean;
+};
+
+export type TournamentInfo = Partial<ITournament> & {
+  _id: string;
+  name: string;
+  slug: string;
+  sport: string | SportInfo;
+  tournamentId?: string;
+  displayOrder?: number;
+  isActive?: boolean;
+};
+
+export interface MatchInfo extends Omit<IMatch, "sport" | "tournament" | "homeTeam" | "awayTeam"> {
+  sport: string | SportInfo;
+  tournament?: string | TournamentInfo;
+  homeTeam: string | TeamInfo;
+  awayTeam: string | TeamInfo;
+}
+
+export interface SportMatchCardProps {
+  match: MatchInfo;
+  onDelete: (id: string) => void;
+}
 
 export interface MatchDetailsContentProps {
   sport: string;
