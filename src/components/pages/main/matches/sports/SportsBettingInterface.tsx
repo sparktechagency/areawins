@@ -19,16 +19,16 @@ const config = {
     logo: "⚽",
     banners: [
       {
-        bg: "url('https://images.unsplash.com/photo-1570498839593-e565b39455fc')",
-        title: "Man City vs Arsenal",
-        subtitle: "Premier League",
-        promo: "Create a P2P bet on the match winner to earn up to 5x returns",
+        bg: "url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80')",
+        title: "Elite Football Markets",
+        subtitle: "Global Leagues",
+        promo: "Browse premium P2P betting markets for the world's most popular sport.",
       },
       {
-        bg: "url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80')",
-        title: "Champions League Finals",
-        subtitle: "Europe",
-        promo: "High volume in Correct Score markets. Join the P2P pool now!",
+        bg: "url('https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&q=80')",
+        title: "Football Championships",
+        subtitle: "Live Action",
+        promo: "Create unique peer-to-peer bets on matches happening right now.",
       },
     ],
   },
@@ -39,15 +39,15 @@ const config = {
     banners: [
       {
         bg: "url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80')",
-        title: "India vs Australia",
-        subtitle: "T20 World Cup",
-        promo: "Live betting on Top Batsman & Total Sixes - Join now!",
+        title: "Grand Cricket Stadiums",
+        subtitle: "International Series",
+        promo: "Experience the thrill of cricket betting with best-in-class P2P odds.",
       },
       {
         bg: "url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80')",
-        title: "IPL 2024",
-        subtitle: "Indian Premier League",
-        promo: "CSK vs RCB - Predict the winner and earn big rewards!",
+        title: "Premier T20 Leagues",
+        subtitle: "Domestic Market",
+        promo: "Join active cricket markets and bet directly against other fans.",
       },
     ],
   },
@@ -58,15 +58,15 @@ const config = {
     banners: [
       {
         bg: "url('https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&q=80')",
-        title: "Lakers vs Warriors",
-        subtitle: "NBA Finals",
-        promo: "Point Spread & Total Points markets live - Create your bet!",
+        title: "Professional Basketball",
+        subtitle: "Major Leagues",
+        promo: "High-speed basketball betting action with peer-to-peer flexibility.",
       },
       {
         bg: "url('https://images.unsplash.com/photo-1608245449230-4ac19066d2d0?auto=format&fit=crop&q=80')",
-        title: "EuroLeague Playoffs",
-        subtitle: "European Basketball",
-        promo: "High-stakes P2P betting on Quarter Winners available now",
+        title: "Courtside Markets",
+        subtitle: "Global Play",
+        promo: "Place bets on quarter wins, point spreads, and total scores.",
       },
     ],
   },
@@ -77,9 +77,9 @@ const config = {
     banners: [
       {
         bg: "url('https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80')",
-        title: "Volleyball Nations League",
-        subtitle: "International",
-        promo: "Bet on Total Sets & First Set Winner - Join the action!",
+        title: "Pro Volleyball League",
+        subtitle: "Global Markets",
+        promo: "Bet on your favorite volleyball teams with competitive P2P odds.",
       },
     ],
   },
@@ -90,15 +90,15 @@ const config = {
     banners: [
       {
         bg: "url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&q=80')",
-        title: "Wimbledon Finals",
-        subtitle: "Grand Slam",
-        promo: "Set Winner & Total Games markets - Create P2P bets now!",
+        title: "Championship Tennis",
+        subtitle: "Grand Slams",
+        promo: "Premium tennis markets with real-time P2P betting exchanges.",
       },
       {
         bg: "url('https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&fit=crop&q=80')",
-        title: "US Open",
-        subtitle: "Hard Court Championship",
-        promo: "Live betting on every set - Join the P2P exchange!",
+        title: "World Tennis Tour",
+        subtitle: "Live Courts",
+        promo: "Bet on set winners and total games with fans worldwide.",
       },
     ],
   },
@@ -109,9 +109,9 @@ const config = {
     banners: [
       {
         bg: "url('https://images.unsplash.com/photo-1566577739112-5180d4bf9390?auto=format&fit=crop&q=80')",
-        title: "World Series 2024",
-        subtitle: "MLB Championship",
-        promo: "Total Runs & Run Line markets - Create your winning bet!",
+        title: "Professional Baseball",
+        subtitle: "Major Series",
+        promo: "Create P2P bets on innings, runs, and more in baseball markets.",
       },
     ],
   },
@@ -122,9 +122,9 @@ const config = {
     banners: [
       {
         bg: "url('https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&q=80')",
-        title: "Heavyweight Championship",
-        subtitle: "Title Fight",
-        promo: "Bet on Method of Victory & Total Rounds - P2P odds live!",
+        title: "Elite Boxing Events",
+        subtitle: "Fight Night",
+        promo: "Join the P2P exchange for high-stakes professional boxing matches.",
       },
     ],
   },
@@ -135,9 +135,9 @@ const config = {
     banners: [
       {
         bg: "url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80')",
-        title: "Six Nations Championship",
-        subtitle: "International Rugby",
-        promo: "First Try Scorer & Total Points - Join P2P betting now!",
+        title: "Rugby Championships",
+        subtitle: "International Play",
+        promo: "Browse premium rugby betting markets with superior P2P odds.",
       },
     ],
   },
@@ -148,9 +148,9 @@ const config = {
     banners: [
       {
         bg: "url('https://images.unsplash.com/photo-1515703407324-5f753afd8be8?auto=format&fit=crop&q=80')",
-        title: "NHL Stanley Cup",
-        subtitle: "Ice Hockey Finals",
-        promo: "Puck Line & Total Goals markets - Create your bet!",
+        title: "Ice Hockey Leagues",
+        subtitle: "Professional Play",
+        promo: "Dynamic P2P betting on hockey with real-time exchange action.",
       },
     ],
   },
@@ -161,9 +161,9 @@ const config = {
     banners: [
       {
         bg: "url('https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&q=80')",
-        title: "All England Open",
-        subtitle: "Badminton Championship",
-        promo: "Total Games & Set Winner bets - P2P exchange active!",
+        title: "Badminton Masters",
+        subtitle: "Global Circuit",
+        promo: "Create unique P2P bets on every badminton series worldwide.",
       },
     ],
   },
@@ -174,9 +174,9 @@ const config = {
     banners: [
       {
         bg: "url('https://images.unsplash.com/photo-1534158914592-062992fbe900?auto=format&fit=crop&q=80')",
-        title: "World Championships",
-        subtitle: "Table Tennis",
-        promo: "First Game Winner & Total Sets - Join P2P betting!",
+        title: "Pro Table Tennis",
+        subtitle: "International Tour",
+        promo: "High-intensity table tennis markets with direct P2P betting.",
       },
     ],
   },
@@ -187,9 +187,9 @@ const config = {
     banners: [
       {
         bg: "url('https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&q=80')",
-        title: "European Handball Championship",
-        subtitle: "International Tournament",
-        promo: "Total Goals & Handicap markets - Create P2P bets now!",
+        title: "Handball Leagues",
+        subtitle: "Major Tournaments",
+        promo: "Experience handball betting like never before with P2P flexibility.",
       },
     ],
   },
@@ -200,15 +200,15 @@ const config = {
     banners: [
       {
         bg: "url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80')",
-        title: "Super Bowl LVIII",
-        subtitle: "NFL Championship",
-        promo: "Point Spread & Total Points - Massive P2P pool available!",
+        title: "American Football",
+        subtitle: "Professional Leagues",
+        promo: "Deep markets for point spreads and total points with P2P leverage.",
       },
       {
         bg: "url('https://images.unsplash.com/photo-1566577739112-5180d4bf9390?auto=format&fit=crop&q=80')",
-        title: "College Football Playoffs",
-        subtitle: "NCAA",
-        promo: "Quarter-by-quarter betting - Join the P2P action!",
+        title: "College Football",
+        subtitle: "Future Stars",
+        promo: "Join the most active community for football betting exchanges.",
       },
     ],
   },
@@ -219,9 +219,9 @@ const config = {
     banners: [
       {
         bg: "url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&q=80')",
-        title: "The Masters",
-        subtitle: "Augusta National",
-        promo: "Tournament Winner & Top 5 Finish - P2P odds live!",
+        title: "Championship Golf",
+        subtitle: "Elite Tours",
+        promo: "Predict tournament finishes with peer-to-peer betting markets.",
       },
     ],
   },
@@ -232,9 +232,9 @@ const config = {
     banners: [
       {
         bg: "url('https://images.unsplash.com/photo-1555597673-b21d5c935865?auto=format&fit=crop&q=80')",
-        title: "UFC Championship Fight",
-        subtitle: "Mixed Martial Arts",
-        promo: "Method of Victory & Round Betting - Create your P2P bet!",
+        title: "MMA Champions",
+        subtitle: "The Octagon",
+        promo: "Premium MMA markets for method of victory and round results.",
       },
     ],
   },

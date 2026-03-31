@@ -1,8 +1,8 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { ArrowRight, Flame } from "lucide-react";
+import { Flame } from "lucide-react";
+
 import React, {
   useCallback,
   useEffect,
@@ -102,26 +102,15 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
             </p>
           </div>
         ) : (
-          <p className="text-white/80 text-sm sm:text-lg mb-6 sm:mb-8 max-w-lg leading-relaxed font-bold uppercase tracking-wide">
+          <p className="text-white/80 text-sm sm:text-lg mb-6 sm:mb-8 max-w-lg leading-relaxed tracking-wide">
             {currentBanner.promo}
           </p>
         )}
 
-        <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-          <Button className="h-11 sm:h-14 px-5 sm:px-10 rounded-lg bg-white text-black hover:bg-white/90  uppercase tracking-wider sm:tracking-widest transition-all active:scale-95 text-xs sm:text-sm">
-            {t("banner.joinMarket")}
-          </Button>
-          <Button
-            variant="ghost"
-            className="h-11 sm:h-14 px-5 sm:px-8 rounded-lg text-white  uppercase tracking-wider sm:tracking-widest hover:bg-white/10 text-xs sm:text-sm"
-          >
-            {t("banner.viewCharts")}
-            <ArrowRight className="size-4 ml-2" />
-          </Button>
-        </div>
       </div>
 
       {/* Carousel Dots */}
+
       {banners.length > 1 && (
         <div className="absolute bottom-4 right-4 z-20 flex gap-2">
           {banners.map((_, index) => (

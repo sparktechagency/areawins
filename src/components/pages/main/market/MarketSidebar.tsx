@@ -1,17 +1,35 @@
 "use client";
-
-import { SidebarLink } from "@/components/shared/matches/SportsMatchesSidebar";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Calendar, DollarSign, Search, SlidersHorizontal } from "lucide-react";
+import SidebarSkeleton from "@/components/skeleton/SidebarSkeleton";
+import { SidebarLink } from "@/components/shared/SidebarLink";
+import { useGetSportCategoriesQuery } from "@/lib/redux/api/sportCategoryApi";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { DollarSign, Search } from "lucide-react";
 import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import Image from "next/image";
+
+import { ISportCategories } from "@/interfaces/sportCategories.interface";
 
 const MarketSidebar = () => {
+  const { t } = useTranslation();
   const [budget, setBudget] = useState([50]);
+  const { data: sportCategoriesResponse, isLoading } = useGetSportCategoriesQuery({
+    page: 1,
+    limit: 100,
+  });
+
+  const activeSports = sportCategoriesResponse?.data?.results || [];
+
+  if (isLoading) {
+    return (
+      <div className="w-full space-y-6 sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto pr-2">
+        <SidebarSkeleton />
+      </div>
+    );
+  }
 
   return (
-    <div className="w-full space-y-6 sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto pr-2 pb-10">
+    <div className="w-full space-y-6 sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto pr-2 pb-10 border border-border rounded-lg p-2">
       {/* Search Sidebar */}
       <div className="relative group">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
@@ -54,73 +72,38 @@ const MarketSidebar = () => {
         <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider px-3 mb-2">
           Filter by Sport
         </h3>
-        <SidebarLink icon="⚽" label="Football" count={42} active />
-        <SidebarLink icon="🏏" label="Cricket" count={18} />
-        <SidebarLink icon="🏀" label="Basketball" count={12} />
-        <SidebarLink icon="🏐" label="Volleyball" count={8} />
-      </div>
-
-      {/* Tournaments */}
-      <div className="space-y-1 pt-4 border-t border-border">
-        <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider px-3 mb-2">
-          Tournaments
-        </h3>
-        <SidebarLink icon="🏆" label="Champions League" />
-        <SidebarLink icon="🏆" label="Premier League" />
-        <SidebarLink icon="🏆" label="La Liga" />
-        <SidebarLink icon="🏆" label="IPL T20" />
-      </div>
-
-      {/* Quick Filters */}
-      <div className="space-y-3 pt-4 border-t border-border">
-        <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider px-3 flex items-center gap-2">
-          <SlidersHorizontal className="size-3" />
-          Market Type
-        </h3>
-        <div className="flex flex-wrap gap-2 px-3 text-[10px]">
-          <Badge className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 cursor-pointer">
-            P2P Only
-          </Badge>
-          <Badge
-            variant="outline"
-            className="border-border text-muted-foreground cursor-pointer"
-          >
-            High Trust
-          </Badge>
-          <Badge
-            variant="outline"
-            className="border-border text-muted-foreground cursor-pointer"
-          >
-            Recently Added
-          </Badge>
-        </div>
-      </div>
-
-      {/* Date */}
-      <div className="space-y-3 pt-4 border-t border-border">
-        <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider px-3 flex items-center gap-2">
-          <Calendar className="size-3" />
-          Select Date
-        </h3>
-        <div className="grid grid-cols-2 gap-2 px-3">
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-[10px] h-8 font-bold border-border hover:bg-primary/10 hover:text-primary transition-all"
-          >
-            TODAY
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-[10px] h-8 font-bold border-border"
-          >
-            TOMORROW
-          </Button>
-        </div>
+        {activeSports?.map((sport: ISportCategories) => (
+          <SidebarLink
+            key={sport._id}
+            icon={
+              sport.icon ? (
+                <Image
+                  src={sport.icon}
+                  alt={sport.name}
+                  width={20}
+                  height={20}
+                  className="object-contain"
+                />
+              ) : (
+                "🏆"
+              )
+            }
+            label={t(
+              `sports.${
+                sport.slug === "table-tennis"
+                  ? "tableTennis"
+                  : sport.slug === "american-football"
+                    ? "americanFootball"
+                    : sport.slug
+              }`,
+            )}
+            href={`/market?sport=${sport.slug}`}
+          />
+        ))}
       </div>
     </div>
   );
 };
 
 export default MarketSidebar;
+
