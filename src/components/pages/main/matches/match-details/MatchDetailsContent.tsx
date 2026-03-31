@@ -1,6 +1,5 @@
 "use client";
 
-import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetMatchByIdQuery } from "@/lib/redux/api/matchApi";
 import { Activity, BarChart3, ChevronLeft, Search } from "lucide-react";
@@ -10,6 +9,7 @@ import { useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 import CreateBetModal from "./CreateBetModal";
 
+import { MatchDetailsSkeleton } from "@/components/skeleton/MatchDetailsSkeleton";
 import MarketInsightsTab from "./MarketInsightsTab";
 import MatchScoreHeader from "./MatchScoreHeader";
 import OpenBetsTab from "./OpenBetsTab";
@@ -46,6 +46,20 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
   const marketCategories = useMemo((): MarketCategory[] => {
     if (!match?.availableBetTypes) return [];
 
+    // Helper to replace generic terms with actual team names
+    const getDynamicLabel = (label: string) => {
+      const homeName = match?.homeTeam?.name || "Home Team";
+      const awayName = match?.awayTeam?.name || "Away Team";
+
+      return label
+        .replace(/\bHome Team\b/gi, homeName)
+        .replace(/\bAway Team\b/gi, awayName)
+        .replace(/\bHome\b/gi, homeName)
+        .replace(/\bAway\b/gi, awayName)
+        .replace(/\bTeam A\b/gi, homeName)
+        .replace(/\bTeam B\b/gi, awayName);
+    };
+
     return (
       match.availableBetTypes as Array<{
         name: string;
@@ -61,10 +75,8 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
       slug: bt.slug,
       outcomes: bt.outcomes.map((oc) => ({
         id: oc.outcomeId,
-        label: oc.label,
+        label: getDynamicLabel(oc.label),
         description: oc.description,
-        // Adding odds for a professional betting look
-        odds: (Math.random() * (4.5 - 1.2) + 1.2).toFixed(2),
         // Visualization fields
         trend: (Math.random() > 0.5 ? "up" : "down") as "up" | "down",
         probability: Math.floor(Math.random() * 40) + 20,
@@ -87,19 +99,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
   };
 
   if (isLoading) {
-    return (
-      <div className="w-full space-y-8 pb-10">
-        <Skeleton className="h-10 w-40 rounded-md" />
-        <Skeleton className="h-64 w-full rounded-md" />
-        <div className="space-y-4">
-          <Skeleton className="h-12 w-full rounded-md" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Skeleton className="h-40 w-full rounded-md" />
-            <Skeleton className="h-40 w-full rounded-md" />
-          </div>
-        </div>
-      </div>
-    );
+    return <MatchDetailsSkeleton />;
   }
 
   if (isError || !match) {
@@ -248,6 +248,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
         }}
         selectedOutcome={selectedMarket?.outcome}
         marketName={selectedMarket?.market}
+        marketOutcomes={marketCategories}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { MarketCategory } from "@/interfaces/betting.interface";
-import { BarChart3 } from "lucide-react";
+import { BarChart3, TrendingUp } from "lucide-react";
 import React from "react";
 
 interface MarketInsightsTabProps {
@@ -44,27 +44,29 @@ const MarketInsightsTab: React.FC<MarketInsightsTabProps> = ({
           </div>
 
           {/* Outcome Buttons Grid */}
-          <div className="p-1 sm:p-1.5 grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-1 sm:gap-1.5">
+          <div className="p-1 sm:p-1.5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 sm:gap-1.5">
             {category?.outcomes.map((stat, idx) => (
               <button
                 key={idx}
                 onClick={() => onBetClick(stat.label, category.marketName)}
-                className="group flex items-center justify-between px-5 py-4 bg-muted/5 hover:bg-primary/10 border border-border/50 hover:border-primary/40 rounded-[4px] transition-all duration-200 text-left active:scale-[0.98]"
+                className="group flex items-center justify-between px-5 py-4 bg-muted/5 hover:bg-primary/10 border border-border/50 hover:border-primary/40 rounded-md transition-all duration-200 text-left active:scale-[0.98]"
               >
                 <div className="flex flex-col gap-0.5">
-                  <span className="text-[10px] sm:text-xs font-bold text-foreground group-hover:text-primary transition-colors">
+                  <span className="text-xs sm:text-sm font-bold text-foreground group-hover:text-primary transition-colors">
                     {stat.label}
                   </span>
-                  <span className="text-[8px] text-muted-foreground/60 uppercase font-bold tracking-tighter">
+                  <span className="text-[9px] text-muted-foreground/60 uppercase font-bold tracking-widest">
                     {category.marketName}
                   </span>
                 </div>
                 
                 <div className="flex items-center gap-2">
-                  <div className="h-4 w-px bg-border group-hover:bg-primary/20 mr-1" />
-                  <span className="text-sm sm:text-base font-bold text-primary tabular-nums">
-                    {stat.odds || "2.00"}
+                  <span className="hidden group-hover:inline-block text-[9px] font-bold text-primary uppercase tracking-widest animate-in fade-in slide-in-from-right-2 duration-300">
+                    Place Bet
                   </span>
+                  <div className="size-7 rounded-full bg-border/40 group-hover:bg-primary/20 flex items-center justify-center transition-colors">
+                    <TrendingUp className="size-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </div>
                 </div>
               </button>
             ))}

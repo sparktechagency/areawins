@@ -8,8 +8,8 @@ import { Calendar, Filter, Search, Activity } from "lucide-react";
 import { useState, useMemo } from "react";
 import SportHeroBanner from "./SportHeroBanner";
 import SportMatchCard from "./SportMatchCard";
+import { SportMatchCardSkeleton } from "@/components/skeleton/SportMatchCardSkeleton";
 import { useGetMatchesBySportSlugQuery } from "@/lib/redux/api/matchApi";
-import { Skeleton } from "@/components/ui/skeleton";
 import { IMatch } from "@/interfaces/match.interface";
 import { Pagination } from "@/components/shared/Pagination";
 
@@ -191,7 +191,7 @@ export default function SportsBettingInterface({ sport }: SportsBettingInterface
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {Array.from({ length: itemsPerPage }).map((_, i) => (
-                <Skeleton key={i} className="h-[280px] w-full rounded-md" />
+                <SportMatchCardSkeleton key={i} />
               ))}
             </div>
           ) : filteredMatches.length === 0 ? (

@@ -19,6 +19,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
   match,
   selectedOutcome,
   marketName,
+  marketOutcomes: passedMarketOutcomes,
 }) => {
   const [step, setStep] = useState<Step>("SELECT_OUTCOME");
   const [outcome, setOutcome] = useState<string | null>(null);
@@ -74,10 +75,12 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
   };
 
   const sportName = match.sport;
-  const marketOutcomes = useMemo(
-    () => getBetOutcomesByMarket(sportName, match),
-    [match, sportName]
-  );
+  const marketOutcomes = useMemo(() => {
+    if (passedMarketOutcomes && passedMarketOutcomes.length > 0) {
+      return passedMarketOutcomes;
+    }
+    return getBetOutcomesByMarket(sportName, match);
+  }, [match, sportName, passedMarketOutcomes]);
 
   const handleOutcomeSelect = (
     selectedOutcomeLabel: string,

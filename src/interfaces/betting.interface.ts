@@ -64,7 +64,6 @@ export interface P2PBet {
 export interface OutcomeStat {
   id: string;
   label: string;
-  odds: string;
   description?: string;
   trend?: "up" | "down";
   probability?: number;
@@ -87,6 +86,7 @@ export interface CreateBetModalProps {
 
   selectedOutcome?: string | null;
   marketName?: string | null;
+  marketOutcomes?: MarketCategory[];
 }
 
 export interface MatchedBetCardProps {
