@@ -82,9 +82,12 @@ const StakeConfiguration: React.FC<StakeConfigurationProps> = ({
           </div>
           <Input
             type="number"
-            value={stake}
-            onChange={(e) => setStake(Number(e.target.value))}
+            value={stake === 0 ? "" : stake}
+            onChange={(e) =>
+              setStake(e.target.value === "" ? 0 : Number(e.target.value))
+            }
             className="w-full"
+            placeholder="0.00"
           />
         </div>
 
@@ -102,9 +105,12 @@ const StakeConfiguration: React.FC<StakeConfigurationProps> = ({
             <Input
               type="number"
               step="0.1"
-              value={odds}
-              onChange={(e) => setOdds(Number(e.target.value))}
+              value={odds === 0 ? "" : odds}
+              onChange={(e) =>
+                setOdds(e.target.value === "" ? 0 : Number(e.target.value))
+              }
               className="w-full sm:w-32"
+              placeholder="0.0x"
             />
             <div className="flex-1 w-full sm:w-auto">
               <input
@@ -126,41 +132,41 @@ const StakeConfiguration: React.FC<StakeConfigurationProps> = ({
       </div>
 
       {/* Calculator Area */}
-      <div className="bg-background rounded-xl p-5 border border-white/5 space-y-4 shadow-xl">
-        <div className="flex items-center justify-between text-xs  tracking-widest text-slate-500">
+      <div className="bg-primary/5 rounded-xl p-5 border border-border space-y-4">
+        <div className="flex items-center justify-between text-[10px] uppercase font-bold tracking-widest text-muted-foreground">
           <span>P2P Live Calculator</span>
-          <Calculator className="size-4 opacity-50" />
+          <Calculator className="size-3.5 opacity-50" />
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:gap-8">
           <div className="space-y-1">
-            <span className="text-xs  text-white/40  tracking-tighter">
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-tight">
               If You Win
             </span>
-            <div className="text-xl sm:text-2xl  text-emerald-400">
+            <div className="text-xl sm:text-2xl  text-emerald-500">
               ${potentialWin.toFixed(2)}
             </div>
           </div>
           <div className="text-right space-y-1">
-            <span className="text-xs  text-white/40  tracking-tighter">
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-tight">
               Opponent Stake Needed
             </span>
-            <div className="text-xl sm:text-2xl  text-blue-400">
+            <div className="text-xl sm:text-2xl  text-blue-500">
               ${opponentStake.toFixed(2)}
             </div>
           </div>
         </div>
 
-        <div className="h-px w-full bg-white/5" />
+        <div className="h-px w-full bg-border" />
 
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-1">
-            <span className="text-xs  text-white/40 uppercase tracking-tighter">
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-tight">
               Your Balance
             </span>
-            <span className="text-base font-bold text-white">$1,250.00</span>
+            <span className="text-base  text-foreground">$1,250.00</span>
           </div>
-          <div className="flex items-center gap-1.5 text-[10px] font-bold text-white/60 uppercase tracking-wide">
+          <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-wide">
             <ShieldCheck className="size-3.5 text-primary" />
             Escrow Protected
           </div>

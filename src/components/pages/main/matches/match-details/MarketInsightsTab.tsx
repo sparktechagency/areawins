@@ -1,8 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { MarketCategory } from "@/interfaces/betting.interface";
-import { Banknote, BarChart3, PlusCircle, Target } from "lucide-react";
+import { BarChart3 } from "lucide-react";
 import React from "react";
 
 interface MarketInsightsTabProps {
@@ -14,65 +13,60 @@ const MarketInsightsTab: React.FC<MarketInsightsTabProps> = ({
   marketCategories,
   onBetClick,
 }) => {
+  if (!marketCategories || marketCategories.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 px-6 border border-dashed border-border rounded-md bg-muted/5 text-center space-y-4">
+        <BarChart3 className="size-16 text-muted-foreground/20" />
+        <div className="max-w-xs space-y-2">
+          <h3 className="text-lg  text-foreground uppercase tracking-tight">
+            Market Not Available
+          </h3>
+          <p className="text-xs text-muted-foreground font-bold">
+            Detailed market insights and betting options are currently
+            unavailable for this match. Please check back later.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-8 sm:space-y-12">
+    <div className="space-y-6 sm:space-y-10">
       {marketCategories.map((category, catIdx) => (
-        <div key={catIdx} className="space-y-6">
-          <div className="flex items-center gap-4">
-            <div className="h-px flex-1 bg-border" />
-            <h3 className="text-[10px] sm:text-[11px]  text-primary uppercase tracking-[0.4em] bg-background px-4">
+        <div key={catIdx} className="bg-card rounded-md border border-border overflow-hidden shadow-sm">
+          {/* Market Header */}
+          <div className="px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between">
+            <h3 className="text-[11px] sm:text-xs font-bold text-foreground uppercase tracking-widest flex items-center gap-2">
+              <span className="size-1.5 rounded-full bg-primary" />
               {category.marketName}
             </h3>
-            <div className="h-px flex-1 bg-border" />
+            <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-tight">Active</span>
           </div>
 
-          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {/* Outcome Buttons Grid */}
+          <div className="p-1 sm:p-1.5 grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-1 sm:gap-1.5">
             {category?.outcomes.map((stat, idx) => (
-              <div
+              <button
                 key={idx}
-                className="bg-card rounded-xl p-4 border border-border flex flex-col items-center gap-4 group hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5 active:scale-[0.98]"
+                onClick={() => onBetClick(stat.label, category.marketName)}
+                className="group flex items-center justify-between px-5 py-4 bg-muted/5 hover:bg-primary/10 border border-border/50 hover:border-primary/40 rounded-[4px] transition-all duration-200 text-left active:scale-[0.98]"
               >
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
-                    {stat.icon}
-                  </span>
-                  <h3 className="text-sm  text-foreground text-center leading-tight">
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-[10px] sm:text-xs font-bold text-foreground group-hover:text-primary transition-colors">
                     {stat.label}
-                  </h3>
+                  </span>
+                  <span className="text-[8px] text-muted-foreground/60 uppercase font-bold tracking-tighter">
+                    {category.marketName}
+                  </span>
                 </div>
-
-                <div className="grid grid-cols-2 gap-2 w-full">
-                  <div className="bg-muted/30 p-2 rounded-lg flex flex-col items-center gap-1 border border-border/50">
-                    <div className="flex items-center gap-1 text-[9px]  text-muted-foreground uppercase">
-                      <Target className="size-3 text-primary" />
-                      {stat.bets}
-                    </div>
-                    <span className="text-[10px] font-bold text-foreground">
-                      Matched
-                    </span>
-                  </div>
-                  <div className="bg-muted/30 p-2 rounded-lg flex flex-col items-center gap-1 border border-border/50">
-                    <div className="flex items-center gap-1 text-[9px]  text-muted-foreground uppercase">
-                      <Banknote className="size-3 text-emerald-500" />$
-                      {stat.pot}
-                    </div>
-                    <span className="text-[10px] font-bold text-foreground">
-                      Pot
-                    </span>
-                  </div>
+                
+                <div className="flex items-center gap-2">
+                  <div className="h-4 w-px bg-border group-hover:bg-primary/20 mr-1" />
+                  <span className="text-sm sm:text-base font-bold text-primary tabular-nums">
+                    {stat.odds || "2.00"}
+                  </span>
                 </div>
-
-                <div className="flex flex-col w-full mt-auto pt-2">
-                  <Button
-                    onClick={() => onBetClick(stat.label, category.marketName)}
-                    size="sm"
-                    className="w-full h-9 rounded-lg bg-primary hover:bg-primary/90 text-white  uppercase tracking-widest text-[9px] shadow-sm active:scale-95 transition-all"
-                  >
-                    <PlusCircle className="size-3.5 mr-1.5" />
-                    Bet
-                  </Button>
-                </div>
-              </div>
+              </button>
             ))}
           </div>
         </div>

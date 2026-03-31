@@ -64,11 +64,11 @@ export interface P2PBet {
 export interface OutcomeStat {
   id: string;
   label: string;
-
-  icon: string;
-  bets: number;
-  pot: number;
-  open: number;
+  odds: string;
+  description?: string;
+  trend?: "up" | "down";
+  probability?: number;
+  volume?: number;
 }
 
 export interface MarketCategory {

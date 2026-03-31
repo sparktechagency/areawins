@@ -1,14 +1,22 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { Clock, LayoutGrid, List, ShieldCheck, TrendingUp, Users, Trophy } from "lucide-react";
-import Image from "next/image";
-import { useState, useMemo } from "react";
-import { useGetSportCategoriesQuery } from "@/lib/redux/api/sportCategoryApi";
-import { ISportCategories } from "@/interfaces/sportCategories.interface";
-import { Skeleton } from "@/components/ui/skeleton";
 import { ReusableModal } from "@/components/shared/ReusableModal";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ISportCategories } from "@/interfaces/sportCategories.interface";
+import { useGetSportCategoriesQuery } from "@/lib/redux/api/sportCategoryApi";
+import { cn } from "@/lib/utils";
+import {
+  Clock,
+  LayoutGrid,
+  List,
+  ShieldCheck,
+  TrendingUp,
+  Trophy,
+  Users,
+} from "lucide-react";
+import Image from "next/image";
+import { useMemo, useState } from "react";
 import AcceptBetModalContent from "./AcceptBetModalContent";
 
 interface OpenBet {
@@ -81,12 +89,16 @@ const MarketPageContent = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [activeFilter, setActiveFilter] = useState("all");
 
-  const { data: sportCategoriesResponse, isLoading: isCategoriesLoading } = useGetSportCategoriesQuery({
-    page: 1,
-    limit: 100,
-  });
+  const { data: sportCategoriesResponse, isLoading: isCategoriesLoading } =
+    useGetSportCategoriesQuery({
+      page: 1,
+      limit: 100,
+    });
 
-  const activeSports = useMemo(() => sportCategoriesResponse?.data?.results || [], [sportCategoriesResponse]);
+  const activeSports = useMemo(
+    () => sportCategoriesResponse?.data?.results || [],
+    [sportCategoriesResponse],
+  );
 
   const handleAccept = () => {
     setIsProcessing(true);
@@ -100,9 +112,10 @@ const MarketPageContent = () => {
     }, 1000);
   };
 
-  const filteredBets = activeFilter === "all" 
-    ? openBets 
-    : openBets.filter(bet => bet.sport === activeFilter);
+  const filteredBets =
+    activeFilter === "all"
+      ? openBets
+      : openBets.filter((bet) => bet.sport === activeFilter);
 
   return (
     <div className="w-full space-y-8 pb-12">
@@ -163,34 +176,34 @@ const MarketPageContent = () => {
         >
           All Sports
         </Button>
-        {isCategoriesLoading ? (
-          Array.from({ length: 6 }).map((_, i) => (
-            <Skeleton key={i} className="h-10 w-28 rounded-full shrink-0" />
-          ))
-        ) : (
-          activeSports.map((sport: ISportCategories) => (
-            <Button
-              key={sport._id}
-              variant={activeFilter === sport.slug ? "default" : "outline"}
-              onClick={() => setActiveFilter(sport.slug)}
-              className={cn(
-                "rounded-full px-6 h-10 text-sm font-semibold whitespace-nowrap transition-all",
-                activeFilter === sport.slug
-                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
-                  : "border-border text-muted-foreground hover:border-primary/40 hover:bg-muted/50",
-              )}
-            >
-              {sport.name}
-            </Button>
-          ))
-        )}
+        {isCategoriesLoading
+          ? Array.from({ length: 6 }).map((_, i) => (
+              <Skeleton key={i} className="h-10 w-28 rounded-full shrink-0" />
+            ))
+          : activeSports.map((sport: ISportCategories) => (
+              <Button
+                key={sport._id}
+                variant={activeFilter === sport.slug ? "default" : "outline"}
+                onClick={() => setActiveFilter(sport.slug)}
+                className={cn(
+                  "rounded-full px-6 h-10 text-sm font-semibold whitespace-nowrap transition-all",
+                  activeFilter === sport.slug
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                    : "border-border text-muted-foreground hover:border-primary/40 hover:bg-muted/50",
+                )}
+              >
+                {sport.name}
+              </Button>
+            ))}
       </div>
 
       {/* Bet Grid */}
       <div
         className={cn(
           "grid gap-6",
-          viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1",
+          viewMode === "grid"
+            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+            : "grid-cols-1",
         )}
       >
         {filteredBets.map((bet) => {
@@ -260,7 +273,7 @@ const MarketPageContent = () => {
                     <span className="text-[10px] font-bold text-muted-foreground mb-1">
                       Total Pot
                     </span>
-                    <div className="text-lg font-black text-foreground">
+                    <div className="text-lg  text-foreground">
                       ${potentialWin.toFixed(0)}
                     </div>
                   </div>
@@ -293,15 +306,21 @@ const MarketPageContent = () => {
 
                   <div className="flex items-center justify-between text-xs font-bold">
                     <div className="flex flex-col gap-0.5">
-                      <span className="text-[10px] text-muted-foreground">Stake</span>
+                      <span className="text-[10px] text-muted-foreground">
+                        Stake
+                      </span>
                       <span className="text-foreground">${bet.stake}</span>
                     </div>
                     <div className="bg-primary/10 px-3 py-1 rounded text-primary text-[11px]">
                       {bet.odds}x Odds
                     </div>
                     <div className="flex flex-col items-end gap-0.5">
-                      <span className="text-[10px] text-muted-foreground">Requires</span>
-                      <span className="text-rose-500">${opponentStake.toFixed(2)}</span>
+                      <span className="text-[10px] text-muted-foreground">
+                        Requires
+                      </span>
+                      <span className="text-rose-500">
+                        ${opponentStake.toFixed(2)}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -338,6 +357,3 @@ const MarketPageContent = () => {
 };
 
 export default MarketPageContent;
-
-
-

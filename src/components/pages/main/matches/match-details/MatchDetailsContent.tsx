@@ -1,13 +1,14 @@
 "use client";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BarChart3, ChevronLeft, Search, Share2, Star, Activity } from "lucide-react";
+import { useGetMatchByIdQuery } from "@/lib/redux/api/matchApi";
+import { Activity, BarChart3, ChevronLeft, Search } from "lucide-react";
+import { MarketCategory } from "@/interfaces/betting.interface";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 import CreateBetModal from "./CreateBetModal";
-import { useGetMatchByIdQuery } from "@/lib/redux/api/matchApi";
-import { Skeleton } from "@/components/ui/skeleton";
 
 import MarketInsightsTab from "./MarketInsightsTab";
 import MatchScoreHeader from "./MatchScoreHeader";
@@ -42,29 +43,28 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
   } | null>(null);
 
   // Mapping availableBetTypes to MarketCategory format
-  const marketCategories = useMemo(() => {
+  const marketCategories = useMemo((): MarketCategory[] => {
     if (!match?.availableBetTypes) return [];
 
-    return (match.availableBetTypes as Array<{
-      name: string;
-      slug: string;
-      outcomes: Array<{
-        outcomeId: string;
-        label: string;
-        description: string;
-      }>;
-    }>).map((bt) => ({
+    return (
+      match.availableBetTypes as Array<{
+        name: string;
+        slug: string;
+        outcomes: Array<{
+          outcomeId: string;
+          label: string;
+          description: string;
+        }>;
+      }>
+    ).map((bt) => ({
       marketName: bt.name,
       slug: bt.slug,
       outcomes: bt.outcomes.map((oc) => ({
         id: oc.outcomeId,
         label: oc.label,
         description: oc.description,
-        // Adding required fields from OutcomeStat interface
-        icon: "🎯", 
-        bets: Math.floor(Math.random() * 20) + 5,
-        pot: Math.floor(Math.random() * 2000) + 500,
-        open: 1,
+        // Adding odds for a professional betting look
+        odds: (Math.random() * (4.5 - 1.2) + 1.2).toFixed(2),
         // Visualization fields
         trend: (Math.random() > 0.5 ? "up" : "down") as "up" | "down",
         probability: Math.floor(Math.random() * 40) + 20,
@@ -73,8 +73,16 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
     }));
   }, [match]);
 
-  const handleCreateBetClick = (outcome: string, marketName: string, outcomeId?: string) => {
-    setSelectedMarket({ outcome, market: marketName, outcomeId: outcomeId || outcome });
+  const handleCreateBetClick = (
+    outcome: string,
+    marketName: string,
+    outcomeId?: string,
+  ) => {
+    setSelectedMarket({
+      outcome,
+      market: marketName,
+      outcomeId: outcomeId || outcome,
+    });
     setIsCreateModalOpen(true);
   };
 
@@ -100,8 +108,13 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
         <Activity className="size-12 text-muted-foreground/30" />
         <div className="space-y-1">
           <h3 className="text-lg font-bold text-foreground">Match Not Found</h3>
-          <p className="text-sm text-muted-foreground">This match might have ended or is no longer available.</p>
-          <Link href={`/matches/${sport}`} className="inline-block mt-4 text-primary font-bold hover:underline">
+          <p className="text-sm text-muted-foreground">
+            This match might have ended or is no longer available.
+          </p>
+          <Link
+            href={`/matches/${sport}`}
+            className="inline-block mt-4 text-primary font-bold hover:underline"
+          >
             Back to {sport}
           </Link>
         </div>
@@ -112,25 +125,65 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
   return (
     <div className="w-full space-y-6 sm:space-y-8 pb-10">
       {/* Navigation Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <Link
           href={`/matches/${sport}`}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
+          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group w-fit"
         >
           <div className="size-8 rounded-md border border-border flex items-center justify-center group-hover:bg-muted transition-colors">
             <ChevronLeft className="size-4" />
           </div>
-          <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wide">
+          <span className="text-[10px] sm:text-xs  uppercase tracking-widest">
             Back to {sport}
           </span>
         </Link>
+
         <div className="flex items-center gap-3">
-          <button className="size-10 rounded-md border border-border flex items-center justify-center hover:bg-muted transition-all text-muted-foreground hover:text-foreground cursor-pointer shadow-sm active:scale-95">
-            <Star className="size-5" />
-          </button>
-          <button className="size-10 rounded-md border border-border flex items-center justify-center hover:bg-muted transition-all text-muted-foreground hover:text-foreground cursor-pointer shadow-sm active:scale-95">
-            <Share2 className="size-5" />
-          </button>
+          {/* Liquidity Indicator */}
+          <div className="hidden xs:flex items-center gap-3 px-4 py-2 bg-muted/30 border border-border rounded-md">
+            <div className="flex flex-col">
+              <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-tight">
+                Total Liquidity
+              </span>
+              <span className="text-sm  text-primary">
+                ${(match.totalBetsAmount || 0).toLocaleString()}
+              </span>
+            </div>
+            <div className="w-px h-6 bg-border" />
+            <div className="flex flex-col">
+              <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-tight">
+                Active Markets
+              </span>
+              <span className="text-sm  text-foreground">
+                {match.availableBetTypes?.length || 0}
+              </span>
+            </div>
+          </div>
+
+          {/* Status Badge */}
+          <div
+            className={`px-4 py-2 rounded-md border flex items-center gap-2 h-11 ${
+              match.isLive
+                ? "bg-rose-500/5 border-rose-500/20 text-rose-500"
+                : "bg-emerald-500/5 border-emerald-500/20 text-emerald-500"
+            }`}
+          >
+            <span className="relative flex h-2 w-2">
+              <span
+                className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${match.isLive ? "bg-rose-400" : "bg-emerald-400"}`}
+              ></span>
+              <span
+                className={`relative inline-flex rounded-full h-2 w-2 ${match.isLive ? "bg-rose-500" : "bg-emerald-500"}`}
+              ></span>
+            </span>
+            <span className="text-[11px]  uppercase tracking-widest">
+              {match.isLive
+                ? "Live Now"
+                : match.status === "scheduled"
+                  ? "Scheduled"
+                  : match.status}
+            </span>
+          </div>
         </div>
       </div>
 
@@ -201,4 +254,3 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
 };
 
 export default MatchDetailsContent;
-
