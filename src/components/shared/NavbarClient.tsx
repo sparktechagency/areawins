@@ -1,5 +1,5 @@
 "use client";
-import logo from "@/assets/logo/logo.png";
+import logo from "@/assets/logo/areawins.png";
 import { AnimatedDropdown } from "@/components/shared/AnimatedDropdown";
 import { IUser } from "@/interfaces/user.interface";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
@@ -52,10 +52,10 @@ const NavbarClient = ({ user }: { user: IUser | null }) => {
           <Link href="/" className="block">
             <Image
               src={logo}
-              alt="Logo"
-              width={150}
-              height={120}
-              className="rounded-xl"
+              alt="Areawins Logo"
+              width={160}
+              height={50}
+              className="object-contain"
             />
           </Link>
 

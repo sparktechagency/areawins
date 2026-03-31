@@ -16,33 +16,47 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
   }, [error]);
 
   return (
-    <main className="relative isolate flex min-h-[78vh] items-center justify-center overflow-hidden bg-background px-6 py-16 text-foreground">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
-        <div className="absolute -bottom-20 -right-20 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
-      </div>
+    <main className="relative flex min-h-[70vh] items-center justify-center bg-background px-6 py-12 text-foreground">
+      <div className="w-full max-w-xl text-center">
+        <div className="mb-6 flex justify-center">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full border border-destructive/20 bg-destructive/5 text-destructive">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 16h.01"/><path d="M12 8v4"/><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a2 2 0 0 0-1.08 1.8V15a2 2 0 0 0 1.08 1.8l8.57 3.9a2 2 0 0 0 1.66 0l8.57-3.9A2 2 0 0 0 22.48 15V7.88a2 2 0 0 0-1.08-1.8Z"/>
+            </svg>
+          </div>
+        </div>
 
-      <div className="relative w-full max-w-2xl rounded-3xl border border-border/70 bg-card/90 p-8 text-center shadow-xl backdrop-blur-sm sm:p-12">
-        <span className="inline-flex rounded-full border border-accent/30 bg-accent/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
           System Error
         </span>
-        <h1 className="font-display mt-5 text-4xl font-semibold uppercase tracking-wide sm:text-5xl">
-          We Could Not Load This Page
+        
+        <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-5xl text-foreground">
+          Unexpected <span className="text-primary">Foul</span>
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
-          Something unexpected happened. Please try again, or go back home and
-          continue browsing matches.
+        
+        <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
+          Something went wrong in our backend stadium. We are investigating the case. 
+          The match isn&apos;t over yet, try a quick reset!
         </p>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <Button onClick={reset} className="min-w-40">
-            Try Again
+        <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Button 
+            onClick={reset} 
+            className="h-11 w-full rounded-md bg-primary px-8 text-sm font-bold uppercase tracking-wider text-primary-foreground sm:w-auto"
+          >
+            Reset Field
           </Button>
-          <Button asChild variant="outline" className="min-w-40">
-            <Link href="/">Go Home</Link>
+          <Button 
+            asChild 
+            variant="outline" 
+            className="h-11 w-full rounded-md border-border bg-transparent px-8 text-sm font-bold uppercase tracking-wider text-foreground sm:w-auto"
+          >
+            <Link href="/">Back to Lobby</Link>
           </Button>
         </div>
       </div>
     </main>
   );
 }
+
+

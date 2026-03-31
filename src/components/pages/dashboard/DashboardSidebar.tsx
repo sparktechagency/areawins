@@ -1,6 +1,6 @@
 "use client";
 
-import logo from "@/assets/logo/logo.png";
+import logo from "@/assets/logo/areawins.png";
 import { Button } from "@/components/ui/button";
 import DarkModeToggle from "@/components/ui/dark-mode-toggle";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -77,10 +77,10 @@ export default function DashboardSidebar() {
             <Link href={ROUTES.HOME} className="flex items-center gap-2">
               <Image
                 src={logo}
-                alt="Logo"
-                width={120}
-                height={120}
-                className="mx-auto rounded-xl"
+                alt="Areawins Logo"
+                width={150}
+                height={50}
+                className="mx-auto object-contain"
               />
             </Link>
           </div>

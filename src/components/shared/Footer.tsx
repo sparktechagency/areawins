@@ -1,6 +1,6 @@
 "use client";
 
-import logo from "@/assets/logo/logo.png";
+import logo from "@/assets/logo/areawins.png";
 import { ROUTES } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { Link } from "@/lib/i18n/routing";
@@ -18,10 +18,10 @@ const Footer = () => {
             <Link href={ROUTES.HOME} className="block">
               <Image
                 src={logo}
-                alt="Logo"
-                width={150}
-                height={120}
-                className="rounded-xl"
+                alt="Areawins Logo"
+                width={160}
+                height={50}
+                className="object-contain"
               />
             </Link>
             <p className="max-w-md text-sm text-muted-foreground leading-relaxed">
@@ -88,8 +88,9 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">
-          {t("footer.copyright")}
+          © {new Date().getFullYear()} Areawins. All Rights Reserved.
         </div>
+
       </div>
     </footer>
   );
