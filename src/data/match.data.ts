@@ -1,11 +1,5 @@
-import {
-  MatchInfo,
-  SportInfo,
-  TeamInfo,
-  TournamentInfo,
-} from "@/interfaces/match.interface";
 
-export const MOCK_SPORTS: SportInfo[] = [
+export const MOCK_SPORTS = [
   {
     _id: "s1",
     sportId: "SPORT-001",
@@ -143,7 +137,7 @@ export const MOCK_SPORTS: SportInfo[] = [
   },
 ];
 
-export const MOCK_TEAMS: TeamInfo[] = [
+export const MOCK_TEAMS = [
   {
     _id: "t1",
     teamId: "TEAM-001",
@@ -234,7 +228,7 @@ export const MOCK_TEAMS: TeamInfo[] = [
   },
 ];
 
-export const MOCK_TOURNAMENTS: TournamentInfo[] = [
+export const MOCK_TOURNAMENTS = [
   // Football Tournaments
   {
     _id: "tr1",
@@ -399,7 +393,7 @@ export const MOCK_TOURNAMENTS: TournamentInfo[] = [
   },
 ];
 
-export const MOCK_MATCHES: MatchInfo[] = [
+export const MOCK_MATCHES = [
   {
     _id: "m1",
     matchId: "MATCH-101",

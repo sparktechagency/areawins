@@ -17,8 +17,8 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
           <div className="flex items-center gap-1.5 bg-rose-500/10 px-2 py-1 rounded-full text-[9px]  text-rose-500 uppercase tracking-widest border border-rose-500/20 w-fit">
             <span className="size-1.5 rounded-full bg-rose-500 animate-pulse"></span>
             LIVE
-            {event.liveStatus?.minute && (
-              <span className="text-[8px]">{event.liveStatus.minute}'</span>
+            {event.matchClock && (
+              <span className="text-[8px]">{event.matchClock}</span>
             )}
           </div>
           <div className="flex items-center gap-1.5 opacity-70">
@@ -81,9 +81,9 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
                 {event.awayScore || 0}
               </span>
             </div>
-            {event.liveStatus?.period && (
+            {event.matchClock && (
               <div className="text-[8px] text-muted-foreground text-center mt-1 uppercase tracking-wider">
-                {event.liveStatus.period}
+                {event.matchClock}
               </div>
             )}
           </div>
@@ -104,21 +104,6 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
           </span>
         </div>
       </div>
-
-      {/* Match Info */}
-      {(event.venue || event.city) && (
-        <div className="px-4 pb-2">
-          <div className="flex items-center gap-1 text-[9px] text-muted-foreground">
-            <MapPin className="size-3" />
-            <span>
-              {event.venue && `${event.venue}`}
-              {event.venue && event.city && ", "}
-              {event.city && `${event.city}`}
-            </span>
-          </div>
-        </div>
-      )}
-
       {/* Stats Grid */}
       <div className="grid grid-cols-2 gap-3 p-4 bg-linear-to-br from-muted/20 to-muted/10 border-t border-border/50">
         <div className="flex flex-col gap-1">
