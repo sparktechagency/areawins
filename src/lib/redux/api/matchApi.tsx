@@ -10,9 +10,35 @@ export const matchApi = baseApi.injectEndpoints({
           url: `/matches/live?page=${page}&limit=${limit}`,
         };
       },
-      providesTags: ["Profile"], // Using Profile tag for consistency or keeping it generic if No Match tag exists yet
+      providesTags: ["Profile"],
+    }),
+    getMatchesBySportSlug: build.query({
+      query: (params: {
+        slug: string;
+        page?: number;
+        limit?: number;
+        status?: string;
+      }) => {
+        const { slug, page = 1, limit = 50, status } = params;
+        let url = `/matches/sport/slug/${slug}?page=${page}&limit=${limit}`;
+        if (status) {
+          url += `&status=${status}`;
+        }
+        return { url };
+      },
+      providesTags: ["Profile"],
+    }),
+    getMatchById: build.query({
+      query: (id: string) => ({
+        url: `/matches/${id}`,
+      }),
+      providesTags: ["Profile"],
     }),
   }),
 });
 
-export const { useGetLiveMatchesQuery } = matchApi;
+export const {
+  useGetLiveMatchesQuery,
+  useGetMatchesBySportSlugQuery,
+  useGetMatchByIdQuery,
+} = matchApi;

@@ -77,13 +77,6 @@ const MarketInsightsTab: React.FC<MarketInsightsTabProps> = ({
           </div>
         </div>
       ))}
-
-      <div className="p-6 sm:p-10 md:p-16 text-center bg-muted/20 rounded-xl border border-dashed border-border text-muted-foreground flex flex-col items-center justify-center">
-        <BarChart3 className="size-12 mb-4 opacity-10" />
-        <p className=" uppercase tracking-widest text-[10px] sm:text-xs">
-          Detailed market trends and volume analysis will appear here.
-        </p>
-      </div>
     </div>
   );
 };

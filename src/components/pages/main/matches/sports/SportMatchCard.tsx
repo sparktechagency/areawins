@@ -1,163 +1,122 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Banknote,
-  ChevronRight,
-  PlusCircle,
-  Search,
-  Target,
-} from "lucide-react";
-
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { Clock, Trophy, Calendar, ChevronRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import React, { useMemo } from "react";
+import React from "react";
+import { IMatch } from "@/interfaces/match.interface";
+import { Badge } from "@/components/ui/badge";
+import { format } from "date-fns";
 
-import { getMockStats } from "@/data/match.data";
-import {
-  SportInfo,
-  SportMatchCardProps,
-  TeamInfo,
-  TournamentInfo,
-} from "@/interfaces/match.interface";
-import { renderSportScore } from "@/lib/sport-utils";
+interface SportMatchCardProps {
+  match: IMatch;
+  onDelete?: (id: string) => void;
+}
 
-export const SportMatchCard: React.FC<SportMatchCardProps> = ({
-  match,
-  onDelete,
-}) => {
-  const { t } = useTranslation();
-  // Helper to extract names safely
-  const getTeamName = (team: string | TeamInfo) =>
-    typeof team === "string" ? "Team" : team.name;
-  const getSportSlug = (sport: string | SportInfo) =>
-    typeof sport === "string" ? "football" : sport.slug;
-  const getSportIcon = (sport: string | SportInfo) =>
-    typeof sport === "string" ? "⚽" : sport.icon;
-  const getTournamentName = (t: string | TournamentInfo | undefined) =>
-    typeof t === "string" ? "League" : (t?.name ?? "League");
-
-  const homeTeamName = getTeamName(match.homeTeam);
-  const awayTeamName = getTeamName(match.awayTeam);
-  const sportSlug = getSportSlug(match.sport);
-  const sportIcon = getSportIcon(match.sport);
-  const tournamentName = getTournamentName(match.tournament);
-
-  const stats = useMemo(() => {
-    return getMockStats(match._id, homeTeamName);
-  }, [match._id, homeTeamName]);
-
-  const isLive = match.status === "live";
+const SportMatchCard: React.FC<SportMatchCardProps> = ({ match }) => {
+  const isLive = match.isLive || match.status === "live";
 
   return (
-    <div className="bg-card rounded-lg border border-border transition-all hover:bg-muted/5 group overflow-hidden flex flex-col h-full">
-      {/* Header Row (League Info) */}
-      <div className="bg-muted/20 px-3 py-2.5 border-b border-border flex items-center justify-between shrink-0">
-        <div className="flex items-center gap-2 overflow-hidden">
-          {isLive ? (
-            <span className="flex items-center gap-1 text-[9px]  text-rose-500 uppercase bg-rose-500/10 px-1.5 py-0.5 rounded-full shrink-0">
-              <span className="size-1 rounded-full bg-rose-500 animate-pulse"></span>
-              {t("matchCard.live")}
-            </span>
-          ) : (
-            <span className="text-[9px]  text-muted-foreground uppercase bg-muted/50 px-1.5 py-0.5 rounded-full shrink-0">
-              {new Date(match.scheduledStartTime).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </span>
-          )}
-          <span className="text-[10px] font-bold text-muted-foreground/80 uppercase tracking-widest truncate">
-            {tournamentName}
+    <div className="bg-card rounded-md border border-border overflow-hidden hover:border-primary/30 transition-all group flex flex-col shadow-sm hover:shadow-xl hover:shadow-primary/5 active:scale-[0.99]">
+      {/* Card Header (Tournament) */}
+      <div className="bg-muted/10 px-5 py-4 border-b border-border flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="relative size-6 shrink-0 bg-background rounded-full p-1 border border-border">
+            {match.tournament?.logo ? (
+              <Image
+                src={match.tournament.logo}
+                alt={match.tournament.name}
+                fill
+                className="object-contain p-0.5"
+              />
+            ) : (
+              <Trophy className="size-3 text-primary" />
+            )}
+          </div>
+          <span className="text-[11px] font-bold text-muted-foreground tracking-wide truncate max-w-[150px]">
+            {match.tournament?.name}
           </span>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <span className="hidden sm:flex text-[9px]  text-primary uppercase items-center gap-1">
-            <Target className="size-2.5" />
-            {stats.activeBets} {t("matchCard.active")}
-          </span>
-        </div>
+        {isLive ? (
+          <Badge className="bg-red-500/10 text-red-500 border-red-500/20 px-2.5 py-0.5 text-[10px] font-bold flex gap-1.5 items-center">
+            <span className="size-1.5 rounded-full bg-red-500 animate-pulse" />
+            Live
+          </Badge>
+        ) : (
+          <Badge variant="outline" className="border-border text-muted-foreground text-[10px] font-bold">
+            Upcoming
+          </Badge>
+        )}
       </div>
 
-      <div className="flex flex-col flex-1 p-3 sm:p-4">
-        {/* Teams & Score Section */}
-        <Link
-          href={`/matches/${sportSlug}/${match._id}`}
-          className="flex-1 w-full mb-4 group/teams"
-        >
-          <div className="flex items-center justify-between gap-2 sm:gap-4 h-full">
-            {/* Home Team */}
-            <div className="flex flex-col items-center gap-1.5 flex-2 min-w-0">
-              <div className="size-10 sm:size-12 rounded-full bg-muted border border-border flex items-center justify-center text-xl sm:text-2xl shrink-0">
-                {sportIcon}
-              </div>
-              <span className=" text-foreground text-[11px] sm:text-xs text-center group-hover/teams:text-primary transition-colors line-clamp-2 w-full">
-                {homeTeamName}
+      <div className="p-5 flex flex-col flex-1 space-y-6">
+        {/* Match Info (Teams & Scores) */}
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-col items-center gap-2 flex-1 text-center">
+            <div className="relative size-12 rounded-full border border-border bg-muted/20 flex items-center justify-center p-2 shadow-inner">
+              {match.homeTeam?.logo ? (
+                <Image src={match.homeTeam.logo} alt={match.homeTeam.name} fill className="object-contain p-2" />
+              ) : (
+                <div className="font-black text-primary text-sm">{match.homeTeam?.shortName || "H"}</div>
+              )}
+            </div>
+            <span className="text-xs font-bold text-foreground line-clamp-1">{match.homeTeam?.name}</span>
+            <span className="text-xl font-black text-foreground">{isLive ? match.homeScore : "-"}</span>
+          </div>
+
+          <div className="flex flex-col items-center gap-1">
+            <span className="text-[10px] font-black text-muted-foreground/40">VS</span>
+            <div className="h-8 w-px bg-border/50" />
+          </div>
+
+          <div className="flex flex-col items-center gap-2 flex-1 text-center">
+            <div className="relative size-12 rounded-full border border-border bg-muted/20 flex items-center justify-center p-2 shadow-inner">
+              {match.awayTeam?.logo ? (
+                <Image src={match.awayTeam.logo} alt={match.awayTeam.name} fill className="object-contain p-2" />
+              ) : (
+                <div className="font-black text-primary text-sm">{match.awayTeam?.shortName || "A"}</div>
+              )}
+            </div>
+            <span className="text-xs font-bold text-foreground line-clamp-1">{match.awayTeam?.name}</span>
+            <span className="text-xl font-black text-foreground">{isLive ? match.awayScore : "-"}</span>
+          </div>
+        </div>
+
+        {/* Betting Stats */}
+        <div className="grid grid-cols-2 gap-3 pb-2">
+          <div className="bg-muted/40 rounded-md p-3 border border-border/50 text-center space-y-1 hover:bg-muted/60 transition-colors">
+            <span className="text-[10px] font-bold text-muted-foreground block">Active Markets</span>
+            <span className="text-sm font-black text-foreground">{match.totalBetsCount || 0}</span>
+          </div>
+          <div className="bg-muted/40 rounded-md p-3 border border-border/50 text-center space-y-1 hover:bg-muted/60 transition-colors">
+            <span className="text-[10px] font-bold text-muted-foreground block">Liquidity</span>
+            <span className="text-sm font-black text-primary">${(match.totalBetsAmount || 0).toLocaleString()}</span>
+          </div>
+        </div>
+
+        {/* Footer Area */}
+        <div className="mt-auto pt-4 border-t border-border flex items-center justify-between">
+          <div className="flex flex-col gap-0.5">
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <Clock className="size-3" />
+              <span className="text-[10px] font-bold">
+                {match.scheduledStartTime ? format(new Date(match.scheduledStartTime), "hh:mm a") : "--:--"}
               </span>
             </div>
-            {/* Score / VS Area */}
-            <div className="flex flex-col items-center gap-1 flex-1 min-w-fit">
-              {renderSportScore(match)}
-            </div>
-
-            {/* Away Team */}
-            <div className="flex flex-col items-center gap-1.5 flex-2 min-w-0">
-              <div className="size-10 sm:size-12 rounded-full bg-muted border border-border flex items-center justify-center text-xl sm:text-2xl shrink-0">
-                {sportIcon}
-              </div>
-              <span className=" text-foreground text-[11px] sm:text-xs text-center group-hover/teams:text-primary transition-colors line-clamp-2 w-full">
-                {awayTeamName}
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <Calendar className="size-3" />
+              <span className="text-[10px] font-bold">
+                {match.scheduledStartTime ? format(new Date(match.scheduledStartTime), "dd MMM, yy") : "TBD"}
               </span>
             </div>
           </div>
-        </Link>
-
-        {/* P2P Activity Section - Compact for cards */}
-        <div className="mt-auto space-y-3">
-          <div className="grid grid-cols-2 gap-2">
-            <div className="bg-muted/20 rounded-lg p-2 border border-border/50">
-              <span className="text-[8px]  text-muted-foreground uppercase flex items-center gap-1 mb-0.5">
-                <Banknote className="size-2.5 text-emerald-500" />
-                {t("matchCard.pot")}
-              </span>
-              <span className="text-xs sm:text-sm  text-foreground block">
-                ${stats.potAmount.toLocaleString()}
-              </span>
-            </div>
-            <div className="bg-muted/20 rounded-lg p-2 border border-border/50">
-              <span className="text-[8px]  text-muted-foreground uppercase flex items-center gap-1 mb-0.5">
-                <Search className="size-2.5 text-blue-500" />
-                {t("matchCard.open")}
-              </span>
-              <span className="text-xs sm:text-sm  text-foreground block">
-                {stats.openBets} {t("matchCard.bets")}
-              </span>
-            </div>
-          </div>
-
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="flex-1 h-9 rounded-lg  text-[9px] uppercase tracking-widest border-primary/20 hover:bg-primary/5 text-primary p-0"
-              asChild
-            >
-              <Link href={`/matches/${sportSlug}/${match._id}?action=create`}>
-                <PlusCircle className="size-3" />
-                {t("matchCard.create")}
-              </Link>
+          <Link href={`/matches/${match.sport.slug}/${match._id}`} className="block">
+            <Button className="rounded-md px-5 h-10 text-[11px] font-black shadow-lg shadow-primary/10 transition-all active:scale-95 group-hover:bg-primary">
+              Trade Market
+              <ChevronRight className="size-3.5 ml-1 transition-transform group-hover:translate-x-0.5" />
             </Button>
-            <Button
-              size="sm"
-              className="flex-1 h-9 rounded-lg bg-primary hover:bg-primary/90 text-white  text-[9px] uppercase tracking-widest p-0"
-              asChild
-            >
-              <Link href={`/matches/${sportSlug}/${match._id}`}>
-                {t("matchCard.browse")}
-                <ChevronRight className="size-3" />
-              </Link>
-            </Button>
-          </div>
+          </Link>
         </div>
       </div>
     </div>
@@ -165,3 +124,4 @@ export const SportMatchCard: React.FC<SportMatchCardProps> = ({
 };
 
 export default SportMatchCard;
+

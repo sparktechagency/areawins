@@ -56,7 +56,7 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
 
   return (
     <div
-      className="relative rounded-lg overflow-hidden mb-8 sm:mb-12 min-h-[300px] sm:min-h-[360px] flex flex-col justify-end border border-border group"
+      className="relative rounded-md overflow-hidden mb-8 sm:mb-12 min-h-[300px] sm:min-h-[360px] flex flex-col justify-end border border-border group"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -92,7 +92,7 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
         </h2>
 
         {currentBanner.matchStatus ? (
-          <div className="bg-white/10 backdrop-blur-xl inline-flex items-center gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg border border-white/20 mb-6 sm:mb-8">
+          <div className="bg-white/10 backdrop-blur-xl inline-flex items-center gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-md border border-white/20 mb-6 sm:mb-8">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>

@@ -1,15 +1,15 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Clock, LayoutGrid, List, ShieldCheck, TrendingUp, Users } from "lucide-react";
+import { Clock, LayoutGrid, List, ShieldCheck, TrendingUp, Users, Trophy } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useGetSportCategoriesQuery } from "@/lib/redux/api/sportCategoryApi";
 import { ISportCategories } from "@/interfaces/sportCategories.interface";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ReusableModal } from "@/components/shared/ReusableModal";
 import AcceptBetModalContent from "./AcceptBetModalContent";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
 
 interface OpenBet {
   id: string;
@@ -75,12 +75,18 @@ const openBets: OpenBet[] = [
 ];
 
 const MarketPageContent = () => {
-  const { t } = useTranslation();
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedBet, setSelectedBet] = useState<OpenBet | null>(null);
   const [isAccepted, setIsAccepted] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [activeFilter, setActiveFilter] = useState("all");
+
+  const { data: sportCategoriesResponse, isLoading: isCategoriesLoading } = useGetSportCategoriesQuery({
+    page: 1,
+    limit: 100,
+  });
+
+  const activeSports = useMemo(() => sportCategoriesResponse?.data?.results || [], [sportCategoriesResponse]);
 
   const handleAccept = () => {
     setIsProcessing(true);
@@ -94,27 +100,31 @@ const MarketPageContent = () => {
     }, 1000);
   };
 
+  const filteredBets = activeFilter === "all" 
+    ? openBets 
+    : openBets.filter(bet => bet.sport === activeFilter);
+
   return (
-    <div className="w-full space-y-8">
+    <div className="w-full space-y-8 pb-12">
       {/* Header */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="space-y-1">
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground tracking-tight text-center md:text-left">
             Live Open Markets
           </h1>
-          <p className="text-xs text-muted-foreground font-medium text-center md:text-left flex items-center justify-center md:justify-start gap-2">
-            <Users className="size-3.5 text-primary" />
+          <p className="text-sm text-muted-foreground font-medium text-center md:text-left flex items-center justify-center md:justify-start gap-2">
+            <Users className="size-4 text-primary" />
             Join the peer-to-peer betting arena
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="bg-muted/30 p-1 rounded-lg border border-border flex gap-1 shadow-xs">
+          <div className="bg-muted/30 p-1 rounded-md border border-border flex gap-1 shadow-xs">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setViewMode("grid")}
               className={cn(
-                "size-9 rounded-md transition-all cursor-pointer",
+                "size-10 rounded-md transition-all cursor-pointer",
                 viewMode === "grid"
                   ? "bg-background text-primary shadow-sm"
                   : "text-muted-foreground hover:text-foreground",
@@ -127,7 +137,7 @@ const MarketPageContent = () => {
               size="icon"
               onClick={() => setViewMode("list")}
               className={cn(
-                "size-9 rounded-md transition-all cursor-pointer",
+                "size-10 rounded-md transition-all cursor-pointer",
                 viewMode === "list"
                   ? "bg-background text-primary shadow-sm"
                   : "text-muted-foreground hover:text-foreground",
@@ -139,40 +149,77 @@ const MarketPageContent = () => {
         </div>
       </div>
 
-      {/* Market Grid */}
+      {/* Filter Tape */}
+      <div className="flex items-center gap-3 overflow-x-auto no-scrollbar pb-2">
+        <Button
+          variant={activeFilter === "all" ? "default" : "outline"}
+          onClick={() => setActiveFilter("all")}
+          className={cn(
+            "rounded-full px-6 h-10 text-sm font-semibold whitespace-nowrap transition-all",
+            activeFilter === "all"
+              ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+              : "border-border text-muted-foreground hover:border-primary/40 hover:bg-muted/50",
+          )}
+        >
+          All Sports
+        </Button>
+        {isCategoriesLoading ? (
+          Array.from({ length: 6 }).map((_, i) => (
+            <Skeleton key={i} className="h-10 w-28 rounded-full shrink-0" />
+          ))
+        ) : (
+          activeSports.map((sport: ISportCategories) => (
+            <Button
+              key={sport._id}
+              variant={activeFilter === sport.slug ? "default" : "outline"}
+              onClick={() => setActiveFilter(sport.slug)}
+              className={cn(
+                "rounded-full px-6 h-10 text-sm font-semibold whitespace-nowrap transition-all",
+                activeFilter === sport.slug
+                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                  : "border-border text-muted-foreground hover:border-primary/40 hover:bg-muted/50",
+              )}
+            >
+              {sport.name}
+            </Button>
+          ))
+        )}
+      </div>
+
+      {/* Bet Grid */}
       <div
         className={cn(
           "grid gap-6",
-          viewMode === "grid"
-            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-            : "grid-cols-1",
+          viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1",
         )}
       >
-        {openBets.map((bet) => {
+        {filteredBets.map((bet) => {
           const potentialWin = bet.stake * bet.odds;
           const opponentStake = potentialWin - bet.stake;
 
           return (
             <div
               key={bet.id}
-              className="bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/30 transition-all group flex flex-col shadow-sm hover:shadow-xl hover:shadow-primary/5"
+              className="bg-card rounded-md border border-border overflow-hidden hover:border-primary/30 transition-all group flex flex-col shadow-sm hover:shadow-xl hover:shadow-primary/5 active:scale-[0.98]"
             >
-              {/* Card Header */}
+              {/* Card Header (Match Info) */}
               <div className="bg-muted/10 px-5 py-4 border-b border-border flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <div className="text-sm">🏆</div>
+                <div className="flex items-center gap-3">
+                  <div className="size-6 bg-primary/10 rounded-full flex items-center justify-center">
+                    <Trophy className="size-3 text-primary" />
+                  </div>
                   <div className="flex flex-col">
-                    <span className="text-[11px] font-bold text-primary leading-none mb-1">
-                      {t(`sports.${bet.sport}`)}
+                    <span className="text-[10px] font-bold text-primary leading-none mb-0.5">
+                      {bet.sport.toUpperCase()}
                     </span>
-                    <span className="text-xs font-semibold text-foreground tracking-tight">
+                    <span className="text-xs font-bold text-foreground truncate max-w-[150px]">
                       {bet.match}
                     </span>
                   </div>
                 </div>
-                <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-muted/40 rounded-full">
+                <div className="flex items-center gap-1.5 px-2 py-1 bg-muted/40 rounded-full">
                   <Clock className="size-3 text-muted-foreground" />
-                  <span className="text-[10px] font-bold text-muted-foreground">
+                  <span className="text-[10px] font-bold text-muted-foreground whitespace-nowrap">
                     {bet.timeAgo}
                   </span>
                 </div>
@@ -220,7 +267,7 @@ const MarketPageContent = () => {
                 </div>
 
                 {/* Bet Logic Visualizer */}
-                <div className="bg-muted/30 rounded-xl p-4 border border-border/50 space-y-4 mb-6 relative overflow-hidden group-hover:bg-muted/50 transition-colors">
+                <div className="bg-muted/30 rounded-md p-4 border border-border/50 space-y-4 mb-6 relative overflow-hidden group-hover:bg-muted/50 transition-colors">
                   <div className="flex justify-between relative z-10">
                     <div className="space-y-1">
                       <span className="text-[11px] font-bold text-muted-foreground flex items-center gap-1.5">
@@ -237,7 +284,7 @@ const MarketPageContent = () => {
                         <span className="size-1.5 rounded-full bg-rose-500" />
                       </span>
                       <h4 className="text-sm font-bold text-rose-500">
-                        Opposite Team
+                        Opposite Result
                       </h4>
                     </div>
                   </div>
@@ -253,7 +300,7 @@ const MarketPageContent = () => {
                       {bet.odds}x Odds
                     </div>
                     <div className="flex flex-col items-end gap-0.5">
-                      <span className="text-[10px] text-muted-foreground">Requirements</span>
+                      <span className="text-[10px] text-muted-foreground">Requires</span>
                       <span className="text-rose-500">${opponentStake.toFixed(2)}</span>
                     </div>
                   </div>
@@ -261,9 +308,9 @@ const MarketPageContent = () => {
 
                 <Button
                   onClick={() => setSelectedBet(bet)}
-                  className="w-full h-11 cursor-pointer rounded-xl font-bold transition-all active:scale-95 shadow-lg shadow-primary/10"
+                  className="w-full h-11 cursor-pointer rounded-md font-bold transition-all active:scale-95 shadow-lg shadow-primary/10"
                 >
-                  Confirm Acceptance
+                  Accept Market
                 </Button>
               </div>
             </div>
@@ -291,4 +338,6 @@ const MarketPageContent = () => {
 };
 
 export default MarketPageContent;
+
+
 

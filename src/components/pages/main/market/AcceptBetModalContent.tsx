@@ -67,7 +67,7 @@ const AcceptBetModalContent: React.FC<AcceptBetModalContentProps> = ({
       </div>
 
       <div className="space-y-6">
-        <div className="bg-muted/30 rounded-lg overflow-hidden border border-border">
+        <div className="bg-muted/30 rounded-md overflow-hidden border border-border">
           <div className="p-4 bg-primary/5 border-b border-primary/10 flex justify-between items-center px-4 sm:px-6">
             <span className="text-xs  text-primary uppercase truncate max-w-[200px]">
               {selectedBet.match}
@@ -104,14 +104,14 @@ const AcceptBetModalContent: React.FC<AcceptBetModalContentProps> = ({
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-start gap-3 text-amber-500 bg-amber-500/5 p-4 rounded-lg border border-amber-500/10">
+              <div className="flex items-start gap-3 text-amber-500 bg-amber-500/5 p-4 rounded-md border border-amber-500/10">
                 <AlertTriangle className="size-5 shrink-0 " />
                 <p className="text-xs font-bold leading-relaxed uppercase tracking-widest">
                   ${layStake.toFixed(2)} will be held in escrow immediately.
                 </p>
               </div>
 
-              <div className="p-5 sm:p-6 rounded-lg border border-border ">
+              <div className="p-5 sm:p-6 rounded-md border border-border ">
                 <span className="text-xs  text-foreground  tracking-widest mb-2">
                   Settlement Rules
                 </span>
