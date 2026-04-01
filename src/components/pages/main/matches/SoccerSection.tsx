@@ -18,42 +18,38 @@ import Link from "next/link";
 import React from "react";
 import MatchSectionSkeleton from "@/components/skeleton/MatchSectionSkeleton";
 
-const CricketSection: React.FC = () => {
+const SoccerSection: React.FC = () => {
   const { data: response, isLoading } = useGetUpcomingMatchesBySportQuery({
-    slug: "cricket",
+    slug: "soccer",
   });
 
   const matches: IMatch[] = response?.data?.results || [];
 
   if (isLoading) {
-    return (
-      <div className="py-5 mt-12">
-        <MatchSectionSkeleton columns={6} />
-      </div>
-    );
+    return <MatchSectionSkeleton columns={7} />;
   }
 
-  if (matches.length === 0) {
+  if (matches?.length === 0) {
     return (
-      <section className="w-full container mx-auto mt-12">
+      <section className="w-full container mx-auto ">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl  text-foreground tracking-tight flex items-center gap-3">
-            <span className="size-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-lg">
-              🏏
+          <h2 className="text-2xl text-foreground flex items-center gap-3">
+            <span className="size-8 rounded-lg bg-green-500/10 flex items-center justify-center text-lg">
+              ⚽
             </span>
-            Cricket Markets
+            Soccer Markets
           </h2>
         </div>
 
         <div className="w-full rounded-lg border border-dashed border-border bg-muted/5 py-12 flex flex-col items-center justify-center text-center">
           <div className="size-16 rounded-full bg-muted/10 flex items-center justify-center">
-            <span className="text-3xl opacity-50">🏏</span>
+            <span className="text-3xl opacity-50">⚽</span>
           </div>
           <h3 className="text-lg font-semibold text-foreground tracking-tight">
-            No Cricket Markets Available
+            No Soccer Markets Available
           </h3>
           <p className="text-sm text-muted-foreground max-w-[280px] mt-2 leading-relaxed">
-            There are currently no upcoming cricket matches. Please check back
+            There are currently no upcoming soccer matches. Please check back
             later for new opportunities.
           </p>
         </div>
@@ -62,20 +58,20 @@ const CricketSection: React.FC = () => {
   }
 
   return (
-    <section className="w-full container mx-auto mt-12">
+    <section className="w-full container mx-auto ">
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl  text-foreground  tracking-tight flex items-center gap-3">
-          <span className="size-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-lg">
-            🏏
+        <h2 className="text-2xl text-foreground flex items-center gap-3">
+          <span className="size-8 rounded-lg bg-green-500/10 flex items-center justify-center text-lg">
+            ⚽
           </span>
-          Cricket Markets
+          Soccer Markets
         </h2>
         <Button
           variant="ghost"
           asChild
-          className="text-sm text-primary tracking-widest hover:underline cursor-pointer transition-colors"
+          className="text-sm tracking-widest text-primary hover:underline transition-colors"
         >
-          <Link href="/matches/cricket">View All</Link>
+          <Link href="/matches/soccer">View All</Link>
         </Button>
       </div>
 
@@ -84,23 +80,26 @@ const CricketSection: React.FC = () => {
           <Table>
             <TableHeader className="bg-muted/30">
               <TableRow className="hover:bg-transparent border-border/50">
-                <TableHead className="py-5 pl-8 text-[10px]  uppercase tracking-widest text-muted-foreground">
-                  Time
+                <TableHead className="py-5 pl-8 text-[10px]  uppercase tracking-widest text-muted-foreground whitespace-nowrap">
+                  Schedule
+                </TableHead>
+                <TableHead className="py-5 text-[10px]  uppercase tracking-widest text-muted-foreground whitespace-nowrap">
+                  Competitions
                 </TableHead>
                 <TableHead className="py-5 text-[10px]  uppercase tracking-widest text-muted-foreground">
-                  League
-                </TableHead>
-                <TableHead className="py-5 text-[10px]  uppercase tracking-widest text-muted-foreground">
-                  Match
+                  Match Match-Up
                 </TableHead>
                 <TableHead className="py-5 text-center text-[10px]  uppercase tracking-widest text-muted-foreground">
-                  📊 Bets
+                  📊 Available Bets
                 </TableHead>
                 <TableHead className="py-5 text-center text-[10px]  uppercase tracking-widest text-muted-foreground">
-                  💰 Pot
+                  🎯 Total Bets
+                </TableHead>
+                <TableHead className="py-5 text-center text-[10px]  uppercase tracking-widest text-muted-foreground">
+                  💰 Pot Size
                 </TableHead>
                 <TableHead className="py-5 pr-8 text-right text-[10px]  uppercase tracking-widest text-muted-foreground">
-                  Browse
+                  Action
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -108,7 +107,7 @@ const CricketSection: React.FC = () => {
               {matches.map((match) => (
                 <TableRow
                   key={match._id}
-                  className="hover:bg-muted/20 border-border/50 transition-all group"
+                  className="hover:bg-muted/20 transition-all border-border/50 group"
                 >
                   <TableCell className="pl-8 py-6">
                     <div className="flex flex-col">
@@ -128,20 +127,20 @@ const CricketSection: React.FC = () => {
                       {match.tournament?.logo && (
                         <Image
                           src={match.tournament.logo}
-                          alt=""
-                          width={18}
-                          height={18}
-                          className="object-contain"
+                          alt={match.tournament.name}
+                          width={20}
+                          height={20}
+                          className="rounded-sm object-contain"
                         />
                       )}
-                      <span className="text-[11px]  uppercase text-foreground truncate max-w-[150px]">
+                      <span className="text-[11px]  text-foreground uppercase tracking-tight max-w-[150px] truncate">
                         {match.tournament?.name}
                       </span>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <div className="flex items-center gap-3">
-                      <div className="flex items-center gap-1.5 min-w-[100px] justify-end">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2 min-w-[120px] justify-end">
                         <span className="text-xs  text-foreground truncate">
                           {match.homeTeam.name}
                         </span>
@@ -149,22 +148,22 @@ const CricketSection: React.FC = () => {
                           <Image
                             src={match.homeTeam.logo}
                             alt=""
-                            width={16}
-                            height={16}
+                            width={18}
+                            height={18}
                             className="object-contain"
                           />
                         )}
                       </div>
-                      <span className="text-[10px] text-muted-foreground/40 italic">
-                        vs
+                      <span className="text-[10px]  text-muted-foreground/30 px-1 italic">
+                        VS
                       </span>
-                      <div className="flex items-center gap-1.5 min-w-[100px]">
+                      <div className="flex items-center gap-2 min-w-[120px]">
                         {match.awayTeam.logo && (
                           <Image
                             src={match.awayTeam.logo}
                             alt=""
-                            width={16}
-                            height={16}
+                            width={18}
+                            height={18}
                             className="object-contain"
                           />
                         )}
@@ -174,22 +173,32 @@ const CricketSection: React.FC = () => {
                       </div>
                     </div>
                   </TableCell>
+
+                  <TableCell className="text-center">
+                    <span className="text-xs  text-foreground px-3 py-1 rounded-full border border-border">
+                      {match.availableBetTypes?.length || 0}
+                    </span>
+                  </TableCell>
+
                   <TableCell className="text-center">
                     <span className="text-xs  text-primary bg-primary/5 px-3 py-1 rounded-full border border-primary/10">
                       {match.totalBetsCount}
                     </span>
                   </TableCell>
-                  <TableCell className="text-center font-medium text-foreground">
+
+                  <TableCell className="text-center  text-foreground">
                     ${match.totalBetsAmount.toLocaleString()}
                   </TableCell>
+
                   <TableCell className="text-right pr-8">
                     <Button
                       asChild
                       size="sm"
-                      className="h-9 rounded-lg bg-primary hover:bg-primary/90 text-white text-[10px]  uppercase tracking-widest px-5 shadow-sm"
+                      className="h-9 rounded-lg bg-primary hover:bg-primary/90 text-white text-[10px]  uppercase tracking-widest px-6 shadow-md shadow-primary/20"
                     >
                       <Link href={`/matches/${match._id}`}>
-                        Market <ChevronRight className="size-3.5 ml-1" />
+                        Market
+                        <ChevronRight className="size-3.5 ml-1" />
                       </Link>
                     </Button>
                   </TableCell>
@@ -203,4 +212,4 @@ const CricketSection: React.FC = () => {
   );
 };
 
-export default CricketSection;
+export default SoccerSection;
