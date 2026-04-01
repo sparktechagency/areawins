@@ -19,10 +19,20 @@ export const renderSportScore = (
   // Prioritize scoreDisplay if it exists
   if (match.scoreDisplay) {
     return (
-      <div className="flex flex-col items-center gap-1 px-3 py-1.5 bg-primary/10 rounded-lg border border-primary/20">
-        <span className="text-xs font-bold text-primary tabular-nums text-center leading-tight">
-          {match.scoreDisplay}
-        </span>
+      <div className="flex flex-col items-center gap-1.5 sm:gap-3">
+        <div className="flex flex-col items-center gap-1 sm:gap-2 px-4 py-2 sm:px-8 sm:py-4 bg-primary/10 rounded-md border border-primary/20 shadow-[0_0_20px_rgba(var(--primary-rgb),0.1)]">
+          <span className="text-2xl font-semibold text-primary tabular-nums text-center tracking-tighter leading-none">
+            {match.scoreDisplay}
+          </span>
+        </div>
+        {match.isLive && (match.matchClock || (statusLine && statusLine.minute)) && (
+          <div className="flex items-center gap-2 px-3 py-1 bg-rose-500/10 rounded-full border border-rose-500/20 animate-in fade-in slide-in-from-top-1 duration-500">
+            <span className="size-1.5 sm:size-2 rounded-full bg-rose-500 animate-pulse shadow-[0_0_8px_rgba(244,63,94,0.5)]" />
+            <span className="text-[9px] sm:text-[11px] font-bold text-rose-500 uppercase tracking-[0.2em] leading-none">
+              LIVE {match.matchClock || `${statusLine?.minute}'`}
+            </span>
+          </div>
+        )}
       </div>
     );
   }

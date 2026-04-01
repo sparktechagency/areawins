@@ -66,7 +66,7 @@ const MatchScoreHeader: React.FC<MatchScoreHeaderProps> = ({
 
           {/* Center: Score / Status / Venue */}
           <div className="flex flex-col items-center gap-1 sm:gap-2">
-            <div className="scale-[0.8] xs:scale-[0.9] sm:scale-100 origin-center">
+            <div className="w-full">
               {renderSportScore(match, "detailed")}
             </div>
 
