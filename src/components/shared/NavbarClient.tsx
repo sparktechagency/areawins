@@ -18,7 +18,13 @@ import Image from "next/image";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import DarkModeToggle from "../ui/dark-mode-toggle";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../ui/sheet";
 import MobileUserMenu from "./MobileUserMenu";
 import { UserMenu } from "./UserMenu";
 
@@ -28,7 +34,7 @@ const NavbarClient = () => {
   const pathname = usePathname();
   const { t, language, setLanguage } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-// ... existing links and items code ...
+  // ... existing links and items code ...
 
   const navLinks = [
     { label: t("navbar.home"), href: "/", icon: Home },
@@ -43,11 +49,10 @@ const NavbarClient = () => {
     { label: "Español", onClick: () => setLanguage("es") },
   ];
 
+  console.log("user", user);
   return (
     <>
-      <nav
-        className="fixed inset-x-0 top-0 z-50 h-20  bg-background/95 supports-backdrop-filter:backdrop-blur-sm md:bg-white/80 md:dark:bg-background/80 md:supports-backdrop-filter:backdrop-blur-lg transform-[translateZ(0)] backface-hidden will-change-transform flex items-center justify-center"
-      >
+      <nav className="fixed inset-x-0 top-0 z-50 h-20  bg-background/95 supports-backdrop-filter:backdrop-blur-sm md:bg-white/80 md:dark:bg-background/80 md:supports-backdrop-filter:backdrop-blur-lg transform-[translateZ(0)] backface-hidden will-change-transform flex items-center justify-center">
         <div className="container mx-auto flex items-center justify-between gap-5 px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <Link href="/" className="block">

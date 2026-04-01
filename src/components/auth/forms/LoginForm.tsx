@@ -8,11 +8,13 @@ import { useAppDispatch } from "@/lib/redux/hooks";
 import { useLoginMutation } from "@/lib/redux/api/authApi";
 import { loginSchema } from "@/lib/validators/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Lock, Mail } from "lucide-react";
+import { AlertCircle, CheckCircle, Lock, Mail } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
@@ -21,6 +23,10 @@ export default function LoginForm() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [login, { isLoading }] = useLoginMutation();
+  const [formMessage, setFormMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   const {
     register,
@@ -36,33 +42,65 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data: LoginFormValues) => {
+    setFormMessage(null);
     try {
       const result = await login(data).unwrap();
       if (result.success) {
-        toast.success(result.message || t("auth.loginSuccess"));
-        dispatch(closeAuthModal());
-        if (result.data?.redirect) {
-          router.push(result.data.redirect);
-        }
+        setFormMessage({
+          type: "success",
+          text: result.message || t("auth.loginSuccess"),
+        });
+        setTimeout(() => {
+          dispatch(closeAuthModal());
+          if (result.data?.redirect) {
+            router.push(result.data.redirect);
+          }
+        }, 1500);
       } else {
-        toast.error(result.message || "Failed to login");
+        setFormMessage({
+          type: "error",
+          text: result.message || "Failed to login",
+        });
       }
     } catch (error: unknown) {
       const err = error as { data?: { message?: string } };
-      toast.error(err.data?.message || "Something went wrong");
+      setFormMessage({
+        type: "error",
+        text: err.data?.message || "Something went wrong",
+      });
     }
   };
 
   return (
     <div className="w-full p-6 space-y-6">
       <div className="text-center space-y-2">
-        <h2 className="text-2xl  text-foreground">{t("auth.welcomeBack")}</h2>
-        <p className="text-sm text-muted-foreground">
+        <h2 className="text-2xl  text-foreground font-semibold">
+          {t("auth.welcomeBack")}
+        </h2>
+        <p className="text-sm text-muted-foreground font-medium">
           {t("auth.loginSubtitle")}
         </p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        {formMessage && (
+          <div
+            className={cn(
+              "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+              formMessage.type === "success"
+                ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                : "bg-destructive/10 text-destructive border border-destructive/20",
+            )}
+          >
+            {formMessage.type === "success" ? (
+              <CheckCircle className="size-4 shrink-0" />
+            ) : (
+              <AlertCircle className="size-4 shrink-0" />
+            )}
+            {formMessage.text}
+          </div>
+        )}
+
         <FormInput
           id="email"
           label={t("auth.emailAddress")}
@@ -70,6 +108,7 @@ export default function LoginForm() {
           placeholder={t("auth.enterYourEmail")}
           error={errors.email?.message}
           {...register("email")}
+          required
         />
         <FormInput
           id="password"
@@ -79,6 +118,7 @@ export default function LoginForm() {
           placeholder={t("auth.enterYourPassword")}
           error={errors.password?.message}
           {...register("password")}
+          required
         />
 
         <div className="flex items-center justify-between">
@@ -88,7 +128,10 @@ export default function LoginForm() {
               className="mr-2 cursor-pointer"
               {...register("rememberMe")}
             />
-            <label htmlFor="rememberMe" className="text-sm text-muted-foreground">
+            <label
+              htmlFor="rememberMe"
+              className="text-sm text-muted-foreground cursor-pointer"
+            >
               {t("auth.rememberMe")}
             </label>
           </div>

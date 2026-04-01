@@ -54,7 +54,7 @@ const OutcomeSelection: React.FC<OutcomeSelectionProps> = ({
                   )}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-2xl">{o.icon}</span>
+                    <span className="text-2xl">{o.label}</span>
                     <span className="text-sm sm:text-base font-bold text-foreground group-hover:text-primary transition-colors">
                       {o.label}
                     </span>

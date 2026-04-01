@@ -10,10 +10,12 @@ import { useAppDispatch } from "@/lib/redux/hooks";
 import { useRegisterMutation } from "@/lib/redux/api/authApi";
 import { registerSchema } from "@/lib/validators/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Lock, Mail, Phone, User } from "lucide-react";
+import { AlertCircle, CheckCircle, Lock, Mail, Phone, User } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import * as z from "zod";
+import { cn } from "@/lib/utils";
 
 type RegisterFormValues = z.infer<typeof registerSchema> & { terms: boolean };
 
@@ -21,6 +23,10 @@ export default function RegisterForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [registerUser, { isLoading }] = useRegisterMutation();
+  const [formMessage, setFormMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   const {
     register,
@@ -39,22 +45,38 @@ export default function RegisterForm() {
   });
 
   const onSubmit = async (data: RegisterFormValues) => {
+    setFormMessage(null);
     if (!data.terms) {
-      toast.error(t("auth.pleaseAgreeToTerms"));
+      setFormMessage({
+        type: "error",
+        text: t("auth.pleaseAgreeToTerms"),
+      });
       return;
     }
 
     try {
       const result = await registerUser(data).unwrap();
       if (result.success) {
+        setFormMessage({
+          type: "success",
+          text: result.message || t("auth.registrationSuccess"),
+        });
         toast.success(result.message || t("auth.registrationSuccess"));
-        dispatch(setAuthView("VERIFY_OTP"));
+        setTimeout(() => {
+          dispatch(setAuthView("VERIFY_OTP"));
+        }, 1500);
       } else {
-        toast.error(result.message || "Registration failed");
+        setFormMessage({
+          type: "error",
+          text: result.message || "Registration failed",
+        });
       }
     } catch (error: unknown) {
       const err = error as { data?: { message?: string } };
-      toast.error(err.data?.message || "Something went wrong");
+      setFormMessage({
+        type: "error",
+        text: err.data?.message || "Something went wrong",
+      });
     }
   };
 
@@ -68,6 +90,24 @@ export default function RegisterForm() {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        {formMessage && (
+          <div
+            className={cn(
+              "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+              formMessage.type === "success"
+                ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                : "bg-destructive/10 text-destructive border border-destructive/20",
+            )}
+          >
+            {formMessage.type === "success" ? (
+              <CheckCircle className="size-4 shrink-0" />
+            ) : (
+              <AlertCircle className="size-4 shrink-0" />
+            )}
+            {formMessage.text}
+          </div>
+        )}
+
         <FormInput
           id="fullName"
           label={t("auth.fullName")}
@@ -75,6 +115,7 @@ export default function RegisterForm() {
           placeholder={t("auth.fullNamePlaceholder")}
           error={errors.fullName?.message}
           {...register("fullName")}
+          required
         />
 
         <FormInput
@@ -85,6 +126,7 @@ export default function RegisterForm() {
           placeholder={t("auth.emailPlaceholder")}
           error={errors.email?.message}
           {...register("email")}
+          required
         />
         <FormInput
           id="phoneNumber"
@@ -94,6 +136,7 @@ export default function RegisterForm() {
           placeholder={t("auth.phonePlaceholder")}
           error={errors.phoneNumber?.message}
           {...register("phoneNumber")}
+          required
         />
         <FormInput
           id="referralCode"
@@ -112,6 +155,7 @@ export default function RegisterForm() {
           placeholder={t("auth.passwordMinPlaceholder")}
           error={errors.password?.message}
           {...register("password")}
+          required
         />
 
         <div className="flex items-start space-x-2">

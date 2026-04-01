@@ -9,10 +9,12 @@ import { useResetPasswordMutation } from "@/lib/redux/api/authApi";
 import { resetPasswordSchema } from "@/lib/validators/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getClientCookie } from "@/utils/cookieUtils";
-import { ArrowLeft, Lock } from "lucide-react";
+import { ArrowLeft, Lock, AlertCircle, CheckCircle } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import * as z from "zod";
+import { cn } from "@/lib/utils";
 
 type ResetPasswordValues = z.infer<typeof resetPasswordSchema>;
 
@@ -20,6 +22,10 @@ export default function ResetPasswordForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
+  const [formMessage, setFormMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   const {
     register,
@@ -34,10 +40,14 @@ export default function ResetPasswordForm() {
   });
 
   const onSubmit = async (data: ResetPasswordValues) => {
+    setFormMessage(null);
     const resetToken = getClientCookie("resetPasswordToken");
 
     if (!resetToken) {
-      toast.error("Reset token expired or missing. Please try again.");
+      setFormMessage({
+        type: "error",
+        text: "Reset token expired or missing. Please try again.",
+      });
       return;
     }
 
@@ -47,14 +57,26 @@ export default function ResetPasswordForm() {
         resetPasswordToken: resetToken,
       }).unwrap();
       if (result.success) {
+        setFormMessage({
+          type: "success",
+          text: result.message || t("auth.passwordResetSuccess"),
+        });
         toast.success(result.message || t("auth.passwordResetSuccess"));
-        dispatch(setAuthView("LOGIN"));
+        setTimeout(() => {
+          dispatch(setAuthView("LOGIN"));
+        }, 1500);
       } else {
-        toast.error(result.message || "Failed to reset password");
+        setFormMessage({
+          type: "error",
+          text: result.message || "Failed to reset password",
+        });
       }
     } catch (error: unknown) {
       const err = error as { data?: { message?: string } };
-      toast.error(err.data?.message || "Something went wrong");
+      setFormMessage({
+        type: "error",
+        text: err.data?.message || "Something went wrong",
+      });
     }
   };
 
@@ -68,6 +90,24 @@ export default function ResetPasswordForm() {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        {formMessage && (
+          <div
+            className={cn(
+              "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+              formMessage.type === "success"
+                ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                : "bg-destructive/10 text-destructive border border-destructive/20",
+            )}
+          >
+            {formMessage.type === "success" ? (
+              <CheckCircle className="size-4 shrink-0" />
+            ) : (
+              <AlertCircle className="size-4 shrink-0" />
+            )}
+            {formMessage.text}
+          </div>
+        )}
+
         <FormInput
           id="password"
           type="password"
@@ -76,6 +116,7 @@ export default function ResetPasswordForm() {
           placeholder={t("auth.enterNewPassword")}
           error={errors.password?.message}
           {...register("password")}
+          required
         />
         <FormInput
           id="confirmPassword"
@@ -85,9 +126,14 @@ export default function ResetPasswordForm() {
           placeholder={t("auth.confirmNewPassword")}
           error={errors.confirmPassword?.message}
           {...register("confirmPassword")}
+          required
         />
 
-        <Button type="submit" className="w-full font-bold" disabled={isLoading}>
+        <Button
+          type="submit"
+          className="w-full font-bold cursor-pointer"
+          disabled={isLoading}
+        >
           {isLoading ? t("auth.sending") : t("auth.resetPassword")}
         </Button>
       </form>
@@ -95,7 +141,7 @@ export default function ResetPasswordForm() {
       <div className="text-center">
         <button
           onClick={() => dispatch(setAuthView("LOGIN"))}
-          className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm cursor-pointer"
+          className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm cursor-pointer font-medium"
         >
           <ArrowLeft className="size-4" />
           {t("auth.backToLogin")}

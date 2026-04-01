@@ -7,16 +7,23 @@ import { useAppDispatch } from "@/lib/redux/hooks";
 import { useForgotPasswordMutation } from "@/lib/redux/api/authApi";
 import { forgotPasswordSchema } from "@/lib/validators/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, Mail } from "lucide-react";
+import { ArrowLeft, Mail, AlertCircle, CheckCircle } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import * as z from "zod";
+import { cn } from "@/lib/utils";
+
 type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>;
 
 export default function ForgotPasswordForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
+  const [formMessage, setFormMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   const {
     register,
@@ -30,17 +37,29 @@ export default function ForgotPasswordForm() {
   });
 
   const onSubmit = async (data: ForgotPasswordValues) => {
+    setFormMessage(null);
     try {
       const result = await forgotPassword(data).unwrap();
       if (result.success) {
-        toast.success(result.message || t("auth.resetLinkSent"));
-        dispatch(setAuthView("VERIFY_OTP"));
+        setFormMessage({
+          type: "success",
+          text: result.message || t("auth.resetLinkSent"),
+        });
+        setTimeout(() => {
+          dispatch(setAuthView("VERIFY_OTP"));
+        }, 1500);
       } else {
-        toast.error(result.message || "Failed to send reset code");
+        setFormMessage({
+          type: "error",
+          text: result.message || "Failed to send reset code",
+        });
       }
     } catch (error: unknown) {
       const err = error as { data?: { message?: string } };
-      toast.error(err.data?.message || "Something went wrong");
+      setFormMessage({
+        type: "error",
+        text: err.data?.message || "Something went wrong",
+      });
     }
   };
 
@@ -56,6 +75,24 @@ export default function ForgotPasswordForm() {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        {formMessage && (
+          <div
+            className={cn(
+              "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+              formMessage.type === "success"
+                ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                : "bg-destructive/10 text-destructive border border-destructive/20",
+            )}
+          >
+            {formMessage.type === "success" ? (
+              <CheckCircle className="size-4 shrink-0" />
+            ) : (
+              <AlertCircle className="size-4 shrink-0" />
+            )}
+            {formMessage.text}
+          </div>
+        )}
+
         <FormInput
           id="email"
           type="email"
@@ -64,6 +101,7 @@ export default function ForgotPasswordForm() {
           placeholder={t("auth.enterYourEmail")}
           error={errors.email?.message}
           {...register("email")}
+          required
         />
 
         <Button

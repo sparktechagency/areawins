@@ -19,17 +19,19 @@ export const authApi = baseApi.injectEndpoints({
           const { data } = await queryFulfilled;
           if (data.success && data.data) {
             const { tokens, user } = data.data;
+            const cookieOptions = arg.rememberMe ? { expires: 7 } : undefined;
+
             if (tokens) {
-              setClientCookie("accessToken", tokens.accessToken);
-              setClientCookie("refreshToken", tokens.refreshToken);
+              setClientCookie("accessToken", tokens.accessToken, cookieOptions);
+              setClientCookie("refreshToken", tokens.refreshToken, cookieOptions);
               if (user?.role) {
-                setClientCookie("userRole", user.role);
+                setClientCookie("userRole", user.role, cookieOptions);
               }
             }
             dispatch(setUser(user));
           }
-        } catch (error) {
-          // Handle error if needed
+        } catch {
+          // Error handled by component
         }
       },
     }),
@@ -45,7 +47,7 @@ export const authApi = baseApi.injectEndpoints({
           if (data.success && data.data?.sessionId) {
             setClientCookie("sessionId", data.data.sessionId);
           }
-        } catch (error) {}
+        } catch {}
       },
     }),
     verifyOtp: builder.mutation({
@@ -59,21 +61,21 @@ export const authApi = baseApi.injectEndpoints({
           const { data } = await queryFulfilled;
           if (data.success && data.data) {
             const { tokens, user, resetPasswordToken } = data.data;
+            // Common cleanup: remove registration/forgot-password session
+            removeClientCookie("sessionId");
             if (tokens) {
               setClientCookie("accessToken", tokens.accessToken);
               setClientCookie("refreshToken", tokens.refreshToken);
               if (user?.role) {
                 setClientCookie("userRole", user.role);
               }
-              removeClientCookie("sessionId");
               dispatch(setUser(user));
             }
             if (resetPasswordToken) {
               setClientCookie("resetPasswordToken", resetPasswordToken);
-              removeClientCookie("sessionId");
             }
           }
-        } catch (error) {}
+        } catch {}
       },
     }),
     forgotPassword: builder.mutation({
@@ -88,7 +90,7 @@ export const authApi = baseApi.injectEndpoints({
           if (data.success && data.data?.sessionId) {
             setClientCookie("sessionId", data.data.sessionId);
           }
-        } catch (error) {}
+        } catch {}
       },
     }),
     resetPassword: builder.mutation({
@@ -103,7 +105,7 @@ export const authApi = baseApi.injectEndpoints({
           if (data.success) {
             removeClientCookie("resetPasswordToken");
           }
-        } catch (error) {}
+        } catch {}
       },
     }),
     resendOtp: builder.mutation({
