@@ -6,29 +6,14 @@ import { formatCurrency } from "@/lib/utils";
 import { ArrowRight, TrendingDown, TrendingUp, Wallet } from "lucide-react";
 import Link from "next/link";
 import { useGetMyWalletQuery } from "@/lib/redux/api/walletApi";
-
-import { Skeleton } from "@/components/ui/skeleton";
+import StatsOverviewSkeleton from "@/components/skeleton/StatsOverviewSkeleton";
 
 export default function StatsOverview() {
   const { t } = useTranslation();
   const { data: stats, isLoading } = useGetMyWalletQuery();
 
   if (isLoading) {
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-        {[1, 2, 3, 4].map((i) => (
-          <Card key={i} className="bg-muted/10 border-border h-[140px] shadow-none">
-            <CardContent className="p-5 flex flex-col justify-between h-full">
-              <div className="space-y-2">
-                <Skeleton className="h-3 w-24" />
-                <Skeleton className="h-8 w-32" />
-              </div>
-              <Skeleton className="h-3 w-20" />
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    );
+    return <StatsOverviewSkeleton />;
   }
 
   return (

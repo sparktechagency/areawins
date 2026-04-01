@@ -12,16 +12,31 @@ export const placeBetSchema = z.object({
         market: z.string().min(1, "Market is required"),
         odds: z
           .number()
-          .min(BETTING_LIMITS.MIN_ACCUMULATOR_ODDS, `Minimum odds is ${BETTING_LIMITS.MIN_ACCUMULATOR_ODDS}`)
-          .max(BETTING_LIMITS.MAX_ACCUMULATOR_ODDS, `Maximum odds is ${BETTING_LIMITS.MAX_ACCUMULATOR_ODDS}`),
-      })
+          .min(
+            BETTING_LIMITS.MIN_ACCUMULATOR_ODDS,
+            `Minimum odds is ${BETTING_LIMITS.MIN_ACCUMULATOR_ODDS}`,
+          )
+          .max(
+            BETTING_LIMITS.MAX_ACCUMULATOR_ODDS,
+            `Maximum odds is ${BETTING_LIMITS.MAX_ACCUMULATOR_ODDS}`,
+          ),
+      }),
     )
     .min(1, "At least one selection is required")
-    .max(BETTING_LIMITS.MAX_ACCUMULATOR_SELECTIONS, `Maximum ${BETTING_LIMITS.MAX_ACCUMULATOR_SELECTIONS} selections allowed`),
+    .max(
+      BETTING_LIMITS.MAX_ACCUMULATOR_SELECTIONS,
+      `Maximum ${BETTING_LIMITS.MAX_ACCUMULATOR_SELECTIONS} selections allowed`,
+    ),
   stake: z
     .number()
-    .min(BETTING_LIMITS.MIN_STAKE, `Minimum stake is ${BETTING_LIMITS.MIN_STAKE}`)
-    .max(BETTING_LIMITS.MAX_STAKE, `Maximum stake is ${BETTING_LIMITS.MAX_STAKE}`),
+    .min(
+      BETTING_LIMITS.MIN_STAKE,
+      `Minimum stake is ${BETTING_LIMITS.MIN_STAKE}`,
+    )
+    .max(
+      BETTING_LIMITS.MAX_STAKE,
+      `Maximum stake is ${BETTING_LIMITS.MAX_STAKE}`,
+    ),
 });
 
 export type PlaceBetFormData = z.infer<typeof placeBetSchema>;
@@ -30,14 +45,18 @@ export type PlaceBetFormData = z.infer<typeof placeBetSchema>;
 export const cashOutSchema = z.object({
   betId: z.string().min(1, "Bet ID is required"),
   amount: z.number().min(0, "Amount must be positive").optional(),
-  confirmCashOut: z.boolean().refine((val) => val === true, "Please confirm cash out"),
+  confirmCashOut: z
+    .boolean()
+    .refine((val) => val === true, "Please confirm cash out"),
 });
 
 export type CashOutFormData = z.infer<typeof cashOutSchema>;
 
 // Bet filter schema
 export const betFilterSchema = z.object({
-  status: z.enum(["pending", "won", "lost", "cancelled", "cashed_out", "void"]).optional(),
+  status: z
+    .enum(["pending", "won", "lost", "cancelled", "cashed_out", "void"])
+    .optional(),
   betType: z.enum(["single", "accumulator", "system"]).optional(),
   sport: z.string().optional(),
   dateFrom: z.string().optional(),
@@ -58,8 +77,14 @@ export const quickBetSchema = z.object({
   odds: z.number().min(1.01, "Invalid odds"),
   stake: z
     .number()
-    .min(BETTING_LIMITS.MIN_STAKE, `Minimum stake is ${BETTING_LIMITS.MIN_STAKE}`)
-    .max(BETTING_LIMITS.MAX_STAKE, `Maximum stake is ${BETTING_LIMITS.MAX_STAKE}`),
+    .min(
+      BETTING_LIMITS.MIN_STAKE,
+      `Minimum stake is ${BETTING_LIMITS.MIN_STAKE}`,
+    )
+    .max(
+      BETTING_LIMITS.MAX_STAKE,
+      `Maximum stake is ${BETTING_LIMITS.MAX_STAKE}`,
+    ),
   confirmBet: z.boolean().optional(),
 });
 
@@ -76,4 +101,6 @@ export const bettingPreferencesSchema = z.object({
   liveOddsUpdates: z.boolean(),
 });
 
-export type BettingPreferencesFormData = z.infer<typeof bettingPreferencesSchema>;
+export type BettingPreferencesFormData = z.infer<
+  typeof bettingPreferencesSchema
+>;

@@ -22,7 +22,7 @@ type ChartPoint = {
   loss: number;
 };
 
-import { Skeleton } from "@/components/ui/skeleton";
+import ProfitLossChartSkeleton from "@/components/skeleton/ProfitLossChartSkeleton";
 
 export default function ProfitLossChart() {
   const { t } = useTranslation();
@@ -102,7 +102,7 @@ export default function ProfitLossChart() {
       <CardContent>
         <div className="h-80 w-full">
           {isLoading ? (
-            <Skeleton className="w-full h-full rounded-lg" />
+            <ProfitLossChartSkeleton />
           ) : errorMessage ? (
             <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
               <p className="text-sm text-red-500">{errorMessage}</p>

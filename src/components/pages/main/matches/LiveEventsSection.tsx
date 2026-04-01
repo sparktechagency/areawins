@@ -1,5 +1,5 @@
 "use client";
-import LiveEventCard from "@/components/betting/LiveEventCard";
+import LiveEventCard from "@/components/pages/main/matches/LiveEventCard";
 import LiveEventsSectionSkeleton from "@/components/skeleton/LiveEventsSectionSkeleton";
 import { Badge } from "@/components/ui/badge";
 import {
