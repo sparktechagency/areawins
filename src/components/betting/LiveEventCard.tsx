@@ -14,9 +14,9 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border/50">
         <div className="flex gap-1.5">
-          <div className="flex items-center gap-1.5 bg-rose-500/10 px-2 py-1 rounded-full text-[9px]  text-rose-500 uppercase tracking-widest border border-rose-500/20 w-fit">
+          <div className="flex items-center gap-1.5 bg-rose-500/10 px-2 py-1 rounded-full text-[9px]  text-rose-500 border border-rose-500/20 w-fit">
             <span className="size-1.5 rounded-full bg-rose-500 animate-pulse"></span>
-            LIVE
+            Live
             {event.matchClock && (
               <span className="text-[8px]">{event.matchClock}</span>
             )}
@@ -31,7 +31,7 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
                 className="rounded-sm object-cover"
               />
             )}
-            <span className="text-[10px]  text-foreground uppercase tracking-tighter">
+            <span className="text-[10px] truncate text-foreground">
               {event.tournament?.name || "Unknown Tournament"}
             </span>
           </div>
@@ -65,7 +65,7 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
               className="object-contain"
             />
           </div>
-          <span className="text-[11px]  text-center max-w-[80px] leading-tight uppercase truncate transition-all">
+          <span className="text-sm md:text-base text-center max-w-[80px] leading-tight  truncate transition-all">
             {event.homeTeam?.name || "Home Team"}
           </span>
         </div>
@@ -82,7 +82,7 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
               </span>
             </div>
             {event.matchClock && (
-              <div className="text-[8px] text-muted-foreground text-center mt-1 uppercase tracking-wider">
+              <div className="text-sm text-muted-foreground text-center mt-1  tracking-wider">
                 {event.matchClock}
               </div>
             )}
@@ -99,7 +99,7 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
               className="object-contain"
             />
           </div>
-          <span className="text-[11px]  text-center max-w-[80px] leading-tight uppercase truncate transition-all">
+          <span className="text-sm md:text-base text-center max-w-[80px] leading-tight  truncate transition-all">
             {event.awayTeam?.name || "Away Team"}
           </span>
         </div>
@@ -107,7 +107,7 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
       {/* Stats Grid */}
       <div className="grid grid-cols-2 gap-3 p-4 bg-linear-to-br from-muted/20 to-muted/10 border-t border-border/50">
         <div className="flex flex-col gap-1">
-          <span className="text-[9px]  text-muted-foreground uppercase flex items-center gap-1">
+          <span className="text-sm  text-muted-foreground  flex items-center gap-1">
             <Banknote className="size-3 text-emerald-500" />
             Total Pot
           </span>
@@ -116,7 +116,7 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
           </span>
         </div>
         <div className="flex flex-col gap-1">
-          <span className="text-[9px]  text-muted-foreground uppercase flex items-center gap-1">
+          <span className="text-sm  text-muted-foreground  flex items-center gap-1">
             <Users className="size-3 text-blue-500" />
             Active Bets
           </span>
@@ -129,7 +129,7 @@ export default function LiveEventCard({ event }: LiveEventCardProps) {
       {/* CTAs */}
       <div className="flex items-center gap-2 p-4 pt-0">
         <Button
-          className="flex-1 bg-linear-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white  text-[10px] uppercase tracking-widest h-11 rounded-lg shadow-lg hover:shadow-primary/25 transition-all"
+          className="flex-1 bg-linear-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white  text-[10px]  h-11 rounded-lg shadow-lg hover:shadow-primary/25 transition-all"
           asChild
         >
           <Link
