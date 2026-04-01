@@ -1,5 +1,4 @@
 "use client";
-
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { ROUTES } from "@/constants";
 import { useTranslation } from "@/i18n/LanguageContext";
-import { formatCurrency } from "@/lib/utils";
+import { cn, formatCurrency } from "@/lib/utils";
 import {
   ArrowDownLeft,
   ArrowUpRight,
@@ -22,20 +21,51 @@ import {
   Shield,
   TrendingUp,
   Wallet2,
+  RefreshCw,
+  Clock,
 } from "lucide-react";
 import Link from "next/link";
+import { useGetMyWalletQuery } from "@/redux/api/walletApi";
+import { useGetMyTransactionsQuery } from "@/redux/api/transactionApi";
+import { format } from "date-fns";
 
 const WalletPage = () => {
   const { t } = useTranslation();
+  const {
+    data: wallet,
+    isLoading: isWalletLoading,
+    refetch: refetchWallet,
+  } = useGetMyWalletQuery();
+  const { data: transactions, isLoading: isTxLoading } =
+    useGetMyTransactionsQuery({});
+
+  const balance = wallet?.totalBalance ?? 0;
+  const depositedBalance = wallet?.depositedBalance ?? 0;
+  const winningsBalance = wallet?.winningsBalance ?? 0;
+
   return (
     <DashboardLayout>
       <div className="w-full mx-auto max-w-6xl">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground flex items-center gap-2">
-            {t("wallet.title")} <Wallet2 className="w-8 h-8 text-primary" />
-          </h1>
-          <p className="text-muted-foreground mt-2">{t("wallet.subtitle")}</p>
+        <div className="mb-8 flex justify-between items-end">
+          <div>
+            <h1 className="text-3xl font-bold text-foreground flex items-center gap-2">
+              {t("wallet.title")} <Wallet2 className="w-8 h-8 text-primary" />
+            </h1>
+            <p className="text-muted-foreground mt-2">{t("wallet.subtitle")}</p>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => refetchWallet()}
+            className="gap-2"
+            disabled={isWalletLoading}
+          >
+            <RefreshCw
+              className={isWalletLoading ? "animate-spin size-4" : "size-4"}
+            />
+            Refresh
+          </Button>
         </div>
 
         {/* Balance Cards Grid */}
@@ -52,8 +82,8 @@ const WalletPage = () => {
                   {t("wallet.depositBalance")}
                 </p>
               </div>
-              <div className="text-3xl  text-foreground mb-4">
-                {formatCurrency(5450)}
+              <div className="text-3xl font-bold text-foreground mb-4">
+                {formatCurrency(depositedBalance)}
               </div>
               <p className="text-xs text-muted-foreground mb-4">
                 {t("wallet.availableForBetting")}
@@ -86,8 +116,8 @@ const WalletPage = () => {
                   {t("wallet.winningBalance")}
                 </p>
               </div>
-              <div className="text-3xl  text-foreground mb-4">
-                {formatCurrency(10000)}
+              <div className="text-3xl font-bold text-foreground mb-4">
+                {formatCurrency(winningsBalance)}
               </div>
               <p className="text-xs text-muted-foreground mb-4">
                 {t("wallet.readyToWithdraw")}
@@ -115,8 +145,8 @@ const WalletPage = () => {
                   {t("wallet.totalBalance")}
                 </p>
               </div>
-              <div className="text-3xl  text-foreground mb-4">
-                {formatCurrency(15450)}
+              <div className="text-3xl font-bold text-foreground mb-4">
+                {formatCurrency(balance)}
               </div>
               <p className="text-xs text-muted-foreground mb-4">
                 {t("wallet.allAccountsCombined")}
@@ -138,66 +168,61 @@ const WalletPage = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                {/* Venezuela Pay */}
-                <div className="flex items-center justify-between p-4 border border-indigo-600/30 rounded-lg bg-linear-to-br from-indigo-600/10 to-purple-600/10  transition-all">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
-                      <DollarSign className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className=" text-sm">Venezuela Pay</p>
-                      <p className="text-xs text-muted-foreground">
-                        {t("wallet.localTransfers")}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bitcoin */}
-                <div className="flex items-center justify-between p-4 border border-amber-500/30 rounded-lg bg-linear-to-br from-amber-500/10 to-orange-600/10  transition-all">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg">
-                      <Bitcoin className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className=" text-sm">Bitcoin (BTC)</p>
-                      <p className="text-xs text-muted-foreground">
-                        {t("wallet.cryptoFastSettlements")}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* USDT Tether */}
-                <div className="flex items-center justify-between p-4 border border-cyan-500/30 rounded-lg bg-linear-to-br from-cyan-500/10 to-blue-600/10  transition-all">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg">
-                      <Coins className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className=" text-sm">Tether (USDT)</p>
-                      <p className="text-xs text-muted-foreground">
-                        {t("wallet.stablecoinLowFees")}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Ethereum */}
-                <div className="flex items-center justify-between p-4 border border-violet-600/30 rounded-lg bg-linear-to-br from-violet-600/10 to-pink-600/10  transition-all">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-violet-600 to-pink-600 flex items-center justify-center shadow-lg">
-                      <Coins className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className=" text-sm">Ethereum (ETH)</p>
-                      <p className="text-xs text-muted-foreground">
-                        {t("wallet.smartContracts")}
-                      </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  {
+                    name: "Stripe",
+                    icon: DollarSign,
+                    color: "from-blue-600 to-blue-700",
+                    desc: "Credit/Debit Cards",
+                  },
+                  {
+                    name: "PayPal",
+                    icon: Wallet2,
+                    color: "from-blue-800 to-indigo-900",
+                    desc: "Secure Online Payment",
+                  },
+                  {
+                    name: "Tether (USDT)",
+                    icon: Coins,
+                    color: "from-emerald-500 to-teal-600",
+                    desc: "Fast Crypto Settlement",
+                  },
+                  {
+                    name: "Bank Transfer",
+                    icon: TrendingUp,
+                    color: "from-red-600 to-orange-700",
+                    desc: "Local Bank Deposits",
+                  },
+                  {
+                    name: "Visa/Mastercard",
+                    icon: Shield,
+                    color: "from-blue-400 to-indigo-500",
+                    desc: "Direct Card Access",
+                  },
+                ].map((pm) => (
+                  <div
+                    key={pm.name}
+                    className="flex items-center justify-between p-4 border border-border/50 rounded-lg bg-card hover:bg-muted/30 transition-all"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={cn(
+                          "w-10 h-10 rounded-full bg-linear-to-br flex items-center justify-center shadow-md",
+                          pm.color,
+                        )}
+                      >
+                        <pm.icon className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-sm">{pm.name}</p>
+                        <p className="text-[10px] text-muted-foreground">
+                          {pm.desc}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -212,41 +237,40 @@ const WalletPage = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-3">
-                <div className="flex gap-3">
-                  <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 shrink-0"></div>
-                  <div className="text-sm">
-                    <p className="font-medium text-foreground">
-                      {t("wallet.ruleDeposit")}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {t("wallet.ruleDepositDesc")}
-                    </p>
+                {[
+                  {
+                    title: t("wallet.ruleDeposit"),
+                    desc: t("wallet.ruleDepositDesc"),
+                    color: "bg-blue-500",
+                  },
+                  {
+                    title: t("wallet.ruleWinning"),
+                    desc: t("wallet.ruleWinningDesc"),
+                    color: "bg-green-500",
+                  },
+                  {
+                    title: t("wallet.ruleVerified"),
+                    desc: t("wallet.ruleVerifiedDesc"),
+                    color: "bg-purple-500",
+                  },
+                ].map((rule) => (
+                  <div key={rule.title} className="flex gap-3">
+                    <div
+                      className={cn(
+                        "w-2 h-2 rounded-full mt-1.5 shrink-0",
+                        rule.color,
+                      )}
+                    ></div>
+                    <div className="text-sm">
+                      <p className="font-medium text-foreground">
+                        {rule.title}
+                      </p>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed">
+                        {rule.desc}
+                      </p>
+                    </div>
                   </div>
-                </div>
-
-                <div className="flex gap-3">
-                  <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5 shrink-0"></div>
-                  <div className="text-sm">
-                    <p className="font-medium text-foreground">
-                      {t("wallet.ruleWinning")}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {t("wallet.ruleWinningDesc")}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
-                  <div className="w-2 h-2 rounded-full bg-purple-500 mt-1.5 shrink-0"></div>
-                  <div className="text-sm">
-                    <p className="font-medium text-foreground">
-                      {t("wallet.ruleVerified")}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {t("wallet.ruleVerifiedDesc")}
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -270,76 +294,82 @@ const WalletPage = () => {
             </Button>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
-              {/* Deposit Transaction */}
-              <div className="flex items-center justify-between p-4 hover:bg-muted/50 rounded-lg transition-colors border border-border/50">
-                <div className="flex items-center gap-4">
-                  <div className="p-2.5 rounded-full bg-green-100 text-green-600">
-                    <ArrowDownLeft className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className=" text-sm text-foreground">
-                      {t("wallet.depositVenezuela")}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {t("wallet.todayAt")}
-                    </p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className=" text-green-600 text-sm">+5,000</p>
-                  <p className="text-xs text-green-600/70 font-medium">
-                    {t("wallet.completed")}
-                  </p>
-                </div>
+            {isTxLoading ? (
+              <div className="flex flex-col items-center justify-center py-12 gap-3 text-muted-foreground">
+                <RefreshCw className="animate-spin w-8 h-8 opacity-20" />
+                <p className="text-sm">Loading transactions...</p>
               </div>
-
-              {/* Withdrawal Transaction */}
-              <div className="flex items-center justify-between p-4 hover:bg-muted/50 rounded-lg transition-colors border border-border/50">
-                <div className="flex items-center gap-4">
-                  <div className="p-2.5 rounded-full bg-blue-100 text-blue-600">
-                    <ArrowUpRight className="h-5 w-5" />
+            ) : transactions && transactions.length > 0 ? (
+              <div className="space-y-2">
+                {transactions.slice(0, 5).map((tx: any) => (
+                  <div
+                    key={tx._id}
+                    className="flex items-center justify-between p-4 hover:bg-muted/50 rounded-lg transition-colors border border-border/50"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div
+                        className={cn(
+                          "p-2.5 rounded-full",
+                          tx.type === "deposit"
+                            ? "bg-green-100 text-green-600"
+                            : "bg-blue-100 text-blue-600",
+                        )}
+                      >
+                        {tx.type === "deposit" ? (
+                          <ArrowDownLeft className="h-5 w-5" />
+                        ) : (
+                          <ArrowUpRight className="h-5 w-5" />
+                        )}
+                      </div>
+                      <div>
+                        <p className="font-bold text-sm text-foreground capitalize">
+                          {tx.type} via {tx.paymentMethod?.replace("_", " ")}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {format(
+                            new Date(tx.createdAt),
+                            "MMM dd, yyyy 'at' hh:mm a",
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p
+                        className={cn(
+                          "font-bold text-sm",
+                          tx.type === "deposit"
+                            ? "text-green-600"
+                            : "text-blue-600",
+                        )}
+                      >
+                        {tx.type === "deposit" ? "+" : "-"}
+                        {formatCurrency(tx.amount)}
+                      </p>
+                      <p
+                        className={cn(
+                          "text-[10px] font-bold px-2 py-0.5 rounded-full inline-block mt-1",
+                          tx.status === "completed"
+                            ? "bg-green-500/10 text-green-600"
+                            : "bg-yellow-500/10 text-yellow-600",
+                        )}
+                      >
+                        {tx.status}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className=" text-sm text-foreground">
-                      {t("wallet.withdrawalBitcoin")}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {t("wallet.yesterdayAt")}
-                    </p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className=" text-blue-600 text-sm">-3,500</p>
-                  <p className="text-xs text-blue-600/70 font-medium">
-                    {t("wallet.completed")}
-                  </p>
-                </div>
+                ))}
               </div>
-
-              {/* Winning Transaction */}
-              <div className="flex items-center justify-between p-4 hover:bg-muted/50 rounded-lg transition-colors border border-border/50">
-                <div className="flex items-center gap-4">
-                  <div className="p-2.5 rounded-full bg-yellow-100 text-yellow-600">
-                    <TrendingUp className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className=" text-sm text-foreground">
-                      {t("wallet.winningsAdded")}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {t("wallet.dec14At")}
-                    </p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className=" text-yellow-600 text-sm">+1,250</p>
-                  <p className="text-xs text-yellow-600/70 font-medium">
-                    {t("wallet.completed")}
-                  </p>
-                </div>
+            ) : (
+              <div className="text-center py-12 border-2 border-dashed border-border/50 rounded-lg">
+                <Clock className="w-12 h-12 text-muted-foreground/20 mx-auto mb-4" />
+                <p className="text-muted-foreground text-sm font-medium">
+                  No transactions found
+                </p>
+                <p className="text-[10px] text-muted-foreground/60 mt-1">
+                  Your recent financial activity will appear here.
+                </p>
               </div>
-            </div>
+            )}
           </CardContent>
         </Card>
       </div>

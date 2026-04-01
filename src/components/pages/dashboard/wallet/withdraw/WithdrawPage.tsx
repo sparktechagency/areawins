@@ -9,57 +9,34 @@ import { Label } from "@/components/ui/label";
 import { useTranslation } from "@/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight, History, Info, Lock, Wallet } from "lucide-react";
+import { useGetMyWalletQuery, useWithdrawMutation } from "@/redux/api/walletApi";
 import { useState } from "react";
 import { toast } from "sonner";
 
-// Mock Data
+// Constants
+// Constants
 const PAYMENT_METHODS = [
-  { id: "venezuela", name: "Venezuela Pay", color: "bg-red-600", icon: Wallet },
-  { id: "crypto", name: "Crypto", color: "bg-yellow-600", icon: Wallet },
-  { id: "bitcoin", name: "Bitcoin", color: "bg-orange-500", icon: Wallet },
-  { id: "ethereum", name: "Ethereum", color: "bg-purple-600", icon: Wallet },
-  { id: "tether", name: "Tether (USDT)", color: "bg-green-500", icon: Wallet },
-  { id: "binance", name: "BNB", color: "bg-yellow-500", icon: Wallet },
+  { id: "stripe", name: "Stripe", color: "bg-blue-600", icon: Wallet },
+  { id: "paypal", name: "PayPal", color: "bg-blue-800", icon: Wallet },
+  { id: "crypto_usdt", name: "Crypto (USDT)", color: "bg-emerald-600", icon: Wallet },
+  { id: "bank_transfer", name: "Bank Transfer", color: "bg-red-600", icon: Wallet },
+  { id: "visa_mastercard", name: "Visa/Mastercard", color: "bg-orange-500", icon: Wallet },
 ];
 
 const RECENT_WITHDRAWALS = [
-  {
-    id: 1,
-    date: "Dec 14",
-    method: "Ethereum",
-    amount: "2,500",
-    status: "Pending",
-  },
-  {
-    id: 2,
-    date: "Dec 12",
-    method: "Bitcoin",
-    amount: "350",
-    status: "Completed",
-  },
-  {
-    id: 3,
-    date: "Dec 10",
-    method: "Venezuela Pay",
-    amount: "650,000",
-    status: "Completed",
-  },
-  {
-    id: 4,
-    date: "Dec 8",
-    method: "Tether (USDT)",
-    amount: "200",
-    status: "Rejected",
-  },
-  { id: 5, date: "Dec 5", method: "BNB", amount: "520", status: "Completed" },
+  { id: 1, date: "Dec 14", method: "Stripe", amount: "25.00", status: "Pending" },
+  { id: 2, date: "Dec 12", method: "Crypto", amount: "35.00", status: "Completed" },
+  { id: 3, date: "Dec 10", method: "Bank Transfer", amount: "65.00", status: "Completed" },
 ];
 
 const WithdrawPage = () => {
   const { t } = useTranslation();
+  const { data: wallet, refetch: refetchWallet } = useGetMyWalletQuery();
+  const [createWithdraw, { isLoading: isWithdrawing }] = useWithdrawMutation();
+  
   const [amount, setAmount] = useState("");
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
   const [accountNumber, setAccountNumber] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleWithdraw = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,18 +45,28 @@ const WithdrawPage = () => {
       return;
     }
 
-    setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    toast.success(t("walletWithdraw.toastSubmitted"));
-    setLoading(false);
-    setAmount("");
-    setAccountNumber("");
-    setSelectedMethod(null);
+    try {
+      const response = await createWithdraw({
+        paymentMethod: selectedMethod,
+        amount: Number(amount),
+        meta: { accountNumber }
+      }).unwrap();
+
+      if (response.success || response.data) {
+        toast.success(t("walletWithdraw.toastSubmitted"));
+        setAmount("");
+        setAccountNumber("");
+        setSelectedMethod(null);
+        refetchWallet();
+      }
+    } catch (error: unknown) {
+      const errorMsg = (error as { data?: { message?: string } })?.data?.message || "Failed to submit withdrawal request";
+      toast.error(errorMsg);
+    }
   };
 
   const setPercentage = (pct: number) => {
-    // Mock balance
-    const balance = 12450;
+    const balance = wallet?.totalBalance || 0;
     setAmount(Math.floor(balance * (pct / 100)).toString());
   };
 
@@ -111,7 +98,11 @@ const WithdrawPage = () => {
                     <ArrowUpRight className="w-4 h-4" />{" "}
                     {t("walletWithdraw.winningBalance")}
                   </p>
-                  <h2 className="text-3xl ">12,450.00</h2>
+                  <h2 className="text-3xl ">
+                    {(wallet?.totalBalance || 0).toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                    })}
+                  </h2>
                   <p className="text-[10px] text-muted-foreground mt-2 font-medium">
                     {t("walletWithdraw.availableForPayout")}
                   </p>
@@ -126,7 +117,11 @@ const WithdrawPage = () => {
                     <Lock className="w-4 h-4" />{" "}
                     {t("walletWithdraw.depositBalance")}
                   </p>
-                  <h2 className="text-3xl ">500.00</h2>
+                  <h2 className="text-3xl ">
+                    {(wallet?.lockedBalance || 0).toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                    })}
+                  </h2>
                   <p className="text-[10px] text-muted-foreground mt-2 font-medium italic">
                     {t("walletWithdraw.lockedForBetting")}
                   </p>
@@ -282,9 +277,9 @@ const WithdrawPage = () => {
                     <Button
                       onClick={handleWithdraw}
                       className="w-full h-12 text-lg font-bold shadow-lg shadow-primary/20"
-                      disabled={loading}
+                      disabled={isWithdrawing}
                     >
-                      {loading
+                      {isWithdrawing
                         ? t("walletWithdraw.processing")
                         : t("walletWithdraw.confirmWithdrawal")}
                     </Button>
