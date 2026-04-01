@@ -3,17 +3,17 @@ import { FormSelect } from "@/components/form/FormSelect";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProfitLossPeriod } from "@/interfaces/dashboard.interface";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { getProfitLossChartData } from "@/services/dashboard.service";
-import { useEffect, useState } from "react";
+import { useGetProfitLossChartDataQuery } from "@/lib/redux/api/dashboardApi";
+import { useState } from "react";
 import {
-    Bar,
-    BarChart,
-    CartesianGrid,
-    Legend,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from "recharts";
 
 type ChartPoint = {
@@ -30,9 +30,6 @@ export default function ProfitLossChart() {
   const [selectedYear, setSelectedYear] = useState<string>(
     String(new Date().getFullYear()),
   );
-  const [chartData, setChartData] = useState<ChartPoint[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
 
   // Generate available years: current year ± 4 years
   const currentYear = new Date().getFullYear();
@@ -40,31 +37,18 @@ export default function ProfitLossChart() {
     Array.from({ length: 9 }, (_, i) => String(currentYear - 4 + i)),
   );
 
-  // Refetch data when period or year changes
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      setErrorMessage("");
-      try {
-        const result = await getProfitLossChartData({
-          period: periodFilter,
-          year: selectedYear,
-        });
-        setChartData(result?.chartData as ChartPoint[]);
-      } catch (error) {
-        setChartData([]);
-        setErrorMessage(
-          error instanceof Error
-            ? error.message
-            : "Unexpected error",
-        );
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const {
+    data: chartResult,
+    isLoading,
+    isError,
+    error,
+  } = useGetProfitLossChartDataQuery({
+    period: periodFilter,
+    year: selectedYear,
+  });
 
-    fetchData();
-  }, [periodFilter, selectedYear]);
+  const chartData = (chartResult?.chartData as ChartPoint[]) || [];
+  const errorMessage = isError ? (error as any)?.data?.message || (error as any)?.message || "Failed to fetch data" : "";
 
   const headerLabel =
     periodFilter === ProfitLossPeriod.WEEKLY

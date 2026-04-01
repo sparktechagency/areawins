@@ -1,27 +1,18 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout";
-import { IWalletData } from "@/interfaces/wallet.interface";
 import DashboardGreeting from "./DashboardGreeting";
 import ProfitLossChart from "./ProfitLossChart";
 import RecentBetsTable from "./RecentBetsTable";
 import StatsOverview from "./StatsOverview";
-import { IUser } from "@/interfaces/user.interface";
 
-interface DashboardPageProps {
-  user: IUser;
-  statsOverviewData: IWalletData;
-}
-export default function DashboardPage({
-  user,
-  statsOverviewData,
-}: DashboardPageProps) {
+export default function DashboardPage() {
   return (
     <DashboardLayout>
       <section className="w-full mx-auto">
         {/* Greeting Section */}
-        <DashboardGreeting user={user} />
+        <DashboardGreeting />
 
         {/* Stats Overview Cards */}
-        <StatsOverview stats={statsOverviewData} />
+        <StatsOverview />
 
         {/* Main Charts Section */}
         <ProfitLossChart />

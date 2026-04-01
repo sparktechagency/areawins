@@ -1,3 +1,4 @@
+import UserInitializer from "@/components/shared/UserInitializer";
 import AuthModal from "@/components/auth/AuthModal";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
@@ -30,9 +31,11 @@ export default async function LocaleLayout({
           <NextIntlClientProvider messages={messages}>
             <LanguageProvider>
               <ReduxProvider>
-                {children}
-                <AuthModal />
-                <Toaster position="top-center" />
+                <UserInitializer>
+                  {children}
+                  <AuthModal />
+                  <Toaster position="top-center" />
+                </UserInitializer>
               </ReduxProvider>
             </LanguageProvider>
           </NextIntlClientProvider>

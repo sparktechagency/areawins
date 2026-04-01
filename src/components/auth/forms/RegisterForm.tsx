@@ -7,39 +7,56 @@ import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { Link } from "@/lib/i18n/routing";
 import { setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
-import { AuthActionState, register } from "@/services/auth.service";
+import { useRegisterMutation } from "@/lib/redux/api/authApi";
+import { registerSchema } from "@/lib/validators/authSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Lock, Mail, Phone, User } from "lucide-react";
-import { useActionState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import * as z from "zod";
 
-const initialState: AuthActionState = {
-  success: false,
-  message: "",
-  errors: undefined,
-  inputs: {
-    fullName: "",
-    email: "",
-    password: "",
-    phoneNumber: "",
-    referralCode: "",
-    terms: false,
-  },
-  timestamp: 0,
-};
+type RegisterFormValues = z.infer<typeof registerSchema> & { terms: boolean };
 
 export default function RegisterForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const [state, formAction, isPending] = useActionState(register, initialState);
+  const [registerUser, { isLoading }] = useRegisterMutation();
 
-  useEffect(() => {
-    if (state?.success) {
-      toast.success(state?.message || t("auth.registrationSuccess"));
-      dispatch(setAuthView("VERIFY_OTP"));
-    } else if (state.message && !state.errors) {
-      toast.error(state.message);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      fullName: "",
+      email: "",
+      password: "",
+      phoneNumber: "",
+      referralCode: "",
+      terms: false,
+    },
+  });
+
+  const onSubmit = async (data: RegisterFormValues) => {
+    if (!data.terms) {
+      toast.error(t("auth.pleaseAgreeToTerms"));
+      return;
     }
-  }, [state, dispatch, t]);
+
+    try {
+      const result = await registerUser(data).unwrap();
+      if (result.success) {
+        toast.success(result.message || t("auth.registrationSuccess"));
+        dispatch(setAuthView("VERIFY_OTP"));
+      } else {
+        toast.error(result.message || "Registration failed");
+      }
+    } catch (error: unknown) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err.data?.message || "Something went wrong");
+    }
+  };
 
   return (
     <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
@@ -50,66 +67,59 @@ export default function RegisterForm() {
         </p>
       </div>
 
-      <form action={formAction} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <FormInput
           id="fullName"
-          name="fullName"
-          type="text"
           label={t("auth.fullName")}
           icon={User}
-          defaultValue={state?.inputs?.fullName || ""}
           placeholder={t("auth.fullNamePlaceholder")}
-          error={state?.errors?.fullName}
-          required
+          error={errors.fullName?.message}
+          {...register("fullName")}
         />
 
         <FormInput
           id="email"
-          name="email"
           type="email"
           label={t("auth.emailAddress")}
           icon={Mail}
-          defaultValue={state?.inputs?.email || ""}
           placeholder={t("auth.emailPlaceholder")}
-          error={state?.errors?.email}
-          required
+          error={errors.email?.message}
+          {...register("email")}
         />
         <FormInput
           id="phoneNumber"
-          name="phoneNumber"
           type="tel"
           label={t("auth.phoneNumber")}
           icon={Phone}
-          defaultValue={state?.inputs?.phoneNumber || ""}
           placeholder={t("auth.phonePlaceholder")}
-          error={state?.errors?.phoneNumber}
-          required
+          error={errors.phoneNumber?.message}
+          {...register("phoneNumber")}
         />
         <FormInput
           id="referralCode"
-          name="referralCode"
-          type="text"
           label={t("auth.referralCodeOptional")}
           icon={User}
-          defaultValue={state?.inputs?.referralCode || ""}
           placeholder={t("auth.referralCodePlaceholder")}
-          error={state?.errors?.referralCode}
+          error={errors.referralCode?.message}
+          {...register("referralCode")}
         />
 
         <FormInput
           id="password"
-          name="password"
           type="password"
           label={t("auth.password")}
           icon={Lock}
-          defaultValue={state?.inputs?.password || ""}
           placeholder={t("auth.passwordMinPlaceholder")}
-          error={state?.errors?.password}
-          required
+          error={errors.password?.message}
+          {...register("password")}
         />
 
         <div className="flex items-start space-x-2">
-          <Checkbox id="terms" className="mt-0.5 cursor-pointer" />
+          <Checkbox 
+            id="terms" 
+            className="mt-0.5 cursor-pointer" 
+            {...register("terms")}
+          />
           <div className="space-y-1 leading-none">
             <label
               htmlFor="terms"
@@ -143,9 +153,9 @@ export default function RegisterForm() {
         <Button
           type="submit"
           className="w-full font-bold cursor-pointer mt-2"
-          disabled={isPending}
+          disabled={isLoading}
         >
-          {isPending ? t("auth.sending") : t("auth.signUp")}
+          {isLoading ? t("auth.sending") : t("auth.signUp")}
         </Button>
       </form>
 

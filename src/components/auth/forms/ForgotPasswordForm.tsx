@@ -4,37 +4,45 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { setAuthView } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
-import { AuthActionState, forgotPassword } from "@/services/auth.service";
+import { useForgotPasswordMutation } from "@/lib/redux/api/authApi";
+import { forgotPasswordSchema } from "@/lib/validators/authSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, Mail } from "lucide-react";
-import { useActionState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-
-const initialState: AuthActionState = {
-  success: false,
-  message: "",
-  errors: undefined,
-  inputs: {
-    email: "",
-  },
-  timestamp: 0,
-};
+import * as z from "zod";
+type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>;
 
 export default function ForgotPasswordForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const [state, formAction, isPending] = useActionState(
-    forgotPassword,
-    initialState,
-  );
+  const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
-  useEffect(() => {
-    if (state?.success) {
-      toast.success(state?.message || t("auth.resetLinkSent"));
-      dispatch(setAuthView("VERIFY_OTP"));
-    } else if (state.message && !state.errors) {
-      toast.error(state.message);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ForgotPasswordValues>({
+    resolver: zodResolver(forgotPasswordSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
+
+  const onSubmit = async (data: ForgotPasswordValues) => {
+    try {
+      const result = await forgotPassword(data).unwrap();
+      if (result.success) {
+        toast.success(result.message || t("auth.resetLinkSent"));
+        dispatch(setAuthView("VERIFY_OTP"));
+      } else {
+        toast.error(result.message || "Failed to send reset code");
+      }
+    } catch (error: unknown) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err.data?.message || "Something went wrong");
     }
-  }, [state, dispatch, t]);
+  };
 
   return (
     <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
@@ -47,25 +55,23 @@ export default function ForgotPasswordForm() {
         </p>
       </div>
 
-      <form action={formAction} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <FormInput
           id="email"
-          name="email"
           type="email"
           label={t("auth.emailAddress")}
           icon={Mail}
-          defaultValue={state?.inputs?.email ?? undefined}
           placeholder={t("auth.enterYourEmail")}
-          error={state?.errors?.email}
-          required
+          error={errors.email?.message}
+          {...register("email")}
         />
 
         <Button
           type="submit"
           className="w-full font-bold cursor-pointer"
-          disabled={isPending}
+          disabled={isLoading}
         >
-          {isPending ? t("auth.sending") : t("auth.sendResetCode")}
+          {isLoading ? t("auth.sending") : t("auth.sendResetCode")}
         </Button>
       </form>
 

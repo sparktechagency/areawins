@@ -1,17 +1,30 @@
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
-import { IWalletData } from "@/interfaces/wallet.interface";
 import { ROUTES } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { formatCurrency } from "@/lib/utils";
 import { ArrowRight, TrendingDown, TrendingUp, Wallet } from "lucide-react";
 import Link from "next/link";
-interface StatsOverviewProps {
-  stats: IWalletData;
-}
+import { useGetMyWalletQuery } from "@/lib/redux/api/walletApi";
 
-export default function StatsOverview({ stats }: StatsOverviewProps) {
+export default function StatsOverview() {
   const { t } = useTranslation();
+  const { data: stats, isLoading } = useGetMyWalletQuery();
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+        {[1, 2, 3, 4].map((i) => (
+          <Card key={i} className="bg-muted/10 border-border h-32 animate-pulse shadow-none">
+            <CardContent className="h-full flex items-center justify-center">
+              <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
       {/* Total Winning Balance */}

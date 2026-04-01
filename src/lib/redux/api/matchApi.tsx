@@ -1,3 +1,4 @@
+import { IMatch } from "@/interfaces/match.interface";
 import { baseApi } from "./baseApi";
 
 export const matchApi = baseApi.injectEndpoints({
@@ -34,6 +35,17 @@ export const matchApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Profile"],
     }),
+    getMatchesBySport: build.query({
+      query: (params: { sportId: string; page?: number; limit?: number }) => {
+        const { sportId, page = 1, limit = 10 } = params;
+        return {
+          url: `/matches/grouped-sport/${sportId}?page=${page}&limit=${limit}`,
+        };
+      },
+      providesTags: ["Profile"],
+      transformResponse: (response: { success: boolean; data: IMatch[] }) =>
+        response.data,
+    }),
   }),
 });
 
@@ -41,4 +53,5 @@ export const {
   useGetLiveMatchesQuery,
   useGetMatchesBySportSlugQuery,
   useGetMatchByIdQuery,
+  useGetMatchesBySportQuery,
 } = matchApi;

@@ -1,11 +1,10 @@
 "use client";
 import logo from "@/assets/logo/areawins.png";
 import { AnimatedDropdown } from "@/components/shared/AnimatedDropdown";
-import { IUser } from "@/interfaces/user.interface";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { Link, usePathname } from "@/lib/i18n/routing";
 import { openAuthModal } from "@/lib/redux/features/authUiSlice";
-import { useAppDispatch } from "@/lib/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import {
   Globe,
   HelpCircle,
@@ -23,11 +22,13 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "../u
 import MobileUserMenu from "./MobileUserMenu";
 import { UserMenu } from "./UserMenu";
 
-const NavbarClient = ({ user }: { user: IUser | null }) => {
+const NavbarClient = () => {
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
   const pathname = usePathname();
   const { t, language, setLanguage } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+// ... existing links and items code ...
 
   const navLinks = [
     { label: t("navbar.home"), href: "/", icon: Home },

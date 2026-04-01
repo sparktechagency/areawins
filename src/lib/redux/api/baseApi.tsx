@@ -4,18 +4,18 @@ import type {
   FetchArgs,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
-import Cookies from "js-cookie";
-
-const COOKIE_NAMES = {
-  accessToken: "__a_A_T",
-  refreshToken: "__a_R_T",
-};
+import {
+  getClientCookie,
+  removeClientCookie,
+  setClientCookie,
+} from "@/utils/cookieUtils";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.NEXT_PUBLIC_BASE_API_URL || "http://localhost:5000/api/v1",
+  baseUrl:
+    process.env.NEXT_PUBLIC_BASE_API_URL || "http://localhost:5000/api/v1",
   credentials: "include",
   prepareHeaders: (headers) => {
-    const token = Cookies.get(COOKIE_NAMES.accessToken);
+    const token = getClientCookie("accessToken");
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
     }
@@ -31,44 +31,58 @@ const baseQueryWithReauth: BaseQueryFn<
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
-    const refreshResult = await baseQuery(
-      {
-        url: "/auth/refresh-token",
-        method: "POST",
-        body: {},
-      },
-      api,
-      extraOptions,
-    );
+    const refreshToken = getClientCookie("refreshToken");
 
-    if (refreshResult.data) {
-      const { accessToken } = refreshResult.data as {
-        accessToken: string;
-      };
+    if (refreshToken) {
+      const refreshResult = await baseQuery(
+        {
+          url: "/auth/refresh-token",
+          method: "POST",
+          body: { refreshToken },
+        },
+        api,
+        extraOptions,
+      );
 
-      // Store new accessToken (assuming it's returned)
-      if (accessToken) {
-        Cookies.set(COOKIE_NAMES.accessToken, accessToken, { expires: 7 });
+      if (refreshResult.data) {
+        const data = refreshResult.data as {
+          success: boolean;
+          data?: { accessToken: string; refreshToken?: string };
+          accessToken?: string;
+          refreshToken?: string;
+        };
+
+        const accessToken = data.data?.accessToken || data.accessToken;
+        const newRefreshToken = data.data?.refreshToken || data.refreshToken;
+
+        // Store new tokens
+        if (accessToken) {
+          setClientCookie("accessToken", accessToken);
+        }
+        if (newRefreshToken) {
+          setClientCookie("refreshToken", newRefreshToken);
+        }
+
+        // Retry the original query
+        result = await baseQuery(args, api, extraOptions);
+      } else {
+        removeClientCookie("accessToken");
+        removeClientCookie("refreshToken");
+        removeClientCookie("userRole");
       }
-
-      // Retry the original query
-      result = await baseQuery(args, api, extraOptions);
     } else {
-      Cookies.remove(COOKIE_NAMES.accessToken);
+      removeClientCookie("accessToken");
+      removeClientCookie("refreshToken");
+      removeClientCookie("userRole");
     }
   }
 
   return result;
 };
 
-
-/**
- * Base API configuration
- */
 export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
   tagTypes: ["Auth", "User", "Profile"],
   endpoints: () => ({}),
 });
-export const {} = baseApi;

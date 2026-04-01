@@ -31,6 +31,9 @@ export const registerSchema = z.object({
         message: "Referral code must be exactly 8 alphanumeric characters",
       },
     ),
+  terms: z.boolean().refine((val) => val === true, {
+    message: "You must agree to the terms and conditions",
+  }),
 });
 
 export const forgotPasswordSchema = z.object({

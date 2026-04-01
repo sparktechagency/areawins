@@ -1,8 +1,9 @@
 "use client";
-import { IUser } from "@/interfaces/user.interface";
+import { useAppSelector } from "@/lib/redux/hooks";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 
-export default function DashboardGreeting({ user }: { user: IUser }) {
+export default function DashboardGreeting() {
+  const { user } = useAppSelector((state) => state.auth);
   const { t } = useTranslation();
   // Get time of day
   const hour = new Date().getHours();

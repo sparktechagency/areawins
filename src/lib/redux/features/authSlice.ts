@@ -19,33 +19,24 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    loginStart: (state) => {
-      state.isLoading = true;
-      state.error = null;
-    },
-    loginSuccess: (state, action: PayloadAction<IUser>) => {
+    setUser: (state, action: PayloadAction<IUser | null>) => {
       state.user = action.payload;
-      state.isAuthenticated = true;
+      state.isAuthenticated = !!action.payload;
       state.isLoading = false;
       state.error = null;
     },
-    loginFailure: (state, action: PayloadAction<string>) => {
+    clearUser: (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+      state.isLoading = false;
+      state.error = null;
+    },
+    setAuthLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
+    setAuthError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
       state.isLoading = false;
-      state.isAuthenticated = false;
-      state.user = null;
-    },
-    logout: (state) => {
-      state.user = null;
-      state.isAuthenticated = false;
-      state.isLoading = false;
-      state.error = null;
-    },
-    clearAuth: (state) => {
-      state.user = null;
-      state.isAuthenticated = false;
-      state.isLoading = false;
-      state.error = null;
     },
     updateUser: (state, action: PayloadAction<Partial<IUser>>) => {
       if (state.user) {
@@ -56,11 +47,10 @@ const authSlice = createSlice({
 });
 
 export const {
-  loginStart,
-  loginSuccess,
-  loginFailure,
-  logout,
-  clearAuth,
+  setUser,
+  clearUser,
+  setAuthLoading,
+  setAuthError,
   updateUser,
 } = authSlice.actions;
 
