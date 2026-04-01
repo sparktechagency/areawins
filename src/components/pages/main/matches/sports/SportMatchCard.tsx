@@ -1,7 +1,6 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { IMatch } from "@/interfaces/match.interface";
 import { format, isToday } from "date-fns";
 import { Calendar, ChevronRight, Clock, Trophy } from "lucide-react";

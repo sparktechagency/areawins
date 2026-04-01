@@ -3,6 +3,19 @@ import { ISportCategories } from "./sportCategories.interface";
 import { ITeam } from "./team.interface";
 import { ITournament } from "./tournament.interface";
 
+export interface MatchLiveStatus {
+  homeScore: number;
+  awayScore: number;
+  homeWickets?: number;
+  awayWickets?: number;
+  homeOvers?: string;
+  awayOvers?: string;
+  period?: string;
+  minute?: number;
+}
+
+export type SportInfo = ISportCategories;
+
 export enum MatchStatus {
   SCHEDULED = "scheduled",
   LIVE = "live",
@@ -38,6 +51,8 @@ export interface IMatch {
   isLive: boolean;
   homeScore?: number | null;
   awayScore?: number | null;
+  scoreDisplay?: string;
+  liveStatus?: MatchLiveStatus;
   matchClock?: string | null;
   winner?: "home" | "away" | "draw" | null;
   availableBetTypes: IBetType[];
@@ -57,3 +72,5 @@ export interface IMatch {
   isUpcoming: boolean;
   isFinished: boolean;
 }
+
+export type MatchInfo = IMatch;

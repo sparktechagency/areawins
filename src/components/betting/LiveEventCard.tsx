@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { IMatch } from "@/interfaces/match.interface";
-import { Banknote, MapPin, PlusCircle, Users } from "lucide-react";
+import { Banknote, PlusCircle, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 

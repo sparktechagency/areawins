@@ -16,6 +16,17 @@ export const renderSportScore = (
   const sportSlug = getSportSlug(match.sport);
   const statusLine = match.liveStatus;
 
+  // Prioritize scoreDisplay if it exists
+  if (match.scoreDisplay) {
+    return (
+      <div className="flex flex-col items-center gap-1 px-3 py-1.5 bg-primary/10 rounded-lg border border-primary/20">
+        <span className="text-xs font-bold text-primary tabular-nums text-center leading-tight">
+          {match.scoreDisplay}
+        </span>
+      </div>
+    );
+  }
+
   if (!statusLine && match.status !== "live") {
     return (
       <div className="flex items-center gap-1 px-2 py-1 bg-muted/30 rounded-lg">
