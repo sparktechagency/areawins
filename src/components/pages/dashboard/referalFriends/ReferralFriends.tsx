@@ -25,7 +25,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 import { MOCK_REFERRED_FRIENDS } from "@/data/friends.data";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 const ReferralFriends = () => {
   const { t } = useTranslation();

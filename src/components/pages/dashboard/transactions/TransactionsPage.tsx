@@ -16,7 +16,7 @@ import {
 import { useState } from "react";
 
 import { MOCK_TRANSACTIONS } from "@/data/transactions.data";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 const TransactionsPage = () => {
   const { t } = useTranslation();

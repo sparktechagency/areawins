@@ -5,16 +5,10 @@ import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useAppSelector } from "@/lib/redux/hooks";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import {
-  Camera,
-  Edit2,
-  Save,
-  User,
-  X,
-} from "lucide-react";
-import { useState, useEffect } from "react";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { useAppSelector } from "@/redux/hooks";
+import { Camera, Edit2, Save, User, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import EditAvatarModal from "./EditAvatarModal";
 

@@ -25,6 +25,7 @@ interface StakeConfigurationProps {
   onBack: () => void;
   onConfirm: () => void;
   showBackButton: boolean;
+  userBalance: number;
 }
 
 const StakeConfiguration: React.FC<StakeConfigurationProps> = ({
@@ -40,6 +41,7 @@ const StakeConfiguration: React.FC<StakeConfigurationProps> = ({
   onBack,
   onConfirm,
   showBackButton,
+  userBalance,
 }) => {
   return (
     <div className="p-5 sm:p-6 space-y-6 sm:space-y-8">
@@ -164,7 +166,12 @@ const StakeConfiguration: React.FC<StakeConfigurationProps> = ({
             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-tight">
               Your Balance
             </span>
-            <span className="text-base  text-foreground">$1,250.00</span>
+            <span className="text-base  text-foreground">
+              ${userBalance.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </span>
           </div>
           <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-wide">
             <ShieldCheck className="size-3.5 text-primary" />

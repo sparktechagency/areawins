@@ -2,18 +2,18 @@
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { closeAuthModal, setAuthView } from "@/lib/redux/features/authUiSlice";
-import { useAppDispatch } from "@/lib/redux/hooks";
-import { useLoginMutation } from "@/lib/redux/api/authApi";
-import { loginSchema } from "@/lib/validators/authSchema";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { cn } from "@/lib/utils";
+import { useLoginMutation } from "@/redux/api/authApi";
+import { closeAuthModal, setAuthView } from "@/redux/features/authUiSlice";
+import { useAppDispatch } from "@/redux/hooks";
+import { loginSchema } from "@/validation/auth.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, CheckCircle, Lock, Mail } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 

@@ -1,9 +1,9 @@
 "use client";
 
+import { useGetMyProfileQuery } from "@/redux/api/userApi";
+import { setAuthLoading, setUser } from "@/redux/features/authSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { useEffect } from "react";
-import { useGetMyProfileQuery } from "@/lib/redux/api/userApi";
-import { useAppDispatch } from "@/lib/redux/hooks";
-import { setUser, setAuthLoading } from "@/lib/redux/features/authSlice";
 
 export default function UserInitializer({
   children,

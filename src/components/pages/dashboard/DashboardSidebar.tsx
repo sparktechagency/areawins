@@ -4,13 +4,13 @@ import logo from "@/assets/logo/areawins.png";
 import { Button } from "@/components/ui/button";
 import DarkModeToggle from "@/components/ui/dark-mode-toggle";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { clearUser } from "@/lib/redux/features/authSlice";
-import { openAuthModal } from "@/lib/redux/features/authUiSlice";
-import { useAppDispatch } from "@/lib/redux/hooks";
-import { ROUTES } from "@/lib/constants";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { Link, usePathname } from "@/lib/i18n/routing";
+import { ROUTES } from "@/constants";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { Link, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { clearUser } from "@/redux/features/authSlice";
+import { openAuthModal } from "@/redux/features/authUiSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import {
   History,
   LayoutDashboard,

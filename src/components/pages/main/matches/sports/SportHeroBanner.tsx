@@ -1,6 +1,6 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { useTranslation } from "@/i18n/LanguageContext";
 import { Flame } from "lucide-react";
 
 import React, {
@@ -106,7 +106,6 @@ const SportHeroBanner: React.FC<SportHeroBannerProps> = ({ config }) => {
             {currentBanner.promo}
           </p>
         )}
-
       </div>
 
       {/* Carousel Dots */}

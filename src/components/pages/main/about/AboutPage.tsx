@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { Link } from "@/lib/i18n/routing";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { Link } from "@/i18n/routing";
 import { Lock, Shield, Trophy, Users, Wallet, Zap } from "lucide-react";
 
 const AboutPage = () => {
@@ -30,7 +30,8 @@ const AboutPage = () => {
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
             {t("aboutPage.heroTitleLine1")} <br />
-            {t("aboutPage.heroTitleLine2")} <span className="text-primary">{t("aboutPage.heroLocation")}</span>
+            {t("aboutPage.heroTitleLine2")}{" "}
+            <span className="text-primary">{t("aboutPage.heroLocation")}</span>
           </h1>
           <p className="max-w-2xl mx-auto text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed">
             {t("aboutPage.heroDescription")}

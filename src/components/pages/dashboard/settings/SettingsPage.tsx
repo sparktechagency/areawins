@@ -11,17 +11,17 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { useTranslation } from "@/i18n/LanguageContext";
 import {
   AlertTriangle,
   Bell,
+  CreditCard,
   Globe,
   Lock,
   Save,
   Settings as SettingsIcon,
   Trash2,
   X,
-  CreditCard,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -128,8 +128,12 @@ export default function SettingsPage() {
               <CardContent className="p-4 sm:p-6 space-y-6">
                 <div className="flex items-center justify-between p-4 bg-muted/20 rounded-xl border border-border/50">
                   <div className="space-y-0.5">
-                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">{t("settings.language")}</p>
-                    <p className="text-xs text-muted-foreground">Select your preferred language</p>
+                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">
+                      {t("settings.language")}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Select your preferred language
+                    </p>
                   </div>
                   <Button variant="outline" size="sm" className="font-bold">
                     English
@@ -138,10 +142,18 @@ export default function SettingsPage() {
 
                 <div className="flex items-center justify-between p-4 bg-muted/20 rounded-xl border border-border/50">
                   <div className="space-y-0.5">
-                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">{t("settings.currency")}</p>
-                    <p className="text-xs text-muted-foreground">Select your default currency for betting</p>
+                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">
+                      {t("settings.currency")}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Select your default currency for betting
+                    </p>
                   </div>
-                  <Button variant="outline" size="sm" className="font-bold flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="font-bold flex items-center gap-2"
+                  >
                     <CreditCard className="w-4 h-4" />
                     USD ($)
                   </Button>
@@ -160,23 +172,35 @@ export default function SettingsPage() {
               <CardContent className="p-4 sm:p-6 space-y-6">
                 <div className="flex items-center justify-between p-1">
                   <div className="space-y-0.5">
-                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">{t("settings.pushNotifications")}</p>
-                    <p className="text-xs text-muted-foreground">{t("settings.pushNotificationsDesc")}</p>
+                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">
+                      {t("settings.pushNotifications")}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {t("settings.pushNotificationsDesc")}
+                    </p>
                   </div>
-                  <Switch 
-                    checked={notifications.push} 
-                    onCheckedChange={(val) => setNotifications(prev => ({...prev, push: val}))}
+                  <Switch
+                    checked={notifications.push}
+                    onCheckedChange={(val) =>
+                      setNotifications((prev) => ({ ...prev, push: val }))
+                    }
                   />
                 </div>
 
                 <div className="flex items-center justify-between p-1">
                   <div className="space-y-0.5">
-                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">{t("settings.emailNotifications")}</p>
-                    <p className="text-xs text-muted-foreground">{t("settings.emailNotificationsDesc")}</p>
+                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">
+                      {t("settings.emailNotifications")}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {t("settings.emailNotificationsDesc")}
+                    </p>
                   </div>
-                  <Switch 
-                    checked={notifications.email} 
-                    onCheckedChange={(val) => setNotifications(prev => ({...prev, email: val}))}
+                  <Switch
+                    checked={notifications.email}
+                    onCheckedChange={(val) =>
+                      setNotifications((prev) => ({ ...prev, email: val }))
+                    }
                   />
                 </div>
               </CardContent>
@@ -199,8 +223,8 @@ export default function SettingsPage() {
                     <p className="text-xs text-muted-foreground">
                       {t("settings.changePasswordDescription")}
                     </p>
-                    <Button 
-                      onClick={() => setIsEditingPassword(true)} 
+                    <Button
+                      onClick={() => setIsEditingPassword(true)}
                       className="w-full font-bold uppercase tracking-widest text-xs"
                     >
                       {t("settings.changePassword")}
@@ -212,38 +236,46 @@ export default function SettingsPage() {
                       type="password"
                       label={t("profile.currentPassword")}
                       value={passwordForm.oldPassword}
-                      onChange={(e) => handlePasswordChange("oldPassword", e.target.value)}
+                      onChange={(e) =>
+                        handlePasswordChange("oldPassword", e.target.value)
+                      }
                     />
                     <FormInput
                       type="password"
                       label={t("profile.newPassword")}
                       value={passwordForm.newPassword}
-                      onChange={(e) => handlePasswordChange("newPassword", e.target.value)}
+                      onChange={(e) =>
+                        handlePasswordChange("newPassword", e.target.value)
+                      }
                     />
                     <FormInput
                       type="password"
                       label={t("profile.confirmPassword")}
                       value={passwordForm.confirmPassword}
-                      onChange={(e) => handlePasswordChange("confirmPassword", e.target.value)}
+                      onChange={(e) =>
+                        handlePasswordChange("confirmPassword", e.target.value)
+                      }
                     />
                     <div className="flex gap-2 pt-2">
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
+                      <Button
+                        variant="outline"
+                        size="sm"
                         className="flex-1"
                         onClick={() => setIsEditingPassword(false)}
                       >
                         <X className="w-4 h-4 mr-2" />
                         {t("profile.cancel")}
                       </Button>
-                      <Button 
-                        size="sm" 
+                      <Button
+                        size="sm"
                         className="flex-1"
                         onClick={handleSavePassword}
                         disabled={passwordLoading}
                       >
                         <Save className="w-4 h-4 mr-2" />
-                        {passwordLoading ? t("profile.saving") : t("profile.save")}
+                        {passwordLoading
+                          ? t("profile.saving")
+                          : t("profile.save")}
                       </Button>
                     </div>
                   </div>
@@ -263,8 +295,8 @@ export default function SettingsPage() {
                 <p className="text-xs text-muted-foreground">
                   {t("settings.dangerDescription")}
                 </p>
-                <Button 
-                  variant="destructive" 
+                <Button
+                  variant="destructive"
                   className="w-full font-bold uppercase tracking-widest text-xs"
                   onClick={() => setShowDeleteModal(true)}
                 >

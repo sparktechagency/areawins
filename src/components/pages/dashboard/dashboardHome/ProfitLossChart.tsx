@@ -2,8 +2,8 @@
 import { FormSelect } from "@/components/form/FormSelect";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProfitLossPeriod } from "@/interfaces/dashboard.interface";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { useGetProfitLossChartDataQuery } from "@/lib/redux/api/dashboardApi";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { useGetProfitLossChartDataQuery } from "@/redux/api/dashboardApi";
 import { useState } from "react";
 import {
   Bar,

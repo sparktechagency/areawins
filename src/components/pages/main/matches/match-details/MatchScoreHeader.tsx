@@ -1,6 +1,6 @@
 "use client";
 import { IMatch } from "@/interfaces/match.interface";
-import { renderSportScore } from "@/lib/sport-utils";
+import { renderSportScore } from "@/sport-utils";
 import { format, isToday } from "date-fns";
 import { Calendar, MapPin, Trophy } from "lucide-react";
 import Image from "next/image";
@@ -66,9 +66,7 @@ const MatchScoreHeader: React.FC<MatchScoreHeaderProps> = ({
 
           {/* Center: Score / Status / Venue */}
           <div className="flex flex-col items-center gap-1 sm:gap-2">
-            <div className="w-full">
-              {renderSportScore(match, "detailed")}
-            </div>
+            <div className="w-full">{renderSportScore(match, "detailed")}</div>
 
             {!match.isLive && (
               <div className="flex flex-col items-center gap-1 mt-2 sm:mt-4">

@@ -1,8 +1,8 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { ROUTES } from "@/lib/constants";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { ROUTES } from "@/constants";
+import { useTranslation } from "@/i18n/LanguageContext";
 import { Banknote, Gamepad2, History, Ticket } from "lucide-react";
 import Link from "next/link";
 

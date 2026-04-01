@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { useTranslation } from "@/i18n/LanguageContext";
 import { RotateCw, Upload, X, ZoomIn, ZoomOut } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";

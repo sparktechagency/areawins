@@ -16,8 +16,7 @@ const MatchesLayoutWrapper = ({
   hideLeftSidebar = false,
 }: MatchesLayoutWrapperProps) => {
   const pathname = usePathname();
-  const normalizedPathname =
-    pathname.replace(/^\/(en|es)(?=\/|$)/, "") || "/";
+  const normalizedPathname = pathname.replace(/^\/(en|es)(?=\/|$)/, "") || "/";
 
   // Logic from previous version to show/hide dynamic bars
   const isMainMatchesPage =
@@ -36,10 +35,10 @@ const MatchesLayoutWrapper = ({
           className={cn(
             "grid gap-8",
             // Only left sidebar
-            (showLeft || leftSidebar)
+            showLeft || leftSidebar
               ? "grid-cols-1 lg:grid-cols-[280px_1fr]"
               : // No sidebars
-              "grid-cols-1",
+                "grid-cols-1",
           )}
         >
           {/* Left Sidebar */}

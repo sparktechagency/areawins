@@ -2,19 +2,19 @@
 
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { closeAuthModal, setAuthView } from "@/lib/redux/features/authUiSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
-import { useVerifyOtpMutation } from "@/lib/redux/api/authApi";
-import { verifyOtpSchema } from "@/lib/validators/authSchema";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { cn } from "@/lib/utils";
+import { useVerifyOtpMutation } from "@/redux/api/authApi";
+import { closeAuthModal, setAuthView } from "@/redux/features/authUiSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getClientCookie } from "@/utils/cookieUtils";
+import { verifyOtpSchema } from "@/validation/auth.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AlertCircle, CheckCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { useRouter } from "next/navigation";
-import { AlertCircle, CheckCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 type VerifyOtpValues = z.infer<typeof verifyOtpSchema>;
 

@@ -1,5 +1,5 @@
+import { BETTING_LIMITS } from "@/constants";
 import { z } from "zod";
-import { BETTING_LIMITS } from "@/lib/constants";
 
 export const placeBetSchema = z.object({
   matchId: z.string().optional(),

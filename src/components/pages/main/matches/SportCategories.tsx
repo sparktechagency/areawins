@@ -1,7 +1,7 @@
 "use client";
-import { ISportCategories } from "@/interfaces/sportCategories.interface";
-import { useGetSportCategoriesQuery } from "@/lib/redux/api/sportCategoryApi";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ISportCategories } from "@/interfaces/sportCategories.interface";
+import { useGetSportCategoriesQuery } from "@/redux/api/sportCategoryApi";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

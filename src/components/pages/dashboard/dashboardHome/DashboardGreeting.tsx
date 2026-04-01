@@ -1,6 +1,6 @@
 "use client";
-import { useAppSelector } from "@/lib/redux/hooks";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { useAppSelector } from "@/redux/hooks";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 export default function DashboardGreeting() {
   const { user } = useAppSelector((state) => state.auth);

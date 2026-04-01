@@ -1,0 +1,12 @@
+
+> easy-bet@0.1.0 build
+> next build
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ⨯ Failed to load next.config.ts, see more info here https://nextjs.org/docs/messages/next-config-error
+
+> Build error occurred
+Error: 
+[next-intl] Could not find i18n config at ./src/lib/i18n/request.ts, please provide a valid path.
+
+    at Object.<anonymous> (C:\Rakib\CompanyProject\EasyBet\easy-bet\next.config.compiled.js:72:18)

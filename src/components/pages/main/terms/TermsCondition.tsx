@@ -1,15 +1,15 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { useTranslation } from "@/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 import {
-    Check,
-    ChevronRight,
-    Download,
-    Lock,
-    Printer,
-    Shield,
+  Check,
+  ChevronRight,
+  Download,
+  Lock,
+  Printer,
+  Shield,
 } from "lucide-react";
 import React from "react";
 
@@ -128,12 +128,8 @@ const TermsCondition = () => {
                 </h2>
               </div>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
-                <p>
-                  {t("terms.introP1")}
-                </p>
-                <p>
-                  {t("terms.introP2")}
-                </p>
+                <p>{t("terms.introP1")}</p>
+                <p>{t("terms.introP2")}</p>
               </div>
             </section>
 
@@ -185,7 +181,9 @@ const TermsCondition = () => {
                     <Lock className="w-4 h-4 text-primary-foreground fill-current" />
                   </div>
                   <div>
-                    <h4 className="text-foreground font-bold mb-1">{t("terms.security")}</h4>
+                    <h4 className="text-foreground font-bold mb-1">
+                      {t("terms.security")}
+                    </h4>
                     <p className="text-sm text-muted-foreground">
                       {t("terms.securityDesc")}
                     </p>
@@ -212,7 +210,9 @@ const TermsCondition = () => {
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="p-5 rounded-xl bg-background border-l-4 border-primary">
-                  <h3 className="font-bold text-foreground mb-2">{t("terms.deposits")}</h3>
+                  <h3 className="font-bold text-foreground mb-2">
+                    {t("terms.deposits")}
+                  </h3>
                   <p className="text-sm text-muted-foreground">
                     {t("terms.depositsDesc")}
                   </p>
@@ -242,11 +242,12 @@ const TermsCondition = () => {
                 </h2>
               </div>
               <div className="space-y-4 text-muted-foreground">
+                <p>{t("terms.bettingRulesP1")}</p>
                 <p>
-                  {t("terms.bettingRulesP1")}
-                </p>
-                <p>
-                  <strong className="text-foreground">{t("terms.lateBetsLabel")}</strong> {t("terms.lateBetsDesc")}
+                  <strong className="text-foreground">
+                    {t("terms.lateBetsLabel")}
+                  </strong>{" "}
+                  {t("terms.lateBetsDesc")}
                 </p>
               </div>
             </section>

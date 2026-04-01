@@ -3,7 +3,7 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import ChatList from "@/components/pages/dashboard/message/ChatList";
 import MessageList from "@/components/pages/dashboard/message/MessageList";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { useTranslation } from "@/i18n/LanguageContext";
 import { useState } from "react";
 
 const MessagePage = () => {

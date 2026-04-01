@@ -2,18 +2,18 @@
 
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { setAuthView } from "@/lib/redux/features/authUiSlice";
-import { useAppDispatch } from "@/lib/redux/hooks";
-import { useResetPasswordMutation } from "@/lib/redux/api/authApi";
-import { resetPasswordSchema } from "@/lib/validators/authSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { cn } from "@/lib/utils";
+import { useResetPasswordMutation } from "@/redux/api/authApi";
+import { setAuthView } from "@/redux/features/authUiSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { getClientCookie } from "@/utils/cookieUtils";
-import { ArrowLeft, Lock, AlertCircle, CheckCircle } from "lucide-react";
+import { resetPasswordSchema } from "@/validation/auth.validation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AlertCircle, ArrowLeft, CheckCircle, Lock } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { cn } from "@/lib/utils";
 
 type ResetPasswordValues = z.infer<typeof resetPasswordSchema>;
 

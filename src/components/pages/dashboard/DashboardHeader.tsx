@@ -3,11 +3,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import DarkModeToggle from "@/components/ui/dark-mode-toggle";
-import { ROUTES } from "@/lib/constants";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { Link, usePathname } from "@/lib/i18n/routing";
+import { ROUTES } from "@/constants";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { Link, usePathname } from "@/i18n/routing";
 import { Bell, ChevronRight } from "lucide-react";
-import { useAppSelector } from "@/lib/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 
 export default function DashboardHeader() {
   const pathname = usePathname();

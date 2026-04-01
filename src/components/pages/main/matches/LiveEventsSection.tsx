@@ -10,7 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { IMatch } from "@/interfaces/match.interface";
-import { useGetLiveMatchesQuery } from "@/lib/redux/api/matchApi";
+import { useGetLiveMatchesQuery } from "@/redux/api/matchApi";
 
 const LiveEventsSection = () => {
   const {

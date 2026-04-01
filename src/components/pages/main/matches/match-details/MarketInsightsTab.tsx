@@ -6,7 +6,7 @@ import React from "react";
 
 interface MarketInsightsTabProps {
   marketCategories: MarketCategory[];
-  onBetClick: (outcome: string, marketName: string) => void;
+  onBetClick: (outcome: string, marketName: string, marketId: string) => void;
 }
 
 const MarketInsightsTab: React.FC<MarketInsightsTabProps> = ({
@@ -48,7 +48,7 @@ const MarketInsightsTab: React.FC<MarketInsightsTabProps> = ({
             {category?.outcomes.map((stat, idx) => (
               <button
                 key={idx}
-                onClick={() => onBetClick(stat.label, category.marketName)}
+                onClick={() => onBetClick(stat.label, category.marketName, category.marketId)}
                 className="group flex items-center justify-between px-5 py-4 bg-muted/5 hover:bg-primary/10 border border-border/50 hover:border-primary/40 rounded-md transition-all duration-200 text-left active:scale-[0.98]"
               >
                 <div className="flex flex-col gap-0.5">

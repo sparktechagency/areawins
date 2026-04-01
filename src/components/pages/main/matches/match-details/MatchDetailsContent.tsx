@@ -1,9 +1,9 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useGetMatchByIdQuery } from "@/lib/redux/api/matchApi";
-import { Activity, BarChart3, ChevronLeft, Search } from "lucide-react";
 import { MarketCategory } from "@/interfaces/betting.interface";
+import { useGetMatchByIdQuery } from "@/redux/api/matchApi";
+import { Activity, BarChart3, ChevronLeft, Search } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
@@ -39,6 +39,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
   const [selectedMarket, setSelectedMarket] = useState<{
     outcome: string;
     market: string;
+    marketId: string;
     outcomeId: string;
   } | null>(null);
 
@@ -62,6 +63,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
 
     return (
       match.availableBetTypes as Array<{
+        _id: string;
         name: string;
         slug: string;
         outcomes: Array<{
@@ -71,6 +73,7 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
         }>;
       }>
     ).map((bt) => ({
+      marketId: bt._id,
       marketName: bt.name,
       slug: bt.slug,
       outcomes: bt.outcomes.map((oc) => ({
@@ -88,11 +91,13 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
   const handleCreateBetClick = (
     outcome: string,
     marketName: string,
+    marketId: string,
     outcomeId?: string,
   ) => {
     setSelectedMarket({
       outcome,
       market: marketName,
+      marketId,
       outcomeId: outcomeId || outcome,
     });
     setIsCreateModalOpen(true);
@@ -242,12 +247,14 @@ const MatchDetailsContent: React.FC<MatchDetailsContentProps> = ({
           setSelectedMarket(null);
         }}
         match={{
+          id: match._id,
           homeTeam: match.homeTeam?.name || "",
           awayTeam: match.awayTeam?.name || "",
           sport: match.sport?.name || sport,
         }}
         selectedOutcome={selectedMarket?.outcome}
         marketName={selectedMarket?.market}
+        marketId={selectedMarket?.marketId}
         marketOutcomes={marketCategories}
       />
     </div>

@@ -4,14 +4,9 @@ import { FormInput } from "@/components/form/FormInput";
 import { FormSelect } from "@/components/form/FormSelect";
 import { FormTextarea } from "@/components/form/FormTextarea";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { Link } from "@/lib/i18n/routing";
-import {
-  ChevronDown,
-  ChevronUp,
-  Headphones,
-  Mail
-} from "lucide-react";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { Link } from "@/i18n/routing";
+import { ChevronDown, ChevronUp, Headphones, Mail } from "lucide-react";
 import { useState } from "react";
 
 const ContactPage = () => {

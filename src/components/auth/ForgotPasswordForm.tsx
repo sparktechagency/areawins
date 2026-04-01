@@ -1,17 +1,17 @@
 "use client";
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { setAuthView } from "@/lib/redux/features/authUiSlice";
-import { useAppDispatch } from "@/lib/redux/hooks";
-import { useForgotPasswordMutation } from "@/lib/redux/api/authApi";
-import { forgotPasswordSchema } from "@/lib/validators/authSchema";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { cn } from "@/lib/utils";
+import { useForgotPasswordMutation } from "@/redux/api/authApi";
+import { setAuthView } from "@/redux/features/authUiSlice";
+import { useAppDispatch } from "@/redux/hooks";
+import { forgotPasswordSchema } from "@/validation/auth.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, Mail, AlertCircle, CheckCircle } from "lucide-react";
+import { AlertCircle, ArrowLeft, CheckCircle, Mail } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { cn } from "@/lib/utils";
 
 type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>;
 

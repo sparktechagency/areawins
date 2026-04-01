@@ -4,8 +4,8 @@ import { ReusableModal } from "@/components/shared/ReusableModal";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ISportCategories } from "@/interfaces/sportCategories.interface";
-import { useGetSportCategoriesQuery } from "@/lib/redux/api/sportCategoryApi";
 import { cn } from "@/lib/utils";
+import { useGetSportCategoriesQuery } from "@/redux/api/sportCategoryApi";
 import {
   Clock,
   LayoutGrid,

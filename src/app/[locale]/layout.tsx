@@ -1,12 +1,12 @@
 import AuthModal from "@/components/auth/AuthModal";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import UserInitializer from "@/components/shared/UserInitializer";
-import { LanguageProvider } from "@/lib/i18n/LanguageContext";
-import { ReduxProvider } from "@/lib/redux/provider";
+import { LanguageProvider } from "@/i18n/LanguageContext";
+import { ReduxProvider } from "@/redux/provider";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "AreaWins - Your Premier Sports Betting Platform",

@@ -1,6 +1,6 @@
 "use client";
+import { useTranslation } from "@/i18n/LanguageContext";
 import { IUser } from "@/interfaces/user.interface";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { LayoutDashboard, LogOut } from "lucide-react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";

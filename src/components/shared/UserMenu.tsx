@@ -2,8 +2,8 @@
 import { AnimatedDropdown } from "@/components/shared/AnimatedDropdown";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/i18n/LanguageContext";
 import { IUser } from "@/interfaces/user.interface";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { deleteCookie } from "@/utils/tokenHandlers";
 import {
   LayoutDashboard,

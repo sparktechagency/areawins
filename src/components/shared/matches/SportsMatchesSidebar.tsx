@@ -1,20 +1,21 @@
 "use client";
 import SidebarSkeleton from "@/components/skeleton/SidebarSkeleton";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { Link, usePathname } from "@/i18n/routing";
 import { ISportCategories } from "@/interfaces/sportCategories.interface";
-import { useGetSportCategoriesQuery } from "@/lib/redux/api/sportCategoryApi";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { Link, usePathname } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
+import { useGetSportCategoriesQuery } from "@/redux/api/sportCategoryApi";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 const SportsMatchesSidebar = () => {
   const pathname = usePathname();
   const { t } = useTranslation();
-  const { data: sportCategoriesResponse, isLoading } = useGetSportCategoriesQuery({
-    page: 1,
-    limit: 100,
-  });
+  const { data: sportCategoriesResponse, isLoading } =
+    useGetSportCategoriesQuery({
+      page: 1,
+      limit: 100,
+    });
   const activeSports = sportCategoriesResponse?.data?.results || [];
   if (isLoading) {
     return (
@@ -87,4 +88,3 @@ const SportsMatchesSidebar = () => {
   );
 };
 export default SportsMatchesSidebar;
-

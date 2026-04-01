@@ -1,8 +1,8 @@
 "use client";
 
 import { ReusableModal } from "@/components/shared/ReusableModal";
-import { closeAuthModal } from "@/lib/redux/features/authUiSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import { closeAuthModal } from "@/redux/features/authUiSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import ForgotPasswordForm from "./ForgotPasswordForm";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";

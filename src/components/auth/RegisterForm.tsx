@@ -1,20 +1,26 @@
 "use client";
-
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { Link } from "@/lib/i18n/routing";
-import { setAuthView } from "@/lib/redux/features/authUiSlice";
-import { useAppDispatch } from "@/lib/redux/hooks";
-import { useRegisterMutation } from "@/lib/redux/api/authApi";
-import { registerSchema } from "@/lib/validators/authSchema";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { Link } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
+import { useRegisterMutation } from "@/redux/api/authApi";
+import { setAuthView } from "@/redux/features/authUiSlice";
+import { useAppDispatch } from "@/redux/hooks";
+import { registerSchema } from "@/validation/auth.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, CheckCircle, Lock, Mail, Phone, User } from "lucide-react";
+import {
+  AlertCircle,
+  CheckCircle,
+  Lock,
+  Mail,
+  Phone,
+  User,
+} from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { cn } from "@/lib/utils";
 
 type RegisterFormValues = z.infer<typeof registerSchema> & { terms: boolean };
 
@@ -157,9 +163,9 @@ export default function RegisterForm() {
         />
 
         <div className="flex items-start space-x-2">
-          <Checkbox 
-            id="terms" 
-            className="mt-0.5 cursor-pointer" 
+          <Checkbox
+            id="terms"
+            className="mt-0.5 cursor-pointer"
             {...register("terms")}
           />
           <div className="space-y-1 leading-none">

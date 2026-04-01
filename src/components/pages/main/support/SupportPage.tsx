@@ -8,8 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { Link } from "@/lib/i18n/routing";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import {
   ChevronDown,

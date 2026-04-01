@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { Link } from "@/lib/i18n/routing";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 
 const BetsSection = () => {

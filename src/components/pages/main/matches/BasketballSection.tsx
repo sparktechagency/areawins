@@ -1,5 +1,6 @@
 "use client";
 
+import MatchSectionSkeleton from "@/components/skeleton/MatchSectionSkeleton";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -9,14 +10,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { IMatch } from "@/interfaces/match.interface";
+import { useGetUpcomingMatchesBySportQuery } from "@/redux/api/matchApi";
+import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import MatchSectionSkeleton from "@/components/skeleton/MatchSectionSkeleton";
-import { useGetUpcomingMatchesBySportQuery } from "@/lib/redux/api/matchApi";
-import { IMatch } from "@/interfaces/match.interface";
-import { format } from "date-fns";
-import Image from "next/image";
 
 const BasketballSection: React.FC = () => {
   const { data: response, isLoading } = useGetUpcomingMatchesBySportQuery({
@@ -52,14 +52,6 @@ const BasketballSection: React.FC = () => {
             There are currently no upcoming basketball matches. Please check
             back later for new opportunities.
           </p>
-          <Button
-            variant="outline"
-            size="sm"
-            asChild
-            className="mt-6 rounded-full px-6 border-border hover:bg-muted/10 hover:text-foreground text-xs"
-          >
-            <Link href="/matches/all">Explore Other Sports</Link>
-          </Button>
         </div>
       </section>
     );

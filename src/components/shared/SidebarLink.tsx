@@ -1,4 +1,4 @@
-import { Link } from "@/lib/i18n/routing";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 import React from "react";
@@ -21,7 +21,7 @@ export const SidebarLink = ({
       <div
         className={cn(
           "shrink-0 transition-transform group-hover:scale-110",
-          typeof icon === "string" ? "text-lg" : ""
+          typeof icon === "string" ? "text-lg" : "",
         )}
       >
         {icon}
@@ -37,7 +37,7 @@ export const SidebarLink = ({
           "size-3.5 opacity-0 -translate-x-2 transition-all",
           active
             ? "opacity-100 translate-x-0"
-            : "group-hover:opacity-40 group-hover:translate-x-0"
+            : "group-hover:opacity-40 group-hover:translate-x-0",
         )}
       />
     </>
@@ -47,7 +47,7 @@ export const SidebarLink = ({
     "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group cursor-pointer",
     active
       ? "bg-primary/10 text-primary border border-primary/20"
-      : "text-muted-foreground hover:bg-muted/50 hover:text-foreground border border-transparent"
+      : "text-muted-foreground hover:bg-muted/50 hover:text-foreground border border-transparent",
   );
 
   if (href) {

@@ -1,9 +1,9 @@
 "use client";
 
 import logo from "@/assets/logo/areawins.png";
-import { ROUTES } from "@/lib/constants";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { Link } from "@/lib/i18n/routing";
+import { ROUTES } from "@/constants";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { Link } from "@/i18n/routing";
 import { Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 

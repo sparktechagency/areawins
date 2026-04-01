@@ -1,22 +1,23 @@
 "use client";
-import SidebarSkeleton from "@/components/skeleton/SidebarSkeleton";
 import { SidebarLink } from "@/components/shared/SidebarLink";
-import { useGetSportCategoriesQuery } from "@/lib/redux/api/sportCategoryApi";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { DollarSign, Search } from "lucide-react";
-import { useState } from "react";
+import SidebarSkeleton from "@/components/skeleton/SidebarSkeleton";
 import { Input } from "@/components/ui/input";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { useGetSportCategoriesQuery } from "@/redux/api/sportCategoryApi";
+import { DollarSign, Search } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 import { ISportCategories } from "@/interfaces/sportCategories.interface";
 
 const MarketSidebar = () => {
   const { t } = useTranslation();
   const [budget, setBudget] = useState([50]);
-  const { data: sportCategoriesResponse, isLoading } = useGetSportCategoriesQuery({
-    page: 1,
-    limit: 100,
-  });
+  const { data: sportCategoriesResponse, isLoading } =
+    useGetSportCategoriesQuery({
+      page: 1,
+      limit: 100,
+    });
 
   const activeSports = sportCategoriesResponse?.data?.results || [];
 
@@ -106,4 +107,3 @@ const MarketSidebar = () => {
 };
 
 export default MarketSidebar;
-

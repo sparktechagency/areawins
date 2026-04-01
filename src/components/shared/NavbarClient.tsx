@@ -1,10 +1,10 @@
 "use client";
 import logo from "@/assets/logo/areawins.png";
 import { AnimatedDropdown } from "@/components/shared/AnimatedDropdown";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { Link, usePathname } from "@/lib/i18n/routing";
-import { openAuthModal } from "@/lib/redux/features/authUiSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { Link, usePathname } from "@/i18n/routing";
+import { openAuthModal } from "@/redux/features/authUiSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
   Globe,
   HelpCircle,

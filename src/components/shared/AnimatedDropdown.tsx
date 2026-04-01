@@ -65,7 +65,7 @@ export const AnimatedDropdown = ({
             className={cn(
               "absolute z-50 mt-2 rounded-xl border border-border bg-popover text-popover-foreground shadow-xl focus:outline-none overflow-hidden",
               align === "right" ? "right-0" : "left-0",
-              width
+              width,
             )}
           >
             <div className="py-1">
@@ -79,11 +79,13 @@ export const AnimatedDropdown = ({
                         "flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-muted/50 cursor-pointer ",
                         item.variant === "destructive"
                           ? "text-destructive hover:text-destructive/90"
-                          : "text-foreground"
+                          : "text-foreground",
                       )}
                     >
                       {item.icon && (
-                        <span className="text-muted-foreground">{item.icon}</span>
+                        <span className="text-muted-foreground">
+                          {item.icon}
+                        </span>
                       )}
                       {item.label}
                     </Link>
@@ -101,11 +103,13 @@ export const AnimatedDropdown = ({
                         "flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-muted/50 cursor-pointer ",
                         item.variant === "destructive"
                           ? "text-destructive hover:text-destructive/90"
-                          : "text-foreground"
+                          : "text-foreground",
                       )}
                     >
                       {item.icon && (
-                        <span className="text-muted-foreground">{item.icon}</span>
+                        <span className="text-muted-foreground">
+                          {item.icon}
+                        </span>
                       )}
                       {item.label}
                     </a>

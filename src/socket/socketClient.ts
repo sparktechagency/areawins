@@ -1,5 +1,4 @@
-
-import { API_CONFIG, COOKIES } from "@/lib/constants";
+import { API_CONFIG, COOKIES } from "@/constants";
 import type { LiveMatchUpdate, Notification, OddsUpdate } from "@/types";
 import Cookies from "js-cookie";
 import { io, Socket } from "socket.io-client";
@@ -83,7 +82,7 @@ class SocketClient {
    */
   subscribeToMatchUpdates(
     matchId: string,
-    callback: (update: LiveMatchUpdate) => void
+    callback: (update: LiveMatchUpdate) => void,
   ): void {
     if (!this.socket) {
       console.error("Socket not initialized");
@@ -115,7 +114,7 @@ class SocketClient {
    */
   subscribeToOddsUpdates(
     matchId: string,
-    callback: (update: OddsUpdate) => void
+    callback: (update: OddsUpdate) => void,
   ): void {
     if (!this.socket) {
       console.error("Socket not initialized");
@@ -147,7 +146,7 @@ class SocketClient {
    */
   subscribeToBetResults(
     userId: string,
-    callback: (result: unknown) => void
+    callback: (result: unknown) => void,
   ): void {
     if (!this.socket) {
       console.error("Socket not initialized");
@@ -172,7 +171,7 @@ class SocketClient {
    */
   subscribeToNotifications(
     userId: string,
-    callback: (notification: Notification) => void
+    callback: (notification: Notification) => void,
   ): void {
     if (!this.socket) {
       console.error("Socket not initialized");
@@ -197,7 +196,7 @@ class SocketClient {
    */
   subscribeToWalletUpdates(
     userId: string,
-    callback: (balance: number) => void
+    callback: (balance: number) => void,
   ): void {
     if (!this.socket) {
       console.error("Socket not initialized");

@@ -1,5 +1,6 @@
 "use client";
 
+import MatchSectionSkeleton from "@/components/skeleton/MatchSectionSkeleton";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -10,13 +11,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { IMatch } from "@/interfaces/match.interface";
-import { useGetUpcomingMatchesBySportQuery } from "@/lib/redux/api/matchApi";
+import { useGetUpcomingMatchesBySportQuery } from "@/redux/api/matchApi";
 import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import MatchSectionSkeleton from "@/components/skeleton/MatchSectionSkeleton";
 
 const CricketSection: React.FC = () => {
   const { data: response, isLoading } = useGetUpcomingMatchesBySportQuery({

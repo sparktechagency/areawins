@@ -3,7 +3,7 @@
 import { FormInput } from "@/components/form/FormInput";
 import { FormTextarea } from "@/components/form/FormTextarea";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 const ContactUs = () => {
   const { t } = useTranslation();
@@ -12,7 +12,9 @@ const ContactUs = () => {
     <section className="w-full py-20 md:py-24 bg-background">
       <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
         {/* Title */}
-        <h2 className="text-4xl font-bold text-primary mb-12">{t("homeContact.title")}</h2>
+        <h2 className="text-4xl font-bold text-primary mb-12">
+          {t("homeContact.title")}
+        </h2>
 
         {/* Contact Form Card */}
         <div className="border border-border rounded-2xl p-8 md:p-12">

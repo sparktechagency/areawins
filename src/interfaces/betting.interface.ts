@@ -75,7 +75,9 @@ export interface OutcomeStat {
 }
 
 export interface MarketCategory {
+  marketId: string;
   marketName: string;
+  slug?: string;
   outcomes: OutcomeStat[];
 }
 
@@ -83,6 +85,7 @@ export interface CreateBetModalProps {
   isOpen: boolean;
   onClose: () => void;
   match: {
+    id: string;
     homeTeam: string;
     awayTeam: string;
     sport: string;
@@ -90,6 +93,7 @@ export interface CreateBetModalProps {
 
   selectedOutcome?: string | null;
   marketName?: string | null;
+  marketId?: string | null;
   marketOutcomes?: MarketCategory[];
 }
 

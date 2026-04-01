@@ -1,17 +1,17 @@
 "use client";
 
+import { Pagination } from "@/components/shared/Pagination";
+import { SportMatchCardSkeleton } from "@/components/skeleton/SportMatchCardSkeleton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { Calendar, Filter, Search, Activity } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { IMatch } from "@/interfaces/match.interface";
+import { useGetMatchesBySportSlugQuery } from "@/redux/api/matchApi";
+import { Activity, Calendar, Filter, Search } from "lucide-react";
+import { useMemo, useState } from "react";
 import SportHeroBanner from "./SportHeroBanner";
 import SportMatchCard from "./SportMatchCard";
-import { SportMatchCardSkeleton } from "@/components/skeleton/SportMatchCardSkeleton";
-import { useGetMatchesBySportSlugQuery } from "@/lib/redux/api/matchApi";
-import { IMatch } from "@/interfaces/match.interface";
-import { Pagination } from "@/components/shared/Pagination";
 
 interface SportsBettingInterfaceProps {
   sport: string;
@@ -27,13 +27,15 @@ const config = {
         bg: "url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80')",
         title: "Elite Football Markets",
         subtitle: "Global Leagues",
-        promo: "Browse premium P2P betting markets for the world's most popular sport.",
+        promo:
+          "Browse premium P2P betting markets for the world's most popular sport.",
       },
       {
         bg: "url('https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&q=80')",
         title: "Football Championships",
         subtitle: "Live Action",
-        promo: "Create unique peer-to-peer bets on matches happening right now.",
+        promo:
+          "Create unique peer-to-peer bets on matches happening right now.",
       },
     ],
   },
@@ -46,33 +48,102 @@ const config = {
         bg: "url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80')",
         title: "Grand Cricket Stadiums",
         subtitle: "International Series",
-        promo: "Experience the thrill of cricket betting with best-in-class P2P odds.",
+        promo:
+          "Experience the thrill of cricket betting with best-in-class P2P odds.",
       },
       {
         bg: "url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80')",
         title: "Premier T20 Leagues",
         subtitle: "Domestic Market",
-        promo: "Join active cricket markets and bet directly against other fans.",
+        promo:
+          "Join active cricket markets and bet directly against other fans.",
       },
     ],
   },
   // ... (keeping other config as is)
-  basketball: { theme: "from-orange-900 to-orange-950", accent: "#f97316", logo: "🏀", banners: [] },
-  volleyball: { theme: "from-blue-900 to-blue-950", accent: "#3b82f6", logo: "🏐", banners: [] },
-  tennis: { theme: "from-purple-900 to-purple-950", accent: "#a855f7", logo: "🎾", banners: [] },
-  baseball: { theme: "from-red-900 to-red-950", accent: "#ef4444", logo: "⚾", banners: [] },
-  boxing: { theme: "from-rose-900 to-rose-950", accent: "#f43f5e", logo: "🥊", banners: [] },
-  rugby: { theme: "from-teal-900 to-teal-950", accent: "#14b8a6", logo: "🏉", banners: [] },
-  hockey: { theme: "from-cyan-900 to-cyan-950", accent: "#06b6d4", logo: "🏒", banners: [] },
-  badminton: { theme: "from-lime-900 to-lime-950", accent: "#84cc16", logo: "🏸", banners: [] },
-  "table-tennis": { theme: "from-yellow-900 to-yellow-950", accent: "#eab308", logo: "🏓", banners: [] },
-  handball: { theme: "from-amber-900 to-amber-950", accent: "#f59e0b", logo: "🤾", banners: [] },
-  "american-football": { theme: "from-indigo-900 to-indigo-950", accent: "#6366f1", logo: "🏈", banners: [] },
-  golf: { theme: "from-green-800 to-green-950", accent: "#22c55e", logo: "⛳", banners: [] },
-  mma: { theme: "from-red-950 to-black", accent: "#dc2626", logo: "🥋", banners: [] },
+  basketball: {
+    theme: "from-orange-900 to-orange-950",
+    accent: "#f97316",
+    logo: "🏀",
+    banners: [],
+  },
+  volleyball: {
+    theme: "from-blue-900 to-blue-950",
+    accent: "#3b82f6",
+    logo: "🏐",
+    banners: [],
+  },
+  tennis: {
+    theme: "from-purple-900 to-purple-950",
+    accent: "#a855f7",
+    logo: "🎾",
+    banners: [],
+  },
+  baseball: {
+    theme: "from-red-900 to-red-950",
+    accent: "#ef4444",
+    logo: "⚾",
+    banners: [],
+  },
+  boxing: {
+    theme: "from-rose-900 to-rose-950",
+    accent: "#f43f5e",
+    logo: "🥊",
+    banners: [],
+  },
+  rugby: {
+    theme: "from-teal-900 to-teal-950",
+    accent: "#14b8a6",
+    logo: "🏉",
+    banners: [],
+  },
+  hockey: {
+    theme: "from-cyan-900 to-cyan-950",
+    accent: "#06b6d4",
+    logo: "🏒",
+    banners: [],
+  },
+  badminton: {
+    theme: "from-lime-900 to-lime-950",
+    accent: "#84cc16",
+    logo: "🏸",
+    banners: [],
+  },
+  "table-tennis": {
+    theme: "from-yellow-900 to-yellow-950",
+    accent: "#eab308",
+    logo: "🏓",
+    banners: [],
+  },
+  handball: {
+    theme: "from-amber-900 to-amber-950",
+    accent: "#f59e0b",
+    logo: "🤾",
+    banners: [],
+  },
+  "american-football": {
+    theme: "from-indigo-900 to-indigo-950",
+    accent: "#6366f1",
+    logo: "🏈",
+    banners: [],
+  },
+  golf: {
+    theme: "from-green-800 to-green-950",
+    accent: "#22c55e",
+    logo: "⛳",
+    banners: [],
+  },
+  mma: {
+    theme: "from-red-950 to-black",
+    accent: "#dc2626",
+    logo: "🥋",
+    banners: [],
+  },
 };
 
-export default function SportsBettingInterface({ sport }: SportsBettingInterfaceProps) {
+export default function SportsBettingInterface({
+  sport,
+}: SportsBettingInterfaceProps) {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("all");
@@ -81,7 +152,7 @@ export default function SportsBettingInterface({ sport }: SportsBettingInterface
 
   const sportKey = sport.toLowerCase() as keyof typeof config;
   const activeConfig = config[sportKey] || config.football;
-  
+
   const sportName = t(
     `sports.${
       sportKey === "table-tennis"
@@ -105,7 +176,10 @@ export default function SportsBettingInterface({ sport }: SportsBettingInterface
     limit: itemsPerPage,
   });
 
-  const matches = useMemo(() => matchesResponse?.data?.results || [], [matchesResponse]);
+  const matches = useMemo(
+    () => matchesResponse?.data?.results || [],
+    [matchesResponse],
+  );
   const pagination = matchesResponse?.data?.pagination;
 
   const filteredMatches = matches.filter((m: IMatch) => {
@@ -150,10 +224,18 @@ export default function SportsBettingInterface({ sport }: SportsBettingInterface
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          <Button variant="outline" size="icon" className="shrink-0 size-11 border-border rounded-md">
+          <Button
+            variant="outline"
+            size="icon"
+            className="shrink-0 size-11 border-border rounded-md"
+          >
             <Calendar className="size-4" />
           </Button>
-          <Button variant="outline" size="icon" className="shrink-0 size-11 border-border rounded-md">
+          <Button
+            variant="outline"
+            size="icon"
+            className="shrink-0 size-11 border-border rounded-md"
+          >
             <Filter className="size-4" />
           </Button>
         </div>
@@ -165,7 +247,11 @@ export default function SportsBettingInterface({ sport }: SportsBettingInterface
       )}
 
       {/* Tabs / Filter Navigation */}
-      <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
+      <Tabs
+        value={activeTab}
+        onValueChange={handleTabChange}
+        className="w-full"
+      >
         <TabsList className="bg-muted/30 border border-border w-full justify-start h-auto p-1.5 rounded-md gap-2 overflow-x-auto no-scrollbar">
           <TabsTrigger
             value="all"
@@ -198,8 +284,12 @@ export default function SportsBettingInterface({ sport }: SportsBettingInterface
             <div className="flex flex-col items-center justify-center py-24 space-y-4 border border-dashed border-border rounded-md bg-muted/10 text-center">
               <Activity className="size-12 text-muted-foreground/30" />
               <div className="space-y-1">
-                <h3 className="text-lg font-bold text-foreground">No Markets Found</h3>
-                <p className="text-sm text-muted-foreground">Try adjusting your filters or search query.</p>
+                <h3 className="text-lg font-bold text-foreground">
+                  No Markets Found
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Try adjusting your filters or search query.
+                </p>
               </div>
             </div>
           ) : (
@@ -209,7 +299,7 @@ export default function SportsBettingInterface({ sport }: SportsBettingInterface
                   <SportMatchCard key={match._id} match={match} />
                 ))}
               </div>
-              
+
               {pagination && pagination.totalPages > 1 && (
                 <div className="flex justify-center pt-8">
                   <Pagination

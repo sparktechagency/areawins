@@ -1,11 +1,11 @@
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
-import { ROUTES } from "@/lib/constants";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { ROUTES } from "@/constants";
+import { useTranslation } from "@/i18n/LanguageContext";
 import { formatCurrency } from "@/lib/utils";
 import { ArrowRight, TrendingDown, TrendingUp, Wallet } from "lucide-react";
 import Link from "next/link";
-import { useGetMyWalletQuery } from "@/lib/redux/api/walletApi";
+import { useGetMyWalletQuery } from "@/redux/api/walletApi";
 import StatsOverviewSkeleton from "@/components/skeleton/StatsOverviewSkeleton";
 
 export default function StatsOverview() {

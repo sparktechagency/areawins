@@ -2,7 +2,7 @@
 
 import hero from "@/assets/hero/herosection.png";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { useTranslation } from "@/i18n/LanguageContext";
 import Link from "next/link";
 
 const HeroSection = () => {

@@ -2,7 +2,7 @@
 
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { useTranslation } from "@/i18n/LanguageContext";
 import { AlertTriangle, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";

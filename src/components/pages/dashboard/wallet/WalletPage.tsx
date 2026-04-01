@@ -9,8 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ROUTES } from "@/lib/constants";
-import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { ROUTES } from "@/constants";
+import { useTranslation } from "@/i18n/LanguageContext";
 import { formatCurrency } from "@/lib/utils";
 import {
   ArrowDownLeft,

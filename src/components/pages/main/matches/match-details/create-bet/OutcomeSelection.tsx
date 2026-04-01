@@ -9,7 +9,7 @@ import React from "react";
 interface OutcomeSelectionProps {
   marketOutcomes: MarketCategory[];
   outcome: string | null;
-  onSelect: (outcome: string, marketName: string) => void;
+  onSelect: (outcome: string, marketName: string, marketId: string) => void;
 }
 
 const OutcomeSelection: React.FC<OutcomeSelectionProps> = ({
@@ -47,14 +47,16 @@ const OutcomeSelection: React.FC<OutcomeSelectionProps> = ({
               {market.outcomes.map((o: OutcomeStat) => (
                 <button
                   key={o.id}
-                  onClick={() => onSelect(o.label, market.marketName)}
+                  onClick={() => onSelect(o.label, market.marketName, market.marketId)}
                   className={cn(
                     "group relative overflow-hidden bg-muted/20 hover:bg-primary/5 border border-border/50 hover:border-primary/50 px-4 py-2 rounded-lg transition-all flex items-center justify-between cursor-pointer active:scale-[0.98]",
                     outcome === o.label && "border-primary bg-primary/10",
                   )}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-2xl">{o.icon || o.label.charAt(0)}</span>
+                    <span className="text-2xl">
+                      {o.icon || o.label.charAt(0)}
+                    </span>
                     <span className="text-sm sm:text-base font-bold text-foreground group-hover:text-primary transition-colors">
                       {o.label}
                     </span>
