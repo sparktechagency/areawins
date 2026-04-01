@@ -6,15 +6,7 @@ import { ReduxProvider } from "@/lib/redux/provider";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { Work_Sans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
-import "../globals.css";
-
-const workSans = Work_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-work-sans",
-});
 
 export const metadata: Metadata = {
   title: "AreaWins - Your Premier Sports Betting Platform",
@@ -31,33 +23,24 @@ export const metadata: Metadata = {
 
 export default async function LocaleLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body
-        className={`${workSans.className} ${workSans.variable} antialiased`}
-      >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <NextIntlClientProvider messages={messages}>
-            <LanguageProvider>
-              <ReduxProvider>
-                <UserInitializer>
-                  {children}
-                  <AuthModal />
-                  <Toaster position="top-center" />
-                </UserInitializer>
-              </ReduxProvider>
-            </LanguageProvider>
-          </NextIntlClientProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <NextIntlClientProvider messages={messages}>
+        <LanguageProvider>
+          <ReduxProvider>
+            <UserInitializer>
+              {children}
+              <AuthModal />
+              <Toaster position="top-center" />
+            </UserInitializer>
+          </ReduxProvider>
+        </LanguageProvider>
+      </NextIntlClientProvider>
+    </ThemeProvider>
   );
 }
