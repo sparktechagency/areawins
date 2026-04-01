@@ -1,30 +1,24 @@
 "use client";
-
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { closeAuthModal, setAuthView } from "@/lib/redux/features/authUiSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
-import { useVerifyOtpMutation } from "@/lib/redux/api/authApi";
-import { verifyOtpSchema } from "@/lib/validators/authSchema";
-import { getClientCookie } from "@/utils/cookieUtils";
+import { setAuthView } from "@/lib/redux/features/authUiSlice";
+import { useAppDispatch } from "@/lib/redux/hooks";
+import { useForgotPasswordMutation } from "@/lib/redux/api/authApi";
+import { forgotPasswordSchema } from "@/lib/validators/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowLeft, Mail, AlertCircle, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import * as z from "zod";
-import { useRouter } from "next/navigation";
-import { AlertCircle, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type VerifyOtpValues = z.infer<typeof verifyOtpSchema>;
+type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>;
 
-export default function VerifyOtpForm() {
+export default function ForgotPasswordForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const router = useRouter();
-  const { email, otpReason } = useAppSelector((state) => state.authUi);
-  const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
+  const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
   const [formMessage, setFormMessage] = useState<{
     type: "success" | "error";
     text: string;
@@ -34,51 +28,29 @@ export default function VerifyOtpForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<VerifyOtpValues>({
-    resolver: zodResolver(verifyOtpSchema),
+  } = useForm<ForgotPasswordValues>({
+    resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
-      sessionId: getClientCookie("sessionId") || "",
-      code: "",
+      email: "",
     },
   });
 
-  const onSubmit = async (data: VerifyOtpValues) => {
+  const onSubmit = async (data: ForgotPasswordValues) => {
     setFormMessage(null);
     try {
-      if (!data.sessionId) {
-        const sid = getClientCookie("sessionId");
-        if (sid) {
-          data.sessionId = sid;
-        } else {
-          setFormMessage({
-            type: "error",
-            text: "Session expired. Please try again.",
-          });
-          return;
-        }
-      }
-
-      const result = await verifyOtp(data).unwrap();
+      const result = await forgotPassword(data).unwrap();
       if (result.success) {
         setFormMessage({
           type: "success",
-          text: result.message || t("auth.emailVerifiedSuccess"),
+          text: result.message || t("auth.resetLinkSent"),
         });
-        toast.success(result.message || t("auth.emailVerifiedSuccess"));
         setTimeout(() => {
-          if (result.data?.redirect === "/reset-password") {
-            dispatch(setAuthView("RESET_PASSWORD"));
-          } else {
-            dispatch(closeAuthModal());
-            if (result.data?.redirect) {
-              router.push(result.data.redirect);
-            }
-          }
+          dispatch(setAuthView("VERIFY_OTP"));
         }, 1500);
       } else {
         setFormMessage({
           type: "error",
-          text: result.message || "OTP verification failed",
+          text: result.message || "Failed to send reset code",
         });
       }
     } catch (error: unknown) {
@@ -93,11 +65,11 @@ export default function VerifyOtpForm() {
   return (
     <div className="p-6 space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar">
       <div className="text-center space-y-2">
-        <h2 className="text-2xl  text-foreground">{t("auth.verifyEmail")}</h2>
+        <h2 className="text-2xl  text-foreground">
+          {t("auth.forgotPassword")}
+        </h2>
         <p className="text-sm text-muted-foreground">
-          {otpReason === "REGISTER"
-            ? `${t("auth.codeSentTo")} ${email}`
-            : t("auth.enterVerificationCodeEmail")}
+          {t("auth.forgotPasswordSubtitle")}
         </p>
       </div>
 
@@ -121,12 +93,13 @@ export default function VerifyOtpForm() {
         )}
 
         <FormInput
-          id="code"
-          type="text"
-          label={t("auth.verificationCode")}
-          placeholder={t("auth.enter6DigitCode")}
-          error={errors.code?.message}
-          {...register("code")}
+          id="email"
+          type="email"
+          label={t("auth.emailAddress")}
+          icon={Mail}
+          placeholder={t("auth.enterYourEmail")}
+          error={errors.email?.message}
+          {...register("email")}
           required
         />
 
@@ -135,15 +108,16 @@ export default function VerifyOtpForm() {
           className="w-full font-bold cursor-pointer"
           disabled={isLoading}
         >
-          {isLoading ? t("auth.verifying") : t("auth.verifyEmail")}
+          {isLoading ? t("auth.sending") : t("auth.sendResetCode")}
         </Button>
       </form>
 
-      <div className="text-center text-sm text-muted-foreground">
+      <div className="text-center flex items-center justify-center">
         <button
           onClick={() => dispatch(setAuthView("LOGIN"))}
-          className="text-primary font-bold hover:underline cursor-pointer"
+          className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm cursor-pointer"
         >
+          <ArrowLeft className="size-4" />
           {t("auth.backToLogin")}
         </button>
       </div>

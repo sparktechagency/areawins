@@ -7,7 +7,7 @@ export interface OutcomeInfo {
 export interface BetTypeInfo {
   _id: string;
   betTypeId: string;
-  sport: string; // ObjectId Reference
+  sport: string; 
   name: string;
   slug: string;
   outcomes: OutcomeInfo[];
@@ -68,6 +68,10 @@ export interface OutcomeStat {
   trend?: "up" | "down";
   probability?: number;
   volume?: number;
+  icon?: string;
+  bets?: number;
+  pot?: number;
+  open?: number;
 }
 
 export interface MarketCategory {

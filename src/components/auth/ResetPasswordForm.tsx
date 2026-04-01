@@ -12,7 +12,6 @@ import { getClientCookie } from "@/utils/cookieUtils";
 import { ArrowLeft, Lock, AlertCircle, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import * as z from "zod";
 import { cn } from "@/lib/utils";
 
@@ -61,7 +60,6 @@ export default function ResetPasswordForm() {
           type: "success",
           text: result.message || t("auth.passwordResetSuccess"),
         });
-        toast.success(result.message || t("auth.passwordResetSuccess"));
         setTimeout(() => {
           dispatch(setAuthView("LOGIN"));
         }, 1500);

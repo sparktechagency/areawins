@@ -11,7 +11,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, CheckCircle, Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";

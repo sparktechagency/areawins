@@ -7,7 +7,7 @@ export interface IUser {
   customerId: string;
   profileImage: string;
   referralCode: string;
-  referredUsers: [IUser];
+  referredUsers: IUser[];
   referralEarnings: number;
   isVerified: boolean;
   isBlocked: boolean;

@@ -10,13 +10,10 @@ export default function DashboardPage() {
       <section className="w-full mx-auto">
         {/* Greeting Section */}
         <DashboardGreeting />
-
         {/* Stats Overview Cards */}
         <StatsOverview />
-
         {/* Main Charts Section */}
         <ProfitLossChart />
-
         {/* Recent Bets Table */}
         <RecentBetsTable />
       </section>

@@ -1,0 +1,293 @@
+"use client";
+
+import { FormInput } from "@/components/form/FormInput";
+import DashboardLayout from "@/components/layouts/DashboardLayout";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Switch } from "@/components/ui/switch";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
+import {
+  AlertTriangle,
+  Bell,
+  Globe,
+  Lock,
+  Save,
+  Settings as SettingsIcon,
+  Trash2,
+  X,
+  CreditCard,
+} from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+import DeleteAccountForm from "../profile/DeleteAccountForm";
+
+export default function SettingsPage() {
+  const { t } = useTranslation();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  // Password change states
+  const [isEditingPassword, setIsEditingPassword] = useState(false);
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [passwordForm, setPasswordForm] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  // Notification states
+  const [notifications, setNotifications] = useState({
+    push: true,
+    email: false,
+    marketing: false,
+  });
+
+  const handlePasswordChange = (field: string, value: string) => {
+    setPasswordForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const validatePassword = (): boolean => {
+    if (!passwordForm.oldPassword.trim()) {
+      toast.error(t("profile.toastEnterCurrentPassword"));
+      return false;
+    }
+    if (!passwordForm.newPassword.trim()) {
+      toast.error(t("profile.toastEnterNewPassword"));
+      return false;
+    }
+    if (passwordForm.newPassword.length < 6) {
+      toast.error(t("profile.toastPasswordMin"));
+      return false;
+    }
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      toast.error(t("profile.toastPasswordMismatch"));
+      return false;
+    }
+    if (passwordForm.oldPassword === passwordForm.newPassword) {
+      toast.error(t("profile.toastPasswordDifferent"));
+      return false;
+    }
+    return true;
+  };
+
+  const handleSavePassword = async () => {
+    if (!validatePassword()) return;
+
+    setPasswordLoading(true);
+    try {
+      // TODO: Implement API call to change password
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      toast.success(t("profile.toastPasswordChanged"));
+      setPasswordForm({
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+      setIsEditingPassword(false);
+    } catch {
+      toast.error(t("profile.toastPasswordFailed"));
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
+
+  return (
+    <DashboardLayout>
+      <div className="w-full mx-auto max-w-5xl">
+        {/* Page Header */}
+        <div className="mb-6 sm:mb-8">
+          <div className="flex items-center gap-2 sm:gap-3 mb-2">
+            <div className="p-2 sm:p-2.5 bg-primary/10 rounded-lg">
+              <SettingsIcon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+            </div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl  text-foreground uppercase tracking-tight">
+              {t("settings.title")}
+            </h1>
+          </div>
+          <p className="text-xs sm:text-sm text-muted-foreground font-medium">
+            {t("settings.subtitle")}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* LEFT: Preferences & Notifications */}
+          <div className="md:col-span-2 space-y-6">
+            {/* Account Preferences */}
+            <Card className="border-border shadow-none">
+              <CardHeader className="p-4 sm:p-6 border-b border-border">
+                <CardTitle className="text-lg font-bold flex items-center gap-2">
+                  <Globe className="w-5 h-5 text-primary" />
+                  {t("settings.accountSettings")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 sm:p-6 space-y-6">
+                <div className="flex items-center justify-between p-4 bg-muted/20 rounded-xl border border-border/50">
+                  <div className="space-y-0.5">
+                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">{t("settings.language")}</p>
+                    <p className="text-xs text-muted-foreground">Select your preferred language</p>
+                  </div>
+                  <Button variant="outline" size="sm" className="font-bold">
+                    English
+                  </Button>
+                </div>
+
+                <div className="flex items-center justify-between p-4 bg-muted/20 rounded-xl border border-border/50">
+                  <div className="space-y-0.5">
+                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">{t("settings.currency")}</p>
+                    <p className="text-xs text-muted-foreground">Select your default currency for betting</p>
+                  </div>
+                  <Button variant="outline" size="sm" className="font-bold flex items-center gap-2">
+                    <CreditCard className="w-4 h-4" />
+                    USD ($)
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Notification Settings */}
+            <Card className="border-border shadow-none">
+              <CardHeader className="p-4 sm:p-6 border-b border-border">
+                <CardTitle className="text-lg font-bold flex items-center gap-2">
+                  <Bell className="w-5 h-5 text-primary" />
+                  {t("settings.notifications")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 sm:p-6 space-y-6">
+                <div className="flex items-center justify-between p-1">
+                  <div className="space-y-0.5">
+                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">{t("settings.pushNotifications")}</p>
+                    <p className="text-xs text-muted-foreground">{t("settings.pushNotificationsDesc")}</p>
+                  </div>
+                  <Switch 
+                    checked={notifications.push} 
+                    onCheckedChange={(val) => setNotifications(prev => ({...prev, push: val}))}
+                  />
+                </div>
+
+                <div className="flex items-center justify-between p-1">
+                  <div className="space-y-0.5">
+                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">{t("settings.emailNotifications")}</p>
+                    <p className="text-xs text-muted-foreground">{t("settings.emailNotificationsDesc")}</p>
+                  </div>
+                  <Switch 
+                    checked={notifications.email} 
+                    onCheckedChange={(val) => setNotifications(prev => ({...prev, email: val}))}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* RIGHT: Security & Danger Zone */}
+          <div className="md:col-span-1 space-y-6">
+            {/* Change Password */}
+            <Card className="border-border shadow-none">
+              <CardHeader className="p-4 sm:p-6 border-b border-border">
+                <CardTitle className="text-lg font-bold flex items-center gap-2">
+                  <Lock className="w-5 h-5 text-primary" />
+                  {t("settings.changePassword")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 sm:p-6">
+                {!isEditingPassword ? (
+                  <div className="space-y-4 text-center py-2">
+                    <p className="text-xs text-muted-foreground">
+                      {t("settings.changePasswordDescription")}
+                    </p>
+                    <Button 
+                      onClick={() => setIsEditingPassword(true)} 
+                      className="w-full font-bold uppercase tracking-widest text-xs"
+                    >
+                      {t("settings.changePassword")}
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <FormInput
+                      type="password"
+                      label={t("profile.currentPassword")}
+                      value={passwordForm.oldPassword}
+                      onChange={(e) => handlePasswordChange("oldPassword", e.target.value)}
+                    />
+                    <FormInput
+                      type="password"
+                      label={t("profile.newPassword")}
+                      value={passwordForm.newPassword}
+                      onChange={(e) => handlePasswordChange("newPassword", e.target.value)}
+                    />
+                    <FormInput
+                      type="password"
+                      label={t("profile.confirmPassword")}
+                      value={passwordForm.confirmPassword}
+                      onChange={(e) => handlePasswordChange("confirmPassword", e.target.value)}
+                    />
+                    <div className="flex gap-2 pt-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex-1"
+                        onClick={() => setIsEditingPassword(false)}
+                      >
+                        <X className="w-4 h-4 mr-2" />
+                        {t("profile.cancel")}
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        className="flex-1"
+                        onClick={handleSavePassword}
+                        disabled={passwordLoading}
+                      >
+                        <Save className="w-4 h-4 mr-2" />
+                        {passwordLoading ? t("profile.saving") : t("profile.save")}
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Danger Zone */}
+            <Card className="border-red-500/30 bg-red-500/5 shadow-none">
+              <CardHeader className="p-4 sm:p-6 border-b border-red-500/20">
+                <CardTitle className="text-lg font-bold flex items-center gap-2 text-red-500">
+                  <AlertTriangle className="w-5 h-5" />
+                  {t("settings.dangerZone")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 sm:p-6 space-y-4">
+                <p className="text-xs text-muted-foreground">
+                  {t("settings.dangerDescription")}
+                </p>
+                <Button 
+                  variant="destructive" 
+                  className="w-full font-bold uppercase tracking-widest text-xs"
+                  onClick={() => setShowDeleteModal(true)}
+                >
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  {t("settings.deleteAccount")}
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+
+      {/* Delete Account Dialog */}
+      <Dialog open={showDeleteModal} onOpenChange={setShowDeleteModal}>
+        <DialogContent className="max-w-lg border-red-500/30 bg-card">
+          <DialogHeader>
+            <DialogTitle className="text-lg sm:text-xl  uppercase tracking-tight">
+              {t("profile.deleteAccount")}
+            </DialogTitle>
+          </DialogHeader>
+          <DeleteAccountForm onClose={() => setShowDeleteModal(false)} />
+        </DialogContent>
+      </Dialog>
+    </DashboardLayout>
+  );
+}

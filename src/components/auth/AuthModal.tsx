@@ -3,11 +3,11 @@
 import { ReusableModal } from "@/components/shared/ReusableModal";
 import { closeAuthModal } from "@/lib/redux/features/authUiSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
-import ForgotPasswordForm from "./forms/ForgotPasswordForm";
-import LoginForm from "./forms/LoginForm";
-import RegisterForm from "./forms/RegisterForm";
-import ResetPasswordForm from "./forms/ResetPasswordForm";
-import VerifyOtpForm from "./forms/VerifyOtpForm";
+import ForgotPasswordForm from "./ForgotPasswordForm";
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
+import ResetPasswordForm from "./ResetPasswordForm";
+import VerifyOtpForm from "./VerifyOtpForm";
 
 const AuthModal = () => {
   const dispatch = useAppDispatch();

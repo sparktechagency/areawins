@@ -7,19 +7,12 @@ import { ROUTES } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { Link, usePathname } from "@/lib/i18n/routing";
 import { Bell, ChevronRight } from "lucide-react";
+import { useAppSelector } from "@/lib/redux/hooks";
 
 export default function DashboardHeader() {
   const pathname = usePathname();
   const { t } = useTranslation();
-  // const { user } = useAuth();
-  const user = {
-    firstName: "Rakib",
-    lastName: "Hassan",
-    avatar: "",
-    profileImage: "",
-    fullName: "Rakib Hassan",
-    role: "User",
-  }; // Mock user
+  const { user } = useAppSelector((state) => state.auth);
 
   // Generate breadcrumbs from pathname
   const pathSegments = pathname.split("/").filter(Boolean);

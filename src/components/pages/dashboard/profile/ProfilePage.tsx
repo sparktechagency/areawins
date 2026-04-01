@@ -5,34 +5,23 @@ import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { useAuth } from "@/hooks/useAuth";
+import { useAppSelector } from "@/lib/redux/hooks";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import {
-  AlertTriangle,
   Camera,
   Edit2,
-  Lock,
   Save,
-  Trash2,
   User,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import DeleteAccountForm from "./DeleteAccountForm";
 import EditAvatarModal from "./EditAvatarModal";
 
 export default function ProfilePage() {
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { user } = useAppSelector((state) => state.auth);
   const [showEditAvatarModal, setShowEditAvatarModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // Personal info edit states
   const [isEditingPersonalInfo, setIsEditingPersonalInfo] = useState(false);
@@ -43,75 +32,19 @@ export default function ProfilePage() {
     email: user?.email || "",
   });
 
-  // Password change states
-  const [isEditingPassword, setIsEditingPassword] = useState(false);
-  const [passwordLoading, setPasswordLoading] = useState(false);
-  const [passwordForm, setPasswordForm] = useState({
-    oldPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-  });
+  // Update local state when redux user changes
+  useEffect(() => {
+    if (user) {
+      setPersonalInfo({
+        fullName: user.fullName || "",
+        nickname: user.nickname || "",
+        email: user.email || "",
+      });
+    }
+  }, [user]);
 
   const handlePersonalInfoChange = (field: string, value: string) => {
     setPersonalInfo((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handlePasswordChange = (field: string, value: string) => {
-    setPasswordForm((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const validatePassword = (): boolean => {
-    if (!passwordForm.oldPassword.trim()) {
-      toast.error(t("profile.toastEnterCurrentPassword"));
-      return false;
-    }
-    if (!passwordForm.newPassword.trim()) {
-      toast.error(t("profile.toastEnterNewPassword"));
-      return false;
-    }
-    if (passwordForm.newPassword.length < 6) {
-      toast.error(t("profile.toastPasswordMin"));
-      return false;
-    }
-    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-      toast.error(t("profile.toastPasswordMismatch"));
-      return false;
-    }
-    if (passwordForm.oldPassword === passwordForm.newPassword) {
-      toast.error(t("profile.toastPasswordDifferent"));
-      return false;
-    }
-    return true;
-  };
-
-  const handleSavePassword = async () => {
-    if (!validatePassword()) return;
-
-    setPasswordLoading(true);
-    try {
-      // TODO: Implement API call to change password
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      toast.success(t("profile.toastPasswordChanged"));
-      setPasswordForm({
-        oldPassword: "",
-        newPassword: "",
-        confirmPassword: "",
-      });
-      setIsEditingPassword(false);
-    } catch {
-      toast.error(t("profile.toastPasswordFailed"));
-    } finally {
-      setPasswordLoading(false);
-    }
-  };
-
-  const handleCancelPasswordEdit = () => {
-    setPasswordForm({
-      oldPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    });
-    setIsEditingPassword(false);
   };
 
   const handleSavePersonalInfo = async () => {
@@ -171,7 +104,7 @@ export default function ProfilePage() {
                   </Avatar>
                   <button
                     onClick={() => setShowEditAvatarModal(true)}
-                    className="absolute bottom-0 right-0 p-2 bg-primary hover:bg-primary/90 rounded-full text-white transition-colors shadow-lg"
+                    className="absolute bottom-0 right-0 p-2 bg-primary hover:bg-primary/90 rounded-full text-white transition-colors shadow-lg cursor-pointer"
                   >
                     <Camera className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
@@ -188,7 +121,7 @@ export default function ProfilePage() {
                 {/* Change Photo Button */}
                 <Button
                   onClick={() => setShowEditAvatarModal(true)}
-                  className="w-full mt-6 text-xs sm:text-sm  uppercase tracking-widest"
+                  className="w-full mt-6 text-xs sm:text-sm  uppercase tracking-widest cursor-pointer"
                   variant="outline"
                 >
                   <Camera className="w-4 h-4 mr-2" />
@@ -198,9 +131,8 @@ export default function ProfilePage() {
             </Card>
           </div>
 
-          {/* RIGHT SIDE - Personal Info, Change Password, Danger Zone */}
+          {/* RIGHT SIDE - Personal Info */}
           <div className="md:col-span-3 space-y-4 sm:space-y-6">
-            {/* Personal Information Card */}
             <Card className="border-border shadow-none">
               <CardHeader className="p-4 sm:p-6 border-b border-border">
                 <div className="flex items-center justify-between">
@@ -211,7 +143,7 @@ export default function ProfilePage() {
                     <Button
                       onClick={() => setIsEditingPersonalInfo(true)}
                       size="sm"
-                      className="text-xs sm:text-sm  uppercase tracking-widest"
+                      className="text-xs sm:text-sm  uppercase tracking-widest cursor-pointer"
                     >
                       <Edit2 className="w-4 h-4 mr-2" />
                       {t("profile.edit")}
@@ -255,7 +187,7 @@ export default function ProfilePage() {
                       onClick={handleCancelEdit}
                       variant="outline"
                       disabled={personalInfoLoading}
-                      className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
+                      className="flex-1 text-xs sm:text-sm  uppercase tracking-widest cursor-pointer"
                     >
                       <X className="w-4 h-4 mr-2" />
                       {t("profile.cancel")}
@@ -263,7 +195,7 @@ export default function ProfilePage() {
                     <Button
                       onClick={handleSavePersonalInfo}
                       disabled={personalInfoLoading}
-                      className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
+                      className="flex-1 text-xs sm:text-sm  uppercase tracking-widest cursor-pointer"
                     >
                       {personalInfoLoading ? (
                         t("profile.saving")
@@ -278,136 +210,6 @@ export default function ProfilePage() {
                 )}
               </CardContent>
             </Card>
-
-            {/* Change Password Card */}
-            <Card className="border-border shadow-none">
-              <CardHeader className="p-4 sm:p-6 border-b border-border">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg sm:text-xl font-bold flex items-center gap-2">
-                    <Lock className="w-5 h-5 text-primary" />
-                    {t("profile.changePassword")}
-                  </CardTitle>
-                  {!isEditingPassword && (
-                    <Button
-                      onClick={() => setIsEditingPassword(true)}
-                      size="sm"
-                      className="text-xs sm:text-sm  uppercase tracking-widest"
-                    >
-                      <Edit2 className="w-4 h-4 mr-2" />
-                      {t("profile.change")}
-                    </Button>
-                  )}
-                </div>
-              </CardHeader>
-              <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-5">
-                {!isEditingPassword ? (
-                  <>
-                    <p className="text-xs sm:text-sm text-muted-foreground">
-                      {t("profile.changePasswordDescription")}
-                    </p>
-                    <Button
-                      onClick={() => setIsEditingPassword(true)}
-                      className="w-full text-xs sm:text-sm  uppercase tracking-widest"
-                    >
-                      <Lock className="w-4 h-4 mr-2" />
-                      {t("profile.changePassword")}
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    {/* Old Password */}
-                    <FormInput
-                      type="password"
-                      label={t("profile.currentPassword")}
-                      value={passwordForm.oldPassword}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        handlePasswordChange("oldPassword", e.target.value)
-                      }
-                      placeholder={t("profile.enterCurrentPassword")}
-                    />
-
-                    {/* New Password */}
-                    <div className="space-y-1.5 sm:space-y-2">
-                      <FormInput
-                        type="password"
-                        label={t("profile.newPassword")}
-                        value={passwordForm.newPassword}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          handlePasswordChange("newPassword", e.target.value)
-                        }
-                        placeholder={t("profile.enterNewPassword")}
-                      />
-                      <p className="text-[10px] sm:text-xs text-muted-foreground">
-                        {t("profile.min6Chars")}
-                      </p>
-                    </div>
-
-                    {/* Confirm Password */}
-                    <FormInput
-                      type="password"
-                      label={t("profile.confirmPassword")}
-                      value={passwordForm.confirmPassword}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        handlePasswordChange("confirmPassword", e.target.value)
-                      }
-                      placeholder={t("profile.confirmNewPassword")}
-                    />
-
-                    {/* Action Buttons */}
-                    <div className="flex gap-2 sm:gap-3 pt-2 sm:pt-4">
-                      <Button
-                        onClick={handleCancelPasswordEdit}
-                        variant="outline"
-                        disabled={passwordLoading}
-                        className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
-                      >
-                        <X className="w-4 h-4 mr-2" />
-                        {t("profile.cancel")}
-                      </Button>
-                      <Button
-                        onClick={handleSavePassword}
-                        disabled={passwordLoading}
-                        className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
-                      >
-                        {passwordLoading ? (
-                          t("profile.saving")
-                        ) : (
-                          <>
-                            <Save className="w-4 h-4 mr-2" />
-                            {t("profile.save")}
-                          </>
-                        )}
-                      </Button>
-                    </div>
-                  </>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Danger Zone Card */}
-            <Card className="border-red-500/30 bg-red-500/5 shadow-none">
-              <CardHeader className="p-4 sm:p-6 border-b border-red-500/20">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" />
-                  <CardTitle className="text-lg sm:text-xl font-bold text-red-500">
-                    {t("profile.dangerZone")}
-                  </CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-5">
-                <p className="text-xs sm:text-sm text-muted-foreground font-medium">
-                  {t("profile.dangerDescription")}
-                </p>
-                <Button
-                  onClick={() => setShowDeleteModal(true)}
-                  variant="destructive"
-                  className="w-full text-xs sm:text-sm  uppercase tracking-widest"
-                >
-                  <Trash2 className="w-4 h-4 mr-2" />
-                  {t("profile.deleteAccount")}
-                </Button>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>
@@ -417,18 +219,6 @@ export default function ProfilePage() {
         open={showEditAvatarModal}
         onClose={() => setShowEditAvatarModal(false)}
       />
-
-      {/* Delete Account Dialog */}
-      <Dialog open={showDeleteModal} onOpenChange={setShowDeleteModal}>
-        <DialogContent className="max-w-lg border-red-500/30 bg-card">
-          <DialogHeader>
-            <DialogTitle className="text-lg sm:text-xl  uppercase tracking-tight">
-              {t("profile.deleteAccount")}
-            </DialogTitle>
-          </DialogHeader>
-          <DeleteAccountForm onClose={() => setShowDeleteModal(false)} />
-        </DialogContent>
-      </Dialog>
     </DashboardLayout>
   );
 }

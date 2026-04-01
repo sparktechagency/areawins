@@ -51,6 +51,7 @@ export const ROUTES = {
   PROMOTIONS: "/dashboard/promotions",
   SUPPORT: "/dashboard/support",
   REFERRAL_FRIENDS: "/dashboard/referral-friends",
+  SETTINGS: "/dashboard/settings",
 } as const;
 
 /**
@@ -117,4 +118,5 @@ export const ROUTE_NAMES: Record<string, string> = {
   [ROUTES.MESSAGES]: "Messages",
   [ROUTES.NOTIFICATIONS]: "Notifications",
   [ROUTES.REFERRAL_FRIENDS]: "Referral Friends",
+  [ROUTES.SETTINGS]: "Settings",
 };

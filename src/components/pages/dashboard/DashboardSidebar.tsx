@@ -4,7 +4,9 @@ import logo from "@/assets/logo/areawins.png";
 import { Button } from "@/components/ui/button";
 import DarkModeToggle from "@/components/ui/dark-mode-toggle";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useAuth } from "@/hooks/useAuth";
+import { clearUser } from "@/lib/redux/features/authSlice";
+import { openAuthModal } from "@/lib/redux/features/authUiSlice";
+import { useAppDispatch } from "@/lib/redux/hooks";
 import { ROUTES } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { Link, usePathname } from "@/lib/i18n/routing";
@@ -15,6 +17,7 @@ import {
   LogOut,
   Menu,
   MessageCircle,
+  Settings,
   Trophy,
   User,
   Users,
@@ -25,7 +28,7 @@ import { useState } from "react";
 
 export default function DashboardSidebar() {
   const pathname = usePathname();
-  const { logout } = useAuth();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -57,7 +60,17 @@ export default function DashboardSidebar() {
       label: t("dashboard.menu.profile"),
       href: ROUTES.PROFILE,
     },
+    {
+      icon: Settings,
+      label: t("dashboard.menu.settings"),
+      href: ROUTES.SETTINGS,
+    },
   ];
+
+  const handleLogout = () => {
+    dispatch(clearUser());
+    dispatch(openAuthModal({ view: "LOGIN" }));
+  };
 
   const isRouteActive = (href: string) => {
     if (href === ROUTES.DASHBOARD) {
@@ -120,8 +133,8 @@ export default function DashboardSidebar() {
           {/* Bottom Area */}
           <div className="p-4 border-t border-border">
             <button
-              onClick={logout}
-              className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
+              onClick={handleLogout}
+              className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors cursor-pointer"
             >
               <LogOut className="w-5 h-5" />
               <span>{t("dashboard.menu.logout")}</span>
@@ -212,8 +225,8 @@ export default function DashboardSidebar() {
                 {/* Bottom Area */}
                 <div className="p-4 border-t border-border">
                   <button
-                    onClick={logout}
-                    className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
+                    onClick={handleLogout}
+                    className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors cursor-pointer"
                   >
                     <LogOut className="w-5 h-5" />
                     <span>{t("dashboard.menu.logout")}</span>

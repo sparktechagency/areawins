@@ -22,6 +22,8 @@ type ChartPoint = {
   loss: number;
 };
 
+import { Skeleton } from "@/components/ui/skeleton";
+
 export default function ProfitLossChart() {
   const { t } = useTranslation();
   const [periodFilter, setPeriodFilter] = useState<ProfitLossPeriod>(
@@ -48,7 +50,11 @@ export default function ProfitLossChart() {
   });
 
   const chartData = (chartResult?.chartData as ChartPoint[]) || [];
-  const errorMessage = isError ? (error as any)?.data?.message || (error as any)?.message || "Failed to fetch data" : "";
+  const errorMessage = isError
+    ? (error as { data?: { message?: string } })?.data?.message ||
+      (error as { message?: string })?.message ||
+      "Failed to fetch data"
+    : "";
 
   const headerLabel =
     periodFilter === ProfitLossPeriod.WEEKLY
@@ -96,9 +102,7 @@ export default function ProfitLossChart() {
       <CardContent>
         <div className="h-80 w-full">
           {isLoading ? (
-            <div className="flex items-center justify-center h-full">
-              <div className="animate-spin w-6 h-6 border-2 border-primary border-t-transparent rounded-full" />
-            </div>
+            <Skeleton className="w-full h-full rounded-lg" />
           ) : errorMessage ? (
             <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
               <p className="text-sm text-red-500">{errorMessage}</p>

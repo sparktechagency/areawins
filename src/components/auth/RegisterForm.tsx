@@ -13,7 +13,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, CheckCircle, Lock, Mail, Phone, User } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import * as z from "zod";
 import { cn } from "@/lib/utils";
 
@@ -61,7 +60,6 @@ export default function RegisterForm() {
           type: "success",
           text: result.message || t("auth.registrationSuccess"),
         });
-        toast.success(result.message || t("auth.registrationSuccess"));
         setTimeout(() => {
           dispatch(setAuthView("VERIFY_OTP"));
         }, 1500);
