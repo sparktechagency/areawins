@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { ReusableModal } from "@/components/shared/ReusableModal";
 import { getBetOutcomesByMarket } from "@/data/betting.data";
@@ -8,7 +9,8 @@ import { openAuthModal } from "@/redux/features/authUiSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { createBetSchema } from "@/validation/bet.validation";
 import React, { useEffect, useMemo, useState } from "react";
-import { toast } from "sonner";
+import { AlertCircle, CheckCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 // Sub-components
 import OutcomeSelection from "./create-bet/OutcomeSelection";
@@ -42,6 +44,10 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
   const [selectedMarketId, setSelectedMarketId] = useState<string | null>(null);
   const [stake, setStake] = useState<number>(50);
   const [odds, setOdds] = useState<number>(2.0);
+  const [formMessage, setFormMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   // Sync with props when modal opens
   useEffect(() => {
@@ -73,6 +79,7 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
         setSelectedMarketId(null);
         setStake(50);
         setOdds(2.0);
+        setFormMessage(null);
       }, 300);
       return () => clearTimeout(timer);
     }
@@ -88,18 +95,29 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
       return;
     }
 
+    setFormMessage(null);
+
     if (!wallet) {
-      toast.error("Unable to load wallet information. Please refresh.");
+      setFormMessage({
+        type: "error",
+        text: "Unable to load wallet information. Please refresh.",
+      });
       return;
     }
 
     if (wallet.totalBalance < stake) {
-      toast.error("Insufficient balance. Please deposit funds to place a bet.");
+      setFormMessage({
+        type: "error",
+        text: "Insufficient balance. Please deposit funds to place a bet.",
+      });
       return;
     }
 
     if (!outcome || !selectedMarketId) {
-      toast.error("Please select an outcome and market.");
+      setFormMessage({
+        type: "error",
+        text: "Please select an outcome and market.",
+      });
       return;
     }
 
@@ -120,15 +138,25 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
       if (response.success || response.data) {
         setStep("CONFIRMATION");
       } else {
-        toast.error("Failed to create bet");
+        setFormMessage({
+          type: "error",
+          text: "Failed to create bet",
+        });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Bet creation error:", error);
-      if (error?.name === "ZodError") {
-        toast.error(error.errors[0]?.message || "Validation Error");
+      const err = error as any;
+      if (err?.name === "ZodError") {
+        setFormMessage({
+          type: "error",
+          text: err.errors[0]?.message || "Validation Error",
+        });
       } else {
-        const errorMsg = error?.data?.message || error?.message || "Failed to create bet";
-        toast.error(errorMsg);
+        const errorMsg = err?.data?.message || err?.message || "Failed to create bet";
+        setFormMessage({
+          type: "error",
+          text: errorMsg,
+        });
       }
     }
   };
@@ -167,6 +195,26 @@ const CreateBetModal: React.FC<CreateBetModalProps> = ({
       <div className="relative h-full flex flex-col">
         {/* Progress Bar */}
         <StepIndicator currentStep={step} />
+
+        {formMessage && (
+          <div className="px-4 py-2">
+            <div
+              className={cn(
+                "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+                formMessage.type === "success"
+                  ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                  : "bg-destructive/10 text-destructive border border-destructive/20",
+              )}
+            >
+              {formMessage.type === "success" ? (
+                <CheckCircle className="size-4 shrink-0" />
+              ) : (
+                <AlertCircle className="size-4 shrink-0" />
+              )}
+              {formMessage.text}
+            </div>
+          </div>
+        )}
 
         <div className="flex-1 overflow-y-auto no-scrollbar pt-1">
           {step === "SELECT_OUTCOME" && (

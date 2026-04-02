@@ -253,14 +253,14 @@ export default function EditAvatarModal({
                 <Button
                   onClick={handleClear}
                   variant="outline"
-                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
+                  className="flex-1 text-xs sm:text-sm  tracking-widest cursor-pointer"
                 >
                   <X className="w-4 h-4 mr-2" />
                   {t("avatar.cancel")}
                 </Button>
                 <Button
                   onClick={handleFinishCrop}
-                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
+                  className="flex-1 text-xs sm:text-sm  tracking-widest cursor-pointer"
                 >
                   {t("avatar.cropContinue")}
                 </Button>
@@ -292,7 +292,7 @@ export default function EditAvatarModal({
               <div>
                 <Label
                   htmlFor="avatar-upload"
-                  className="text-xs sm:text-sm  uppercase tracking-widest text-muted-foreground"
+                  className="text-xs sm:text-sm  tracking-widest text-muted-foreground"
                 >
                   {t("avatar.selectImage")}
                 </Label>
@@ -307,7 +307,7 @@ export default function EditAvatarModal({
                 <Button
                   onClick={() => fileInputRef.current?.click()}
                   variant="outline"
-                  className="w-full mt-2 text-xs sm:text-sm  uppercase tracking-widest"
+                  className="w-full mt-2 text-xs sm:text-sm tracking-widest cursor-pointer"
                 >
                   <Upload className="w-4 h-4 mr-2" />
                   {t("avatar.browseFiles")}
@@ -319,7 +319,7 @@ export default function EditAvatarModal({
                 <Button
                   onClick={handleClear}
                   variant="outline"
-                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
+                  className="flex-1 text-xs sm:text-sm  tracking-widest cursor-pointer"
                   disabled={!preview}
                 >
                   <X className="w-4 h-4 mr-2" />
@@ -328,7 +328,7 @@ export default function EditAvatarModal({
                 <Button
                   onClick={handleUpload}
                   disabled={!preview || isLoading}
-                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
+                  className="flex-1 text-xs sm:text-sm tracking-widest cursor-pointer"
                 >
                   {isLoading ? t("avatar.uploading") : t("avatar.upload")}
                 </Button>

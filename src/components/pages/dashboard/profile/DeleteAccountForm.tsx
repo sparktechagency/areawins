@@ -6,6 +6,7 @@ import { useTranslation } from "@/i18n/LanguageContext";
 import { AlertCircle, AlertTriangle, CheckCircle, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useDeleteProfileMutation } from "@/redux/api/userApi";
 
 interface DeleteAccountFormProps {
   onClose: () => void;
@@ -15,7 +16,7 @@ export default function DeleteAccountForm({ onClose }: DeleteAccountFormProps) {
   const { t } = useTranslation();
   const [step, setStep] = useState<1 | 2>(1);
   const [confirmText, setConfirmText] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [deleteProfile, { isLoading: loading }] = useDeleteProfileMutation();
   const [formMessage, setFormMessage] = useState<{
     type: "success" | "error";
     text: string;
@@ -36,13 +37,11 @@ export default function DeleteAccountForm({ onClose }: DeleteAccountFormProps) {
       return;
     }
 
-    setLoading(true);
     try {
-      // TODO: Implement API call to delete account with password verification
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const result = await deleteProfile().unwrap() as any;
       setFormMessage({
         type: "success",
-        text: t("deleteAccount.toastDeleted"),
+        text: result?.message || t("deleteAccount.toastDeleted"),
       });
       setTimeout(() => {
         onClose();
@@ -53,8 +52,6 @@ export default function DeleteAccountForm({ onClose }: DeleteAccountFormProps) {
         type: "error",
         text: err.data?.message || t("deleteAccount.toastDeleteFailed") || "Failed to delete account",
       });
-    } finally {
-      setLoading(false);
     }
   };
 

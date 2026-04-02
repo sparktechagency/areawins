@@ -19,6 +19,7 @@ import {
   CheckCircle,
   CreditCard,
   Globe,
+  Loader2,
   Lock,
   Save,
   Settings as SettingsIcon,
@@ -28,14 +29,15 @@ import {
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import DeleteAccountForm from "../profile/DeleteAccountForm";
+import { useChangePasswordMutation } from "@/redux/api/authApi";
 
 export default function SettingsPage() {
-  const { t } = useTranslation();
+  const { t, language, setLanguage } = useTranslation();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // Password change states
-  const [isEditingPassword, setIsEditingPassword] = useState(false);
-  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [changePassword, { isLoading: passwordLoading }] =
+    useChangePasswordMutation();
   const [passwordForm, setPasswordForm] = useState({
     oldPassword: "",
     newPassword: "",
@@ -62,21 +64,27 @@ export default function SettingsPage() {
     if (!passwordForm.oldPassword.trim()) {
       setFormMessage({
         type: "error",
-        text: t("profile.toastEnterCurrentPassword") || "Please enter your current password",
+        text:
+          t("profile.toastEnterCurrentPassword") ||
+          "Please enter your current password",
       });
       return false;
     }
     if (!passwordForm.newPassword.trim()) {
       setFormMessage({
         type: "error",
-        text: t("profile.toastEnterNewPassword") || "Please enter your new password",
+        text:
+          t("profile.toastEnterNewPassword") ||
+          "Please enter your new password",
       });
       return false;
     }
-    if (passwordForm.newPassword.length < 6) {
+    if (passwordForm.newPassword.length < 8) {
       setFormMessage({
         type: "error",
-        text: t("profile.toastPasswordMin") || "Password must be at least 6 characters",
+        text:
+          t("profile.toastPasswordMin") ||
+          "Password must be at least 8 characters",
       });
       return false;
     }
@@ -90,7 +98,9 @@ export default function SettingsPage() {
     if (passwordForm.oldPassword === passwordForm.newPassword) {
       setFormMessage({
         type: "error",
-        text: t("profile.toastPasswordDifferent") || "New password must be different from current password",
+        text:
+          t("profile.toastPasswordDifferent") ||
+          "New password must be different from current password",
       });
       return false;
     }
@@ -101,31 +111,36 @@ export default function SettingsPage() {
     setFormMessage(null);
     if (!validatePassword()) return;
 
-    setPasswordLoading(true);
     try {
-      // TODO: Implement API call to change password
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const result = await changePassword({
+        oldPassword: passwordForm.oldPassword,
+        newPassword: passwordForm.newPassword,
+      }).unwrap();
+
       setFormMessage({
         type: "success",
-        text: t("profile.toastPasswordChanged") || "Password updated successfully",
+        text:
+          result?.message ||
+          t("profile.toastPasswordChanged") ||
+          "Password updated successfully",
       });
-      setTimeout(() => {
-        setPasswordForm({
-          oldPassword: "",
-          newPassword: "",
-          confirmPassword: "",
-        });
-        setIsEditingPassword(false);
-        setFormMessage(null);
-      }, 2000);
+
+      setPasswordForm({
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+
+      setTimeout(() => setFormMessage(null), 3000);
     } catch (error: unknown) {
       const err = error as { data?: { message?: string } };
       setFormMessage({
         type: "error",
-        text: err.data?.message || t("profile.toastPasswordFailed") || "Failed to update password",
+        text:
+          err.data?.message ||
+          t("profile.toastPasswordFailed") ||
+          "Failed to update password",
       });
-    } finally {
-      setPasswordLoading(false);
     }
   };
 
@@ -165,12 +180,28 @@ export default function SettingsPage() {
                       {t("settings.language")}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      Select your preferred language
+                      {t("settings.selectPreferredLanguage") ||
+                        "Select your preferred language"}
                     </p>
                   </div>
-                  <Button variant="outline" size="sm" className="font-bold">
-                    English
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      variant={language === "en" ? "default" : "outline"}
+                      size="sm"
+                      className="font-bold cursor-pointer"
+                      onClick={() => setLanguage("en")}
+                    >
+                      EN
+                    </Button>
+                    <Button
+                      variant={language === "es" ? "default" : "outline"}
+                      size="sm"
+                      className="font-bold cursor-pointer"
+                      onClick={() => setLanguage("es")}
+                    >
+                      ES
+                    </Button>
+                  </div>
                 </div>
 
                 <div className="flex items-center justify-between p-4 bg-muted/20 rounded-xl border border-border/50">
@@ -179,7 +210,8 @@ export default function SettingsPage() {
                       {t("settings.currency")}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      Select your default currency for betting
+                      {t("settings.selectDefaultCurrency") ||
+                        "Select your default currency for betting"}
                     </p>
                   </div>
                   <Button
@@ -214,6 +246,7 @@ export default function SettingsPage() {
                   </div>
                   <Switch
                     checked={notifications.push}
+                    className="cursor-pointer"
                     onCheckedChange={(val) =>
                       setNotifications((prev) => ({ ...prev, push: val }))
                     }
@@ -231,6 +264,7 @@ export default function SettingsPage() {
                   </div>
                   <Switch
                     checked={notifications.email}
+                    className="cursor-pointer"
                     onCheckedChange={(val) =>
                       setNotifications((prev) => ({ ...prev, email: val }))
                     }
@@ -238,11 +272,6 @@ export default function SettingsPage() {
                 </div>
               </CardContent>
             </Card>
-          </div>
-
-          {/* RIGHT: Security & Danger Zone */}
-          <div className="md:col-span-1 space-y-6">
-            {/* Change Password */}
             <Card className="border-border shadow-none">
               <CardHeader className="p-4 sm:p-6 border-b border-border">
                 <CardTitle className="text-lg font-bold flex items-center gap-2">
@@ -251,45 +280,37 @@ export default function SettingsPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-4 sm:p-6">
-                {!isEditingPassword ? (
-                  <div className="space-y-4 text-center py-2">
-                    <p className="text-xs text-muted-foreground">
-                      {t("settings.changePasswordDescription")}
-                    </p>
-                    <Button
-                      onClick={() => setIsEditingPassword(true)}
-                      className="w-full font-bold uppercase tracking-widest text-xs"
+                <div className="max-w-2xl mx-auto space-y-6">
+                  {formMessage && (
+                    <div
+                      className={cn(
+                        "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+                        formMessage.type === "success"
+                          ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                          : "bg-destructive/10 text-destructive border border-destructive/20",
+                      )}
                     >
-                      {t("settings.changePassword")}
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {formMessage && (
-                      <div
-                        className={cn(
-                          "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
-                          formMessage.type === "success"
-                            ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
-                            : "bg-destructive/10 text-destructive border border-destructive/20",
-                        )}
-                      >
-                        {formMessage.type === "success" ? (
-                          <CheckCircle className="size-4 shrink-0" />
-                        ) : (
-                          <AlertCircle className="size-4 shrink-0" />
-                        )}
-                        {formMessage.text}
-                      </div>
-                    )}
-                    <FormInput
-                      type="password"
-                      label={t("profile.currentPassword")}
-                      value={passwordForm.oldPassword}
-                      onChange={(e) =>
-                        handlePasswordChange("oldPassword", e.target.value)
-                      }
-                    />
+                      {formMessage.type === "success" ? (
+                        <CheckCircle className="size-4 shrink-0" />
+                      ) : (
+                        <AlertCircle className="size-4 shrink-0" />
+                      )}
+                      {formMessage.text}
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="sm:col-span-2">
+                      <FormInput
+                        type="password"
+                        label={t("profile.currentPassword")}
+                        value={passwordForm.oldPassword}
+                        onChange={(e) =>
+                          handlePasswordChange("oldPassword", e.target.value)
+                        }
+                        placeholder={t("profile.enterCurrentPassword")}
+                      />
+                    </div>
                     <FormInput
                       type="password"
                       label={t("profile.newPassword")}
@@ -297,6 +318,7 @@ export default function SettingsPage() {
                       onChange={(e) =>
                         handlePasswordChange("newPassword", e.target.value)
                       }
+                      placeholder={t("profile.enterNewPassword")}
                     />
                     <FormInput
                       type="password"
@@ -305,34 +327,37 @@ export default function SettingsPage() {
                       onChange={(e) =>
                         handlePasswordChange("confirmPassword", e.target.value)
                       }
+                      placeholder={t("profile.confirmNewPassword")}
                     />
-                    <div className="flex gap-2 pt-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1"
-                        onClick={() => setIsEditingPassword(false)}
-                      >
-                        <X className="w-4 h-4 mr-2" />
-                        {t("profile.cancel")}
-                      </Button>
-                      <Button
-                        size="sm"
-                        className="flex-1"
-                        onClick={handleSavePassword}
-                        disabled={passwordLoading}
-                      >
-                        <Save className="w-4 h-4 mr-2" />
-                        {passwordLoading
-                          ? t("profile.saving")
-                          : t("profile.save")}
-                      </Button>
-                    </div>
                   </div>
-                )}
+
+                  <div className="flex justify-end">
+                    <Button
+                      size="lg"
+                      className="w-full sm:w-auto min-w-[200px]"
+                      onClick={handleSavePassword}
+                      disabled={passwordLoading}
+                    >
+                      {passwordLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          {t("profile.saving")}
+                        </>
+                      ) : (
+                        <>
+                          <Save className="w-4 h-4 mr-2" />
+                          {t("profile.saveChanges")}
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </div>
               </CardContent>
             </Card>
+          </div>
 
+          {/* RIGHT: Danger Zone */}
+          <div className="md:col-span-1 space-y-6">
             {/* Danger Zone */}
             <Card className="border-red-500/30 bg-red-500/5 shadow-none">
               <CardHeader className="p-4 sm:p-6 border-b border-red-500/20">

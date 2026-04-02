@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { FormInput } from "@/components/form/FormInput";
 import { FormSelect } from "@/components/form/FormSelect";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
@@ -284,16 +285,15 @@ export default function ProfilePage() {
                       label: (
                         <div className="flex items-center gap-2">
                           {c?.flag ? (
-                            <img
+                            <Image
                               src={`https://flagcdn.com/w20/${getCountryCode(
                                 c.flag,
                               )}.png`}
-                              srcSet={`https://flagcdn.com/w40/${getCountryCode(
-                                c.flag,
-                              )}.png 2x`}
-                              width="20"
+                              width={20}
+                              height={15}
                               alt={c.name}
-                              className="rounded-sm"
+                              className="rounded-sm object-cover"
+                              unoptimized
                             />
                           ) : (
                             <span className="w-5 h-4 bg-muted rounded-sm" />
@@ -314,9 +314,6 @@ export default function ProfilePage() {
                   value={personalInfo.email}
                   disabled
                 />
-                <p className="text-[10px] sm:text-xs text-muted-foreground">
-                  {t("profile.emailImmutable")}
-                </p>
 
                 {/* Action Buttons for Edit Mode */}
                 {isEditingPersonalInfo && (

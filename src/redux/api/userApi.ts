@@ -1,5 +1,7 @@
 import { baseApi } from "./baseApi";
 import { IUser } from "@/interfaces/user.interface";
+import { clearAllAuthCookies } from "@/utils/cookieUtils";
+import { clearUser } from "../features/authSlice";
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -41,6 +43,19 @@ export const userApi = baseApi.injectEndpoints({
         data: { isAvailable: boolean };
       }) => response.data,
     }),
+    deleteProfile: builder.mutation<void, void>({
+      query: () => ({
+        url: "/users/delete-profile",
+        method: "DELETE",
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          clearAllAuthCookies();
+          dispatch(clearUser());
+        } catch {}
+      },
+    }),
   }),
 });
 
@@ -49,4 +64,5 @@ export const {
   useUpdateMyProfileMutation,
   useUpdateMyProfilePictureMutation,
   useCheckUserNameMutation,
+  useDeleteProfileMutation,
 } = userApi;
