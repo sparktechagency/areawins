@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,6 @@ import {
   ArrowDownLeft,
   ArrowUpRight,
   Badge,
-  Bitcoin,
   Coins,
   DollarSign,
   Shield,

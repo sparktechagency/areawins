@@ -6,7 +6,8 @@ export const userApi = baseApi.injectEndpoints({
     getMyProfile: builder.query<IUser, void>({
       query: () => "/users/my-profile",
       providesTags: ["Profile"],
-      transformResponse: (response: { success: boolean; data: IUser }) => response.data,
+      transformResponse: (response: { success: boolean; data: IUser }) =>
+        response.data,
     }),
     updateMyProfile: builder.mutation<IUser, Partial<IUser>>({
       query: (data) => ({
@@ -15,9 +16,37 @@ export const userApi = baseApi.injectEndpoints({
         body: data,
       }),
       invalidatesTags: ["Profile"],
-      transformResponse: (response: { success: boolean; data: IUser }) => response.data,
+      transformResponse: (response: { success: boolean; data: IUser }) =>
+        response.data,
+    }),
+    updateMyProfilePicture: builder.mutation<IUser, FormData>({
+      query: (data) => ({
+        url: "/users/update-profile-image",
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Profile"],
+      transformResponse: (response: { success: boolean; data: IUser }) =>
+        response.data,
+    }),
+    checkUserName: builder.mutation<{ isAvailable: boolean }, string>({
+      query: (username) => {
+        return {
+          url: `/users/check-username?username=${username}`,
+          method: "GET",
+        };
+      },
+      transformResponse: (response: {
+        success: boolean;
+        data: { isAvailable: boolean };
+      }) => response.data,
     }),
   }),
 });
 
-export const { useGetMyProfileQuery, useUpdateMyProfileMutation } = userApi;
+export const {
+  useGetMyProfileQuery,
+  useUpdateMyProfileMutation,
+  useUpdateMyProfilePictureMutation,
+  useCheckUserNameMutation,
+} = userApi;

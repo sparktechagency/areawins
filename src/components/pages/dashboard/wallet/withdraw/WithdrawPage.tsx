@@ -8,10 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useTranslation } from "@/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, History, Info, Lock, Wallet } from "lucide-react";
+import { AlertCircle, ArrowUpRight, CheckCircle, History, Info, Lock, Wallet } from "lucide-react";
 import { useGetMyWalletQuery, useWithdrawMutation } from "@/redux/api/walletApi";
 import { useState } from "react";
-import { toast } from "sonner";
 
 // Constants
 // Constants
@@ -37,11 +36,19 @@ const WithdrawPage = () => {
   const [amount, setAmount] = useState("");
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
   const [accountNumber, setAccountNumber] = useState("");
+  const [formMessage, setFormMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   const handleWithdraw = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormMessage(null);
     if (!selectedMethod || !amount || !accountNumber) {
-      toast.error(t("walletWithdraw.toastFillAll"));
+      setFormMessage({
+        type: "error",
+        text: t("walletWithdraw.toastFillAll") || "Please fill all fields",
+      });
       return;
     }
 
@@ -53,15 +60,24 @@ const WithdrawPage = () => {
       }).unwrap();
 
       if (response.success || response.data) {
-        toast.success(t("walletWithdraw.toastSubmitted"));
+        setFormMessage({
+          type: "success",
+          text: t("walletWithdraw.toastSubmitted") || "Withdrawal request submitted successfully",
+        });
         setAmount("");
         setAccountNumber("");
         setSelectedMethod(null);
         refetchWallet();
+        setTimeout(() => {
+          setFormMessage(null);
+        }, 3000);
       }
     } catch (error: unknown) {
       const errorMsg = (error as { data?: { message?: string } })?.data?.message || "Failed to submit withdrawal request";
-      toast.error(errorMsg);
+      setFormMessage({
+        type: "error",
+        text: errorMsg,
+      });
     }
   };
 
@@ -201,6 +217,23 @@ const WithdrawPage = () => {
 
                 <Card className="bg-[#1a2c24]/50 border-white/5">
                   <CardContent className="p-6 space-y-6">
+                    {formMessage && (
+                      <div
+                        className={cn(
+                          "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+                          formMessage.type === "success"
+                            ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                            : "bg-destructive/10 text-destructive border border-destructive/20",
+                        )}
+                      >
+                        {formMessage.type === "success" ? (
+                          <CheckCircle className="size-4 shrink-0" />
+                        ) : (
+                          <AlertCircle className="size-4 shrink-0" />
+                        )}
+                        {formMessage.text}
+                      </div>
+                    )}
                     <div className="space-y-2">
                       <Label>{t("walletWithdraw.amountToWithdraw")}</Label>
                       <div className="relative">

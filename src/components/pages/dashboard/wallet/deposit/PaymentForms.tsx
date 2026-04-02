@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -12,9 +13,8 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, Copy, ExternalLink, QrCode, Smartphone } from "lucide-react";
+import { CheckCircle2, Copy, ExternalLink, QrCode, Smartphone, Building, Clock, Upload } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 
 // ─── 1. CARD FORM (STRIPE / VISA) ───────────────────────────────────────────────
 export const CardPaymentForm = ({ onSubmit, isLoading }: { onSubmit: () => void, isLoading: boolean }) => {
@@ -86,7 +86,6 @@ export const CryptoPaymentView = ({ data }: { data: any }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(address);
     setCopied(true);
-    toast.success("Address copied!");
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -198,4 +197,3 @@ export const LocalPaymentView = ({ data, method, onFileSelect, file, onExternalR
   );
 };
 
-import { Building, Clock, Upload } from "lucide-react";

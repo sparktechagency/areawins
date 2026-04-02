@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Eye, EyeOff, Lock } from "lucide-react";
+import { AlertCircle, CheckCircle, Eye, EyeOff, Lock } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 interface ChangePasswordModalProps {
   open: boolean;
@@ -35,6 +35,10 @@ export default function ChangePasswordModal({
     confirmPassword: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formMessage, setFormMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -73,14 +77,29 @@ export default function ChangePasswordModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormMessage(null);
     if (!validateForm()) return;
 
     setLoading(true);
-    // TODO: Implement API call to change password
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    toast.success("Password changed successfully");
-    setLoading(false);
-    handleClose();
+    try {
+      // TODO: Implement API call to change password
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setFormMessage({
+        type: "success",
+        text: "Password changed successfully",
+      });
+      setTimeout(() => {
+        setLoading(false);
+        handleClose();
+      }, 2000);
+    } catch (error: unknown) {
+      const err = error as { data?: { message?: string } };
+      setFormMessage({
+        type: "error",
+        text: err.data?.message || "Failed to change password",
+      });
+      setLoading(false);
+    }
   };
 
   const handleClose = () => {
@@ -91,6 +110,7 @@ export default function ChangePasswordModal({
       confirmPassword: "",
     });
     setErrors({});
+    setFormMessage(null);
     setShowPasswords({
       current: false,
       new: false,
@@ -128,6 +148,23 @@ export default function ChangePasswordModal({
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+          {formMessage && (
+            <div
+              className={cn(
+                "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+                formMessage.type === "success"
+                  ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                  : "bg-destructive/10 text-destructive border border-destructive/20",
+              )}
+            >
+              {formMessage.type === "success" ? (
+                <CheckCircle className="size-4 shrink-0" />
+              ) : (
+                <AlertCircle className="size-4 shrink-0" />
+              )}
+              {formMessage.text}
+            </div>
+          )}
           {/* Current Password */}
           <div className="space-y-1.5 sm:space-y-2">
             <Label

@@ -11,11 +11,21 @@ import {
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { useTranslation } from "@/i18n/LanguageContext";
-import { RotateCw, Upload, X, ZoomIn, ZoomOut } from "lucide-react";
+import { useUpdateMyProfilePictureMutation } from "@/redux/api/userApi";
+import {
+  AlertCircle,
+  CheckCircle,
+  RotateCw,
+  Upload,
+  X,
+  ZoomIn,
+  ZoomOut,
+} from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import type { Area, Point } from "react-easy-crop";
 import Cropper from "react-easy-crop";
+import { cn } from "@/lib/utils";
 
 interface EditAvatarModalProps {
   open: boolean;
@@ -27,6 +37,7 @@ export default function EditAvatarModal({
   onClose,
 }: EditAvatarModalProps) {
   const { t } = useTranslation();
+  const [updateProfilePicture] = useUpdateMyProfilePictureMutation();
   const [preview, setPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,6 +46,10 @@ export default function EditAvatarModal({
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
   const [croppedArea, setCroppedArea] = useState<Area | null>(null);
+  const [formMessage, setFormMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -98,17 +113,44 @@ export default function EditAvatarModal({
   };
 
   const handleUpload = async () => {
-    if (!preview || !fileInputRef.current?.files?.[0]) return;
+    if (!preview) return;
 
     setIsLoading(true);
-    // TODO: Implement image upload logic here
-    // This will be replaced with actual API call
-    setTimeout(() => {
+    setFormMessage(null);
+    try {
+      // Convert base64 to blob/file
+      const response = await fetch(preview);
+      const blob = await response.blob();
+      const file = new File([blob], "profile-picture.jpg", {
+        type: "image/jpeg",
+      });
+
+      const formData = new FormData();
+      formData.append("profileImage", file);
+
+      await updateProfilePicture(formData).unwrap();
+      setFormMessage({
+        type: "success",
+        text: t("avatar.uploadSuccess") || "Profile picture updated",
+      });
+      setTimeout(() => {
+        onClose();
+        setPreview(null);
+        setIsCropping(false);
+        setFormMessage(null);
+      }, 2000);
+    } catch (error: unknown) {
+      const err = error as { data?: { message?: string } };
+      setFormMessage({
+        type: "error",
+        text:
+          err.data?.message ||
+          t("avatar.uploadFailed") ||
+          "Failed to upload image",
+      });
+    } finally {
       setIsLoading(false);
-      onClose();
-      setPreview(null);
-      setIsCropping(false);
-    }, 1500);
+    }
   };
 
   const handleClear = () => {
@@ -134,6 +176,23 @@ export default function EditAvatarModal({
         </DialogHeader>
 
         <div className="space-y-4 sm:space-y-5">
+          {formMessage && (
+            <div
+              className={cn(
+                "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+                formMessage.type === "success"
+                  ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                  : "bg-destructive/10 text-destructive border border-destructive/20",
+              )}
+            >
+              {formMessage.type === "success" ? (
+                <CheckCircle className="size-4 shrink-0" />
+              ) : (
+                <AlertCircle className="size-4 shrink-0" />
+              )}
+              {formMessage.text}
+            </div>
+          )}
           {/* Crop View */}
           {isCropping && preview ? (
             <>

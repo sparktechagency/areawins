@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import DashboardLayout from "@/components/layouts/DashboardLayout";
@@ -6,12 +7,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useTranslation } from "@/i18n/LanguageContext";
-import { cn } from "@/lib/utils";
 import { useInitiatePaymentMutation, useUploadBankReceiptMutation } from "@/redux/api/paymentApi";
 import { useGetMyWalletQuery } from "@/redux/api/walletApi";
-import { History, Info, Lock, Wallet, CreditCard, Bitcoin, Building, Smartphone } from "lucide-react";
+import { AlertCircle, Bitcoin, Building, CheckCircle, CreditCard, History, Info, Lock, Smartphone, Wallet } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 import { CardPaymentForm, CryptoPaymentView, LocalPaymentView } from "./PaymentForms";
 
 // Constants aligned with backend
@@ -42,11 +42,19 @@ const DepositPage = () => {
   const [paymentData, setPaymentData] = useState<any>(null);
   const [receiptFile, setReceiptFile] = useState<File | null>(null);
   const [externalRef, setExternalRef] = useState("");
+  const [formMessage, setFormMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   const handleInitiate = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormMessage(null);
     if (!selectedMethod || !amount) {
-      toast.error(t("walletDeposit.toastFillAll"));
+      setFormMessage({
+        type: "error",
+        text: t("walletDeposit.toastFillAll") || "Please fill all fields",
+      });
       return;
     }
 
@@ -74,19 +82,29 @@ const DepositPage = () => {
       }
     } catch (error: any) {
       const errorMsg = error?.data?.message || "Failed to initiate deposit. Please ensure all details are correct.";
-      toast.error(errorMsg);
+      setFormMessage({
+        type: "error",
+        text: errorMsg,
+      });
     }
   };
 
   const handleReceiptUpload = async () => {
+    setFormMessage(null);
     const txId = paymentData?.internalTxId || paymentData?.transactionId;
     if (!txId) {
-      toast.error("Internal Transaction Error. Please try again.");
+      setFormMessage({
+        type: "error",
+        text: "Internal Transaction Error. Please try again.",
+      });
       return;
     }
 
     if (!receiptFile) {
-      toast.error("Please select a proof of payment image");
+      setFormMessage({
+        type: "error",
+        text: "Please select a proof of payment image",
+      });
       return;
     }
 
@@ -97,16 +115,26 @@ const DepositPage = () => {
         externalReference: externalRef
       }).unwrap();
       
-      toast.success("Deposit request submitted! Our team will verify and approve it shortly.");
-      setStep(1);
-      setAmount("");
-      setSelectedMethod(null);
-      setReceiptFile(null);
-      setExternalRef("");
-      setPaymentData(null);
-      refetchWallet();
+      setFormMessage({
+        type: "success",
+        text: "Deposit request submitted! Our team will verify and approve it shortly.",
+      });
+      
+      setTimeout(() => {
+        setStep(1);
+        setAmount("");
+        setSelectedMethod(null);
+        setReceiptFile(null);
+        setExternalRef("");
+        setPaymentData(null);
+        setFormMessage(null);
+        refetchWallet();
+      }, 3000);
     } catch (error: any) {
-      toast.error(error?.data?.message || "An error occurred during submission");
+      setFormMessage({
+        type: "error",
+        text: error?.data?.message || "An error occurred during submission",
+      });
     }
   };
 
@@ -214,6 +242,23 @@ const DepositPage = () => {
                     </h3>
                     <Card className="bg-[#1a2c24]/50 border-white/5">
                       <CardContent className="p-6 space-y-6">
+                        {formMessage && (
+                          <div
+                            className={cn(
+                              "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+                              formMessage.type === "success"
+                                ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                                : "bg-destructive/10 text-destructive border border-destructive/20",
+                            )}
+                          >
+                            {formMessage.type === "success" ? (
+                              <CheckCircle className="size-4 shrink-0" />
+                            ) : (
+                              <AlertCircle className="size-4 shrink-0" />
+                            )}
+                            {formMessage.text}
+                          </div>
+                        )}
                         <div className="space-y-2">
                           <Label>{t("walletDeposit.amountToDeposit")}</Label>
                           <div className="relative">
@@ -247,7 +292,7 @@ const DepositPage = () => {
                 /* Step 2: Payment Execution */
                 <Card className="bg-[#1a2c24]/50 border-primary/20 animate-in fade-in slide-in-from-bottom-4">
                   <CardContent className="p-8 space-y-8">
-                     <div className="flex items-center gap-4 pb-4 border-b border-white/5">
+                      <div className="flex items-center gap-4 pb-4 border-b border-white/5">
                         <div className="w-12 h-12 rounded-xl bg-primary/20 flex flex-col items-center justify-center border border-primary/30">
                            <span className="text-[10px] uppercase font-bold text-primary">STEP</span>
                            <span className="text-sm font-black leading-none text-primary">02</span>
@@ -257,6 +302,24 @@ const DepositPage = () => {
                            <p className="text-muted-foreground text-sm font-medium tracking-tight">Amount: <span className="text-white font-black">${amount}</span></p>
                         </div>
                      </div>
+
+                     {formMessage && (
+                        <div
+                          className={cn(
+                            "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+                            formMessage.type === "success"
+                              ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                              : "bg-destructive/10 text-destructive border border-destructive/20",
+                          )}
+                        >
+                          {formMessage.type === "success" ? (
+                            <CheckCircle className="size-4 shrink-0" />
+                          ) : (
+                            <AlertCircle className="size-4 shrink-0" />
+                          )}
+                          {formMessage.text}
+                        </div>
+                      )}
 
                      {["bank_transfer", "pago_movil"].includes(selectedMethod || "") ? (
                         <LocalPaymentView 
@@ -271,7 +334,7 @@ const DepositPage = () => {
                         />
                      ) : ["stripe", "visa_mastercard"].includes(selectedMethod || "") ? (
                         <CardPaymentForm 
-                           onSubmit={() => toast.success("This would process the card via Stripe/Visa via API using payment intent!")}
+                           onSubmit={() => setFormMessage({ type: "success", text: "Processing card payment..." })}
                            isLoading={false}
                         />
                      ) : ["crypto_usdt", "paypal"].includes(selectedMethod || "") ? (

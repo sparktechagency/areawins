@@ -11,18 +11,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { formatCurrency } from "@/lib/utils";
-import {
-  CheckCircle2,
-  Copy,
-  Gift,
-  Share2,
-  TrendingUp,
-  Users,
-  Wallet,
-} from "lucide-react";
+import { CheckCircle2, Copy, Gift, Share2, TrendingUp, Users, Wallet, AlertCircle } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 import { MOCK_REFERRED_FRIENDS } from "@/data/friends.data";
 import { useTranslation } from "@/i18n/LanguageContext";
@@ -33,10 +25,18 @@ const ReferralFriends = () => {
 
   const [referralCode] = useState("BETPRO-99-PRO");
   const referralLink = `https://areawins.pro/register?ref=${referralCode}`;
+  const [formMessage, setFormMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
-    toast.success(`${label} ${t("referral.copiedToClipboard")}`);
+    setFormMessage({
+      type: "success",
+      text: `${label} ${t("referral.copiedToClipboard") || "copied to clipboard"}`,
+    });
+    setTimeout(() => setFormMessage(null), 3000);
   };
 
   return (
@@ -115,6 +115,23 @@ const ReferralFriends = () => {
                 <CardDescription>{t("referral.shareThisLink")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
+                {formMessage && (
+                  <div
+                    className={cn(
+                      "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+                      formMessage.type === "success"
+                        ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                        : "bg-destructive/10 text-destructive border border-destructive/20",
+                    )}
+                  >
+                    {formMessage.type === "success" ? (
+                      <CheckCircle2 className="size-4 shrink-0" />
+                    ) : (
+                      <AlertCircle className="size-4 shrink-0" />
+                    )}
+                    {formMessage.text}
+                  </div>
+                )}
                 <div className="space-y-2">
                   <p className="text-[10px]  text-muted-foreground uppercase tracking-widest px-1">
                     {t("referral.registrationLink")}

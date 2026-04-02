@@ -3,9 +3,9 @@
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/i18n/LanguageContext";
-import { AlertTriangle, Trash2 } from "lucide-react";
+import { AlertCircle, AlertTriangle, CheckCircle, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 interface DeleteAccountFormProps {
   onClose: () => void;
@@ -16,6 +16,10 @@ export default function DeleteAccountForm({ onClose }: DeleteAccountFormProps) {
   const [step, setStep] = useState<1 | 2>(1);
   const [confirmText, setConfirmText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [formMessage, setFormMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
   const confirmPhrase = "DELETE MY ACCOUNT";
 
   const handleNextStep = () => {
@@ -23,8 +27,12 @@ export default function DeleteAccountForm({ onClose }: DeleteAccountFormProps) {
   };
 
   const handleDeleteAccount = async () => {
+    setFormMessage(null);
     if (confirmText !== confirmPhrase) {
-      toast.error(t("deleteAccount.toastTypePhrase"));
+      setFormMessage({
+        type: "error",
+        text: t("deleteAccount.toastTypePhrase"),
+      });
       return;
     }
 
@@ -32,10 +40,19 @@ export default function DeleteAccountForm({ onClose }: DeleteAccountFormProps) {
     try {
       // TODO: Implement API call to delete account with password verification
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      toast.success(t("deleteAccount.toastDeleted"));
-      onClose();
-    } catch {
-      toast.error(t("deleteAccount.toastDeleteFailed"));
+      setFormMessage({
+        type: "success",
+        text: t("deleteAccount.toastDeleted"),
+      });
+      setTimeout(() => {
+        onClose();
+      }, 2000);
+    } catch (error: unknown) {
+      const err = error as { data?: { message?: string } };
+      setFormMessage({
+        type: "error",
+        text: err.data?.message || t("deleteAccount.toastDeleteFailed") || "Failed to delete account",
+      });
     } finally {
       setLoading(false);
     }
@@ -43,6 +60,23 @@ export default function DeleteAccountForm({ onClose }: DeleteAccountFormProps) {
 
   return (
     <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+      {formMessage && (
+        <div
+          className={cn(
+            "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+            formMessage.type === "success"
+              ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+              : "bg-destructive/10 text-destructive border border-destructive/20",
+          )}
+        >
+          {formMessage.type === "success" ? (
+            <CheckCircle className="size-4 shrink-0" />
+          ) : (
+            <AlertCircle className="size-4 shrink-0" />
+          )}
+          {formMessage.text}
+        </div>
+      )}
       {step === 1 ? (
         <>
           {/* Step 1: Warning */}

@@ -9,6 +9,10 @@ export interface IUser {
   referralCode: string;
   referredUsers: IUser[];
   referralEarnings: number;
+  phoneNumber?: string;
+  country?: string;
+  countryCode?: string;
+  countryFlag?: string;
   isVerified: boolean;
   isBlocked: boolean;
   isActive: boolean;

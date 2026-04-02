@@ -15,7 +15,7 @@ interface FormSelectProps extends React.ComponentProps<typeof Select> {
   icon?: LucideIcon;
   error?: string | string[];
   required?: boolean;
-  options: { value: string; label: string }[];
+  options: { value: string; label: React.ReactNode }[];
   placeholder?: string;
   triggerClassName?: string;
   id?: string;
@@ -59,7 +59,9 @@ const FormSelect: React.FC<FormSelectProps> = ({
             className={cn(
               "w-full h-12 rounded-md outline-none shadow-none focus-visible:ring-0 focus-visible:border-primary transition-all text-sm",
               Icon && "pl-10",
-              error ? "border-red-500" : "bg-border border-border",
+              error
+                ? "border-red-500"
+                : "bg-border border-border focus:border-primary",
               triggerClassName,
             )}
           >

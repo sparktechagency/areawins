@@ -86,7 +86,7 @@ export default function DashboardSidebar() {
       <aside className="hidden lg:block w-64 h-screen sticky top-0 bg-card dark:bg-background border-r border-border">
         <div className="flex flex-col h-full bg-card dark:bg-background text-card-foreground ">
           {/* Logo Area */}
-          <div className="p-6 border-b border-border">
+          <div className="border-b border-border pb-1.5">
             <Link href={ROUTES.HOME} className="flex items-center gap-2">
               <Image
                 src={logo}

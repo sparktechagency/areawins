@@ -13,8 +13,10 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { useTranslation } from "@/i18n/LanguageContext";
 import {
+  AlertCircle,
   AlertTriangle,
   Bell,
+  CheckCircle,
   CreditCard,
   Globe,
   Lock,
@@ -24,7 +26,7 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 import DeleteAccountForm from "../profile/DeleteAccountForm";
 
 export default function SettingsPage() {
@@ -47,50 +49,81 @@ export default function SettingsPage() {
     marketing: false,
   });
 
+  const [formMessage, setFormMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
+
   const handlePasswordChange = (field: string, value: string) => {
     setPasswordForm((prev) => ({ ...prev, [field]: value }));
   };
 
   const validatePassword = (): boolean => {
     if (!passwordForm.oldPassword.trim()) {
-      toast.error(t("profile.toastEnterCurrentPassword"));
+      setFormMessage({
+        type: "error",
+        text: t("profile.toastEnterCurrentPassword") || "Please enter your current password",
+      });
       return false;
     }
     if (!passwordForm.newPassword.trim()) {
-      toast.error(t("profile.toastEnterNewPassword"));
+      setFormMessage({
+        type: "error",
+        text: t("profile.toastEnterNewPassword") || "Please enter your new password",
+      });
       return false;
     }
     if (passwordForm.newPassword.length < 6) {
-      toast.error(t("profile.toastPasswordMin"));
+      setFormMessage({
+        type: "error",
+        text: t("profile.toastPasswordMin") || "Password must be at least 6 characters",
+      });
       return false;
     }
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-      toast.error(t("profile.toastPasswordMismatch"));
+      setFormMessage({
+        type: "error",
+        text: t("profile.toastPasswordMismatch") || "Passwords do not match",
+      });
       return false;
     }
     if (passwordForm.oldPassword === passwordForm.newPassword) {
-      toast.error(t("profile.toastPasswordDifferent"));
+      setFormMessage({
+        type: "error",
+        text: t("profile.toastPasswordDifferent") || "New password must be different from current password",
+      });
       return false;
     }
     return true;
   };
 
   const handleSavePassword = async () => {
+    setFormMessage(null);
     if (!validatePassword()) return;
 
     setPasswordLoading(true);
     try {
       // TODO: Implement API call to change password
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      toast.success(t("profile.toastPasswordChanged"));
-      setPasswordForm({
-        oldPassword: "",
-        newPassword: "",
-        confirmPassword: "",
+      setFormMessage({
+        type: "success",
+        text: t("profile.toastPasswordChanged") || "Password updated successfully",
       });
-      setIsEditingPassword(false);
-    } catch {
-      toast.error(t("profile.toastPasswordFailed"));
+      setTimeout(() => {
+        setPasswordForm({
+          oldPassword: "",
+          newPassword: "",
+          confirmPassword: "",
+        });
+        setIsEditingPassword(false);
+        setFormMessage(null);
+      }, 2000);
+    } catch (error: unknown) {
+      const err = error as { data?: { message?: string } };
+      setFormMessage({
+        type: "error",
+        text: err.data?.message || t("profile.toastPasswordFailed") || "Failed to update password",
+      });
     } finally {
       setPasswordLoading(false);
     }
@@ -232,6 +265,23 @@ export default function SettingsPage() {
                   </div>
                 ) : (
                   <div className="space-y-4">
+                    {formMessage && (
+                      <div
+                        className={cn(
+                          "p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+                          formMessage.type === "success"
+                            ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                            : "bg-destructive/10 text-destructive border border-destructive/20",
+                        )}
+                      >
+                        {formMessage.type === "success" ? (
+                          <CheckCircle className="size-4 shrink-0" />
+                        ) : (
+                          <AlertCircle className="size-4 shrink-0" />
+                        )}
+                        {formMessage.text}
+                      </div>
+                    )}
                     <FormInput
                       type="password"
                       label={t("profile.currentPassword")}
