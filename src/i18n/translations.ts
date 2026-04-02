@@ -21,6 +21,7 @@ export const translations = {
         transactions: "Transactions",
         referral_friends: "Referral Friends",
         message: "Message",
+        profile: "Profile",
         statistics: "Statistics",
         settings: "Settings",
         logout: "Logout",
@@ -401,8 +402,9 @@ export const translations = {
     },
     deleteAccount: {
       title: "Delete Account?",
-      description:
-        "This action cannot be undone. All your data will be permanently deleted.",
+      description: "This action cannot be undone. Please read carefully.",
+      warningPrefix: "Warning",
+      willBeDeletedDesc: "Deleting your account will:",
       willBeDeleted: "Will be deleted:",
       item1: "Your profile and personal information",
       item2: "All betting history and records",
@@ -1289,7 +1291,9 @@ export const translations = {
     deleteAccount: {
       title: "Eliminar Cuenta?",
       description:
-        "Esta accion no se puede deshacer. Todos tus datos se eliminaran.",
+        "Esta accion no se puede deshacer. Por favor lee con cuidado.",
+      warningPrefix: "Advertencia",
+      willBeDeletedDesc: "Eliminar tu cuenta implicará:",
       willBeDeleted: "Se eliminara:",
       item1: "Perfil e informacion personal",
       item2: "Historial y registros de apuestas",

@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning>
-      <body className={`${workSans.className} ${workSans.variable} antialiased`}>
+      <body className={`${workSans.className} ${workSans.variable} antialiased`} suppressHydrationWarning>
         {children}
       </body>
     </html>

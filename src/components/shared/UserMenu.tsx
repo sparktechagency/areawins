@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/i18n/LanguageContext";
 import { IUser } from "@/interfaces/user.interface";
-import { deleteCookie } from "@/utils/tokenHandlers";
+import { useLogoutMutation } from "@/redux/api/authApi";
 import {
   LayoutDashboard,
   LogOut,
@@ -20,16 +20,15 @@ interface UserMenuProps {
 export const UserMenu = ({ user }: UserMenuProps) => {
   const { t } = useTranslation();
   const router = useRouter();
+  const [logout] = useLogoutMutation();
 
-  const handleLogout = () => {
-    // Delete all authentication cookies
-    deleteCookie("accessToken"); // accessToken
-    deleteCookie("refreshToken"); // refreshToken
-    deleteCookie("sessionId"); // sessionId
-    deleteCookie("userRole"); // userRole
-
-    // Redirect to home page
-    router.push("/");
+  const handleLogout = async () => {
+    try {
+      await logout({}).unwrap();
+      router.push("/");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   const userMenuItems = [

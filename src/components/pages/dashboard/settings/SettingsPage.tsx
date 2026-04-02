@@ -153,7 +153,7 @@ export default function SettingsPage() {
             <div className="p-2 sm:p-2.5 bg-primary/10 rounded-lg">
               <SettingsIcon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl  text-foreground uppercase tracking-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl  text-foreground tracking-tight">
               {t("settings.title")}
             </h1>
           </div>
@@ -176,7 +176,7 @@ export default function SettingsPage() {
               <CardContent className="p-4 sm:p-6 space-y-6">
                 <div className="flex items-center justify-between p-4 bg-muted/20 rounded-xl border border-border/50">
                   <div className="space-y-0.5">
-                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">
+                    <p className="text-sm font-bold text-foreground tracking-wider">
                       {t("settings.language")}
                     </p>
                     <p className="text-xs text-muted-foreground">
@@ -206,7 +206,7 @@ export default function SettingsPage() {
 
                 <div className="flex items-center justify-between p-4 bg-muted/20 rounded-xl border border-border/50">
                   <div className="space-y-0.5">
-                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">
+                    <p className="text-sm font-bold text-foreground tracking-wider">
                       {t("settings.currency")}
                     </p>
                     <p className="text-xs text-muted-foreground">
@@ -237,7 +237,7 @@ export default function SettingsPage() {
               <CardContent className="p-4 sm:p-6 space-y-6">
                 <div className="flex items-center justify-between p-1">
                   <div className="space-y-0.5">
-                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">
+                    <p className="text-sm font-bold text-foreground tracking-wider">
                       {t("settings.pushNotifications")}
                     </p>
                     <p className="text-xs text-muted-foreground">
@@ -255,7 +255,7 @@ export default function SettingsPage() {
 
                 <div className="flex items-center justify-between p-1">
                   <div className="space-y-0.5">
-                    <p className="text-sm font-bold text-foreground uppercase tracking-wider">
+                    <p className="text-sm font-bold text-foreground tracking-wider">
                       {t("settings.emailNotifications")}
                     </p>
                     <p className="text-xs text-muted-foreground">
@@ -355,7 +355,6 @@ export default function SettingsPage() {
               </CardContent>
             </Card>
           </div>
-
           {/* RIGHT: Danger Zone */}
           <div className="md:col-span-1 space-y-6">
             {/* Danger Zone */}
@@ -372,7 +371,7 @@ export default function SettingsPage() {
                 </p>
                 <Button
                   variant="destructive"
-                  className="w-full font-bold uppercase tracking-widest text-xs"
+                  className="w-full font-bold tracking-widest text-xs cursor-pointer"
                   onClick={() => setShowDeleteModal(true)}
                 >
                   <Trash2 className="w-4 h-4 mr-2" />
@@ -388,7 +387,7 @@ export default function SettingsPage() {
       <Dialog open={showDeleteModal} onOpenChange={setShowDeleteModal}>
         <DialogContent className="max-w-lg border-red-500/30 bg-card">
           <DialogHeader>
-            <DialogTitle className="text-lg sm:text-xl  uppercase tracking-tight">
+            <DialogTitle className="text-lg sm:text-xl  tracking-tight">
               {t("profile.deleteAccount")}
             </DialogTitle>
           </DialogHeader>

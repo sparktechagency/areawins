@@ -62,6 +62,7 @@ const NavbarClient = () => {
               width={160}
               height={50}
               className="object-contain"
+              priority
             />
           </Link>
 

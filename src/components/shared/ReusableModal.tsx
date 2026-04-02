@@ -22,6 +22,7 @@ interface ReusableModalProps {
   children: React.ReactNode;
   className?: string;
   padding?: "none" | "sm" | "md" | "lg";
+  showBorder?: boolean;
   maxWidth?:
     | "sm"
     | "md"
@@ -65,6 +66,7 @@ export const ReusableModal: React.FC<ReusableModalProps> = ({
   className,
   padding = "md",
   maxWidth = "md",
+  showBorder = true,
 }) => {
   return (
     <Dialog
@@ -102,7 +104,8 @@ export const ReusableModal: React.FC<ReusableModalProps> = ({
                 damping: 30,
               }}
               className={cn(
-                "bg-card border border-border w-full rounded-2xl overflow-hidden shadow-2xl relative flex flex-col",
+                "bg-card w-full rounded-2xl overflow-hidden shadow-2xl relative flex flex-col",
+                showBorder && "border border-border",
                 "max-h-[85vh]", // Responsive max height
                 className,
               )}

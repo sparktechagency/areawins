@@ -1,7 +1,7 @@
 import { baseApi } from "./baseApi";
 import { IUser } from "@/interfaces/user.interface";
 import { clearAllAuthCookies } from "@/utils/cookieUtils";
-import { clearUser } from "../features/authSlice";
+import { clearUser, setUser } from "../features/authSlice";
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,6 +10,14 @@ export const userApi = baseApi.injectEndpoints({
       providesTags: ["Profile"],
       transformResponse: (response: { success: boolean; data: IUser }) =>
         response.data,
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (data) {
+            dispatch(setUser(data));
+          }
+        } catch {}
+      },
     }),
     updateMyProfile: builder.mutation<IUser, Partial<IUser>>({
       query: (data) => ({

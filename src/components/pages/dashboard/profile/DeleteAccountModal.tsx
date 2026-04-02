@@ -1,17 +1,13 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { AlertTriangle, Trash2 } from "lucide-react";
+import { AlertTriangle, Trash2, CheckCircle, AlertCircle } from "lucide-react";
 import { useState } from "react";
+import { useDeleteProfileMutation } from "@/redux/api/userApi";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { cn } from "@/lib/utils";
+import { ReusableModal } from "@/components/shared/ReusableModal";
 
 interface DeleteAccountModalProps {
   open: boolean;
@@ -22,9 +18,14 @@ export default function DeleteAccountModal({
   open,
   onClose,
 }: DeleteAccountModalProps) {
+  const { t } = useTranslation();
   const [confirmText, setConfirmText] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [deleteProfile, { isLoading }] = useDeleteProfileMutation();
   const [step, setStep] = useState<"warning" | "confirm">("warning");
+  const [formMessage, setFormMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   const handleProceed = () => {
     setStep("confirm");
@@ -34,16 +35,32 @@ export default function DeleteAccountModal({
   const handleDelete = async () => {
     if (confirmText.toUpperCase() !== "DELETE MY ACCOUNT") return;
 
-    setIsLoading(true);
-    // TODO: Implement account deletion API call here
-    setTimeout(() => {
-      setIsLoading(false);
-      // Handle successful deletion - redirect or show success
-      alert("Account deleted successfully");
-      onClose();
-      setStep("warning");
-      setConfirmText("");
-    }, 2000);
+    setFormMessage(null);
+    try {
+      const result = await deleteProfile().unwrap();
+      setFormMessage({
+        type: "success",
+        text:
+          result?.message ||
+          t("deleteAccount.toastDeleted") ||
+          "Account deleted successfully",
+      });
+      setTimeout(() => {
+        onClose();
+        setStep("warning");
+        setConfirmText("");
+        setFormMessage(null);
+      }, 2000);
+    } catch (error: unknown) {
+      const err = error as { data?: { message?: string } };
+      setFormMessage({
+        type: "error",
+        text:
+          err.data?.message ||
+          t("deleteAccount.toastDeleteFailed") ||
+          "Failed to delete account",
+      });
+    }
   };
 
   const handleClose = () => {
@@ -53,120 +70,140 @@ export default function DeleteAccountModal({
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md">
-        {step === "warning" ? (
-          <>
-            <DialogHeader>
-              <div className="flex items-center gap-3 mb-2">
-                <AlertTriangle className="w-6 h-6 text-red-500" />
-                <DialogTitle className="text-lg sm:text-xl font-bold text-red-500">
-                  Delete Account
-                </DialogTitle>
-              </div>
-              <DialogDescription className="text-xs sm:text-sm text-foreground font-medium mt-3">
-                This action cannot be undone. Please read carefully.
-              </DialogDescription>
-            </DialogHeader>
+    <ReusableModal
+      isOpen={open}
+      onClose={handleClose}
+      title={
+        step === "warning"
+          ? t("deleteAccount.title")
+          : t("deleteAccount.finalConfirmation")
+      }
+      description={
+        step === "warning"
+          ? t("deleteAccount.description")
+          : t("deleteAccount.finalDescription")
+      }
+      maxWidth="md"
+      padding="none"
+      showBorder={false}
+    >
+      <div className="flex flex-col h-full bg-card">
+        {formMessage && (
+          <div
+            className={cn(
+              "mx-4 sm:mx-8 mt-4 p-3 rounded-md flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-1",
+              formMessage.type === "success"
+                ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                : "bg-destructive/10 text-destructive border border-destructive/20",
+            )}
+          >
+            {formMessage.type === "success" ? (
+              <CheckCircle className="size-4 shrink-0" />
+            ) : (
+              <AlertCircle className="size-4 shrink-0" />
+            )}
+            {formMessage.text}
+          </div>
+        )}
 
-            <div className="space-y-4">
-              <div className="p-3 sm:p-4 bg-red-500/10 rounded-lg border border-red-500/20">
-                <p className="text-xs sm:text-sm text-foreground font-medium leading-relaxed">
-                  <strong>Warning:</strong> Deleting your account will:
+        <div className="p-5 sm:p-8 pt-4">
+          {step === "warning" ? (
+            <div className="space-y-6">
+              <div className="p-4 sm:p-5 bg-red-500/5 rounded-2xl space-y-4">
+                <div className="flex items-center gap-3 text-red-500">
+                  <div className="p-2 bg-red-500/10 rounded-lg">
+                    <AlertTriangle className="w-5 h-5" />
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-wider italic">
+                    {t("deleteAccount.warningPrefix") || "Warning"}
+                  </span>
+                </div>
+
+                <p className="text-xs sm:text-sm text-foreground/80 font-medium leading-relaxed">
+                  {t("deleteAccount.willBeDeletedDesc") ||
+                    "Deleting your account will:"}
                 </p>
-                <ul className="text-xs sm:text-sm text-muted-foreground mt-3 space-y-1.5 ml-3">
-                  <li className="flex gap-2">
-                    <span>•</span>
-                    <span>Permanently delete all your account data</span>
-                  </li>
-                  <li className="flex gap-2">
-                    <span>•</span>
-                    <span>Remove all betting history and records</span>
-                  </li>
-                  <li className="flex gap-2">
-                    <span>•</span>
-                    <span>Forfeit any remaining wallet balance</span>
-                  </li>
-                  <li className="flex gap-2">
-                    <span>•</span>
-                    <span>Cancel all active bets and pending payouts</span>
-                  </li>
-                  <li className="flex gap-2">
-                    <span>•</span>
-                    <span>Cannot be recovered after deletion</span>
-                  </li>
+
+                <ul className="grid grid-cols-1 gap-2.5">
+                  {[
+                    t("deleteAccount.item1"),
+                    t("deleteAccount.item2"),
+                    t("deleteAccount.item3"),
+                    t("deleteAccount.item4"),
+                    t("deleteAccount.item5"),
+                  ].map((item, idx) => (
+                    <li
+                      key={idx}
+                      className="flex items-start gap-2.5 text-xs sm:text-sm text-muted-foreground group"
+                    >
+                      <div className="mt-1 size-1.5 rounded-full bg-red-500/40 group-hover:bg-red-500 transition-colors shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
-              <div className="flex gap-2 sm:gap-3 pt-2 sm:pt-4">
+              <div className="flex gap-3 pt-2">
                 <Button
                   onClick={handleClose}
                   variant="outline"
-                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
+                  className="flex-1 h-12 text-xs sm:text-sm font-bold uppercase tracking-widest rounded-xl hover:bg-muted/50 transition-all active:scale-[0.98]"
                 >
-                  Cancel
+                  {t("profile.cancel")}
                 </Button>
                 <Button
                   onClick={handleProceed}
                   variant="destructive"
-                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
+                  className="flex-1 h-12 text-xs sm:text-sm font-bold uppercase tracking-widest rounded-xl bg-red-600 hover:bg-red-700 shadow-lg shadow-red-600/20 active:scale-[0.98] transition-all"
                 >
-                  <AlertTriangle className="w-4 h-4 mr-2" />
-                  Continue
+                  {t("deleteAccount.continue")}
                 </Button>
               </div>
             </div>
-          </>
-        ) : (
-          <>
-            <DialogHeader>
-              <DialogTitle className="text-lg sm:text-xl font-bold">
-                Confirm Deletion
-              </DialogTitle>
-              <DialogDescription className="text-xs sm:text-sm">
-                Type the message below to confirm account deletion
-              </DialogDescription>
-            </DialogHeader>
-
-            <div className="space-y-4 sm:space-y-5">
-              <div>
-                <Label className="text-xs sm:text-sm  uppercase tracking-widest text-muted-foreground mb-2 block">
-                  Confirmation Message
-                </Label>
-                <div className="p-3 sm:p-4 bg-muted/50 rounded-lg border border-border font-mono text-xs sm:text-sm font-bold text-foreground">
-                  DELETE MY ACCOUNT
+          ) : (
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-muted-foreground/60 ml-1">
+                    {t("deleteAccount.confirmationText")}
+                  </Label>
+                  <div className="p-4 sm:p-5 bg-muted/30 rounded-2xl border border-border/50 text-center">
+                    <span className="text-lg sm:text-xl font-black tracking-[0.2em] text-foreground/90 font-mono">
+                      DELETE MY ACCOUNT
+                    </span>
+                  </div>
                 </div>
+
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="confirm-text"
+                    className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-muted-foreground/60 ml-1"
+                  >
+                    {t("deleteAccount.typeToConfirm")}
+                  </Label>
+                  <Input
+                    id="confirm-text"
+                    placeholder="Type here..."
+                    value={confirmText}
+                    onChange={(e) => setConfirmText(e.target.value)}
+                    className="h-14 bg-muted/20 border-border/50 rounded-2xl text-center text-sm font-bold tracking-widest focus:ring-red-500/20 focus:border-red-500/30 transition-all"
+                  />
+                </div>
+
+                <p className="text-[10px] sm:text-xs text-muted-foreground text-center font-medium leading-relaxed px-4">
+                  This is permanent. Your account and all associated data will
+                  be deleted immediately.
+                </p>
               </div>
 
-              <div>
-                <Label
-                  htmlFor="confirm-text"
-                  className="text-xs sm:text-sm  uppercase tracking-widest text-muted-foreground"
-                >
-                  Type the message above
-                </Label>
-                <Input
-                  id="confirm-text"
-                  placeholder="Type here..."
-                  value={confirmText}
-                  onChange={(e) => setConfirmText(e.target.value)}
-                  className="mt-2 text-xs sm:text-sm"
-                />
-              </div>
-
-              <p className="text-xs text-muted-foreground font-medium">
-                This is permanent. Your account and all associated data will be
-                deleted immediately.
-              </p>
-
-              <div className="flex gap-2 sm:gap-3 pt-2 sm:pt-4">
+              <div className="flex gap-3 pt-2">
                 <Button
                   onClick={() => setStep("warning")}
                   variant="outline"
-                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
+                  className="flex-1 h-12 text-xs sm:text-sm font-bold uppercase tracking-widest rounded-xl hover:bg-muted/50 transition-all active:scale-[0.98]"
                   disabled={isLoading}
                 >
-                  Back
+                  {t("deleteAccount.back")}
                 </Button>
                 <Button
                   onClick={handleDelete}
@@ -175,22 +212,25 @@ export default function DeleteAccountModal({
                     confirmText.toUpperCase() !== "DELETE MY ACCOUNT" ||
                     isLoading
                   }
-                  className="flex-1 text-xs sm:text-sm  uppercase tracking-widest"
+                  className="flex-1 h-12 cursor-pointer text-xs sm:text-sm font-bold uppercase tracking-widest rounded-xl bg-red-600 hover:bg-red-700 shadow-lg shadow-red-600/20 active:scale-[0.98] transition-all"
                 >
                   {isLoading ? (
-                    "Deleting..."
+                    <span className="flex items-center gap-2">
+                      <div className="size-4 rounded-full border-2 border-white/20 border-t-white animate-spin" />
+                      {t("deleteAccount.deleting")}
+                    </span>
                   ) : (
                     <>
                       <Trash2 className="w-4 h-4 mr-2" />
-                      Delete Account
+                      {t("profile.deleteAccount")}
                     </>
                   )}
                 </Button>
               </div>
             </div>
-          </>
-        )}
-      </DialogContent>
-    </Dialog>
+          )}
+        </div>
+      </div>
+    </ReusableModal>
   );
 }

@@ -4,6 +4,7 @@ import { IUser } from "@/interfaces/user.interface";
 import { LayoutDashboard, LogOut } from "lucide-react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { useLogoutMutation } from "@/redux/api/authApi";
 
 interface MobileUserMenuProps {
   user: IUser;
@@ -12,11 +13,16 @@ interface MobileUserMenuProps {
 
 const MobileUserMenu = ({ user, onClose }: MobileUserMenuProps) => {
   const { t } = useTranslation();
+  const [logout] = useLogoutMutation();
 
-  const handleLogout = () => {
-    // Handle logout logic here
-    window.location.href = "/login";
-    onClose();
+  const handleLogout = async () => {
+    try {
+      await logout({}).unwrap();
+      onClose();
+    } catch (error) {
+      console.error("Logout failed:", error);
+      onClose();
+    }
   };
 
   return (
