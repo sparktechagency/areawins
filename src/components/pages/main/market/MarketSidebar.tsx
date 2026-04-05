@@ -3,12 +3,11 @@ import { SidebarLink } from "@/components/shared/SidebarLink";
 import SidebarSkeleton from "@/components/skeleton/SidebarSkeleton";
 import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/i18n/LanguageContext";
-import { useGetSportCategoriesQuery } from "@/redux/api/sportCategoryApi";
 import { DollarSign, Search } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-
 import { ISportCategories } from "@/interfaces/sportCategories.interface";
+import { useGetSportCategoriesQuery } from "@/redux/api/sportCategoryApi";
 
 const MarketSidebar = () => {
   const { t } = useTranslation();

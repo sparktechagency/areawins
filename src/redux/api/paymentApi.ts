@@ -9,25 +9,37 @@ export const paymentApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Profile"],
+      invalidatesTags: ["Payment"],
     }),
-    uploadBankReceipt: builder.mutation({
-      query: (data: { transactionId: string; receipt: File; externalReference?: string }) => {
+    uploadBankReceipt: builder.mutation({ 
+      query: (data: {
+        transactionId: string;
+        receipt: File;
+        externalReference?: string;
+      }) => {
         const formData = new FormData();
         formData.append("transactionId", data.transactionId);
         if (data.externalReference) {
-           formData.append("externalReference", data.externalReference);
+          formData.append("externalReference", data.externalReference);
         }
         formData.append("receipt", data.receipt);
         return {
-          url: "/payments/bank/upload-receipt", 
+          url: "/payments/bank/upload-receipt",
           method: "POST",
           body: formData,
         };
       },
-      invalidatesTags: ["Profile"],
+      invalidatesTags: ["Payment"],
+    }),
+    getPaymentSettings: builder.query({
+      query: () => "/payments/settings",
+      providesTags: ["Payment"],
     }),
   }),
 });
 
-export const { useInitiatePaymentMutation, useUploadBankReceiptMutation } = paymentApi;
+export const {
+  useInitiatePaymentMutation,
+  useUploadBankReceiptMutation,
+  useGetPaymentSettingsQuery,
+} = paymentApi;

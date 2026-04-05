@@ -28,6 +28,9 @@ import Link from "next/link";
 import { useGetMyWalletQuery } from "@/redux/api/walletApi";
 import { useGetMyTransactionsQuery } from "@/redux/api/transactionApi";
 import { format } from "date-fns";
+import { useGetPaymentSettingsQuery } from "@/redux/api/paymentApi";
+import Image from "next/image";
+import { IPaymentSetting } from "@/interfaces/paymentSetting.interface";
 
 const WalletPage = () => {
   const { t } = useTranslation();
@@ -38,6 +41,9 @@ const WalletPage = () => {
   } = useGetMyWalletQuery();
   const { data: transactions, isLoading: isTxLoading } =
     useGetMyTransactionsQuery({});
+  const { data: paymentSettingsResponse, isLoading: isPaymentSettingsLoading } =
+    useGetPaymentSettingsQuery(null);
+  const paymentSettings = paymentSettingsResponse?.data;
 
   const balance = wallet?.totalBalance ?? 0;
   const depositedBalance = wallet?.depositedBalance ?? 0;
@@ -168,59 +174,19 @@ const WalletPage = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {[
-                  {
-                    name: "Stripe",
-                    icon: DollarSign,
-                    color: "from-blue-600 to-blue-700",
-                    desc: "Credit/Debit Cards",
-                  },
-                  {
-                    name: "PayPal",
-                    icon: Wallet2,
-                    color: "from-blue-800 to-indigo-900",
-                    desc: "Secure Online Payment",
-                  },
-                  {
-                    name: "Tether (USDT)",
-                    icon: Coins,
-                    color: "from-emerald-500 to-teal-600",
-                    desc: "Fast Crypto Settlement",
-                  },
-                  {
-                    name: "Bank Transfer",
-                    icon: TrendingUp,
-                    color: "from-red-600 to-orange-700",
-                    desc: "Local Bank Deposits",
-                  },
-                  {
-                    name: "Visa/Mastercard",
-                    icon: Shield,
-                    color: "from-blue-400 to-indigo-500",
-                    desc: "Direct Card Access",
-                  },
-                ].map((pm) => (
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {paymentSettings?.map((pm: IPaymentSetting) => (
                   <div
-                    key={pm.name}
-                    className="flex items-center justify-between p-4 border border-border/50 rounded-lg bg-card hover:bg-muted/30 transition-all"
+                    key={pm.method}
+                    className="flex flex-col items-center justify-between p-4 border border-border/50 rounded-lg bg-card hover:bg-muted/30 transition-all"
                   >
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={cn(
-                          "w-10 h-10 rounded-full bg-linear-to-br flex items-center justify-center shadow-md",
-                          pm.color,
-                        )}
-                      >
-                        <pm.icon className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <p className="font-bold text-sm">{pm.name}</p>
-                        <p className="text-[10px] text-muted-foreground">
-                          {pm.desc}
-                        </p>
-                      </div>
-                    </div>
+                    <Image
+                      src={pm.imageUrl}
+                      alt={pm.method}
+                      width={90}
+                      height={90}
+                      className="mx-auto"
+                    />
                   </div>
                 ))}
               </div>

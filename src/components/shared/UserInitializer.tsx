@@ -2,7 +2,8 @@
 
 import { useGetMyProfileQuery } from "@/redux/api/userApi";
 import { setAuthLoading, setUser } from "@/redux/features/authSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { getClientCookie } from "@/utils/cookieUtils";
 import { useEffect } from "react";
 
 export default function UserInitializer({
@@ -11,12 +12,17 @@ export default function UserInitializer({
   children: React.ReactNode;
 }) {
   const dispatch = useAppDispatch();
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const token = getClientCookie("accessToken");
+
   const {
     data: user,
     isLoading,
     isError,
     isFetching,
-  } = useGetMyProfileQuery(undefined);
+  } = useGetMyProfileQuery(undefined, {
+    skip: !token && !isAuthenticated,
+  });
 
   useEffect(() => {
     if (isLoading || isFetching) {

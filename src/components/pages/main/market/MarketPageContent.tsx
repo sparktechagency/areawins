@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ISportCategories } from "@/interfaces/sportCategories.interface";
 import { cn } from "@/lib/utils";
-import { useGetSportCategoriesQuery } from "@/redux/api/sportCategoryApi";
 import {
   Clock,
   LayoutGrid,
@@ -18,6 +17,7 @@ import {
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import AcceptBetModalContent from "./AcceptBetModalContent";
+import { useGetSportCategoriesQuery } from "@/redux/api/sportCategoryApi";
 
 interface OpenBet {
   id: string;

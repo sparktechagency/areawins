@@ -1,4 +1,3 @@
-import { IMatch } from "@/interfaces/match.interface";
 import { baseApi } from "./baseApi";
 
 export const matchApi = baseApi.injectEndpoints({

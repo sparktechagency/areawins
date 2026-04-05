@@ -1,5 +1,4 @@
 "use client";
-
 import { Pagination } from "@/components/shared/Pagination";
 import { SportMatchCardSkeleton } from "@/components/skeleton/SportMatchCardSkeleton";
 import { Button } from "@/components/ui/button";
@@ -7,11 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslation } from "@/i18n/LanguageContext";
 import { IMatch } from "@/interfaces/match.interface";
-import { useGetMatchesBySportSlugQuery } from "@/redux/api/matchApi";
 import { Activity, Calendar, Filter, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import SportHeroBanner from "./SportHeroBanner";
 import SportMatchCard from "./SportMatchCard";
+import { useGetMatchesBySportSlugQuery } from "@/redux/api/matchApi";
 
 interface SportsBettingInterfaceProps {
   sport: string;

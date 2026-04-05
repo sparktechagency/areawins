@@ -2,17 +2,16 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MarketCategory } from "@/interfaces/betting.interface";
-import { useGetMatchByIdQuery } from "@/redux/api/matchApi";
 import { Activity, BarChart3, ChevronLeft, Search } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 import CreateBetModal from "./CreateBetModal";
-
 import { MatchDetailsSkeleton } from "@/components/skeleton/MatchDetailsSkeleton";
 import MarketInsightsTab from "./MarketInsightsTab";
 import MatchScoreHeader from "./MatchScoreHeader";
 import OpenBetsTab from "./OpenBetsTab";
+import { useGetMatchByIdQuery } from "@/redux/api/matchApi";
 
 interface MatchDetailsContentProps {
   sport: string;
